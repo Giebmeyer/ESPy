@@ -19,11 +19,11 @@
 	    $rasultado = mysqli_query($conexao, $query);
 
 
-	    if($rasultado>0)
+	   /*  if($rasultado>0)
 	    {
 	        echo "\nUsuario adicionado com sucesso!";
 			return
 	    }else{
 			echo "\nErro ao gravar dados do usuario.";
-		} 
+		}  */
 	    ?>
