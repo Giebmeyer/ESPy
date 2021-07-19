@@ -26,7 +26,6 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
   TextEditingController complemento = new TextEditingController();
 
   Future<List> _cadastraUsuario() async {
-    ScaffoldMessenger.of(context).showSnackBar(sucessCadastro);
     final response = await http.post(
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_cadastroUsuario.php'),

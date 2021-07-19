@@ -26,14 +26,14 @@
                $return["senha"] = $obj->senha;
                $return["email"] = $obj->email;
                $return["cpf"] = $obj->cpf;
-               $return["telefone"] = $obj->telefone;
+               $return["telefone"] = (int) $obj->telefone;
                $return["estado"] = $obj->estado;
                $return["cidade"] = $obj->cidade;
                $return["bairro"] = $obj->bairro;
                $return["rua"] = $obj->rua;
-               $return["numero"] = $obj->numero;
+               $return["numero"] = (int) $obj->numero;
                $return["complemento"] = $obj->complemento;
-               $return["usuario_chefe"] = $obj->usuario_chefe;
+               $return["usuario_chefe"] = (int) $obj->usuario_chefe;
            }else{
                $return["erro"] = true;
                $return["mensagem"] = "Senha incorreta.";
@@ -49,4 +49,4 @@
 
   echo json_encode($return);
 
-	    ?>
+	?>
