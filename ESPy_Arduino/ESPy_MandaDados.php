@@ -14,6 +14,7 @@ class Sensores{
  function storeInDB($Umidade_DHT11, $Temperatura_DHT11, $Temperatura_BMP180, $Pressao_BMP180, $Altitude_BMP180, $MICS_CO, $MICS_NO2, $MICS_NH3){
   $query = "insert into dados set Umidade_DHT11='".$Umidade_DHT11."', Temperatura_DHT11='".$Temperatura_DHT11."', Temperatura_BMP180='".$Temperatura_BMP180."', Pressao_BMP180='".$Pressao_BMP180."', Altitude_BMP180='".$Altitude_BMP180."', MICS_CO='".$MICS_CO."', MICS_NO2='".$MICS_NO2."', MICS_NH3='".$MICS_NH3."'";
   $result = mysqli_query($this->link,$query) or die('Errant query:  '.$query);
+  echo $result;
  }
  
 }

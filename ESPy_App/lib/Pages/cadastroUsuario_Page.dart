@@ -1,8 +1,6 @@
-import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/classPalette.dart';
 import 'package:ESPy/Funcoes/snackBar.dart';
-import 'package:ESPy/Funcoes/variaveis.dart';
-import 'package:ESPy/Pages/login_Page.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,52 +12,42 @@ class CadastroUserPage extends StatefulWidget {
 }
 
 class _cadastroUserPageState extends State<CadastroUserPage> {
-/*   String nome = '';
-  String email = '';
-  String senha = '';
-  String confirmacaoSenha = '';
-  int cpf;
-  int telefone;
-  String estado = '';
-  String cidade = '';
-  String bairro = '';
-  String rua = '';
-  int numero;
-  String complemento = ''; */
+  TextEditingController nome = new TextEditingController();
+  TextEditingController senha = new TextEditingController();
+  TextEditingController confirmacaoSenha = new TextEditingController();
+  TextEditingController email = new TextEditingController();
+  TextEditingController cpf = new TextEditingController();
+  TextEditingController telefone = new TextEditingController();
+  TextEditingController estado = new TextEditingController();
+  TextEditingController cidade = new TextEditingController();
+  TextEditingController bairro = new TextEditingController();
+  TextEditingController rua = new TextEditingController();
+  TextEditingController numero = new TextEditingController();
+  TextEditingController complemento = new TextEditingController();
+
+  Future<List> _cadastraUsuario() async {
+    ScaffoldMessenger.of(context).showSnackBar(sucessCadastro);
+    final response = await http.post(
+      Uri.parse(
+          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_cadastroUsuario.php'),
+      body: {
+        "nome": nome.text,
+        "senha": senha.text,
+        "email": email.text,
+        "cpf": cpf.text,
+        "telefone": telefone.text,
+        "estado": estado.text,
+        "cidade": cidade.text,
+        "bairro": bairro.text,
+        "rua": rua.text,
+        "numero": numero.text,
+        "complemento": complemento.text,
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nome = new TextEditingController();
-    TextEditingController senha = new TextEditingController();
-    TextEditingController confirmacaoSenha = new TextEditingController();
-    TextEditingController email = new TextEditingController();
-    TextEditingController cpf = new TextEditingController();
-    TextEditingController telefone = new TextEditingController();
-    TextEditingController estado = new TextEditingController();
-    TextEditingController cidade = new TextEditingController();
-    TextEditingController bairro = new TextEditingController();
-    TextEditingController rua = new TextEditingController();
-    TextEditingController numero = new TextEditingController();
-    TextEditingController complemento = new TextEditingController();
-
-    Future<List> cadastraUsuario() async {
-      final response = await http.post(
-          Uri.parse(
-              'http://192.168.66.109/ESPy/ESPy_App/ESPy_app/lib/MySql/insert.php'),
-          body: {
-            "nome": nome.text,
-            "senha": senha.text,
-            "email": email.text,
-            "cpf": cpf.text,
-            "telefone": telefone.text,
-            "estado": estado.text,
-            "cidade": cidade.text,
-            "rua": rua.text,
-            "numero": numero.text,
-            "complemento": complemento.text,
-          });
-    }
-
     return Scaffold(
         appBar: AppBar(
           title: Text('Cadastro de usuário'),
@@ -76,8 +64,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
                 decoration: InputDecoration(
                     labelText: 'Nome',
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0))),
-                keyboardType: TextInputType.emailAddress),
+                        borderRadius: BorderRadius.circular(15.0)))),
             SizedBox(height: 10),
 //==============================================================================
             TextField(
@@ -85,19 +72,17 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
                 decoration: InputDecoration(
                     hintText: 'Email',
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0))),
-                keyboardType: TextInputType.emailAddress),
+                        borderRadius: BorderRadius.circular(15.0)))),
             SizedBox(height: 10),
 //==============================================================================
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      width: 170,
+                      width: 190,
                       child: TextField(
                           controller: senha,
                           obscureText: true,
@@ -108,7 +93,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
                     ),
 //==================
                     Container(
-                      width: 170,
+                      width: 190,
                       child: TextField(
                           controller: confirmacaoSenha,
                           obscureText: true,
@@ -158,7 +143,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
             TextField(
                 controller: bairro,
                 decoration: InputDecoration(
-                    labelText: 'bairro',
+                    labelText: 'Bairro',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0)))),
             SizedBox(height: 10),
@@ -166,7 +151,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
             TextField(
                 controller: rua,
                 decoration: InputDecoration(
-                    labelText: 'rua',
+                    labelText: 'Rua',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0)))),
             SizedBox(height: 10),
@@ -174,10 +159,10 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
             TextField(
                 controller: numero,
                 decoration: InputDecoration(
-                    labelText: 'numero',
+                    labelText: 'Número',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 //==============================================================================
             TextField(
                 controller: complemento,
@@ -188,9 +173,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
             SizedBox(height: 20),
 //==============================================================================
             FlatButton(
-              onPressed: () {
-                cadastraUsuario;
-              },
+              onPressed: _cadastraUsuario,
               child: const Text('Enviar'),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
@@ -200,7 +183,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
         )));
   }
 
-  void _verificaCadastro() {
+/*   void _verificaCadastro() {
     if (VALIDACAO == true) {
       ScaffoldMessenger.of(context).showSnackBar(sucessCadastro);
       Navigator.pop(context);
@@ -208,5 +191,5 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
     if (VALIDACAO == false) {
       ScaffoldMessenger.of(context).showSnackBar(erroDivergenciaSenha);
     }
-  }
+  } */
 }

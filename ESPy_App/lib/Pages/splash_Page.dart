@@ -30,8 +30,9 @@ class SplashPageState extends State<SplashPage> {
       color: Colors.white,
       child: Align(
         alignment: Alignment.center,
-        child: LinearProgressIndicator(
-          color: Palette.purple,
+        child: CircularProgressIndicator(
+          backgroundColor: Palette.purple.shade500,
+          valueColor: AlwaysStoppedAnimation<Color>(Palette.purple),
         ),
       ),
     );

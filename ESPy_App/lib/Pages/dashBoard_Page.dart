@@ -68,7 +68,7 @@ class _dashBoardState extends State<dashBoard> {
 
 //==============================================================================]
 
-  requestDHT11_Temperatura() {
+/*   requestDHT11_Temperatura() {
     var db = new Mysql();
 
     db.getConnection().then((conn) {
@@ -82,5 +82,5 @@ class _dashBoardState extends State<dashBoard> {
         conn.close();
       }));
     });
-  }
+  } */
 }

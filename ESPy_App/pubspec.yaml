@@ -28,7 +28,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   scoped_model: ^1.0.1
   mailer: ^3.0.4
-  # intl: ^0.17.0
+  intl: ^0.17.0
   fl_chart: ^0.35.0
   persistent_bottom_nav_bar: ^4.0.2
   url_launcher: ^5.5.0

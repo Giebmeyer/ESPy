@@ -1,7 +1,7 @@
 //BIBLIOTECAS-------------------------------------------------------------------------------
 #include <WiFiClient.h>
 #include <WiFi.h>
-#include "DHT.h"
+#include <DHT.h>
 #include <Adafruit_BMP085.h>
 #include <MICS6814.h>
 #include "BluetoothSerial.h"
@@ -64,9 +64,9 @@ MICS6814 gas(PIN_CO, PIN_NO2, PIN_NH3);
 //==========================================================================================
 WiFiClient client;//Cria um cliente seguro (para ter acesso ao HTTPS)
 
-char *server;
-char *Rede;
-char *password;
+char *server = "192.168.66.109";
+char *Rede = "Claudio";
+char *password = "rose1234";
 //==========================================================================================
 //Setup
 //==========================================================================================
@@ -77,7 +77,10 @@ void setup() {
   SerialBT.begin("ESPy"); //Bluetooth device name
 
   WiFi.mode(WIFI_STA);//Habilita o modo estaçao
-
+  WiFi.begin(Rede, password);
+  Serial.println(server);
+    Serial.println(Rede);
+      Serial.println(password);
   delay(5000);
 
   //MICS6814
@@ -90,11 +93,12 @@ void setup() {
 //==========================================================================================
 void loop() {
 
-  selecionaOpcaoBT();
 
+    //recebeDadosWifiBT();
     requestSensores();
     enviaDadosBD();
-    delay(30000); // interval
+    
+    delay(3000); // interval
 }
 
 //==========================================================================================
@@ -104,8 +108,8 @@ void loop() {
 void requestSensores() {
   ////Request dos  Sensores---------------------------------------------------------------------------------------------
   //DHT11
-//  Temperatura_DHT11 = dht.readTemperature();
-//  Umidade_DHT11 = dht.readHumidity();
+  Temperatura_DHT11 = dht.readTemperature();
+  Umidade_DHT11 = dht.readHumidity();
 //
 //  //BMP180
 //
@@ -124,8 +128,8 @@ void requestSensores() {
 //  MICS_NO2 /= 5;  //NO2
 //  MICS_NH3 /= 5;  //NH3
 
-  Temperatura_DHT11 = 1;
-  Umidade_DHT11 = 2;
+//  Temperatura_DHT11 = 1;
+//  Umidade_DHT11 = 2;
 
   Temperatura_BMP180 = 3;
   Pressao_BMP180 = 4;
@@ -135,14 +139,14 @@ void requestSensores() {
   MICS_NO2 = 7;
   MICS_NH3 = 8;
 }
+
 void enviaDadosBD()   {
   //Conecta com o servidor sql
-  if (client.connect(server, 80) == 1) {
-    Serial.println("connected");
+  if (client.connect(server, 80)) {
+    Serial.println("Conectado");
 
-
-    Serial.print("GET /PFC_MandaDados/PFC_MandaDados.php?Umidade_DHT11=");
-    client.print("GET /PFC_MandaDados/PFC_MandaDados.php?Umidade_DHT11=");     //YOUR URL
+    Serial.print("GET /ESPy/ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");
+    client.print("GET /ESPy/ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");     //YOUR URL
     Serial.println(Umidade_DHT11);
     client.print(Umidade_DHT11);
 
@@ -188,27 +192,9 @@ void enviaDadosBD()   {
     client.println("Connection: close");
     client.println();
   } else {
-    // if you didn't get a connection to the server:
-    Serial.println("connection failed");
+    Serial.println("Falha na conexao");
   }
 }
-
-void selecionaOpcaoBT(){
-    if (Serial.available()) {
-      delay(1000);
-    SerialBT.write(Serial.read());
-  }
-  
-  if (SerialBT.available()) {
-          SerialBT.print("No campo de *REDE*, digite a opção desejada: \n1 | Configurar Wifi \n2 | Ultimos dados dos sensores");
-    if(BTopcao == "1;")
-      recebeDadosWifiBT();
-    
-    if(BTopcao == "2;")
-      enviaDadosBT();
-      
-    }
-  }
 
 
 void recebeDadosWifiBT() {

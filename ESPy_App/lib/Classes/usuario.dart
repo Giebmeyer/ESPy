@@ -1,6 +1,4 @@
-import 'package:ESPy/Funcoes/BD.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Funcoes/variaveis.dart';
 import 'package:flutter/cupertino.dart';
 
 class usuario {
@@ -33,72 +31,38 @@ class usuario {
       this.complemento,
       this.usuario_chefe});
 
-  String get auxEmail => email;
-  int get codigoX => user.codigo;
-}
+  factory usuario.fromJson(Map<String, dynamic> json) {
+    return usuario(
+      codigo: json['codigo'],
+      nome: json['nome'],
+      senha: json['senha'],
+      email: json['email'],
+      cpf: json['cpf'],
+      telefone: json['telefone'],
+      estado: json['estado'],
+      cidade: json['cidade'],
+      bairro: json['bairro'],
+      rua: json['rua'],
+      numero: json['numero'],
+      complemento: json['complemento'],
+      usuario_chefe: json['usuario_chefe'],
+    );
+  }
 
-void coletaDadosUsuario(String _auxEmail) {
-  var db = new Mysql();
-
-  db.getConnection().then((conn) {
-    conn
-        .query("select * from usuarios where email = " + "'$_auxEmail'" + ";")
-        .then(((results) {
-      print("select * from usuarios where email = " + "'$_auxEmail'" + ";");
-      for (var collum in results) {
-        user.codigo = (collum[0]);
-        print(user.codigo);
-        user.nome = (collum[1]);
-        print(user.nome);
-        user.senha = (collum[2]);
-        print(user.senha);
-        user.email = (collum[3]);
-        print(user.email);
-        user.cpf = (collum[4]);
-        print(user.cpf);
-        user.telefone = (collum[5]);
-        print(user.telefone);
-        user.estado = (collum[6]);
-        print(user.estado);
-        user.cidade = (collum[7]);
-        print(user.cidade);
-        user.bairro = (collum[8]);
-        print(user.bairro);
-        user.rua = (collum[9]);
-        print(user.rua);
-        user.numero = (collum[10]);
-        print(user.numero);
-        user.complemento = (collum[11]);
-        print(user.complemento);
-        user.usuario_chefe = (collum[12]);
-        print(user.usuario_chefe);
-      }
-      conn.close();
-    }));
-  });
-}
-
-void cadastroUsuario(
-    String _nome,
-    String _email,
-    String _senha,
-    String _confirmacaoSenha,
-    int _cpf,
-    int _telefone,
-    String _estado,
-    String _cidade,
-    String _bairro,
-    String _rua,
-    int _numero,
-    String _complemento) {
-  var db = new Mysql();
-
-  if (_senha == _confirmacaoSenha) {
-    db.getConnection().then((conn) {
-      conn.query(
-          'INSERT INTO usuarios VALUES (NULL, "$_nome", "$_senha", "$_email", "$_cpf", "$_telefone", "$_estado", "$_cidade", "$_bairro", "$_rua", "$_numero", "$_complemento", 0);');
-    });
-  } else {}
+  Map<String, dynamic> toJson() => {
+        'codigo': codigo,
+        'nome': nome,
+        'senha': senha,
+        'email': email,
+        'cpf': cpf,
+        'telefone': telefone,
+        'estado': estado,
+        'cidade': cidade,
+        'rua': rua,
+        'numero': numero,
+        'complemento': complemento,
+        'usuario_chefe': usuario_chefe,
+      };
 }
 
 Widget barraDeNavegacaoInferior_Retorno() {
