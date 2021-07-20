@@ -19,7 +19,7 @@ Email(String username, String password) {
 //Envia um email para o destinatário, contendo a mensagem com o nome do sorteado
 Future<bool> sendMessage(
     String mensagem, String destinatario, String assunto) async {
-  abrirEmail();
+  /* abrirEmail(); */
   //Configurar a mensagem
   final message = Message()
     ..from = Address(_username, 'Nome')
@@ -41,53 +41,14 @@ Future<bool> sendMessage(
   }
 }
 
-void verificaEmail_EnviaEmail(var emailAux) {
-  var db = new Mysql();
-
-  db.getConnection().then((conn) {
-    conn
-        .query("select email from usuarios where email = " + "'$emailAux'")
-        .then(((results) {
-      for (var row in results) {
-        if (user.email == row[0]) {
-          _verificaSenha_EnviaEmail(emailAux);
-        } else {}
-      }
-      conn.close();
-    }));
-  });
-}
-
-void _verificaSenha_EnviaEmail(var emailAux) {
-  var db = new Mysql();
-
-  db.getConnection().then((conn) {
-    conn
-        .query("select senha, email from usuarios where email = " +
-            "'$emailAux'" +
-            ";")
-        .then(((results) {
-      for (var collum in results) {
-        if (user.email == collum[1]) {
-          user.senha = collum[0];
-          sendEmail(user.email);
-        } else {
-          print("Erro no verificar SENHA");
-        }
-      }
-      conn.close();
-    }));
-  });
-}
-
-abrirEmail() async {
+/* abrirEmail() async {
   const url = 'https://gmail.com/';
   if (await canLaunch(url)) {
     await launch(url);
   } else {
     throw 'Não foi possivel abrir: $url';
   }
-}
+} */
 
 void sendEmail(String email) async {
   var momento = DateTime.now();

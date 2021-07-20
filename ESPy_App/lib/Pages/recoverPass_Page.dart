@@ -10,7 +10,7 @@ class recoverPassPage extends StatefulWidget {
 
 class _recoverPassPageState extends State<recoverPassPage> {
   var emailEspy = Email('ESPy.EnviaEmail@gmail.com', '@EspySendEmail');
-
+  var email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
 //==============================================================================
               TextField(
                   onChanged: (email) {
-                    // coletaDadosUsuario(user.email);
+                    email = email;
                   },
                   decoration: InputDecoration(
                       labelText: 'Email',
@@ -37,7 +37,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
               SizedBox(height: 10.0),
               FlatButton(
                 onPressed: () {
-                  verificaEmail_EnviaEmail(user.email);
+                  sendEmail(email);
                 },
                 child: const Text('Recuperar'),
                 shape: RoundedRectangleBorder(

@@ -1,13 +1,9 @@
 import 'dart:convert';
-
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/classPalette.dart';
-import 'package:ESPy/Funcoes/BD.dart';
-import 'package:ESPy/Funcoes/snackBar.dart';
 import 'package:ESPy/Pages/cadastroUsuario_Page.dart';
 import 'package:ESPy/Pages/recoverPass_Page.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 import 'home_Page.dart';
 import 'package:http/http.dart' as http;
@@ -50,7 +46,7 @@ class _loginPageState extends State<LoginPage> {
             erro = false;
             showProgress = false;
           });
-          user.nome = jsondata['codigo'];
+          user.codigo = jsondata['codigo'];
           user.nome = jsondata['nome'];
           user.senha = jsondata['senha'];
           user.email = jsondata['email'];
@@ -99,14 +95,15 @@ class _loginPageState extends State<LoginPage> {
         ),
         body: Center(
           child: Container(
-            width: 400,
+            width: MediaQuery.of(context).size.width * 0.97,
             child: ListView(
               children: [
                 Center(
                   child: Container(
+                    width: MediaQuery.of(context).size.width * 0.65,
+                    height: MediaQuery.of(context).size.height * 0.45,
                     alignment: Alignment.center,
                     child: Image.asset('assents/imagens/Logo.png'),
-                    height: 300,
                   ),
                 ),
 //==============================================================================
@@ -185,9 +182,8 @@ class _loginPageState extends State<LoginPage> {
             height: 15,
             width: 15,
             child: CircularProgressIndicator(
-              backgroundColor: Colors.white,
-              valueColor:
-                  AlwaysStoppedAnimation<Color>(Palette.purple.shade500),
+              backgroundColor: (Palette.purple.shade100),
+              valueColor: AlwaysStoppedAnimation<Color>(Palette.purple),
             ),
           )
         : Text(

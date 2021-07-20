@@ -48,147 +48,159 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Cadastro de usuário'),
-          centerTitle: true,
-        ),
-        body: Center(
-            child: Container(
-          width: 400,
-          child: ListView(children: [
-            SizedBox(height: 50),
-//==============================================================================
-            TextField(
-                controller: nome,
-                decoration: InputDecoration(
-                    labelText: 'Nome',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 10),
-//==============================================================================
-            TextField(
-                controller: email,
-                decoration: InputDecoration(
-                    hintText: 'Email',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 10),
-//==============================================================================
-            Column(
+      appBar: AppBar(
+        title: Text('Cadastro de usuário'),
+        centerTitle: true,
+      ),
+      body: Container(
+        child: Center(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.97,
+            child: ListView(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                SizedBox(height: 50),
+//==============================================================================
+                TextField(
+                    controller: nome,
+                    decoration: InputDecoration(
+                        labelText: 'Nome',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0)))),
+                SizedBox(height: 10),
+//==============================================================================
+                TextField(
+                    controller: email,
+                    decoration: InputDecoration(
+                        hintText: 'Email',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0)))),
+                SizedBox(height: 10),
+//==============================================================================
+                Column(
                   children: [
-                    Container(
-                      width: 190,
-                      child: TextField(
-                          controller: senha,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                              labelText: 'Senha',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0)))),
-                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.47,
+                          child: TextField(
+                              controller: senha,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  labelText: 'Senha',
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)))),
+                        ),
 //==================
-                    Container(
-                      width: 190,
-                      child: TextField(
-                          controller: confirmacaoSenha,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                              labelText: 'Confirmar senha',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0)))),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.47,
+                          child: TextField(
+                              controller: confirmacaoSenha,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  labelText: 'Confirmar senha',
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)))),
+                        ),
+                      ],
                     ),
                   ],
                 ),
+                SizedBox(height: 10),
+//==============================================================================
+                TextField(
+                    controller: cpf,
+                    decoration: InputDecoration(
+                        labelText: 'CPF',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0)))),
+                SizedBox(height: 10),
+//==============================================================================
+                TextField(
+                    controller: telefone,
+                    decoration: InputDecoration(
+                        labelText: 'Telefone',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0)))),
+                SizedBox(height: 10),
+//==============================================================================
+                TextField(
+                    controller: estado,
+                    decoration: InputDecoration(
+                        labelText: 'Estado',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0)))),
+                SizedBox(height: 10),
+//==============================================================================
+                TextField(
+                    controller: cidade,
+                    decoration: InputDecoration(
+                        labelText: 'Cidade',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0)))),
+                SizedBox(height: 10),
+//==============================================================================
+                TextField(
+                    controller: bairro,
+                    decoration: InputDecoration(
+                        labelText: 'Bairro',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0)))),
+                SizedBox(height: 10),
+//==============================================================================
+                TextField(
+                    controller: rua,
+                    decoration: InputDecoration(
+                        labelText: 'Rua',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0)))),
+                SizedBox(height: 10),
+//==============================================================================
+                TextField(
+                    controller: numero,
+                    decoration: InputDecoration(
+                        labelText: 'Número',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0)))),
+                SizedBox(height: 10),
+//==============================================================================
+                TextField(
+                    controller: complemento,
+                    decoration: InputDecoration(
+                        labelText: 'Complemento',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0)))),
+                SizedBox(height: 20),
+//==============================================================================
+                Align(
+                  child: Container(
+                    width: 200,
+                    child: FlatButton(
+                      onPressed: _cadastraUsuario,
+                      child: const Text('Enviar'),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: BorderSide(color: Palette.purple)),
+                    ),
+                  ),
+                ),
               ],
             ),
-            SizedBox(height: 10),
-//==============================================================================
-            TextField(
-                controller: cpf,
-                decoration: InputDecoration(
-                    labelText: 'CPF',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 10),
-//==============================================================================
-            TextField(
-                controller: telefone,
-                decoration: InputDecoration(
-                    labelText: 'Telefone',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 10),
-//==============================================================================
-            TextField(
-                controller: estado,
-                decoration: InputDecoration(
-                    labelText: 'Estado',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 10),
-//==============================================================================
-            TextField(
-                controller: cidade,
-                decoration: InputDecoration(
-                    labelText: 'Cidade',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 10),
-//==============================================================================
-            TextField(
-                controller: bairro,
-                decoration: InputDecoration(
-                    labelText: 'Bairro',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 10),
-//==============================================================================
-            TextField(
-                controller: rua,
-                decoration: InputDecoration(
-                    labelText: 'Rua',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 10),
-//==============================================================================
-            TextField(
-                controller: numero,
-                decoration: InputDecoration(
-                    labelText: 'Número',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 10),
-//==============================================================================
-            TextField(
-                controller: complemento,
-                decoration: InputDecoration(
-                    labelText: 'Complemento',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 20),
-//==============================================================================
-            FlatButton(
-              onPressed: _cadastraUsuario,
-              child: const Text('Enviar'),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                  side: BorderSide(color: Palette.purple)),
-            ),
-          ]),
-        )));
+          ),
+        ),
+      ),
+    );
   }
+/* 
+    items: <String>['One', 'Two', 'Free', 'Four']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(), */
 
-/*   void _verificaCadastro() {
-    if (VALIDACAO == true) {
-      ScaffoldMessenger.of(context).showSnackBar(sucessCadastro);
-      Navigator.pop(context);
-    }
-    if (VALIDACAO == false) {
-      ScaffoldMessenger.of(context).showSnackBar(erroDivergenciaSenha);
-    }
-  } */
 }

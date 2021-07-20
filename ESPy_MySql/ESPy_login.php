@@ -11,17 +11,17 @@
 
 		$query = "SELECT * FROM usuarios WHERE email = '$email'";	 
 
-	    $rasultado = mysqli_query($conexao, $query);
+	    $resultado = mysqli_query($conexao, $query);
 
-       $numrows = mysqli_num_rows($rasultado);
+       $numrows = mysqli_num_rows($resultado);
        if($numrows > 0){
 
-           $obj = mysqli_fetch_object($rasultado);
-
+           $obj = mysqli_fetch_object($resultado);
+        
            if($senha == $obj->senha){
                $return["erro"] = false;
                $return["sucesso"] = true;
-               $return["codigo"] = $obj->codigo;
+               $return["codigo"] = (int) $obj->codigo;
                $return["nome"] = $obj->nome;
                $return["senha"] = $obj->senha;
                $return["email"] = $obj->email;

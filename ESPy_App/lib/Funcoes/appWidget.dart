@@ -74,12 +74,6 @@ class _barraDeNavegacaoInferiorState extends State<barraDeNavegacaoInferior> {
               color: Palette.purple,
             ),
             title: Text('Principal')),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.dashboard,
-              color: Palette.purple,
-            ),
-            title: Text('DashBoard'))
       ],
     );
   }
@@ -96,11 +90,6 @@ class _barraDeNavegacaoInferiorState extends State<barraDeNavegacaoInferior> {
     if (index == 1) {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-    }
-
-    if (index == 2) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => dashBoard()));
     }
   }
 

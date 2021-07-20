@@ -6,7 +6,6 @@
 #include <MICS6814.h>
 #include "BluetoothSerial.h"
 
-
 //==========================================================================================
 //Condiguração dos Sensores-----------------------------------------------------------------
 //==========================================================================================
@@ -65,8 +64,12 @@ MICS6814 gas(PIN_CO, PIN_NO2, PIN_NH3);
 WiFiClient client;//Cria um cliente seguro (para ter acesso ao HTTPS)
 
 char *server = "192.168.66.109";
-char *Rede = "Claudio";
-char *password = "rose1234";
+char *Rede = "";
+char *password = "";
+//==========================================================================================
+//MySql
+//==========================================================================================
+char *codigoEmpresa = "";
 //==========================================================================================
 //Setup
 //==========================================================================================
@@ -77,10 +80,6 @@ void setup() {
   SerialBT.begin("ESPy"); //Bluetooth device name
 
   WiFi.mode(WIFI_STA);//Habilita o modo estaçao
-  WiFi.begin(Rede, password);
-  Serial.println(server);
-    Serial.println(Rede);
-      Serial.println(password);
   delay(5000);
 
   //MICS6814
@@ -94,9 +93,9 @@ void setup() {
 void loop() {
 
 
-    //recebeDadosWifiBT();
-    requestSensores();
-    enviaDadosBD();
+    recebeDadosWifiBT();
+    //requestSensores();
+    //enviaDadosBD();
     
     delay(3000); // interval
 }
@@ -185,6 +184,11 @@ void enviaDadosBD()   {
     client.print(MICS_NH3);
     Serial.println(MICS_NH3);
 
+    client.print("&codigo_empresa=");
+    Serial.println("&codigo_empresa=");
+    client.print(codigoEmpresa);
+    Serial.println(codigoEmpresa);
+
     client.print(" ");      //SPACE BEFORE HTTP/1.1
     client.print("HTTP/1.1");
     client.println();
@@ -205,10 +209,10 @@ void recebeDadosWifiBT() {
   if (SerialBT.available()) {
 
     Recebido = SerialBT.readString();
-    SerialBT.print("Dados recebidos pelo BT: ");
+    SerialBT.print("**Dados recebidos pelo BT: ");
     SerialBT.print(Recebido);
     delay(500);
-    SerialBT.print("Enviado para Conversao S > C: ");
+    SerialBT.print("**Enviado para Conversao S > C: ");
     SerialBT.print(Recebido);
 
     converteStringChar(Recebido);
@@ -231,13 +235,12 @@ void enviaDadosBT(){
 
 void converteStringChar(String Recebido){
   
-  
-    SerialBT.print("Recebido para Conversao S > C: ");
+    SerialBT.print("**Recebido para Conversao S > C: ");
     SerialBT.print(Recebido);
     delay(500);
     Recebido.toCharArray(EnviaConversao, 40);
     delay(500);
-    SerialBT.print("Convertido para Conversao S > C: ");
+    SerialBT.print("**Convertido para Conversao S > C: ");
     SerialBT.print(EnviaConversao);
 
     divideString(EnviaConversao);
@@ -245,7 +248,7 @@ void converteStringChar(String Recebido){
 }
 void divideString(char* EnviaConversao) {
     delay(500);
-    SerialBT.print("Recebido para divisao: ");
+    SerialBT.print("**Recebido para divisao: ");
     SerialBT.print(EnviaConversao);
 
   aux = strtok(EnviaConversao, ";");
@@ -254,13 +257,17 @@ void divideString(char* EnviaConversao) {
   if (aux != NULL) {
     aux = strtok(NULL, ";");
     password = aux;
+    codigoEmpresa = strtok(NULL, ";"); 
   }
-  SerialBT.print("**Dados enviados para a ConectaWifi");
+  SerialBT.print("**Codigo empresa: ");
+  SerialBT.println(codigoEmpresa);
+    delay(500);
+  SerialBT.print("**Dados enviados para a ConectaWifi \n");
   SerialBT.print("Nome da rede Wifi: ");
-  SerialBT.print(Rede);
+  SerialBT.println(Rede);
     delay(500);
   SerialBT.print("Senha da rede Wifi: ");
-  SerialBT.print(password);
+  SerialBT.println(password);
 
   conectaWifi(Rede, password);
 

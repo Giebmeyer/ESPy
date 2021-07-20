@@ -60,6 +60,204 @@ class _dashBoardState extends State<dashBoard> {
               ),
             ),
           ),
+          new Container(
+            height: 300,
+            padding: EdgeInsets.all(20),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Sensor DHT11: Temperatura",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: LineChart(
+                        LineChartData(
+                            borderData: FlBorderData(show: false),
+                            lineBarsData: [
+                              LineChartBarData(spots: [
+                                FlSpot(data[1], 1),
+                                FlSpot(data[2], 2),
+                                FlSpot(data[3], 3),
+                              ])
+                            ]),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          new Container(
+            height: 300,
+            padding: EdgeInsets.all(20),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Sensor DHT11: Temperatura",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: LineChart(
+                        LineChartData(
+                            borderData: FlBorderData(show: false),
+                            lineBarsData: [
+                              LineChartBarData(spots: [
+                                FlSpot(data[1], 1),
+                                FlSpot(data[2], 2),
+                                FlSpot(data[3], 3),
+                              ])
+                            ]),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          new Container(
+            height: 300,
+            padding: EdgeInsets.all(20),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Sensor DHT11: Temperatura",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: LineChart(
+                        LineChartData(
+                            borderData: FlBorderData(show: false),
+                            lineBarsData: [
+                              LineChartBarData(spots: [
+                                FlSpot(data[1], 1),
+                                FlSpot(data[2], 2),
+                                FlSpot(data[3], 3),
+                              ])
+                            ]),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          new Container(
+            height: 300,
+            padding: EdgeInsets.all(20),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Sensor DHT11: Temperatura",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: LineChart(
+                        LineChartData(
+                            borderData: FlBorderData(show: false),
+                            lineBarsData: [
+                              LineChartBarData(spots: [
+                                FlSpot(data[1], 1),
+                                FlSpot(data[2], 2),
+                                FlSpot(data[3], 3),
+                              ])
+                            ]),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          new Container(
+            height: 300,
+            padding: EdgeInsets.all(20),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Sensor DHT11: Temperatura",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: LineChart(
+                        LineChartData(
+                            borderData: FlBorderData(show: false),
+                            lineBarsData: [
+                              LineChartBarData(spots: [
+                                FlSpot(data[1], 1),
+                                FlSpot(data[2], 2),
+                                FlSpot(data[3], 3),
+                              ])
+                            ]),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          new Container(
+            height: 300,
+            padding: EdgeInsets.all(20),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Sensor DHT11: Temperatura",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: LineChart(
+                        LineChartData(
+                            borderData: FlBorderData(show: false),
+                            lineBarsData: [
+                              LineChartBarData(spots: [
+                                FlSpot(data[1], 1),
+                                FlSpot(data[2], 2),
+                                FlSpot(data[3], 3),
+                              ])
+                            ]),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: barraDeNavegacaoInferior_Retorno(),
@@ -68,19 +266,4 @@ class _dashBoardState extends State<dashBoard> {
 
 //==============================================================================]
 
-/*   requestDHT11_Temperatura() {
-    var db = new Mysql();
-
-    db.getConnection().then((conn) {
-      conn.query("select Temperatura_DHT11 from dados;").then(((results) {
-        for (var row in results) {
-          int ii = row.length;
-          for (int i = 0; i < ii; i++) {
-            DHT11_Temperatura[i] = row.values;
-          }
-        }
-        conn.close();
-      }));
-    });
-  } */
 }

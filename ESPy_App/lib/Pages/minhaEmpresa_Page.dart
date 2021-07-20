@@ -1,11 +1,12 @@
+import 'dart:convert';
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
-import 'package:ESPy/Funcoes/BD.dart';
-import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Funcoes/classPalette.dart';
 import 'package:ESPy/Pages/cadastroEmpresa_Page.dart';
 import 'package:flutter/material.dart';
-import 'package:mailer/mailer.dart';
+import 'package:http/http.dart' as http;
+
+import 'home_Page.dart';
 
 class minhaEmpresaPage extends StatefulWidget {
   @override
@@ -13,80 +14,84 @@ class minhaEmpresaPage extends StatefulWidget {
 }
 
 class _minhaEmpresaPgeState extends State<minhaEmpresaPage> {
-  List<empresa> _listaEmpresa = [];
+//==============================================================================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Minha empresa"),
+        title: Text(showProgress ? emp.nome : "Minha Empresa"),
         centerTitle: true,
       ),
-      body: listaEmpresas(),
+      body: Empresa(),
       floatingActionButton: botaoAdicionarEmpresa(),
       bottomNavigationBar: barraDeNavegacaoInferior_Retorno(),
     );
   }
 
-  Widget listaEmpresas() {
-    return ListView.builder(
-      padding: const EdgeInsets.all(10),
-      itemCount: emp.qtdDadosBD,
-      itemBuilder: (BuildContext context, int index) {
-        return Column(
-          children: [
-            SizedBox(height: 20),
-            Container(
-              child: ListTile(title: Text(apresentaEmpresas())),
-              padding: const EdgeInsets.all(20.0),
-              decoration:
-                  BoxDecoration(border: Border.all(color: Palette.purple)),
-            ),
-          ],
-        );
-      },
+  Widget Empresa() {
+    return Container(
+      child: showProgress ? showEmpresa() : showErroEmpresa(),
+      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
     );
   }
 
-/*   Widget apresentaEmpresas() {
-    coletaDadosEmpresa();
-    for (var i = 0; i < emp.qtdDadosBD; i++) {
-      return ListTile(title: Text(_listaEmpresa.toString()));
-    }
-  } */
+  Widget showErroEmpresa() {
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Palette.purple, width: 1),
+        ),
+        child: Text(
+          "Você não possui uma empresa cadastrada.",
+          style: TextStyle(
+              fontSize: 35.0,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 1
+                ..color = Palette.purple
+                ..invertColors = false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
 
-  apresentaEmpresas() {
-    var db = new Mysql();
-
-    db.getConnection().then((conn) {
-      conn.query("select * from empresa;").then(((results) {
-        Column(
-          children: [
-            SizedBox(height: 20),
-            Container(
-              child: ListTile(title: Text(results.toString())),
-              padding: const EdgeInsets.all(20.0),
-              decoration:
-                  BoxDecoration(border: Border.all(color: Palette.purple)),
-            ),
-          ],
-        );
-      }));
-    });
+  Widget showEmpresa() {
+    return Center(
+      child: Container(
+        child: Container(
+          decoration: new BoxDecoration(
+              color: Palette.purple,
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(40.0),
+                topRight: const Radius.circular(40.0),
+              )),
+          child: Container(
+            decoration: new BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(40.0),
+                  topRight: const Radius.circular(150.0),
+                )),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget botaoAdicionarEmpresa() {
-    return FloatingActionButton(
-      backgroundColor: Palette.purple,
-      onPressed: () {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => cadastroEmpresaPage()));
-      },
-      child: Icon(Icons.add),
-    );
-  }
-
-  void showCadastroEmpresa() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => cadastroEmpresaPage()));
+    if (user.usuario_chefe == 1) {
+      return null;
+    } else {
+      return FloatingActionButton(
+        heroTag: "Cadastrar Empresa",
+        backgroundColor: Palette.purple,
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => cadastroEmpresaPage()));
+        },
+        child: Icon(Icons.add),
+      );
+    }
   }
 }

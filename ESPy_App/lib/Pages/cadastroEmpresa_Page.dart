@@ -1,10 +1,11 @@
-import 'package:ESPy/Classes/Empresa.dart';
+import 'dart:convert';
+
 import 'package:ESPy/Classes/usuario.dart';
+import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Funcoes/classPalette.dart';
-import 'package:ESPy/Funcoes/snackBar.dart';
-import 'package:ESPy/Funcoes/variaveis.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class cadastroEmpresaPage extends StatefulWidget {
   @override
@@ -12,20 +13,58 @@ class cadastroEmpresaPage extends StatefulWidget {
 }
 
 class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
-  void initState() {
-    super.initState();
+  String msgErro = '';
+  bool erroCadastroEmpresa, showProgress, sucesso;
+
+  TextEditingController _nome = new TextEditingController();
+  TextEditingController _ceo = new TextEditingController();
+  TextEditingController _telefone = new TextEditingController();
+  TextEditingController _cpf_cnpj = new TextEditingController();
+  TextEditingController _estado = new TextEditingController();
+  TextEditingController _cidade = new TextEditingController();
+  TextEditingController _bairro = new TextEditingController();
+  TextEditingController _rua = new TextEditingController();
+  TextEditingController _numero = new TextEditingController();
+  TextEditingController _complemento = new TextEditingController();
+
+  _cadastroEmpresa() async {
+    final response = await http.post(
+      Uri.parse(
+          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_cadastroEmpresa.php'),
+      body: {
+        "nome": _nome.text,
+        "ceo": _ceo.text,
+        "email_ceo": user.email,
+        "telefone": _telefone.text,
+        "cpf_cnpj": _cpf_cnpj.text,
+        "estado": _estado.text,
+        "cidade": _cidade.text,
+        "bairro": _bairro.text,
+        "rua": _rua.text,
+        "numero": _numero.text,
+        "complemento": _complemento.text,
+        "codigoUsuario": user.codigo.toString(),
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      if (jsondata["erroCadastroEmpresa"]) {
+        msgErro = jsondata["mensagemCadastroEmpresa"];
+        showProgress = false;
+      } else if (jsondata["sucessoCadastroEmpresa"]) {
+        showProgress = false;
+        sucesso = true;
+      }
+    }
   }
 
-  String _nome;
-  String _CEO;
-  String _telefone;
-  String _cnpj;
-  String _estado;
-  String _cidade;
-  String _bairro;
-  String _rua;
-  String _numero;
-  String _complemento;
+  void initState() {
+    showProgress = false;
+    erroCadastroEmpresa = false;
+    sucesso = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +80,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 10),
 //==============================================================================
             TextField(
-                onChanged: (nome) {
-                  _nome = nome;
-                },
+                controller: _nome,
                 decoration: InputDecoration(
                     labelText: 'Nome da empresa',
                     border: OutlineInputBorder(
@@ -52,20 +89,15 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 10),
 //==============================================================================
             TextField(
-                onChanged: (ceo) {
-                  _CEO = ceo;
-                },
+                controller: _ceo,
                 decoration: InputDecoration(
                     labelText: 'Nome do CEO da empresa',
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0))),
-                keyboardType: TextInputType.emailAddress),
+                        borderRadius: BorderRadius.circular(15.0)))),
             SizedBox(height: 10),
 //==============================================================================
             TextField(
-              onChanged: (cnpj) {
-                _cnpj = cnpj;
-              },
+              controller: _cpf_cnpj,
               decoration: InputDecoration(
                   labelText: 'CPF/CNPJ',
                   border: OutlineInputBorder(
@@ -74,9 +106,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 10),
 //==============================================================================
             TextField(
-              onChanged: (telefone) {
-                _telefone = telefone;
-              },
+              controller: _telefone,
               decoration: InputDecoration(
                   labelText: 'Telefone',
                   border: OutlineInputBorder(
@@ -85,9 +115,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 10),
 //==============================================================================
             TextField(
-                onChanged: (estado) {
-                  _estado = estado;
-                },
+                controller: _estado,
                 decoration: InputDecoration(
                     labelText: 'Estado',
                     border: OutlineInputBorder(
@@ -95,9 +123,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 10),
 //==============================================================================
             TextField(
-                onChanged: (cidade) {
-                  _cidade = cidade;
-                },
+                controller: _cidade,
                 decoration: InputDecoration(
                     labelText: 'Cidade',
                     border: OutlineInputBorder(
@@ -105,9 +131,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 10),
 //==============================================================================
             TextField(
-                onChanged: (bairro) {
-                  _bairro = bairro;
-                },
+                controller: _bairro,
                 decoration: InputDecoration(
                     labelText: 'Bairro',
                     border: OutlineInputBorder(
@@ -115,9 +139,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 10),
 //==============================================================================
             TextField(
-                onChanged: (rua) {
-                  _rua = rua;
-                },
+                controller: _rua,
                 decoration: InputDecoration(
                     labelText: 'Rua',
                     border: OutlineInputBorder(
@@ -125,9 +147,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 10),
 //==============================================================================
             TextField(
-              onChanged: (numero) {
-                _numero = numero;
-              },
+              controller: _numero,
               decoration: InputDecoration(
                   labelText: 'Número',
                   border: OutlineInputBorder(
@@ -138,9 +158,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 20),
 //==============================================================================
             TextField(
-                onChanged: (complemento) {
-                  _complemento = complemento;
-                },
+                controller: _complemento,
                 decoration: InputDecoration(
                     labelText: 'Complemento',
                     border: OutlineInputBorder(
@@ -149,10 +167,15 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
 //==============================================================================
             FlatButton(
               onPressed: () {
-                cadastroEmpresa(_nome, _CEO, user.email, _telefone, _cnpj,
-                    _estado, _cidade, _bairro, _rua, _numero, _complemento);
+                setState(() {
+                  showProgress = true;
+                  if (showProgress == false && sucesso == false) {
+                    showAlertDialog1(context, msgErro);
+                  }
+                });
+                _cadastroEmpresa();
               },
-              child: const Text('Enviar'),
+              child: ApresentaProgresso(),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                   side: BorderSide(color: Palette.purple)),
@@ -163,13 +186,43 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
         )));
   }
 
-  void _verificaCadastro() {
-    if (VALIDACAO == true) {
-      ScaffoldMessenger.of(context).showSnackBar(sucessCadastro);
-      Navigator.pop(context);
-    }
-    if (VALIDACAO == false) {
-      ScaffoldMessenger.of(context).showSnackBar(erroDivergenciaSenha);
-    }
+  Widget ApresentaProgresso() {
+    return showProgress
+        ? SizedBox(
+            height: 15,
+            width: 15,
+            child: CircularProgressIndicator(
+              backgroundColor: (Palette.purple.shade100),
+              valueColor: AlwaysStoppedAnimation<Color>(Palette.purple),
+            ),
+          )
+        : Text(
+            "Enviar",
+            style: TextStyle(color: Palette.purple),
+          );
+  }
+
+  showAlertDialog1(BuildContext context, String msgErro) {
+    // configura o button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        return null;
+      },
+    );
+    // configura o  AlertDialog
+    AlertDialog alerta = AlertDialog(
+      title: Text(msgErro),
+      actions: [
+        okButton,
+      ],
+    );
+    // exibe o dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
   }
 }

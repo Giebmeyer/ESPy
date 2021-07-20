@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Funcoes/classPalette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
@@ -26,6 +27,8 @@ class _ChatPage extends State<ChatPage> {
   String _rede = '';
   String _senha = '';
   String _RedeSenha = '';
+  String _codigoEmpresa = '1';
+  String _mensagemFinal = '';
   static final clientID = 0;
   var connection; //BluetoothConnection
 
@@ -166,6 +169,7 @@ class _ChatPage extends State<ChatPage> {
                         onChanged: (senha) {
                           _senha = senha;
                           _RedeSenha = _rede + ';' + _senha;
+                          _mensagemFinal = _RedeSenha + ';' + _codigoEmpresa;
                         },
                         style: const TextStyle(
                             color: Palette.purple, fontSize: 15.0),
@@ -193,7 +197,7 @@ class _ChatPage extends State<ChatPage> {
                         icon: const Icon(Icons.send_outlined,
                             color: Colors.white),
                         onPressed: isConnected()
-                            ? () => _sendMessage(_RedeSenha)
+                            ? () => _sendMessage(_mensagemFinal)
                             : null),
                   ),
                 ],

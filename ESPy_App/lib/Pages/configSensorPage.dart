@@ -14,6 +14,7 @@ class _configSensorState extends State<configSensor> {
         title: Text('Configurações'),
         centerTitle: true,
       ),
+      body: Text('Intervalo de tempo entre as coletas: '),
       bottomNavigationBar: barraDeNavegacaoInferior_Retorno(),
     );
   }
