@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:ESPy/Classes/empresa.dart';
-import 'package:ESPy/Funcoes/classPalette.dart';
+import 'package:ESPy/Classes/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 

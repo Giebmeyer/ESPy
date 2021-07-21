@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'Pages/login_Page.dart';
-import 'Funcoes/classPalette.dart';
+import 'Classes/palette.dart';
 
 void main() => runApp(new MyApp());
 

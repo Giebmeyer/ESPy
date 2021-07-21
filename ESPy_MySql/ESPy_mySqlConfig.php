@@ -8,14 +8,5 @@
 	ini_set('default_charset', 'utf-8');
 
 	$conexao = mysqli_connect($host,$db_user,$db_pass,$db_name);
-	
-
-/* 	if(!$conexao)
-	{
-	echo "\nFalha na conexao\n";
-	}else{
-	echo "\nSucesso na conexao\n";
-	} */
-	
 
 	?>

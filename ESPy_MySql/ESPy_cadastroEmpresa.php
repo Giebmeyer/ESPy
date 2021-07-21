@@ -42,33 +42,38 @@
 						$resultado4 = mysqli_query($conexao, $query4);
 
 						if($resultado4 > 0){
+							$return["mensagemCadastroEmpresa"] = 'Sucesso ao cadastrar a sua empresa!.';
 							$return["erroCadastroEmpresa"] = false;	
 							$return["sucessoCadastroEmpresa"] = true;
 
 						}else{
-							$return["mensagem"] = 'Erro ao inserir usuario_empresa.';
+							$return["mensagemCadastroEmpresa"] = 'Erro ao inserir usuario_empresa.';
 							$return["erroCadastroEmpresa"] = true;
 
 						}
 					}else{
-						$return["mensagem"] = 'Email nao é ceo.';
+						$return["mensagemCadastroEmpresa"] = 'Email nao é ceo.';
 						$return["erroCadastroEmpresa"] = true;
 
 					}
 				}else{
 					$return["erroCadastroEmpresa"] = true;
-					$return["mensagem"] = 'Email nao cadastrado.';
+					$return["mensagemCadastroEmpresa"] = 'Email nao cadastrado.';
 
 				}  
 			}else{
 				$return["erroCadastroEmpresa"] = true;
-				$return["mensagem"] = 'Erro no update usuario_chefe.';
+				$return["mensagemCadastroEmpresa"] = 'Erro no update usuario_chefe.';
 
 			}
 		}else{
 			$return["erroCadastroEmpresa"] = true;
-			$return["mensagem"] = 'Erro ao cadastrar empresa.';
+			$return["mensagemCadastroEmpresa"] = 'Erro ao cadastrar empresa.';
 
 		}
+
+		mysqli_close($conexao);
+	  
+		echo json_encode($return);
 
 	    ?>

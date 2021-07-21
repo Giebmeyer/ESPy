@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Funcoes/classPalette.dart';
+import 'package:ESPy/Classes/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -169,9 +169,6 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
               onPressed: () {
                 setState(() {
                   showProgress = true;
-                  if (showProgress == false && sucesso == false) {
-                    showAlertDialog1(context, msgErro);
-                  }
                 });
                 _cadastroEmpresa();
               },

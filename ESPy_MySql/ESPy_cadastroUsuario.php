@@ -1,7 +1,10 @@
 <?php 
 	include "ESPy_mySqlConfig.php";
 
-	
+	$return["erroCadastroUser"] = false;
+	$return["mensagemCadastroUser"] = "";
+	$return["sucessoCadastroUser"] = false;	
+
 	    $nome  = mysqli_real_escape_string ($conexao,$_POST['nome']);
  	    $senha = mysqli_real_escape_string ($conexao,$_POST['senha']);
 	    $email  = mysqli_real_escape_string ($conexao,$_POST['email']);
@@ -16,14 +19,23 @@
 
 		$query = "INSERT INTO usuarios (nome, senha , email, cpf, telefone, estado, cidade, bairro, rua, numero, complemento) VALUES ('$nome', '$senha','$email', '$cpf', '$telefone', '$estado', '$cidade', '$bairro', '$rua', '$numero', '$complemento');";	 
 
-	    $rasultado = mysqli_query($conexao, $query);
+	    $resultado = mysqli_query($conexao, $query);
 
 
-	   /*  if($rasultado>0)
-	    {
-	        echo "\nUsuario adicionado com sucesso!";
-			return
-	    }else{
-			echo "\nErro ao gravar dados do usuario.";
-		}  */
+        if($resultado){
+			
+			$return["erroCadastroUser"] = false;
+    		$return["mensagemCadastroUser"] = "Cadastro realizado com sucesso!";
+   	   		$return["sucessoCadastroUser"] = true;	
+		    echo json_encode($return);
+		}else{
+			
+			$return["erroCadastroUser"] = true;
+			$return["mensagemCadastroUser"] = "Erro ao cadastrar usuário.";
+			$return["sucessoCadastroUser"] = false;
+			echo json_encode($return);
+		}
+
+		mysqli_close($conexao);
+
 	    ?>

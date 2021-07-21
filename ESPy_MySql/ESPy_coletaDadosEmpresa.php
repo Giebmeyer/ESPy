@@ -14,8 +14,6 @@
            $numrows = mysqli_num_rows($rasultado);
         if($numrows > 0){
            $obj = mysqli_fetch_object($rasultado);
-        
-        if($email_user == $obj->email_ceo){
             $return["errorEmpresa"] = false;
             $return["sucessoEmpresa"] = true;
             $return["codigo"] = (int) $obj->codigo;
@@ -30,11 +28,11 @@
             $return["rua"] = $obj->rua;
             $return["numero"] = (int) $obj->numero;
             $return["complemento"] = $obj->complemento;
-        }else{
+        /* }else{
             $return["sucessoEmpresa"] = false;
             $return["errorEmpresa"] = true;
             $return["mensagemEmpresa"] = "usuario não é CEO de empresa.";
-           }
+           } */
         }else{
             $return["sucessoEmpresa"] = false;
             $return["errorEmpresa"] = true;
@@ -43,7 +41,6 @@
 
   mysqli_close($conexao);
 
-  header('Content-Type: application/json');
 
   echo json_encode($return);
 

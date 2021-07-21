@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
-import 'package:ESPy/Funcoes/classPalette.dart';
+import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Pages/cadastroEmpresa_Page.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import 'home_Page.dart';
+import 'login_Page.dart';
 
 class minhaEmpresaPage extends StatefulWidget {
   @override
@@ -19,7 +17,7 @@ class _minhaEmpresaPgeState extends State<minhaEmpresaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(showProgress ? emp.nome : "Minha Empresa"),
+        title: Text(possuiEmpresa ? emp.nome : "Minha Empresa"),
         centerTitle: true,
       ),
       body: Empresa(),
@@ -30,7 +28,7 @@ class _minhaEmpresaPgeState extends State<minhaEmpresaPage> {
 
   Widget Empresa() {
     return Container(
-      child: showProgress ? showEmpresa() : showErroEmpresa(),
+      child: possuiEmpresa ? showEmpresa() : showErroEmpresa(),
       padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
     );
   }

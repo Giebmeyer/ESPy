@@ -1,5 +1,8 @@
-import 'package:ESPy/Funcoes/classPalette.dart';
+import 'dart:convert';
+
+import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/snackBar.dart';
+import 'package:ESPy/Pages/login_Page.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +15,7 @@ class CadastroUserPage extends StatefulWidget {
 }
 
 class _cadastroUserPageState extends State<CadastroUserPage> {
+//==============================================================================
   TextEditingController nome = new TextEditingController();
   TextEditingController senha = new TextEditingController();
   TextEditingController confirmacaoSenha = new TextEditingController();
@@ -24,6 +28,11 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
   TextEditingController rua = new TextEditingController();
   TextEditingController numero = new TextEditingController();
   TextEditingController complemento = new TextEditingController();
+
+//==============================================================================
+  String msgErro = '';
+  bool erroCadastro, showProgress;
+//==============================================================================
 
   Future<List> _cadastraUsuario() async {
     final response = await http.post(
@@ -43,7 +52,54 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
         "complemento": complemento.text,
       },
     );
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+      var sucesso = jsondata["sucessoCadastroUser"];
+      if (sucesso == true) {
+        setState(() {
+          erroCadastro = false;
+          msgErro = jsondata["mensagemCadastroUser"];
+          showAlertDialog1(context, msgErro);
+        });
+      } else {
+        setState(() {
+          erroCadastro = false;
+          msgErro = "Erro na conexão com o servidor.";
+          showAlertDialog1(context, msgErro);
+        });
+      }
+    }
   }
+
+//==============================================================================
+  showAlertDialog1(BuildContext context, String msg) {
+    // configura o button
+    Widget okButton = FlatButton(
+      child: Text(
+        "OK",
+        textAlign: TextAlign.center,
+      ),
+      onPressed: () {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => LoginPage()));
+      },
+    );
+    // configura o  AlertDialog
+    AlertDialog alerta = AlertDialog(
+      title: Text(msg),
+      actions: [
+        okButton,
+      ],
+    );
+    // exibe o dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
+  }
+//==============================================================================
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +127,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
                 TextField(
                     controller: email,
                     decoration: InputDecoration(
-                        hintText: 'Email',
+                        labelText: 'Email',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0)))),
                 SizedBox(height: 10),

@@ -1,15 +1,16 @@
 import 'dart:convert';
 
 import 'package:ESPy/Classes/empresa.dart';
+import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appController.dart';
-import 'package:ESPy/Funcoes/classPalette.dart';
+import 'package:ESPy/Classes/palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 
 var primeiroNome;
-bool showProgress;
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,70 +20,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-//==============================================================================
-  @override
-  void initState() {
-    erroEmpresa = false;
-    showProgress = false;
-    jaCarregouDados = false;
-    _coletaDadosEmpresa();
-    super.initState();
-  }
-
-//==============================================================================
-  String msgErro = '';
-  bool erroEmpresa, jaCarregouDados;
-
-  void _coletaDadosEmpresa() async {
-    final response = await http.post(
-      Uri.parse(
-          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_coletaDadosEmpresa.php'),
-      body: {"emailUsuario": user.email},
-    );
-    if (response.statusCode == 200) {
-      var jsondata = json.decode(response.body);
-      if (jsondata["errorEmpresa"]) {
-        setState(() {
-          showProgress = false;
-          erroEmpresa = true;
-          msgErro = jsondata["messagemEmpresa"];
-        });
-      } else {
-        if (jsondata["sucessoEmpresa"]) {
-          setState(() {
-            erroEmpresa = false;
-            showProgress = true;
-          });
-          emp.codigo = jsondata['codigo'];
-          print(emp.codigo);
-          emp.nome = jsondata['nome'];
-          emp.CEO = jsondata['ceo'];
-          emp.email_ceo = jsondata['email_ceo'];
-          emp.telefone = jsondata['telefone'];
-          emp.cnpj = jsondata['cnpj'];
-          emp.estado = jsondata['estado'];
-          emp.cidade = jsondata['cidade'];
-          emp.bairro = jsondata['bairro'];
-          emp.rua = jsondata['rua'];
-          emp.numero = jsondata['numero'];
-          emp.complemento = jsondata['complemento'];
-        } else {
-          showProgress = false;
-          erroEmpresa = true;
-          msgErro = "Algo deu errado.";
-          print(msgErro);
-        }
-      }
-    } else {
-      setState(() {
-        showProgress = false;
-        erroEmpresa = true;
-        msgErro = "Erro na conexão com o servidor.";
-        print(msgErro);
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,14 +45,21 @@ class _HomePageState extends State<HomePage> {
               topLeft: const Radius.circular(40.0),
               topRight: const Radius.circular(40.0),
             )),
-        child: Container(
-/*           child: textoCentralHomePage(), */
-          decoration: new BoxDecoration(
+        child: Align(
+          alignment: Alignment.center,
+          child: Container(
+            child: Align(
+              alignment: Alignment.center,
+              child: textoCentralHomePage(),
+            ),
+            decoration: new BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(40.0),
                 topRight: const Radius.circular(150.0),
-              )),
+              ),
+            ),
+          ),
         ),
       ),
     );

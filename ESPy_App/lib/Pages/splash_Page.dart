@@ -1,4 +1,4 @@
-import 'package:ESPy/Funcoes/classPalette.dart';
+import 'package:ESPy/Classes/palette.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 

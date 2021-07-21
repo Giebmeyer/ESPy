@@ -94,8 +94,8 @@ void loop() {
 
 
     recebeDadosWifiBT();
-    //requestSensores();
-    //enviaDadosBD();
+    requestSensores();
+    enviaDadosBD();
     
     delay(3000); // interval
 }
@@ -189,6 +189,8 @@ void enviaDadosBD()   {
     client.print(codigoEmpresa);
     Serial.println(codigoEmpresa);
 
+    enviaDadosBT();
+
     client.print(" ");      //SPACE BEFORE HTTP/1.1
     client.print("HTTP/1.1");
     client.println();
@@ -196,7 +198,7 @@ void enviaDadosBD()   {
     client.println("Connection: close");
     client.println();
   } else {
-    Serial.println("Falha na conexao");
+    SerialBT.println("Falha na conexao");
   }
 }
 

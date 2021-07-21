@@ -1,49 +1,11 @@
 import 'package:ESPy/Bluetooth/bluetoohPage.dart';
-import 'package:ESPy/Funcoes/appController.dart';
-import 'package:ESPy/Pages/cadastroUsuario_Page.dart';
 import 'package:ESPy/Pages/configSensorPage.dart';
 import 'package:ESPy/Pages/dashBoard_Page.dart';
-import 'package:ESPy/Pages/meuPerfil_Page.dart';
 import 'package:ESPy/Pages/minhaEmpresa_Page.dart';
 import 'package:flutter/material.dart';
 
-import '../Pages/recoverPass_Page.dart';
 import '../Pages/home_Page.dart';
-import '../Pages/login_Page.dart';
-import 'classPalette.dart';
-
-class AppWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: AppController.instance,
-      builder: (context, child) {
-        return MaterialApp(
-          initialRoute: '/login',
-          routes: {
-            '/login': (context) => LoginPage(),
-            '/home': (context) => HomePage(),
-            '/editPass': (context) => recoverPassPage(),
-            '/CreateUser': (context) => CadastroUserPage(),
-            '/Bluethooth': (context) => Bluetooth(),
-          },
-        );
-      },
-    );
-  }
-}
-
-class CustomSwitch extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Switch(
-      value: AppController.instance.isDartTheme,
-      onChanged: (value) {
-        AppController.instance.carregaTema();
-      },
-    );
-  }
-}
+import '../Classes/palette.dart';
 
 class barraDeNavegacaoInferior extends StatefulWidget {
   @override

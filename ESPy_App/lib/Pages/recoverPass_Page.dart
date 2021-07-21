@@ -1,5 +1,7 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:ESPy/Classes/usuario.dart';
-import 'package:ESPy/Funcoes/classPalette.dart';
+import 'package:ESPy/Classes/palette.dart';
 import 'package:flutter/material.dart';
 import '../Funcoes/sendEmail.dart';
 
@@ -9,8 +11,56 @@ class recoverPassPage extends StatefulWidget {
 }
 
 class _recoverPassPageState extends State<recoverPassPage> {
-  var emailEspy = Email('ESPy.EnviaEmail@gmail.com', '@EspySendEmail');
-  var email;
+//==============================================================================
+  String msgErro = '';
+  bool erro, showProgress;
+
+  _ColetaDadosUsuario() async {
+    final response = await http.post(
+      Uri.parse(
+          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_coletaDadosUsuario.php'),
+      body: {
+        "email": email1,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+
+      user.codigo = jsondata['codigo'];
+      user.nome = jsondata['nome'];
+      user.senha = jsondata['senha'];
+      user.email = jsondata['email'];
+      user.cpf = jsondata['cpf'];
+      user.telefone = jsondata['telefone'];
+      user.estado = jsondata['estado'];
+      user.cidade = jsondata['cidade'];
+      user.bairro = jsondata['bairro'];
+      user.rua = jsondata['rua'];
+      user.numero = jsondata['numero'];
+      user.complemento = jsondata['complemento'];
+      user.usuario_chefe = jsondata['usuario_chefe'];
+    } else {
+      setState(() {
+        showProgress = false;
+        erro = true;
+        msgErro = "Erro na conexão com o servidor.";
+      });
+    }
+  }
+
+//==============================================================================
+  @override
+  void initState() {
+    erro = false;
+    showProgress = false;
+
+    super.initState();
+  }
+
+//==============================================================================
+
+  var email1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +77,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
 //==============================================================================
               TextField(
                   onChanged: (email) {
-                    email = email;
+                    email1 = email;
                   },
                   decoration: InputDecoration(
                       labelText: 'Email',
@@ -37,7 +87,9 @@ class _recoverPassPageState extends State<recoverPassPage> {
               SizedBox(height: 10.0),
               FlatButton(
                 onPressed: () {
-                  sendEmail(email);
+                  _ColetaDadosUsuario();
+                  print(email1);
+                  sendEmail(email1);
                 },
                 child: const Text('Recuperar'),
                 shape: RoundedRectangleBorder(
