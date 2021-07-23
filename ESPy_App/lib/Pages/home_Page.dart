@@ -37,14 +37,18 @@ class _HomePageState extends State<HomePage> {
 
   Widget showBody() {
     return Container(
-      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+      /* padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0), */
+      decoration: new BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        colors: [
+          Palette.purple.shade900,
+          Palette.purple.shade50,
+        ],
+      )),
       child: Container(
-        decoration: new BoxDecoration(
-            color: Palette.purple,
-            borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(40.0),
-              topRight: const Radius.circular(40.0),
-            )),
+        decoration: new BoxDecoration(),
         child: Align(
           alignment: Alignment.center,
           child: Container(
@@ -55,8 +59,7 @@ class _HomePageState extends State<HomePage> {
             decoration: new BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(40.0),
-                topRight: const Radius.circular(150.0),
+                topRight: const Radius.circular(300.0),
               ),
             ),
           ),

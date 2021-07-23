@@ -18,8 +18,9 @@
 	    $numero = (int)  mysqli_real_escape_string ($conexao,$_POST['numero']);
 	    $complemento =  mysqli_real_escape_string ($conexao,$_POST['complemento']); 
 	    $codigoUsuario = (int) mysqli_real_escape_string ($conexao,$_POST['codigoUsuario']);  
+		$chaveConvite = (int) rand(100000, 999999);
 
-		$query  = "INSERT INTO empresa (`nome`, `ceo`, `email_ceo`, `telefone`, `cpf_cnpj`, `estado`, `cidade`, `bairro`, `rua`, `numero`, `complemento`) VALUES ('$nome', '$ceo', '$email_ceo', '$telefone', '$cpf_cnpj',  '$estado', '$cidade', '$bairro', '$rua', '$numero', '$complemento');";	 
+		$query  = "INSERT INTO empresa (`chaveConvite`, `nome`, `ceo`, `email_ceo`, `telefone`, `cpf_cnpj`, `estado`, `cidade`, `bairro`, `rua`, `numero`, `complemento`) VALUES ('$chaveConvite', '$nome', '$ceo', '$email_ceo', '$telefone', '$cpf_cnpj',  '$estado', '$cidade', '$bairro', '$rua', '$numero', '$complemento');";	 
         $query2 = "UPDATE usuarios SET usuario_chefe = 1 WHERE codigo = '$codigoUsuario';"; 
 		$query3 = "SELECT * FROM empresa WHERE email_ceo = '$email_ceo';";
 

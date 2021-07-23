@@ -1,9 +1,9 @@
 <?php 
 	include "ESPy_mySqlConfig.php";
 
-    $return["error"] = false;
-    $return["mensagem"] = "";
-    $return["sucesso"] = false;
+    $return["errorLogin"] = false;
+    $return["mensagemLogin"] = "";
+    $return["sucessoLogin"] = false;
 
         $email  = mysqli_real_escape_string ($conexao,$_POST['email']);
  	    $senha = mysqli_real_escape_string ($conexao,$_POST['senha']);
@@ -19,8 +19,8 @@
            $obj = mysqli_fetch_object($resultado);
         
            if($senha == $obj->senha){
-               $return["erro"] = false;
-               $return["sucesso"] = true;
+               $return["errorLogin"] = false;
+               $return["sucessoLogin"] = true;
                $return["codigo"] = (int) $obj->codigo;
                $return["nome"] = $obj->nome;
                $return["senha"] = $obj->senha;
@@ -34,18 +34,24 @@
                $return["numero"] = (int) $obj->numero;
                $return["complemento"] = $obj->complemento;
                $return["usuario_chefe"] = (int) $obj->usuario_chefe;
+               $return["usuario_empregado"] = (int) $obj->usuario_empregado;
+               echo json_encode($return);
            }else{
-               $return["erro"] = true;
-               $return["mensagem"] = "Senha incorreta.";
+               $return["errorLogin"] = true;
+               $return["sucessoLogin"] = false;
+               $return["mensagemLogin"] = "Senha incorreta.";
+               echo json_encode($return);
            }
        }else{
-           $return["erro"] = true;
-           $return["mensagem"] = 'Email nao cadastrado.';
+           $return["errorLogin"] = true;
+           $return["sucessoLogin"] = false;
+           $return["mensagemLogin"] = 'Email nao cadastrado.';
+           echo json_encode($return);
        }
-
+       
   mysqli_close($conexao);
+  
 
-
-  echo json_encode($return);
+  
 
 	?>

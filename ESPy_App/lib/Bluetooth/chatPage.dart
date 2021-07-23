@@ -7,6 +7,8 @@ import 'package:ESPy/Classes/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
+bool msgConectadoBool = false;
+
 class ChatPage extends StatefulWidget {
   final BluetoothDevice server;
 
@@ -91,6 +93,9 @@ class _ChatPage extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     final List<Row> list = messages.map((_message) {
+      if (_message.text == 'Conectado!') {
+        msgConectadoBool = true;
+      }
       return Row(
         children: <Widget>[
           Container(

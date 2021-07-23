@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:ESPy/Classes/palette.dart';
-import 'package:ESPy/Funcoes/snackBar.dart';
+import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Pages/login_Page.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CadastroUserPage extends StatefulWidget {
   @override
@@ -15,6 +16,11 @@ class CadastroUserPage extends StatefulWidget {
 }
 
 class _cadastroUserPageState extends State<CadastroUserPage> {
+  void initState() {
+    dropdownValueEstado = 'PR';
+    super.initState();
+  }
+
 //==============================================================================
   TextEditingController nome = new TextEditingController();
   TextEditingController senha = new TextEditingController();
@@ -28,6 +34,9 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
   TextEditingController rua = new TextEditingController();
   TextEditingController numero = new TextEditingController();
   TextEditingController complemento = new TextEditingController();
+
+  final maskCpf = MaskTextInputFormatter(
+      mask: "###.###.###-##", filter: {"#": RegExp(r'[0-9]')});
 
 //==============================================================================
   String msgErro = '';
@@ -44,7 +53,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
         "email": email.text,
         "cpf": cpf.text,
         "telefone": telefone.text,
-        "estado": estado.text,
+        "estado": dropdownValueEstado,
         "cidade": cidade.text,
         "bairro": bairro.text,
         "rua": rua.text,
@@ -54,51 +63,24 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
     );
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
-      var sucesso = jsondata["sucessoCadastroUser"];
-      if (sucesso == true) {
+      if (jsondata["sucessoCadastroUser"]) {
         setState(() {
           erroCadastro = false;
           msgErro = jsondata["mensagemCadastroUser"];
-          showAlertDialog1(context, msgErro);
+          showCaixaDialogoSimples(context, msgErro);
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => LoginPage()));
         });
       } else {
         setState(() {
           erroCadastro = false;
-          msgErro = "Erro na conexão com o servidor.";
-          showAlertDialog1(context, msgErro);
+          msgErro = jsondata["mensagemCadastroUser"];
+          showCaixaDialogoSimples(context, msgErro);
         });
       }
     }
   }
 
-//==============================================================================
-  showAlertDialog1(BuildContext context, String msg) {
-    // configura o button
-    Widget okButton = FlatButton(
-      child: Text(
-        "OK",
-        textAlign: TextAlign.center,
-      ),
-      onPressed: () {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginPage()));
-      },
-    );
-    // configura o  AlertDialog
-    AlertDialog alerta = AlertDialog(
-      title: Text(msg),
-      actions: [
-        okButton,
-      ],
-    );
-    // exibe o dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alerta;
-      },
-    );
-  }
 //==============================================================================
 
   @override
@@ -168,6 +150,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
                 SizedBox(height: 10),
 //==============================================================================
                 TextField(
+                    inputFormatters: [maskCpf],
                     controller: cpf,
                     decoration: InputDecoration(
                         labelText: 'CPF',
@@ -183,20 +166,31 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
                             borderRadius: BorderRadius.circular(15.0)))),
                 SizedBox(height: 10),
 //==============================================================================
-                TextField(
-                    controller: estado,
-                    decoration: InputDecoration(
-                        labelText: 'Estado',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
-                SizedBox(height: 10),
-//==============================================================================
-                TextField(
-                    controller: cidade,
-                    decoration: InputDecoration(
-                        labelText: 'Cidade',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.20,
+                          child: dropDownEstados(),
+                        ),
+//==================
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.75,
+                          child: TextField(
+                              controller: cidade,
+                              decoration: InputDecoration(
+                                  labelText: 'Cidade',
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)))),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
                 SizedBox(height: 10),
 //==============================================================================
                 TextField(
@@ -250,13 +244,4 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
       ),
     );
   }
-/* 
-    items: <String>['One', 'Two', 'Free', 'Four']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(), */
-
 }

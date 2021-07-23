@@ -22,20 +22,20 @@
 	    $resultado = mysqli_query($conexao, $query);
 
 
-        if($resultado){
+        if($resultado > 0){
 			
 			$return["erroCadastroUser"] = false;
     		$return["mensagemCadastroUser"] = "Cadastro realizado com sucesso!";
    	   		$return["sucessoCadastroUser"] = true;	
-		    echo json_encode($return);
 		}else{
 			
 			$return["erroCadastroUser"] = true;
 			$return["mensagemCadastroUser"] = "Erro ao cadastrar usuário.";
 			$return["sucessoCadastroUser"] = false;
-			echo json_encode($return);
+			
 		}
 
 		mysqli_close($conexao);
+		echo json_encode($return);
 
 	    ?>

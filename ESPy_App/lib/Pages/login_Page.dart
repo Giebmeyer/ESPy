@@ -3,6 +3,7 @@ import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Pages/cadastroUsuario_Page.dart';
 import 'package:ESPy/Pages/recoverPass_Page.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,7 @@ class _loginPageState extends State<LoginPage> {
           showProgress = false;
           erroEmpresa = true;
           msgErro = jsondata["messagemEmpresa"];
+          showCaixaDialogoSimples(context, msgErro);
         });
       } else {
         if (jsondata["sucessoEmpresa"]) {
@@ -61,6 +63,7 @@ class _loginPageState extends State<LoginPage> {
             showProgress = true;
           });
           emp.codigo = jsondata['codigo'];
+          emp.chaveConvite = jsondata['chaveConvite'];
           emp.nome = jsondata['nome'];
           emp.CEO = jsondata['ceo'];
           emp.email_ceo = jsondata['email_ceo'];
@@ -86,12 +89,12 @@ class _loginPageState extends State<LoginPage> {
         showProgress = false;
         erroEmpresa = true;
         msgErro = "Erro na conexão com o servidor.";
-        print(msgErro);
+        showCaixaDialogoSimples(context, msgErro);
       });
     }
   }
 
-  void _coletaDadosSensores() async {
+  void coletaDadosSensores() async {
     final response = await http.post(
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_requestSensores.php'),
@@ -123,14 +126,14 @@ class _loginPageState extends State<LoginPage> {
         } else {
           erroEmpresa = true;
           msgErro = "Algo deu errado.";
-          print(msgErro);
+          showCaixaDialogoSimples(context, msgErro);
         }
       }
     } else {
       setState(() {
         erroEmpresa = true;
         msgErro = "Erro na conexão com o servidor.";
-        print(msgErro);
+        showCaixaDialogoSimples(context, msgErro);
       });
     }
   }
@@ -146,14 +149,15 @@ class _loginPageState extends State<LoginPage> {
 
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
-      if (jsondata["erro"]) {
+      if (jsondata["errorLogin"]) {
         setState(() {
           showProgress = false;
           erro = true;
-          msgErro = jsondata["messagem"];
+          msgErro = jsondata["mensagemLogin"];
+          showCaixaDialogoSimples(context, msgErro);
         });
       } else {
-        if (jsondata["sucesso"]) {
+        if (jsondata["sucessoLogin"]) {
           setState(() {
             erro = false;
             showProgress = false;
@@ -171,24 +175,30 @@ class _loginPageState extends State<LoginPage> {
           user.numero = jsondata['numero'];
           user.complemento = jsondata['complemento'];
           user.usuario_chefe = jsondata['usuario_chefe'];
-          if (user.usuario_chefe == 1) {
+          user.usuario_empregado = jsondata['usuario_empregado'];
+          if (user.usuario_chefe == 1 || user.usuario_empregado == 1) {
             possuiEmpresa = true;
             _coletaDadosEmpresa();
           } else {
+            possuiEmpresa = false;
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => HomePage()));
           }
         } else {
-          showProgress = false;
-          erro = true;
-          msgErro = "Algo deu errado.";
+          setState(() {
+            showProgress = false;
+            erro = true;
+          });
+          msgErro = jsondata["errorLogin"];
+          showCaixaDialogoSimples(context, msgErro);
         }
       }
     } else {
+      msgErro = 'Erro ao conectaro no servidor';
+      showCaixaDialogoSimples(context, msgErro);
       setState(() {
         showProgress = false;
         erro = true;
-        msgErro = "Erro na conexão com o servidor.";
       });
     }
   }
@@ -199,7 +209,7 @@ class _loginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Login'),
+          title: Text('Bem-vindo ao '),
           centerTitle: true,
         ),
         body: Center(
@@ -209,8 +219,8 @@ class _loginPageState extends State<LoginPage> {
               children: [
                 Center(
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.65,
-                    height: MediaQuery.of(context).size.height * 0.43,
+                    width: MediaQuery.of(context).size.width * 0.90,
+                    height: MediaQuery.of(context).size.height * 0.40,
                     alignment: Alignment.center,
                     child: Image.asset('assents/imagens/Logo.png'),
                   ),
@@ -250,7 +260,7 @@ class _loginPageState extends State<LoginPage> {
 //==============================================================================
                 Align(
                   child: Container(
-                    width: 200,
+                    width: MediaQuery.of(context).size.width * 0.20,
                     child: FlatButton(
                       onPressed: () {
                         setState(() {

@@ -6,6 +6,7 @@ import 'package:ESPy/Classes/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class cadastroEmpresaPage extends StatefulWidget {
   @override
@@ -27,6 +28,9 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
   TextEditingController _numero = new TextEditingController();
   TextEditingController _complemento = new TextEditingController();
 
+  final maskCNPJ = MaskTextInputFormatter(
+      mask: "##.###.###/####-##", filter: {"#": RegExp(r'[0-9]')});
+
   _cadastroEmpresa() async {
     final response = await http.post(
       Uri.parse(
@@ -37,7 +41,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
         "email_ceo": user.email,
         "telefone": _telefone.text,
         "cpf_cnpj": _cpf_cnpj.text,
-        "estado": _estado.text,
+        "estado": dropdownValueEstado,
         "cidade": _cidade.text,
         "bairro": _bairro.text,
         "rua": _rua.text,
@@ -52,9 +56,12 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
       if (jsondata["erroCadastroEmpresa"]) {
         msgErro = jsondata["mensagemCadastroEmpresa"];
         showProgress = false;
+        showCaixaDialogoSimples(context, msgErro);
       } else if (jsondata["sucessoCadastroEmpresa"]) {
         showProgress = false;
         sucesso = true;
+        msgErro = "Sua empresa foi cadastrada com sucesso!\nSera necessário entrar novamente no sistema para receber suas permissões adicionais.";
+        showCaixaDialogoSimples(context, msgErro);
       }
     }
   }
@@ -97,6 +104,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 10),
 //==============================================================================
             TextField(
+              inputFormatters: [maskCNPJ],
               controller: _cpf_cnpj,
               decoration: InputDecoration(
                   labelText: 'CPF/CNPJ',
@@ -114,20 +122,30 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             ),
             SizedBox(height: 10),
 //==============================================================================
-            TextField(
-                controller: _estado,
-                decoration: InputDecoration(
-                    labelText: 'Estado',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-            SizedBox(height: 10),
-//==============================================================================
-            TextField(
-                controller: _cidade,
-                decoration: InputDecoration(
-                    labelText: 'Cidade',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.20,
+                      child: dropDownEstados(),
+                    ),
+//==================
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      child: TextField(
+                          controller: _cidade,
+                          decoration: InputDecoration(
+                              labelText: 'Cidade',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0)))),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             SizedBox(height: 10),
 //==============================================================================
             TextField(

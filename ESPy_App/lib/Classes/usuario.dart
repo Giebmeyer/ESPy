@@ -15,6 +15,7 @@ class usuario {
   int numero;
   String complemento = '';
   int usuario_chefe;
+  int usuario_empregado;
 
   usuario(
       {this.codigo,
@@ -29,7 +30,8 @@ class usuario {
       this.rua,
       this.numero,
       this.complemento,
-      this.usuario_chefe});
+      this.usuario_chefe,
+      this.usuario_empregado});
 
   factory usuario.fromJson(Map<String, dynamic> json) {
     return usuario(
@@ -46,6 +48,7 @@ class usuario {
       numero: json['numero'],
       complemento: json['complemento'],
       usuario_chefe: json['usuario_chefe'],
+      usuario_empregado: json['usuario_empregado'],
     );
   }
 
@@ -62,12 +65,15 @@ class usuario {
         'numero': numero,
         'complemento': complemento,
         'usuario_chefe': usuario_chefe,
+        'usuario_empregado': usuario_empregado
       };
 }
 
 Widget barraDeNavegacaoInferior_Retorno() {
-  if (user.usuario_chefe == 0) {
+  if (user.usuario_chefe == 0 && user.usuario_empregado == 0) {
     return barraDeNavegacaoInferior();
+  } else if (user.usuario_chefe == 0 && user.usuario_empregado == 1) {
+    return barraDeNavegacaoInferiorEmpregado();
   } else {
     return barraDeNavegacaoChefeInferior();
   }

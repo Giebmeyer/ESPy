@@ -142,7 +142,7 @@ void requestSensores() {
 void enviaDadosBD()   {
   //Conecta com o servidor sql
   if (client.connect(server, 80)) {
-    Serial.println("Conectado");
+    SerialBT.println("Conectado!");
 
     Serial.print("GET /ESPy/ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");
     client.print("GET /ESPy/ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");     //YOUR URL
@@ -225,11 +225,11 @@ void recebeDadosWifiBT() {
 void enviaDadosBT(){
   SerialBT.printf("Temp. DHT11: %.2f °", Temperatura_DHT11);
     SerialBT.printf("Umid. DHT11: %.2f %%", Umidade_DHT11);
-
+   delay(1000);
    SerialBT.printf("Temp. BMP180: %.2f º", Temperatura_BMP180);   
       SerialBT.printf("Press. BMP180: %.2f bar", Pressao_BMP180);   
          SerialBT.printf("Alti. BMP180: %.2f m", Altitude_BMP180);   
-
+   delay(1000);
    SerialBT.printf("CO. BMP180: %.2lf ppm", MICS_CO);   
       SerialBT.printf("NO2. BMP180: %.2lf ppm", MICS_NO2);  
          SerialBT.printf("NH3. BMP180: %.2lf ppm", MICS_NH3);  
@@ -291,5 +291,5 @@ void conectaWifi(char* Rede, char* password) {
     SerialBT.print(".");
   }
   delay(2000);//Espera um tempo para se conectar no WiFi
-  SerialBT.println(" Conectado!");
+  SerialBT.println("Conectado");
 }

@@ -1,4 +1,5 @@
 import 'package:ESPy/Classes/usuario.dart';
+import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:flutter/material.dart';
 
 class configSensor extends StatefulWidget {
@@ -14,7 +15,10 @@ class _configSensorState extends State<configSensor> {
         title: Text('Configurações'),
         centerTitle: true,
       ),
-      body: Text('Intervalo de tempo entre as coletas: '),
+      body: Container(
+        /*  width: MediaQuery.of(context).size.width * 0.50, */
+        child: dropDownTempoColeta(),
+      ),
       bottomNavigationBar: barraDeNavegacaoInferior_Retorno(),
     );
   }

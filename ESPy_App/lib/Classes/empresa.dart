@@ -1,9 +1,6 @@
-import 'package:ESPy/Classes/usuario.dart';
-import 'package:ESPy/Classes/usuario_empresa.dart';
-import 'package:ESPy/Funcoes/BD.dart';
-
 class empresa {
   int codigo = 0;
+  int chaveConvite = 0;
   String nome = '';
   String CEO = '';
   String email_ceo = '';
@@ -20,6 +17,7 @@ class empresa {
 
   empresa(
       {this.codigo,
+      this.chaveConvite,
       this.nome,
       this.CEO,
       this.email_ceo,
@@ -31,27 +29,6 @@ class empresa {
       this.rua,
       this.numero,
       this.complemento});
-}
-
-void cadastroEmpresa(
-    String _nome,
-    String _CEO,
-    String _email_ceo,
-    String _telefone,
-    String _cnpj,
-    String _estado,
-    String _cidade,
-    String _bairro,
-    String _rua,
-    String _numero,
-    String _complemento) {
-  var db = new Mysql();
-
-  db.getConnection().then((conn) {
-    conn.query(
-        'INSERT INTO empresa (`nome`, `ceo`,`email_ceo`, `telefone`, `cpf_cnpj`, `estado`, `cidade`, `bairro`, `rua`, `numero`, `complemento`) VALUES ("$_nome", "$_CEO", "$_email_ceo", "$_telefone", "$_cnpj", "$_estado", "$_cidade", "$_bairro", "$_rua", "$_numero", "$_complemento");');
-  });
-  insertUsuario_Empresa(user.codigo, emp.codigo);
 }
 
 empresa emp = new empresa();

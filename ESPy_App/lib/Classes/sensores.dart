@@ -1,12 +1,10 @@
-import 'dart:ffi';
-
 class sensores {
   List<int> sequencia = [];
-  List<Float> Umidade_DHT11 = [];
-  List<Float> Temperatura_DHT11 = [];
-  List<Float> Temperatura_BMP180 = [];
-  List<Float> Pressao_BMP180 = [];
-  List<Float> Altitude_BMP180 = [];
+  List<double> Umidade_DHT11 = [];
+  List<double> Temperatura_DHT11 = [];
+  List<double> Temperatura_BMP180 = [];
+  List<double> Pressao_BMP180 = [];
+  List<double> Altitude_BMP180 = [];
   List<double> CO_MICS = [];
   List<double> NO2_MICS = [];
   List<double> NH3_MICS = [];

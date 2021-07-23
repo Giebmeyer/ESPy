@@ -5,18 +5,20 @@
     $return["mensagemEmpresa"] = "";
     $return["sucessoEmpresa"] = false;
 
-        $email_user = mysqli_real_escape_string ($conexao,$_POST['emailUsuario']);
+        $codigoEmpresa = mysqli_real_escape_string ($conexao,$_POST['codigoEmpresa']);
 
-		$query = "select e.* from empresa e JOIN usuarios u on e.email_ceo = '$email_user' LIMIT 1;";	 
+		$query = "SELECT * FROM empresa WHERE codigo = '$codigoEmpresa';";	 
 
 	    $rasultado = mysqli_query($conexao, $query);
 
-           $numrows = mysqli_num_rows($rasultado);
+        $numrows = mysqli_num_rows($rasultado);
+           
         if($numrows > 0){
            $obj = mysqli_fetch_object($rasultado);
             $return["errorEmpresa"] = false;
             $return["sucessoEmpresa"] = true;
             $return["codigo"] = (int) $obj->codigo;
+            $return["chaveConvite"] = (int) $obj ->chaveConvite;
             $return["nome"] = $obj->nome;
             $return["ceo"] = $obj->ceo;
             $return["email_ceo"] = $obj->email_ceo;
@@ -28,20 +30,14 @@
             $return["rua"] = $obj->rua;
             $return["numero"] = (int) $obj->numero;
             $return["complemento"] = $obj->complemento;
-        /* }else{
-            $return["sucessoEmpresa"] = false;
-            $return["errorEmpresa"] = true;
-            $return["mensagemEmpresa"] = "usuario não é CEO de empresa.";
-           } */
+            echo json_encode($return);
         }else{
             $return["sucessoEmpresa"] = false;
             $return["errorEmpresa"] = true;
             $return["mensagemEmpresa"] = "Não existe empresa.";
+            echo json_encode($return);
         }
 
   mysqli_close($conexao);
-
-
-  echo json_encode($return);
 
 	?>
