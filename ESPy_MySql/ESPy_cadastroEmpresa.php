@@ -42,39 +42,45 @@
 						$query4 = "INSERT INTO usuarios_empresa (`codigo_usuario`, `codigo_empresa`) VALUES ('$codigoUsuario', '$codigoEmpresa');";
 						$resultado4 = mysqli_query($conexao, $query4);
 
+
 						if($resultado4 > 0){
 							$return["mensagemCadastroEmpresa"] = 'Sucesso ao cadastrar a sua empresa!.';
 							$return["erroCadastroEmpresa"] = false;	
 							$return["sucessoCadastroEmpresa"] = true;
 
+
 						}else{
 							$return["mensagemCadastroEmpresa"] = 'Erro ao inserir usuario_empresa.';
 							$return["erroCadastroEmpresa"] = true;
+
 
 						}
 					}else{
 						$return["mensagemCadastroEmpresa"] = 'Email nao é ceo.';
 						$return["erroCadastroEmpresa"] = true;
 
+
 					}
 				}else{
 					$return["erroCadastroEmpresa"] = true;
 					$return["mensagemCadastroEmpresa"] = 'Email nao cadastrado.';
+
 
 				}  
 			}else{
 				$return["erroCadastroEmpresa"] = true;
 				$return["mensagemCadastroEmpresa"] = 'Erro no update usuario_chefe.';
 
+
 			}
 		}else{
 			$return["erroCadastroEmpresa"] = true;
 			$return["mensagemCadastroEmpresa"] = 'Erro ao cadastrar empresa.';
 
+
 		}
 
 		mysqli_close($conexao);
-	  
-		echo json_encode($return);
+		echo json_encode($return);	  
 
 	    ?>

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:http/http.dart' as http;
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
@@ -20,13 +21,14 @@ class _recoverPassPageState extends State<recoverPassPage> {
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_coletaDadosUsuario.php'),
       body: {
-        "email": email1,
+        "email": _email.toString(),
       },
     );
+    var jsondata = json.decode(response.body);
 
     if (response.statusCode == 200) {
-      var jsondata = json.decode(response.body);
-
+      msgErro = jsondata["mensagemColetaUser"];
+      showCaixaDialogoSimples(context, msgErro, true);
       user.codigo = jsondata['codigo'];
       user.nome = jsondata['nome'];
       user.senha = jsondata['senha'];
@@ -44,7 +46,8 @@ class _recoverPassPageState extends State<recoverPassPage> {
       setState(() {
         showProgress = false;
         erro = true;
-        msgErro = "Erro na conexão com o servidor.";
+        msgErro = jsondata["mensagemColetaUser"];
+        showCaixaDialogoSimples(context, msgErro, false);
       });
     }
   }
@@ -60,7 +63,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
 
 //==============================================================================
 
-  var email1;
+  var _email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +80,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
 //==============================================================================
               TextField(
                   onChanged: (email) {
-                    email1 = email;
+                    email = email;
                   },
                   decoration: InputDecoration(
                       labelText: 'Email',
@@ -88,8 +91,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
               FlatButton(
                 onPressed: () {
                   _ColetaDadosUsuario();
-                  print(email1);
-                  sendEmail(email1);
+                  sendEmail(_email);
                 },
                 child: const Text('Recuperar'),
                 shape: RoundedRectangleBorder(

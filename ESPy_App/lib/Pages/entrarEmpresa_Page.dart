@@ -43,7 +43,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
           showProgress = false;
           erroEmpresa = true;
           msgErro = jsondata["mensagemEntrarEmpresa"];
-          showCaixaDialogoSimples(context, msgErro);
+          showCaixaDialogoSimples(context, msgErro, false);
         });
       } else {
         if (jsondata["sucessoEntrarEmpresa"]) {
@@ -52,7 +52,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
             showProgress = true;
           });
           msgErro = jsondata["mensagemEntrarEmpresa"];
-          showCaixaDialogoSimples(context, msgErro);
+          showCaixaDialogoSimples(context, msgErro, true);
         } else {
           showProgress = false;
           erroEmpresa = true;
@@ -65,7 +65,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
         showProgress = false;
         erroEmpresa = true;
         msgErro = "Erro na conexão com o servidor.";
-        showCaixaDialogoSimples(context, msgErro);
+        showCaixaDialogoSimples(context, msgErro, false);
       });
     }
   }

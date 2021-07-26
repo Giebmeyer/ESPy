@@ -5,18 +5,18 @@
     $return["mensagemEmpresa"] = "";
     $return["sucessoEmpresa"] = false;
 
-        $codigoEmpresa = mysqli_real_escape_string ($conexao,$_POST['codigoEmpresa']);
+        $codigoUsuario = mysqli_real_escape_string ($conexao,$_POST['codigoUsuario']);
 
-		$query = "SELECT * FROM empresa WHERE codigo = '$codigoEmpresa';";	 
+		$query = "SELECT e.* FROM empresa e JOIN usuarios_empresa ue ON ue.codigo_empresa = e.codigo WHERE ue.codigo_usuario = '$codigoUsuario'";	 
 
-	    $rasultado = mysqli_query($conexao, $query);
+	    $resultado = mysqli_query($conexao, $query);
 
-        $numrows = mysqli_num_rows($rasultado);
-           
+        $numrows = mysqli_num_rows($resultado);
+        $obj = mysqli_fetch_object($resultado);          
         if($numrows > 0){
-           $obj = mysqli_fetch_object($rasultado);
             $return["errorEmpresa"] = false;
             $return["sucessoEmpresa"] = true;
+            $return["mensagemEmpresa"] = "Empresa encontrada.";
             $return["codigo"] = (int) $obj->codigo;
             $return["chaveConvite"] = (int) $obj ->chaveConvite;
             $return["nome"] = $obj->nome;
@@ -30,14 +30,12 @@
             $return["rua"] = $obj->rua;
             $return["numero"] = (int) $obj->numero;
             $return["complemento"] = $obj->complemento;
-            echo json_encode($return);
         }else{
-            $return["sucessoEmpresa"] = false;
-            $return["errorEmpresa"] = true;
-            $return["mensagemEmpresa"] = "Não existe empresa.";
-            echo json_encode($return);
+            $return["sucessoEmpresa"] = 'false';
+            $return["errorEmpresa"] = 'true';
+            $return["mensagemEmpresa"] = "Nao existe empresa com esse codigo.";
         }
-
-  mysqli_close($conexao);
+    echo json_encode($return);
+    mysqli_close($conexao);
 
 	?>

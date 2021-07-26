@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:ESPy/Classes/empresa.dart';
-import 'package:ESPy/Classes/sensores.dart';
+
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 import 'home_Page.dart';
 import 'package:http/http.dart' as http;
 
-bool possuiEmpresa = false;
+bool possuiEmpresa;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,6 +26,7 @@ class _loginPageState extends State<LoginPage> {
 
 //==============================================================================
   String msgErro = '';
+  int x;
   bool erro, showProgress;
 
 //==============================================================================
@@ -40,28 +41,26 @@ class _loginPageState extends State<LoginPage> {
 //==============================================================================
   bool erroEmpresa, erroRequestSensores, jaCarregouDados;
 
+//==============================================================================
   void _coletaDadosEmpresa() async {
     final response = await http.post(
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_coletaDadosEmpresa.php'),
-      body: {"emailUsuario": user.email},
+      body: {"codigoUsuario": user.codigo},
     );
+
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
+
       if (jsondata["errorEmpresa"]) {
         setState(() {
           showProgress = false;
           erroEmpresa = true;
           msgErro = jsondata["messagemEmpresa"];
-          showCaixaDialogoSimples(context, msgErro);
+          showCaixaDialogoSimples(context, msgErro, false);
         });
       } else {
         if (jsondata["sucessoEmpresa"]) {
-          setState(() {
-            possuiEmpresa = true;
-            erroEmpresa = false;
-            showProgress = true;
-          });
           emp.codigo = jsondata['codigo'];
           emp.chaveConvite = jsondata['chaveConvite'];
           emp.nome = jsondata['nome'];
@@ -75,13 +74,18 @@ class _loginPageState extends State<LoginPage> {
           emp.rua = jsondata['rua'];
           emp.numero = jsondata['numero'];
           emp.complemento = jsondata['complemento'];
+          setState(() {
+            possuiEmpresa = true;
+            erroEmpresa = false;
+            showProgress = true;
+          });
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => HomePage()));
         } else {
           showProgress = false;
           erroEmpresa = true;
           msgErro = "Algo deu errado.";
-          print(msgErro);
+          showCaixaDialogoSimples(context, msgErro, false);
         }
       }
     } else {
@@ -89,13 +93,13 @@ class _loginPageState extends State<LoginPage> {
         showProgress = false;
         erroEmpresa = true;
         msgErro = "Erro na conexão com o servidor.";
-        showCaixaDialogoSimples(context, msgErro);
+        showCaixaDialogoSimples(context, msgErro, false);
       });
     }
   }
 
-  void coletaDadosSensores() async {
-    final response = await http.post(
+//==============================================================================
+/*     final response = await http.post(
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_requestSensores.php'),
       body: {"codigoEmpresa": emp.codigo},
@@ -136,7 +140,8 @@ class _loginPageState extends State<LoginPage> {
         showCaixaDialogoSimples(context, msgErro);
       });
     }
-  }
+  } */
+//==============================================================================
 
   _login() async {
     final response = await http.post(
@@ -154,7 +159,7 @@ class _loginPageState extends State<LoginPage> {
           showProgress = false;
           erro = true;
           msgErro = jsondata["mensagemLogin"];
-          showCaixaDialogoSimples(context, msgErro);
+          showCaixaDialogoSimples(context, msgErro, false);
         });
       } else {
         if (jsondata["sucessoLogin"]) {
@@ -190,12 +195,12 @@ class _loginPageState extends State<LoginPage> {
             erro = true;
           });
           msgErro = jsondata["errorLogin"];
-          showCaixaDialogoSimples(context, msgErro);
+          showCaixaDialogoSimples(context, msgErro, false);
         }
       }
     } else {
       msgErro = 'Erro ao conectaro no servidor';
-      showCaixaDialogoSimples(context, msgErro);
+      showCaixaDialogoSimples(context, msgErro, false);
       setState(() {
         showProgress = false;
         erro = true;
@@ -260,7 +265,7 @@ class _loginPageState extends State<LoginPage> {
 //==============================================================================
                 Align(
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.20,
+                    width: MediaQuery.of(context).size.width * 0.30,
                     child: FlatButton(
                       onPressed: () {
                         setState(() {

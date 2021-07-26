@@ -31,8 +31,8 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
   final maskCNPJ = MaskTextInputFormatter(
       mask: "##.###.###/####-##", filter: {"#": RegExp(r'[0-9]')});
 
-  _cadastroEmpresa() async {
-    final response = await http.post(
+  void _cadastroEmpresa() async {
+    var response = await http.post(
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_cadastroEmpresa.php'),
       body: {
@@ -53,15 +53,23 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
 
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
+      setState(() {
+        showProgress = false;
+        sucesso = false;
+      });
+
       if (jsondata["erroCadastroEmpresa"]) {
         msgErro = jsondata["mensagemCadastroEmpresa"];
         showProgress = false;
-        showCaixaDialogoSimples(context, msgErro);
+        showCaixaDialogoSimples(context, msgErro, false);
       } else if (jsondata["sucessoCadastroEmpresa"]) {
-        showProgress = false;
-        sucesso = true;
-        msgErro = "Sua empresa foi cadastrada com sucesso!\nSera necessário entrar novamente no sistema para receber suas permissões adicionais.";
-        showCaixaDialogoSimples(context, msgErro);
+        setState(() {
+          showProgress = false;
+          sucesso = true;
+        });
+        msgErro =
+            "Sua empresa foi cadastrada com sucesso!\nSera necessário entrar novamente no sistema para receber suas permissões adicionais.";
+        showCaixaDialogoSimples(context, msgErro, true);
       }
     }
   }
@@ -106,6 +114,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             TextField(
               inputFormatters: [maskCNPJ],
               controller: _cpf_cnpj,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   labelText: 'CPF/CNPJ',
                   border: OutlineInputBorder(
@@ -115,6 +124,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
 //==============================================================================
             TextField(
               controller: _telefone,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   labelText: 'Telefone',
                   border: OutlineInputBorder(
@@ -166,12 +176,12 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
 //==============================================================================
             TextField(
               controller: _numero,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   labelText: 'Número',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0))),
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              keyboardType: TextInputType.number,
             ),
             SizedBox(height: 20),
 //==============================================================================
@@ -183,19 +193,24 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
                         borderRadius: BorderRadius.circular(15.0)))),
             SizedBox(height: 20),
 //==============================================================================
-            FlatButton(
-              onPressed: () {
-                setState(() {
-                  showProgress = true;
-                });
-                _cadastroEmpresa();
-              },
-              child: ApresentaProgresso(),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                  side: BorderSide(color: Palette.purple)),
+            Align(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.30,
+                child: FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      showProgress = true;
+                    });
+                    _cadastroEmpresa();
+                  },
+                  child: ApresentaProgresso(),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(color: Palette.purple)),
+                ),
+              ),
             ),
-            SizedBox(height: 50),
+            SizedBox(height: 10),
 //==============================================================================
           ]),
         )));
@@ -215,29 +230,5 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             "Enviar",
             style: TextStyle(color: Palette.purple),
           );
-  }
-
-  showAlertDialog1(BuildContext context, String msgErro) {
-    // configura o button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        return null;
-      },
-    );
-    // configura o  AlertDialog
-    AlertDialog alerta = AlertDialog(
-      title: Text(msgErro),
-      actions: [
-        okButton,
-      ],
-    );
-    // exibe o dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alerta;
-      },
-    );
   }
 }

@@ -5,7 +5,7 @@
     $return["mensagemColetaUser"] = "";
     $return["sucessoColetaUser"] = false;
 
-	    $email  = 'giebmeyerthiago@gmail.com'; /* mysqli_real_escape_string ($conexao,$_POST['email']);  */
+	    $email  = mysqli_real_escape_string ($conexao,$_POST['email']);
 
 		$query = "SELECT * FROM usuarios WHERE email = '$email';";
 

@@ -5,6 +5,7 @@ import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Pages/login_Page.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -67,15 +68,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
         setState(() {
           erroCadastro = false;
           msgErro = jsondata["mensagemCadastroUser"];
-          showCaixaDialogoSimples(context, msgErro);
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => LoginPage()));
-        });
-      } else {
-        setState(() {
-          erroCadastro = false;
-          msgErro = jsondata["mensagemCadastroUser"];
-          showCaixaDialogoSimples(context, msgErro);
+          showCaixaDialogoSimples(context, msgErro, true);
         });
       }
     }
@@ -108,6 +101,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
 //==============================================================================
                 TextField(
                     controller: email,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         labelText: 'Email',
                         border: OutlineInputBorder(
@@ -152,6 +146,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
                 TextField(
                     inputFormatters: [maskCpf],
                     controller: cpf,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         labelText: 'CPF',
                         border: OutlineInputBorder(
@@ -160,6 +155,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
 //==============================================================================
                 TextField(
                     controller: telefone,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         labelText: 'Telefone',
                         border: OutlineInputBorder(
@@ -211,6 +207,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
 //==============================================================================
                 TextField(
                     controller: numero,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         labelText: 'Número',
                         border: OutlineInputBorder(
@@ -227,7 +224,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
 //==============================================================================
                 Align(
                   child: Container(
-                    width: 200,
+                    width: MediaQuery.of(context).size.width * 0.30,
                     child: FlatButton(
                       onPressed: _cadastraUsuario,
                       child: const Text('Enviar'),

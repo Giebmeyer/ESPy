@@ -2,6 +2,7 @@ import 'package:ESPy/Bluetooth/bluetoohPage.dart';
 import 'package:ESPy/Bluetooth/chatPage.dart';
 import 'package:ESPy/Pages/configSensor_Page.dart';
 import 'package:ESPy/Pages/dashBoard_Page.dart';
+import 'package:ESPy/Pages/login_Page.dart';
 import 'package:ESPy/Pages/minhaEmpresa_Page.dart';
 import 'package:flutter/material.dart';
 
@@ -355,7 +356,7 @@ class _dropDownTempoColetaState extends State<dropDownTempoColeta> {
   }
 }
 
-showCaixaDialogoSimples(BuildContext context, String msg) {
+showCaixaDialogoSimples(BuildContext context, String msg, bool funcBotao) {
   // configura o button
   Widget okButton = FlatButton(
     child: Text(
@@ -363,7 +364,12 @@ showCaixaDialogoSimples(BuildContext context, String msg) {
       textAlign: TextAlign.center,
     ),
     onPressed: () {
-      Navigator.of(context).pop();
+      if (funcBotao == false) {
+        Navigator.of(context).pop();
+      } else {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => LoginPage()));
+      }
     },
   );
   // configura o  AlertDialog

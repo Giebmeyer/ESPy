@@ -1,12 +1,9 @@
+import 'dart:convert';
+import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:flutter/material.dart';
-import 'package:mysql1/mysql1.dart';
-import 'package:fl_chart/fl_chart.dart';
-
-Results quantidadeResultados;
-var DHT11_Temperatura = [];
-var data = [0.0, 0.1, 0.2, 0.3, 0.4];
+import 'package:http/http.dart' as http;
 
 class dashBoard extends StatefulWidget {
   @override
@@ -15,52 +12,55 @@ class dashBoard extends StatefulWidget {
 
 class _dashBoardState extends State<dashBoard> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Material(
-        child: Scaffold(
+    Future coletaDadosSensores() async {
+      var response = await http.post(
+        Uri.parse(
+            'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_requestSensores.php'),
+        body: {"codigoEmpresa": emp.codigo.toString()},
+      );
+
+      var jsondata = json.decode(response.body);
+    }
+
+    return Scaffold(
       appBar: AppBar(
         title: Text('Painel de controle'),
         centerTitle: true,
       ),
-      body: ListView(
-        children: [
-          new Container(
-            height: 300,
-            padding: EdgeInsets.all(20),
-            child: Card(
-              child: Padding(
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return Card(
+            child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      "Sensor DHT11: Temperatura",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                        /*child:  LineChart(
-                        LineChartData(
-                            borderData: FlBorderData(show: false),
-                            lineBarsData: [
-                              LineChartBarData(spots: [
-                                FlSpot(data[1], 1),
-                                FlSpot(data[2], 2),
-                                FlSpot(data[3], 3),
-                              ])
-                            ]),
-                      ), */
-                        )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
+                child: FutureBuilder(
+                  future: coletaDadosSensores(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) print(snapshot.error);
+                    return snapshot.hasData
+                        ? ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              List list = snapshot.data;
+                              return ListTile(
+                                title: Text(list[index]['sequencia']),
+                              );
+                            })
+                        : Center(
+                            child: CircularProgressIndicator(),
+                          );
+                  },
+                )),
+          );
+        },
       ),
       bottomNavigationBar: barraDeNavegacaoInferior_Retorno(),
-    ));
+    );
   }
 
 //==============================================================================]
