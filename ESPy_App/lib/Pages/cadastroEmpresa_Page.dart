@@ -31,6 +31,9 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
   final maskCNPJ = MaskTextInputFormatter(
       mask: "##.###.###/####-##", filter: {"#": RegExp(r'[0-9]')});
 
+  final maskCell = MaskTextInputFormatter(
+      mask: "(##) # ####-####", filter: {"#": RegExp(r'[0-9]')});
+
   void _cadastroEmpresa() async {
     var response = await http.post(
       Uri.parse(
@@ -123,6 +126,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             SizedBox(height: 10),
 //==============================================================================
             TextField(
+              inputFormatters: [maskCell],
               controller: _telefone,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -197,6 +201,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.30,
                 child: FlatButton(
+                  focusColor: Palette.purple.shade50,
                   onPressed: () {
                     setState(() {
                       showProgress = true;

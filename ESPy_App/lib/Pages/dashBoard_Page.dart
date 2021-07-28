@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:ESPy/Classes/empresa.dart';
+import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:flutter/material.dart';
@@ -11,58 +11,42 @@ class dashBoard extends StatefulWidget {
 }
 
 class _dashBoardState extends State<dashBoard> {
+  List _dados = [1, 2, 3, 4, 5];
+
+  void coletaDadosSensores() async {
+    print('sensor.sequencia');
+    var response = await http.post(
+      Uri.parse(
+          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_requestSensores.php'),
+      body: {"codigoEmpresa": '1'},
+    );
+
+    /* var _dados = json.decode(response.body); */
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+
+/*       sensor.sequencia = jsondata['sequencia'];
+      sensor.Umidade_DHT11 = jsondata['Umidade_DHT11'];
+      sensor.Temperatura_DHT11 = jsondata['Temperatura_DHT11'];
+      sensor.Temperatura_BMP180 = jsondata['Temperatura_BMP180'];
+      sensor.Pressao_BMP180 = jsondata['Pressao_BMP180'];
+      sensor.Altitude_BMP180 = jsondata['Altitude_BMP180'];
+      sensor.CO_MICS = jsondata['CO_MICS'];
+      sensor.NO2_MICS = jsondata['NO2_MICS'];
+      sensor.NH3_MICS = jsondata['NH3_MICS']; */
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    coletaDadosSensores();
   }
 
   @override
   Widget build(BuildContext context) {
-    Future coletaDadosSensores() async {
-      var response = await http.post(
-        Uri.parse(
-            'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_requestSensores.php'),
-        body: {"codigoEmpresa": emp.codigo.toString()},
-      );
-
-      var jsondata = json.decode(response.body);
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Painel de controle'),
-        centerTitle: true,
-      ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          return Card(
-            child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FutureBuilder(
-                  future: coletaDadosSensores(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) print(snapshot.error);
-                    return snapshot.hasData
-                        ? ListView.builder(
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (context, index) {
-                              List list = snapshot.data;
-                              return ListTile(
-                                title: Text(list[index]['sequencia']),
-                              );
-                            })
-                        : Center(
-                            child: CircularProgressIndicator(),
-                          );
-                  },
-                )),
-          );
-        },
-      ),
-      bottomNavigationBar: barraDeNavegacaoInferior_Retorno(),
-    );
+    return Container();
   }
+}
 
 //==============================================================================]
-
-}

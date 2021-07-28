@@ -45,7 +45,7 @@
        }else{
            $return["errorLogin"] = true;
            $return["sucessoLogin"] = false;
-           $return["mensagemLogin"] = 'Email nao cadastrado.';
+           $return["mensagemLogin"] = 'Email não cadastrado.';
            echo json_encode($return);
        }
        

@@ -5,9 +5,9 @@
     $return["mensagemColetaUser"] = "";
     $return["sucessoColetaUser"] = false;
 
-	    $email  = mysqli_real_escape_string ($conexao,$_POST['email']);
+	    $email  = 'lumes_001@hotmail.com'/* mysqli_real_escape_string ($conexao,$_POST['email']) */;
 
-		$query = "SELECT * FROM usuarios WHERE email = '$email';";
+		$query = "SELECT * FROM usuarios WHERE email = '$email'";
 
 	    $resultado = mysqli_query($conexao, $query);
         $numrows = mysqli_num_rows($resultado);
@@ -39,9 +39,8 @@
 					$return["mensagemColetaUser"] = 'Email nao cadastrado.';
 
 				}  
-                mysqli_close($conexao);
 
-              
+                mysqli_close($conexao);
                 echo json_encode($return);
 
 	    ?>

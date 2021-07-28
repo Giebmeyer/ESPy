@@ -33,8 +33,9 @@
 
 			if($resultado2 > 0){
 				$resultado3 = mysqli_query($conexao, $query3);
+				$numrows = mysqli_num_rows($resultado3);
 
-				if($resultado3>0){
+				if($numrows>0){
 					$obj = mysqli_fetch_object($resultado3);
 					 
 					if($email_ceo == $obj->email_ceo){

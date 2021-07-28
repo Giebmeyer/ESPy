@@ -13,7 +13,6 @@ class empresa {
   int numero = 0;
   String complemento = '';
   List<dynamic> dadosEmpresa = [];
-  var qtdDadosBD = 1;
 
   empresa(
       {this.codigo,
@@ -29,6 +28,39 @@ class empresa {
       this.rua,
       this.numero,
       this.complemento});
+
+  factory empresa.fromJson(Map<String, dynamic> json) {
+    return empresa(
+      codigo: json['codigo'],
+      chaveConvite: json['chaveConvite'],
+      nome: json['nome'],
+      CEO: json['ceo'],
+      email_ceo: json['email_ceo'],
+      telefone: json['telefone'],
+      cnpj: json['cnpj'],
+      estado: json['estado'],
+      cidade: json['cidade'],
+      bairro: json['bairro'],
+      rua: json['rua'],
+      numero: json['numero'],
+      complemento: json['complemento'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'codigo': codigo,
+        'chaveConvite': nome,
+        'nome': nome,
+        'ceo': CEO,
+        'email_ceo': email_ceo,
+        'telefone': telefone,
+        'cnpj': cnpj,
+        'estado': estado,
+        'cidade': cidade,
+        'rua': rua,
+        'numero': numero,
+        'complemento': complemento,
+      };
 }
 
 empresa emp = new empresa();

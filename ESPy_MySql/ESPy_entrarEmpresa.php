@@ -1,12 +1,8 @@
 <?php 
 	include "ESPy_mySqlConfig.php";
 
-	$return["erroEntrarEmpresa"] = false;
-	$return["mensagemEntrarEmpresa"] = "";
-	$return["sucessoEntrarEmpresa"] = false;	
-
-	    $chaveConviteUser  =  mysqli_real_escape_string ($conexao,$_POST['chaveConvite']);
-	    $codigoUsuario  =  mysqli_real_escape_string ($conexao,$_POST['codigoUsuario']);
+	    $chaveConviteUser  = mysqli_real_escape_string ($conexao,$_POST['chaveConvite']);
+	    $codigoUsuario  = mysqli_real_escape_string ($conexao,$_POST['codigoUsuario']);
 
 		$query = "SELECT * FROM empresa WHERE chaveConvite = '$chaveConviteUser';";	 
 	    $resultado = mysqli_query($conexao, $query);
@@ -19,6 +15,7 @@
             $codigoEmp = $obj->codigo;
             $return["chaveConvite"] = (int) $obj ->chaveConvite;
             $return["nome"] = $obj->nome;
+            $nomeEmp = $obj->nome;
             $return["ceo"] = $obj->ceo;
             $return["email_ceo"] = $obj->email_ceo;
             $return["telefone"] = (int) $obj->telefone;
@@ -32,37 +29,39 @@
 
             $query2 = "INSERT INTO usuarios_empresa (`codigo_usuario`, `codigo_empresa`) VALUES ('$codigoUsuario', '$codigoEmp');";
             $resultado2 = mysqli_query($conexao, $query2); 
+
             if($resultado2 > 0){
                 $query3 = "UPDATE usuarios SET usuario_empregado = 1 WHERE codigo = '$codigoUsuario';"; 
                 $resultado3 = mysqli_query($conexao, $query3); 
-                if($resultado > 0){
-                $return["sucessoEntrarEmpresa"] = true;
-                $return["erroEntrarEmpresa"] = false;
-                $return["mensagemEntrarEmpresa"] = "Bem-vindo a empresa $obj->nome!";
-                echo json_encode($return);
-            }else{
-                $return["sucessoEntrarEmpresa"] = false;
-                $return["erroEntrarEmpresa"] = true;
-                $return["mensagemEntrarEmpresa"] = "Ocorreu um erro ao inserir você na empresa...";
-                echo json_encode($return);  
-            }
+
+                if($resultado3 > 0){
+                    $return["sucessoEntrarEmpresa"] = true;
+                    $return["erroEntrarEmpresa"] = false;
+                    $return["mensagemEntrarEmpresa"] = "Seja bem-vindo a equipe $nomeEmp!";
+
+                }else{
+                    $return["sucessoEntrarEmpresa"] = false;
+                    $return["erroEntrarEmpresa"] = true;
+                    $return["mensagemEntrarEmpresa"] = "Ocorreu um erro ao inserir o código '$codigoUsuario' no grupo de empregados...";
+
+                }
         
             }else{
                 $return["sucessoEntrarEmpresa"] = false;
                 $return["erroEntrarEmpresa"] = true;
                 $return["mensagemEntrarEmpresa"] = "Ocorreu um erro ao inserir você na empresa...";
-                echo json_encode($return);
+
             }
-
-
 			
 		}else{
 			
             $return["sucessoEntrarEmpresa"] = false;
 			$return["erroEntrarEmpresa"] = true;
-			$return["mensagemEntrarEmpresa"] = "Código não pertence a nenhuma empresa.";
-            echo json_encode($return);
+			$return["mensagemEntrarEmpresa"] = "Código inválido.";
+            
 		}
 
+
 		mysqli_close($conexao);
+        echo json_encode($return);
 	    ?>

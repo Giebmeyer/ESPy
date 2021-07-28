@@ -359,27 +359,29 @@ class _dropDownTempoColetaState extends State<dropDownTempoColeta> {
 showCaixaDialogoSimples(BuildContext context, String msg, bool funcBotao) {
   // configura o button
   Widget okButton = FlatButton(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        side: BorderSide(color: Palette.purple)),
     child: Text(
       "OK",
       textAlign: TextAlign.center,
     ),
     onPressed: () {
-      if (funcBotao == false) {
-        Navigator.of(context).pop();
-      } else {
+      if (funcBotao == true) {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => LoginPage()));
+      } else {
+        Navigator.of(context).pop();
       }
     },
   );
-  // configura o  AlertDialog
+
   AlertDialog alerta = AlertDialog(
     title: Text(msg),
     actions: [
       okButton,
     ],
   );
-  // exibe o dialog
   showDialog(
     context: context,
     builder: (BuildContext context) {

@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:ESPy/Classes/empresa.dart';
-import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appController.dart';
 import 'package:ESPy/Classes/palette.dart';

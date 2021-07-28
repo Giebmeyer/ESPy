@@ -29,7 +29,7 @@ class _ChatPage extends State<ChatPage> {
   String _rede = '';
   String _senha = '';
   String _RedeSenha = '';
-  String _codigoEmpresa = '1';
+  String _codigoEmpresa = emp.codigo.toString();
   String _mensagemFinal = '';
   static final clientID = 0;
   var connection; //BluetoothConnection

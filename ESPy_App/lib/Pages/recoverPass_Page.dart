@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../Funcoes/sendEmail.dart';
 
 class recoverPassPage extends StatefulWidget {
+  var emailEspy = Email('ESPy.EnviaEmail@gmail.com', '@EspySendEmail');
   @override
   _recoverPassPageState createState() => _recoverPassPageState();
 }
@@ -21,7 +22,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_coletaDadosUsuario.php'),
       body: {
-        "email": _email.toString(),
+        "email": 'giebmeyerthiago@gmail.com',
       },
     );
     var jsondata = json.decode(response.body);
@@ -63,7 +64,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
 
 //==============================================================================
 
-  var _email;
+  String _email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +90,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
                   keyboardType: TextInputType.emailAddress),
               SizedBox(height: 10.0),
               FlatButton(
+                focusColor: Palette.purple.shade50,
                 onPressed: () {
                   _ColetaDadosUsuario();
                   sendEmail(_email);

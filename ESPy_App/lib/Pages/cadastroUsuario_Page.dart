@@ -39,6 +39,9 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
   final maskCpf = MaskTextInputFormatter(
       mask: "###.###.###-##", filter: {"#": RegExp(r'[0-9]')});
 
+  final maskCell = MaskTextInputFormatter(
+      mask: "(##) # ####-####", filter: {"#": RegExp(r'[0-9]')});
+
 //==============================================================================
   String msgErro = '';
   bool erroCadastro, showProgress;
@@ -154,6 +157,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
                 SizedBox(height: 10),
 //==============================================================================
                 TextField(
+                    inputFormatters: [maskCell],
                     controller: telefone,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -226,6 +230,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.30,
                     child: FlatButton(
+                      focusColor: Palette.purple.shade50,
                       onPressed: _cadastraUsuario,
                       child: const Text('Enviar'),
                       shape: RoundedRectangleBorder(

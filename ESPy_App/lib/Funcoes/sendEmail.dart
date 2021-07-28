@@ -2,7 +2,6 @@ import 'package:ESPy/Classes/usuario.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 String _username;
 var smtpServer;
@@ -14,7 +13,7 @@ Email(String username, String password) {
 //Envia um email para o destinatário, contendo a mensagem com o nome do sorteado
 Future<bool> sendMessage(
     String mensagem, String destinatario, String assunto) async {
-  abrirEmail();
+  /* abrirEmail(); */
   //Configurar a mensagem
   final message = Message()
     ..from = Address(_username, 'ESPy')
@@ -43,27 +42,24 @@ void sendEmail(String email) async {
   var dataFomatada =
       DateFormat(" d / MM / y 'as' hh:mm:ss", "pt_BR").format(momento);
 
-  var senha = user.senha;
-  var nome = user.nome;
-  var destinatario = 'giebmeyerthiago@gmail.com';
+  print(dataFomatada);
 
   String _assunto = 'ESPy - Email de recuperação de senha.';
-  String _mensagem = 'X';
-  /* 'Olá, ' +
-      '$nome' +
+  String _mensagem = 'Olá, ' +
+      user.nome +
       '\nRecebemos uma solicitação para restaurar sua senha de acesso em nosso site.\nEla ocorreu em ' +
       '$dataFomatada' +
       '\nSua senha é: ' +
-      '$senha'; */
+      user.senha;
 
-  bool result = await sendMessage(_mensagem, destinatario, _assunto);
+  bool result = await sendMessage(_mensagem, email, _assunto);
 }
 
-abrirEmail() async {
-  const url = 'https://www.gmail.com';
+/* abrirEmail() async {
+  const url = 'https://gmail.com/';
   if (await canLaunch(url)) {
     await launch(url);
   } else {
     throw 'Não foi possivel abrir: $url';
   }
-}
+} */

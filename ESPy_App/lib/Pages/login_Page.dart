@@ -26,7 +26,6 @@ class _loginPageState extends State<LoginPage> {
 
 //==============================================================================
   String msgErro = '';
-  int x;
   bool erro, showProgress;
 
 //==============================================================================
@@ -46,7 +45,7 @@ class _loginPageState extends State<LoginPage> {
     final response = await http.post(
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_coletaDadosEmpresa.php'),
-      body: {"codigoUsuario": user.codigo},
+      body: {"codigoUsuario": user.codigo.toString()},
     );
 
     if (response.statusCode == 200) {
@@ -282,6 +281,7 @@ class _loginPageState extends State<LoginPage> {
                 ),
 //==============================================================================
                 FlatButton(
+                  focusColor: Palette.purple.shade50,
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => CadastroUserPage()));
