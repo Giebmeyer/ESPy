@@ -33,7 +33,7 @@
         }else{
             $return["sucessoEmpresa"] = 'false';
             $return["errorEmpresa"] = 'true';
-            $return["mensagemEmpresa"] = "Nao existe empresa com esse codigo.";
+            $return["mensagemEmpresa"] = "Nao existe empresa para esse codigo de usuário.";
         }
     echo json_encode($return);
     mysqli_close($conexao);

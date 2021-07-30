@@ -1,5 +1,5 @@
 import 'package:ESPy/Classes/palette.dart';
-import 'package:ESPy/Classes/usuario.dart';
+import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:flutter/material.dart';
 
 class dadosEmpresaPage extends StatefulWidget {
@@ -15,7 +15,6 @@ class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
         title: Text(""),
         centerTitle: true,
       ),
-      floatingActionButton: botaoEditarEmpresa(),
     );
   }
 

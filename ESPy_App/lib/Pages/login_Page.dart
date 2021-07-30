@@ -5,6 +5,7 @@ import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Pages/cadastroUsuario_Page.dart';
+import 'package:ESPy/Pages/inicial_Page.dart';
 import 'package:ESPy/Pages/recoverPass_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -79,7 +80,7 @@ class _loginPageState extends State<LoginPage> {
             showProgress = true;
           });
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomePage()));
+              MaterialPageRoute(builder: (context) => inicialPage()));
         } else {
           showProgress = false;
           erroEmpresa = true;
@@ -97,49 +98,6 @@ class _loginPageState extends State<LoginPage> {
     }
   }
 
-//==============================================================================
-/*     final response = await http.post(
-      Uri.parse(
-          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_requestSensores.php'),
-      body: {"codigoEmpresa": emp.codigo},
-    );
-    if (response.statusCode == 200) {
-      var jsondata = json.decode(response.body);
-      if (jsondata["erroRequestSensores"]) {
-        setState(() {
-          erroEmpresa = true;
-          msgErro = jsondata["mensagemRequestSensores"];
-        });
-      } else {
-        if (jsondata["sucessoRequestSensores"]) {
-          setState(() {
-            erroEmpresa = false;
-          });
-          sensor.sequencia = jsondata['sequencia'];
-          sensor.Umidade_DHT11 = jsondata['Umidade_DHT11'];
-          sensor.Temperatura_DHT11 = jsondata['Temperatura_DHT11'];
-          sensor.Temperatura_BMP180 = jsondata['Temperatura_BMP180'];
-          sensor.Pressao_BMP180 = jsondata['Pressao_BMP180'];
-          sensor.Altitude_BMP180 = jsondata['Altitude_BMP180'];
-          sensor.CO_MICS = jsondata['CO_MICS'];
-          sensor.NO2_MICS = jsondata['NO2_MICS'];
-          sensor.NH3_MICS = jsondata['NH3_MICS'];
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomePage()));
-        } else {
-          erroEmpresa = true;
-          msgErro = "Algo deu errado.";
-          showCaixaDialogoSimples(context, msgErro);
-        }
-      }
-    } else {
-      setState(() {
-        erroEmpresa = true;
-        msgErro = "Erro na conexão com o servidor.";
-        showCaixaDialogoSimples(context, msgErro);
-      });
-    }
-  } */
 //==============================================================================
 
   _login() async {
@@ -186,7 +144,7 @@ class _loginPageState extends State<LoginPage> {
           } else {
             possuiEmpresa = false;
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => HomePage()));
+                MaterialPageRoute(builder: (context) => inicialPage()));
           }
         } else {
           setState(() {

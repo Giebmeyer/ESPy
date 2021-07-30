@@ -1,4 +1,6 @@
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/Pages/home_Page.dart';
+import 'package:ESPy/Pages/inicial_Page.dart';
 import 'package:flutter/cupertino.dart';
 
 class usuario {
@@ -67,16 +69,6 @@ class usuario {
         'usuario_chefe': usuario_chefe,
         'usuario_empregado': usuario_empregado
       };
-}
-
-Widget barraDeNavegacaoInferior_Retorno() {
-  if (user.usuario_chefe == 0 && user.usuario_empregado == 0) {
-    return barraDeNavegacaoInferior();
-  } else if (user.usuario_chefe == 0 && user.usuario_empregado == 1) {
-    return barraDeNavegacaoInferiorEmpregado();
-  } else {
-    return barraDeNavegacaoChefeInferior();
-  }
 }
 
 usuario user = new usuario();

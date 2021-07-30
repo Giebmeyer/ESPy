@@ -9,12 +9,12 @@ import 'home_Page.dart';
 import 'listaFuncionario_Page.dart';
 import 'login_Page.dart';
 
-class minhaEmpresaPage extends StatefulWidget {
+class EmpresaPage extends StatefulWidget {
   @override
-  _minhaEmpresaPgeState createState() => _minhaEmpresaPgeState();
+  _EmpresaPgeState createState() => _EmpresaPgeState();
 }
 
-class _minhaEmpresaPgeState extends State<minhaEmpresaPage> {
+class _EmpresaPgeState extends State<EmpresaPage> {
 //==============================================================================
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,6 @@ class _minhaEmpresaPgeState extends State<minhaEmpresaPage> {
         centerTitle: true,
       ),
       body: Empresa(),
-      bottomNavigationBar: barraDeNavegacaoInferior_Retorno(),
     );
   }
 

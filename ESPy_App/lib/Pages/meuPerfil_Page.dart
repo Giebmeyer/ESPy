@@ -1,5 +1,3 @@
-import 'package:ESPy/Classes/usuario.dart';
-import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:flutter/material.dart';
 
 class meuPerfil extends StatefulWidget {
@@ -17,7 +15,6 @@ class _meuPerfilState extends State<meuPerfil> {
         title: Text('Meu Perfil'),
         centerTitle: true,
       ),
-      bottomNavigationBar: barraDeNavegacaoInferior_Retorno(),
     );
   }
 }

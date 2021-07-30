@@ -39,10 +39,17 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
   }
 
   @override
+  void atualizarTela() {
+    setState(() {
+      this.coletaFuncionarios();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Funcionários"),
+        title: new Text("Integrantes"),
         centerTitle: true,
         actions: [botaoAtualizar()],
       ),
@@ -160,7 +167,7 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
       icon: Icon(Icons.restart_alt),
       onPressed: () {
         setState(() {
-          this.coletaFuncionarios();
+          atualizarTela();
         });
       },
     );

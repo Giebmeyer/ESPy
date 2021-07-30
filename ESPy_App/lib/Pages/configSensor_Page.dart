@@ -19,7 +19,6 @@ class _configSensorState extends State<configSensor> {
         /*  width: MediaQuery.of(context).size.width * 0.50, */
         child: dropDownTempoColeta(),
       ),
-      bottomNavigationBar: barraDeNavegacaoInferior_Retorno(),
     );
   }
 }

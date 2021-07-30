@@ -1,6 +1,6 @@
 import 'package:ESPy/Classes/usuario.dart';
-import 'package:ESPy/Funcoes/appController.dart';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: showBody(),
-      bottomNavigationBar: barraDeNavegacaoInferior_Retorno(),
     );
   }
 
@@ -73,8 +72,8 @@ class _HomePageState extends State<HomePage> {
             fontSize: 35.0,
             foreground: Paint()
               ..style = PaintingStyle.stroke
-              ..strokeWidth = 1
-              ..color = Palette.purple
+              ..strokeWidth = 2
+              ..color = Palette.purple.shade200
               ..invertColors = false),
         textAlign: TextAlign.center,
       ),

@@ -5,9 +5,9 @@ class sensores {
   double Temperatura_BMP180;
   double Pressao_BMP180;
   double Altitude_BMP180;
-  double CO_MICS;
-  double NO2_MICS;
-  double NH3_MICS;
+  double MICS_CO;
+  double MICS_NO2;
+  double MICS_NH3;
 
   sensores(
       {this.sequencia,
@@ -16,20 +16,21 @@ class sensores {
       this.Temperatura_BMP180,
       this.Pressao_BMP180,
       this.Altitude_BMP180,
-      this.CO_MICS,
-      this.NO2_MICS,
-      this.NH3_MICS});
+      this.MICS_CO,
+      this.MICS_NO2,
+      this.MICS_NH3});
 
-  sensores.fromJson(Map<double, dynamic> json) {
-    sequencia = json['sequencia'];
-    Umidade_DHT11 = json['Umidade_DHT11'];
-    Temperatura_DHT11 = json['Temperatura_DHT11'];
-    Temperatura_BMP180 = json['Temperatura_BMP180'];
-    Pressao_BMP180 = json['Pressao_BMP180'];
-    Altitude_BMP180 = json['Altitude_BMP180'];
-    CO_MICS = json['CO_MICS'];
-    NO2_MICS = json['NO2_MICS'];
-    NH3_MICS = json['NH3_MICS'];
+  factory sensores.fromJson(Map<String, dynamic> map) {
+    return sensores(
+        sequencia: int.parse(map["sequencia"]),
+        Umidade_DHT11: double.parse(map["Umidade_DHT11"]),
+        Temperatura_DHT11: double.parse(map["Temperatura_DHT11"]),
+        Temperatura_BMP180: double.parse(map["Temperatura_BMP180"]),
+        Pressao_BMP180: double.parse(map["Pressao_BMP180"]),
+        Altitude_BMP180: double.parse(map["Altitude_BMP180"]),
+        MICS_CO: double.parse(map["MICS_CO"]),
+        MICS_NO2: double.parse(map["MICS_NO2"]),
+        MICS_NH3: double.parse(map["MICS_NH3"]));
   }
 
   Map<String, dynamic> toJson() => {
@@ -39,9 +40,9 @@ class sensores {
         'Temperatura_BMP180': Temperatura_BMP180,
         'Pressao_BMP180': Pressao_BMP180,
         'Altitude_BMP180': Altitude_BMP180,
-        'CO_MICS': CO_MICS,
-        'NO2_MICS': NO2_MICS,
-        'NH3_MICS': NH3_MICS,
+        'CO_MICS': MICS_CO,
+        'NO2_MICS': MICS_NO2,
+        'NH3_MICS': MICS_NH3,
       };
 }
 

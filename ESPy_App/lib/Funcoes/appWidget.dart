@@ -3,201 +3,11 @@ import 'package:ESPy/Bluetooth/chatPage.dart';
 import 'package:ESPy/Pages/configSensor_Page.dart';
 import 'package:ESPy/Pages/dashBoard_Page.dart';
 import 'package:ESPy/Pages/login_Page.dart';
-import 'package:ESPy/Pages/minhaEmpresa_Page.dart';
+import 'package:ESPy/Pages/Empresa_Page.dart';
 import 'package:flutter/material.dart';
 
 import '../Pages/home_Page.dart';
 import '../Classes/palette.dart';
-
-class barraDeNavegacaoInferior extends StatefulWidget {
-  @override
-  _barraDeNavegacaoInferiorState createState() =>
-      _barraDeNavegacaoInferiorState();
-}
-
-class _barraDeNavegacaoInferiorState extends State<barraDeNavegacaoInferior> {
-  int _selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      type: BottomNavigationBarType.fixed,
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.business,
-              color: Palette.purple,
-            ),
-            title: Text('Minha Empresa')),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.workspaces_outline,
-              color: Palette.purple,
-            ),
-            title: Text('Principal')),
-      ],
-    );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    if (index == 0) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => minhaEmpresaPage()));
-    }
-    if (index == 1) {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-    }
-  }
-}
-
-class barraDeNavegacaoInferiorEmpregado extends StatefulWidget {
-  @override
-  _barraDeNavegacaoInferiorEmpregadoState createState() =>
-      _barraDeNavegacaoInferiorEmpregadoState();
-}
-
-class _barraDeNavegacaoInferiorEmpregadoState
-    extends State<barraDeNavegacaoInferiorEmpregado> {
-  int _selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    int _selectedIndex = 0;
-    return BottomNavigationBar(
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      type: BottomNavigationBarType.fixed,
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.business,
-              color: Palette.purple,
-            ),
-            title: Text('Minha Empresa')),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.workspaces_outline,
-              color: Palette.purple,
-            ),
-            title: Text('Principal')),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.dashboard,
-              color: Palette.purple,
-            ),
-            title: Text('DashBoard'))
-      ],
-    );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    if (index == 0) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => minhaEmpresaPage()));
-    }
-    if (index == 1) {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-    }
-    if (index == 2) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => dashBoard()));
-    }
-  }
-}
-
-class barraDeNavegacaoChefeInferior extends StatefulWidget {
-  @override
-  _barraDeNavegacaoChefeInferiorState createState() =>
-      _barraDeNavegacaoChefeInferiorState();
-}
-
-class _barraDeNavegacaoChefeInferiorState
-    extends State<barraDeNavegacaoChefeInferior> {
-  int _selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      type: BottomNavigationBarType.fixed,
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-              color: Palette.purple,
-            ),
-            title: Text('Configurações')),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.business,
-              color: Palette.purple,
-            ),
-            title: Text('Minha Empresa')),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.workspaces_outline,
-              color: Palette.purple,
-            ),
-            title: Text('Principal')),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.bluetooth,
-              color: Palette.purple,
-            ),
-            title: Text('Bluetooth')),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.dashboard,
-              color: Palette.purple,
-            ),
-            title: Text('DashBoard'))
-      ],
-    );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    if (index == 0 && msgConectadoBool == true) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => configSensor()));
-    }
-    if (index == 1) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => minhaEmpresaPage()));
-    }
-    if (index == 2) {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-    }
-    if (index == 3) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => Bluetooth()));
-    }
-    if (index == 4) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => dashBoard()));
-    }
-  }
-}
 
 String dropdownValueEstado;
 String dropdownValueTempoColeta;
@@ -339,7 +149,7 @@ class _dropDownTempoColetaState extends State<dropDownTempoColeta> {
           child: Text(value),
         );
       }).toList(),
-      hint: Text("Estado"),
+      hint: Text("Tempo"),
       menuMaxHeight: MediaQuery.of(context).size.width * 0.60,
       style: const TextStyle(color: Palette.purple),
       alignment: Alignment.bottomCenter,
@@ -388,4 +198,83 @@ showCaixaDialogoSimples(BuildContext context, String msg, bool funcBotao) {
       return alerta;
     },
   );
+}
+
+class botaoSair extends StatefulWidget {
+  @override
+  _botaoSairState createState() => _botaoSairState();
+}
+
+class _botaoSairState extends State<botaoSair> {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      alignment: Alignment.center,
+      icon: Icon(Icons.door_back),
+      onPressed: () {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => LoginPage()));
+      },
+    );
+  }
+}
+
+class botaoAtualizar extends StatefulWidget {
+  @override
+  _botaoAtualizarState createState() => _botaoAtualizarState();
+}
+
+class _botaoAtualizarState extends State<botaoAtualizar> {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      alignment: Alignment.center,
+      icon: Icon(Icons.restart_alt),
+      onPressed: () {
+        setState(() {});
+      },
+    );
+  }
+}
+
+class botaoCalendario extends StatefulWidget {
+  @override
+  _botaoCalendarioState createState() => _botaoCalendarioState();
+}
+
+TextEditingController dataSelecionada = TextEditingController();
+var dataSelecionadaAtual = dataSelecionada;
+
+class _botaoCalendarioState extends State<botaoCalendario> {
+  DateTime _date = DateTime.now();
+
+  Future<Null> _selectcDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      cancelText: "Cancelar",
+      confirmText: "Filtrar",
+      helpText: "Selecione a data desejada:",
+      context: context,
+      initialDate: _date,
+      firstDate: DateTime(1990),
+      lastDate: DateTime(2030),
+    );
+    if (picked != null && picked != _date) {
+      setState(() {
+        dataSelecionada.text = picked.toIso8601String();
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+        heroTag: "Botão de calendário",
+        backgroundColor: Palette.purple,
+        onPressed: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+          _selectcDate(context);
+        },
+        child: Icon(Icons.calendar_today));
+    ;
+  }
 }
