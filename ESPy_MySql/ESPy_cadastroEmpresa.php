@@ -45,7 +45,7 @@
 
 
 						if($resultado4 > 0){
-							$return["mensagemCadastroEmpresa"] = 'Sucesso ao cadastrar a sua empresa!.';
+							$return["mensagemCadastroEmpresa"] = 'Empresa cadastrada com sucesso!';
 							$return["erroCadastroEmpresa"] = false;	
 							$return["sucessoCadastroEmpresa"] = true;
 

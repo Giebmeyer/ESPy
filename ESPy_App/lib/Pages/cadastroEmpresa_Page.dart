@@ -72,12 +72,11 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
         showCaixaDialogoSimples(context, msgErro);
       } else if (jsondata["sucessoCadastroEmpresa"]) {
         setState(() {
+          msgErro = jsondata["mensagemCadastroEmpresa"];
           showProgress = false;
           sucesso = true;
+          _AjustaDadosUsuario();
         });
-        msgErro =
-            "Sua empresa foi cadastrada com sucesso!\nSera necessário entrar novamente no sistema para receber suas permissões adicionais.";
-        showCaixaDialogoSimples(context, msgErro);
       }
     }
   }
