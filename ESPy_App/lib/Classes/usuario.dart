@@ -1,8 +1,3 @@
-import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Pages/home_Page.dart';
-import 'package:ESPy/Pages/inicial_Page.dart';
-import 'package:flutter/cupertino.dart';
-
 class usuario {
   int codigo;
   String nome = '';

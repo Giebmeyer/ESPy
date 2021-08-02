@@ -1,26 +1,32 @@
 import 'dart:convert';
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:random_color/random_color.dart';
+
+import '../main.dart';
 
 class listaFuncionariosPage extends StatefulWidget {
   @override
   _listaFuncionariosPageState createState() => _listaFuncionariosPageState();
 }
 
+bool confirmaExpulsao;
+
 class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
   @override
 //==============================================================================
-  bool erroEmpresa, erroRequestSensores, jaCarregouDados;
+  bool erroEmpresa, erroRequestSensores, showProgress;
+  String msgErro;
   List data;
+  String codigoUsuarioSelecionadoLista;
 //==============================================================================
 
-  coletaFuncionarios() async {
+  void coletaFuncionarios() async {
     final response = await http.post(
-      Uri.parse(
-          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_coletaFuncionarios.php'),
+      Uri.parse(ESPy_url + '/ESPy_coletaFuncionarios.php'),
       body: {"codigoEmpresa": emp.codigo.toString()},
     );
     if (response.statusCode == 200) {
@@ -28,19 +34,49 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
 
       this.setState(() {
         data = json.decode(response.body);
+        showProgress = false;
       });
+    }
+  }
+
+  void expulsaUsuarioEmpresa() async {
+    final response = await http.post(
+      Uri.parse(ESPy_url + '/ESPy_expulsarFuncionarioEmpresa.php'),
+      body: {
+        "codigoUsuarioSelecionadoLista":
+            codigoUsuarioSelecionadoLista.toString()
+      },
+    );
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+
+      if (jsondata["StatusExpulsausuario"]) {
+        this.setState(() {
+          msgErro = jsondata["mensagemExpulsaUsuario"];
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text(msgErro)));
+          showProgress = false;
+        });
+      } else {
+        this.setState(() {
+          msgErro = jsondata["mensagemExpulsaUsuario"];
+          showCaixaDialogoSimples(context, msgErro);
+          showProgress = false;
+        });
+      }
     }
   }
 
   @override
   void initState() {
     super.initState();
+    showProgress = true;
     this.coletaFuncionarios();
   }
 
   @override
   void atualizarTela() {
     setState(() {
+      showProgress = true;
       this.coletaFuncionarios();
     });
   }
@@ -59,7 +95,7 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
 
   Widget funcionarios() {
     return data == null
-        ? showErrorEmpresaSemFuncionarios()
+        ? ApresentaProgressoUsuariosEmpresa()
         : showEmpresaUsuarios();
   }
 
@@ -109,6 +145,23 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
                   Text(data[index]["email"]),
                   Text(data[index]["telefone"]),
                 ],
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    child: IconButton(
+                        onPressed: () {
+                          codigoUsuarioSelecionadoLista = data[index]["codigo"];
+                          showCaixaDialogoAvancada(context,
+                              "Deseja realmente retirar esse funcionário da sua empresa?");
+                        },
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        )),
+                  ),
+                ),
               )
             ],
           ),
@@ -171,5 +224,91 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
         });
       },
     );
+  }
+
+  void confirmaExpulsaoFuncao() {
+    if (confirmaExpulsao == true) {
+      setState(() {
+        atualizarTela();
+      });
+      expulsaUsuarioEmpresa();
+      Navigator.of(context).pop();
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
+
+  void showCaixaDialogoAvancada(BuildContext context, String msg) {
+    // configura o button
+
+    Widget cancelaButton, confirmaButton;
+
+    Widget linhaBotoes() {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          cancelaButton = FlatButton(
+            minWidth: MediaQuery.of(context).size.width * 0.15,
+            shape: RoundedRectangleBorder(),
+            child: Text(
+              "Cancelar",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey),
+            ),
+            onPressed: () {
+              confirmaExpulsao = false;
+              confirmaExpulsaoFuncao();
+            },
+          ),
+          confirmaButton = FlatButton(
+            minWidth: MediaQuery.of(context).size.width * 0.15,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+                side: BorderSide(color: Palette.purple)),
+            child: Text(
+              "Confirmar",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Palette.purple),
+            ),
+            onPressed: () {
+              confirmaExpulsao = true;
+              confirmaExpulsaoFuncao();
+            },
+          ),
+        ],
+      );
+    }
+
+    AlertDialog alerta = AlertDialog(
+        title: Text(msg, style: TextStyle(), textAlign: TextAlign.center),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+        ),
+        actions: [linhaBotoes()]);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
+  }
+
+  Widget ApresentaProgressoUsuariosEmpresa() {
+    return showProgress
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(
+                  backgroundColor: (Palette.purple.shade100),
+                  valueColor: AlwaysStoppedAnimation<Color>(Palette.purple),
+                ),
+                Text("Carregando dados...",
+                    style: TextStyle(color: Colors.grey)),
+              ],
+            ),
+          )
+        : showErrorEmpresaSemFuncionarios();
   }
 }

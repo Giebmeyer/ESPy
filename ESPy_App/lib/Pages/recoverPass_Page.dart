@@ -7,29 +7,28 @@ import 'package:flutter/material.dart';
 import '../Funcoes/sendEmail.dart';
 
 class recoverPassPage extends StatefulWidget {
-  var emailEspy = Email('ESPy.EnviaEmail@gmail.com', '@EspySendEmail');
   @override
   _recoverPassPageState createState() => _recoverPassPageState();
 }
 
 class _recoverPassPageState extends State<recoverPassPage> {
 //==============================================================================
+  String email = '';
   String msgErro = '';
   bool erro, showProgress;
-
+//==============================================================================
   _ColetaDadosUsuario() async {
     final response = await http.post(
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_coletaDadosUsuario.php'),
       body: {
-        "email": 'giebmeyerthiago@gmail.com',
+        "email": email,
       },
     );
     var jsondata = json.decode(response.body);
 
     if (response.statusCode == 200) {
       msgErro = jsondata["mensagemColetaUser"];
-      showCaixaDialogoSimples(context, msgErro, true);
       user.codigo = jsondata['codigo'];
       user.nome = jsondata['nome'];
       user.senha = jsondata['senha'];
@@ -43,12 +42,13 @@ class _recoverPassPageState extends State<recoverPassPage> {
       user.numero = jsondata['numero'];
       user.complemento = jsondata['complemento'];
       user.usuario_chefe = jsondata['usuario_chefe'];
+      user.usuario_empregado = jsondata['usuario_empregado'];
+      sendEmail(user.email);
     } else {
       setState(() {
-        showProgress = false;
         erro = true;
         msgErro = jsondata["mensagemColetaUser"];
-        showCaixaDialogoSimples(context, msgErro, false);
+        showCaixaDialogoSimples(context, msgErro);
       });
     }
   }
@@ -58,13 +58,11 @@ class _recoverPassPageState extends State<recoverPassPage> {
   void initState() {
     erro = false;
     showProgress = false;
-
+    var emailEspy = Email('ESPy.EnviaEmail@gmail.com', '@EspySendEmail');
     super.initState();
   }
 
 //==============================================================================
-
-  String _email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,8 +78,8 @@ class _recoverPassPageState extends State<recoverPassPage> {
             children: [
 //==============================================================================
               TextField(
-                  onChanged: (email) {
-                    email = email;
+                  onChanged: (emailx) {
+                    email = emailx;
                   },
                   decoration: InputDecoration(
                       labelText: 'Email',
@@ -93,7 +91,6 @@ class _recoverPassPageState extends State<recoverPassPage> {
                 focusColor: Palette.purple.shade50,
                 onPressed: () {
                   _ColetaDadosUsuario();
-                  sendEmail(_email);
                 },
                 child: const Text('Recuperar'),
                 shape: RoundedRectangleBorder(

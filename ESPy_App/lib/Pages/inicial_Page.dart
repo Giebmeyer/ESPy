@@ -34,7 +34,7 @@ class _inicialPageState extends State<inicialPage> {
 
   int selectedIndexChefe = 2;
   int selectedIndexEmpregado = 1;
-  int selectedIndexNovoUser = 0;
+  int selectedIndexNovoUser = 1;
 
   @override
   Widget build(BuildContext context) {

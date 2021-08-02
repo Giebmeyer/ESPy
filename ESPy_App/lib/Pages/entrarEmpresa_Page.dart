@@ -1,3 +1,4 @@
+import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
@@ -5,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+
+import '../main.dart';
+import 'inicial_Page.dart';
+import 'login_Page.dart';
 
 class entrarEmpresaPage extends StatefulWidget {
   @override
@@ -14,15 +19,7 @@ class entrarEmpresaPage extends StatefulWidget {
 class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
 //==============================================================================
   String msgErro = '';
-  bool erroEntrarEmpresa, showProgress;
-
-//==============================================================================
-  @override
-  void initState() {
-    erroEntrarEmpresa = false;
-    showProgress = false;
-    super.initState();
-  }
+  bool erro, showProgress;
 
 //==============================================================================
   bool erroEmpresa, erroRequestSensores, jaCarregouDados;
@@ -42,9 +39,87 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
   var n5 = '';
   var n6 = '';
 
+//==============================================================================
+
+  @override
+  void initState() {
+    erroEmpresa = false;
+    showProgress = false;
+    jaCarregouDados = false;
+    super.initState();
+  }
+
+//==============================================================================
+  void _coletaDadosEmpresa() async {
+    final response = await http.post(
+      Uri.parse(ESPy_url + '/ESPy_coletaDadosEmpresa.php'),
+      body: {"codigoUsuario": user.codigo.toString()},
+    );
+
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+
+      if (jsondata["errorEmpresa"]) {
+        setState(() {
+          showProgress = false;
+          erroEmpresa = true;
+          msgErro = jsondata["messagemEmpresa"];
+          showCaixaDialogoSimples(context, msgErro);
+        });
+      } else {
+        if (jsondata["sucessoEmpresa"]) {
+          emp.codigo = jsondata['codigo'];
+          emp.chaveConvite = jsondata['chaveConvite'];
+          emp.nome = jsondata['nome'];
+          emp.CEO = jsondata['ceo'];
+          emp.email_ceo = jsondata['email_ceo'];
+          emp.telefone = jsondata['telefone'];
+          emp.cnpj = jsondata['cnpj'];
+          emp.estado = jsondata['estado'];
+          emp.cidade = jsondata['cidade'];
+          emp.bairro = jsondata['bairro'];
+          emp.rua = jsondata['rua'];
+          emp.numero = jsondata['numero'];
+          emp.complemento = jsondata['complemento'];
+          setState(() {
+            possuiEmpresa = true;
+            erroEmpresa = false;
+            showProgress = true;
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => inicialPage()),
+                (Route<dynamic> route) => false);
+          });
+
+          showCaixaDialogoSimples(context, msgErro);
+        } else {
+          showProgress = false;
+          erroEmpresa = true;
+          msgErro = "Algo deu errado.";
+          showCaixaDialogoSimples(context, msgErro);
+        }
+      }
+    } else {
+      setState(() {
+        showProgress = false;
+        erroEmpresa = true;
+        msgErro = "Erro na conexão com o servidor.";
+        showCaixaDialogoSimples(context, msgErro);
+      });
+    }
+  }
+//==============================================================================
+
+  _AjustaDadosUsuario() async {
+    user.usuario_empregado = 1;
+    user.usuario_chefe = 0;
+
+    _coletaDadosEmpresa();
+  }
+
+//==============================================================================
   void _entrarEmpresa() async {
     final response = await http.post(
-      Uri.parse('http://192.168.66.109/ESPy/ESPy_MySql/ESPy_entrarEmpresa.php'),
+      Uri.parse(ESPy_url + '/ESPy_entrarEmpresa.php'),
       body: {
         "chaveConvite": chaveConvite,
         "codigoUsuario": user.codigo.toString(),
@@ -57,21 +132,20 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
           showProgress = false;
           erroEmpresa = true;
           msgErro = jsondata["mensagemEntrarEmpresa"];
-          showCaixaDialogoSimples(context, msgErro, false);
+          showCaixaDialogoSimples(context, msgErro);
         });
       } else {
         if (jsondata["sucessoEntrarEmpresa"]) {
           setState(() {
             erroEmpresa = false;
             showProgress = true;
+            msgErro = jsondata["mensagemEntrarEmpresa"];
+            _AjustaDadosUsuario();
           });
-          msgErro = jsondata["mensagemEntrarEmpresa"];
-          showCaixaDialogoSimples(context, msgErro, true);
         } else {
           showProgress = false;
           erroEmpresa = true;
           msgErro = "Algo deu errado.";
-          print(msgErro);
         }
       }
     } else {
@@ -79,17 +153,19 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
         showProgress = false;
         erroEmpresa = true;
         msgErro = "Erro na conexão com o servidor.";
-        showCaixaDialogoSimples(context, msgErro, false);
+        showCaixaDialogoSimples(context, msgErro);
       });
     }
   }
 
+//==============================================================================
   _focusNodeChange(
       BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
+//==============================================================================
   @override
   Widget build(BuildContext context) {
     final focus = FocusNode();

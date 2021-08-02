@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Pages/login_Page.dart';
+import 'package:ESPy/main.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,8 +48,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
 
   Future<List> _cadastraUsuario() async {
     final response = await http.post(
-      Uri.parse(
-          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_cadastroUsuario.php'),
+      Uri.parse(ESPy_url + '/ESPy_cadastroUsuario.php'),
       body: {
         "nome": nome.text,
         "senha": senha.text,
@@ -71,7 +69,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
         setState(() {
           erroCadastro = false;
           msgErro = jsondata["mensagemCadastroUser"];
-          showCaixaDialogoSimples(context, msgErro, true);
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text(msgErro)));
         });
       }
     }

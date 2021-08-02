@@ -6,10 +6,9 @@
     $return["sucessoRequestSensores"] = false;
 
         $codigoEmpresa = mysqli_real_escape_string ($conexao,$_POST['codigoEmpresa']);
+        $dataFiltro = mysqli_real_escape_string ($conexao,$_POST['dataFiltro']);
 
-		$query = "SELECT * FROM dados WHERE codigo_empresa = '$codigoEmpresa'";	
-        $query2 = "SELECT * FROM dados WHERE codigo_empresa = '$codigoEmpresa' ORDER BY sequencia DESC"; 
-        $execut2 = mysqli_query($conexao, $query2);
+		$query = "SELECT * FROM dados WHERE codigo_empresa = '$codigoEmpresa' AND `Data-Hora` LIKE '%$dataFiltro%'";	
         $execut =  mysqli_query($conexao, $query);
 	    $resultado = array();
          

@@ -1,4 +1,3 @@
-import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:flutter/material.dart';
 

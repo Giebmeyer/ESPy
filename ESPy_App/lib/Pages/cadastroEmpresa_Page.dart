@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Classes/palette.dart';
@@ -8,15 +9,20 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../main.dart';
+import 'inicial_Page.dart';
+import 'login_Page.dart';
+
 class cadastroEmpresaPage extends StatefulWidget {
   @override
   _cadastroEmpresaState createState() => _cadastroEmpresaState();
 }
 
 class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
+//==============================================================================
   String msgErro = '';
   bool erroCadastroEmpresa, showProgress, sucesso;
-
+//==============================================================================
   TextEditingController _nome = new TextEditingController();
   TextEditingController _ceo = new TextEditingController();
   TextEditingController _telefone = new TextEditingController();
@@ -27,17 +33,16 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
   TextEditingController _rua = new TextEditingController();
   TextEditingController _numero = new TextEditingController();
   TextEditingController _complemento = new TextEditingController();
-
+//==============================================================================
   final maskCNPJ = MaskTextInputFormatter(
       mask: "##.###.###/####-##", filter: {"#": RegExp(r'[0-9]')});
 
   final maskCell = MaskTextInputFormatter(
-      mask: "(##) # ####-####", filter: {"#": RegExp(r'[0-9]')});
-
+      mask: "(##) ####-####", filter: {"#": RegExp(r'[0-9]')});
+//==============================================================================
   void _cadastroEmpresa() async {
     var response = await http.post(
-      Uri.parse(
-          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_cadastroEmpresa.php'),
+      Uri.parse(ESPy_url + '/ESPy_cadastroEmpresa.php'),
       body: {
         "nome": _nome.text,
         "ceo": _ceo.text,
@@ -64,7 +69,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
       if (jsondata["erroCadastroEmpresa"]) {
         msgErro = jsondata["mensagemCadastroEmpresa"];
         showProgress = false;
-        showCaixaDialogoSimples(context, msgErro, false);
+        showCaixaDialogoSimples(context, msgErro);
       } else if (jsondata["sucessoCadastroEmpresa"]) {
         setState(() {
           showProgress = false;
@@ -72,11 +77,79 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
         });
         msgErro =
             "Sua empresa foi cadastrada com sucesso!\nSera necessário entrar novamente no sistema para receber suas permissões adicionais.";
-        showCaixaDialogoSimples(context, msgErro, true);
+        showCaixaDialogoSimples(context, msgErro);
       }
     }
   }
 
+//==============================================================================
+  void _coletaDadosEmpresa() async {
+    final response = await http.post(
+      Uri.parse(ESPy_url + '/ESPy_coletaDadosEmpresa.php'),
+      body: {"codigoUsuario": user.codigo.toString()},
+    );
+
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+
+      if (jsondata["errorEmpresa"]) {
+        setState(() {
+          showProgress = false;
+          erroCadastroEmpresa = true;
+          msgErro = jsondata["messagemEmpresa"];
+          showCaixaDialogoSimples(context, msgErro);
+        });
+      } else {
+        if (jsondata["sucessoEmpresa"]) {
+          emp.codigo = jsondata['codigo'];
+          emp.chaveConvite = jsondata['chaveConvite'];
+          emp.nome = jsondata['nome'];
+          emp.CEO = jsondata['ceo'];
+          emp.email_ceo = jsondata['email_ceo'];
+          emp.telefone = jsondata['telefone'];
+          emp.cnpj = jsondata['cnpj'];
+          emp.estado = jsondata['estado'];
+          emp.cidade = jsondata['cidade'];
+          emp.bairro = jsondata['bairro'];
+          emp.rua = jsondata['rua'];
+          emp.numero = jsondata['numero'];
+          emp.complemento = jsondata['complemento'];
+          setState(() {
+            possuiEmpresa = true;
+            erroCadastroEmpresa = false;
+            showProgress = true;
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => inicialPage()),
+                (Route<dynamic> route) => false);
+          });
+
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text(msgErro)));
+        } else {
+          showProgress = false;
+          erroCadastroEmpresa = true;
+          msgErro = "Algo deu errado.";
+          showCaixaDialogoSimples(context, msgErro);
+        }
+      }
+    } else {
+      setState(() {
+        showProgress = false;
+        erroCadastroEmpresa = true;
+        msgErro = "Erro na conexão com o servidor.";
+        showCaixaDialogoSimples(context, msgErro);
+      });
+    }
+  }
+//==============================================================================
+
+  _AjustaDadosUsuario() async {
+    user.usuario_empregado = 0;
+    user.usuario_chefe = 1;
+
+    _coletaDadosEmpresa();
+  }
+
+//==============================================================================
   void initState() {
     showProgress = false;
     erroCadastroEmpresa = false;
@@ -84,6 +157,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
     super.initState();
   }
 
+//==============================================================================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -221,6 +295,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
         )));
   }
 
+//==============================================================================
   Widget ApresentaProgresso() {
     return showProgress
         ? SizedBox(

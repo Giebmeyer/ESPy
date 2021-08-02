@@ -2,6 +2,7 @@ import 'package:ESPy/Classes/usuario.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 String _username;
 var smtpServer;
@@ -36,7 +37,7 @@ Future<bool> sendMessage(
 }
 
 void sendEmail(String email) async {
-  var emailEspy = Email('ESPy.EnviaEmail@gmail.com', '@EspySendEmail');
+  Email('ESPy.EnviaEmail@gmail.com', '@EspySendEmail');
   var momento = DateTime.now();
 
   var dataFomatada =
@@ -55,11 +56,11 @@ void sendEmail(String email) async {
   bool result = await sendMessage(_mensagem, email, _assunto);
 }
 
-/* abrirEmail() async {
+abrirEmail() async {
   const url = 'https://gmail.com/';
   if (await canLaunch(url)) {
     await launch(url);
   } else {
     throw 'Não foi possivel abrir: $url';
   }
-} */
+}

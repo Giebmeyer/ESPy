@@ -1,12 +1,7 @@
-import 'package:ESPy/Bluetooth/bluetoohPage.dart';
-import 'package:ESPy/Bluetooth/chatPage.dart';
-import 'package:ESPy/Pages/configSensor_Page.dart';
-import 'package:ESPy/Pages/dashBoard_Page.dart';
+import 'package:ESPy/Pages/inicial_Page.dart';
 import 'package:ESPy/Pages/login_Page.dart';
-import 'package:ESPy/Pages/Empresa_Page.dart';
 import 'package:flutter/material.dart';
 
-import '../Pages/home_Page.dart';
 import '../Classes/palette.dart';
 
 String dropdownValueEstado;
@@ -166,32 +161,30 @@ class _dropDownTempoColetaState extends State<dropDownTempoColeta> {
   }
 }
 
-showCaixaDialogoSimples(BuildContext context, String msg, bool funcBotao) {
+void showCaixaDialogoSimples(BuildContext context, String msg) {
   // configura o button
   Widget okButton = FlatButton(
+    minWidth: MediaQuery.of(context).size.width * 0.90,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
         side: BorderSide(color: Palette.purple)),
     child: Text(
-      "OK",
+      "Ok",
       textAlign: TextAlign.center,
     ),
     onPressed: () {
-      if (funcBotao == true) {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginPage()));
-      } else {
-        Navigator.of(context).pop();
-      }
+      Navigator.of(context).pop();
     },
   );
 
   AlertDialog alerta = AlertDialog(
-    title: Text(msg),
-    actions: [
-      okButton,
-    ],
-  );
+      title: Text(msg, style: TextStyle(), textAlign: TextAlign.center),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+      ),
+      actions: [
+        okButton,
+      ]);
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -234,47 +227,5 @@ class _botaoAtualizarState extends State<botaoAtualizar> {
         setState(() {});
       },
     );
-  }
-}
-
-class botaoCalendario extends StatefulWidget {
-  @override
-  _botaoCalendarioState createState() => _botaoCalendarioState();
-}
-
-TextEditingController dataSelecionada = TextEditingController();
-var dataSelecionadaAtual = dataSelecionada;
-
-class _botaoCalendarioState extends State<botaoCalendario> {
-  DateTime _date = DateTime.now();
-
-  Future<Null> _selectcDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-      cancelText: "Cancelar",
-      confirmText: "Filtrar",
-      helpText: "Selecione a data desejada:",
-      context: context,
-      initialDate: _date,
-      firstDate: DateTime(1990),
-      lastDate: DateTime(2030),
-    );
-    if (picked != null && picked != _date) {
-      setState(() {
-        dataSelecionada.text = picked.toIso8601String();
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-        heroTag: "Botão de calendário",
-        backgroundColor: Palette.purple,
-        onPressed: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-          _selectcDate(context);
-        },
-        child: Icon(Icons.calendar_today));
-    ;
   }
 }

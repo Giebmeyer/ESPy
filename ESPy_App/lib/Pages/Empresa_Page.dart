@@ -20,7 +20,7 @@ class _EmpresaPgeState extends State<EmpresaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(possuiEmpresa ? emp.nome : "Minha Empresa"),
+        title: Text("Minha Empresa"),
         centerTitle: true,
       ),
       body: Empresa(),
@@ -135,10 +135,9 @@ class _EmpresaPgeState extends State<EmpresaPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                new Image.network(
-                  'https://image.flaticon.com/icons/png/512/181/181548.png',
-                  width: 100.0,
-                  height: 100.0,
+                new Text(
+                  emp.nome,
+                  style: TextStyle(fontFamily: 'Orbitron', fontSize: 40),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

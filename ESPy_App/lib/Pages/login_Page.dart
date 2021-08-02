@@ -9,6 +9,7 @@ import 'package:ESPy/Pages/inicial_Page.dart';
 import 'package:ESPy/Pages/recoverPass_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../main.dart';
 import 'home_Page.dart';
 import 'package:http/http.dart' as http;
 
@@ -44,8 +45,7 @@ class _loginPageState extends State<LoginPage> {
 //==============================================================================
   void _coletaDadosEmpresa() async {
     final response = await http.post(
-      Uri.parse(
-          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_coletaDadosEmpresa.php'),
+      Uri.parse(ESPy_url + '/ESPy_coletaDadosEmpresa.php'),
       body: {"codigoUsuario": user.codigo.toString()},
     );
 
@@ -57,7 +57,7 @@ class _loginPageState extends State<LoginPage> {
           showProgress = false;
           erroEmpresa = true;
           msgErro = jsondata["messagemEmpresa"];
-          showCaixaDialogoSimples(context, msgErro, false);
+          showCaixaDialogoSimples(context, msgErro);
         });
       } else {
         if (jsondata["sucessoEmpresa"]) {
@@ -85,7 +85,7 @@ class _loginPageState extends State<LoginPage> {
           showProgress = false;
           erroEmpresa = true;
           msgErro = "Algo deu errado.";
-          showCaixaDialogoSimples(context, msgErro, false);
+          showCaixaDialogoSimples(context, msgErro);
         }
       }
     } else {
@@ -93,7 +93,7 @@ class _loginPageState extends State<LoginPage> {
         showProgress = false;
         erroEmpresa = true;
         msgErro = "Erro na conexão com o servidor.";
-        showCaixaDialogoSimples(context, msgErro, false);
+        showCaixaDialogoSimples(context, msgErro);
       });
     }
   }
@@ -102,7 +102,7 @@ class _loginPageState extends State<LoginPage> {
 
   _login() async {
     final response = await http.post(
-      Uri.parse('http://192.168.66.109/ESPy/ESPy_MySql/ESPy_login.php'),
+      Uri.parse(ESPy_url + '/ESPy_login.php'),
       body: {
         "email": email.text,
         "senha": senha.text,
@@ -116,7 +116,7 @@ class _loginPageState extends State<LoginPage> {
           showProgress = false;
           erro = true;
           msgErro = jsondata["mensagemLogin"];
-          showCaixaDialogoSimples(context, msgErro, false);
+          showCaixaDialogoSimples(context, msgErro);
         });
       } else {
         if (jsondata["sucessoLogin"]) {
@@ -152,12 +152,12 @@ class _loginPageState extends State<LoginPage> {
             erro = true;
           });
           msgErro = jsondata["errorLogin"];
-          showCaixaDialogoSimples(context, msgErro, false);
+          showCaixaDialogoSimples(context, msgErro);
         }
       }
     } else {
-      msgErro = 'Erro ao conectaro no servidor';
-      showCaixaDialogoSimples(context, msgErro, false);
+      msgErro = 'Erro ao conectar no servidor';
+      showCaixaDialogoSimples(context, msgErro);
       setState(() {
         showProgress = false;
         erro = true;
@@ -230,7 +230,7 @@ class _loginPageState extends State<LoginPage> {
                         });
                         _login();
                       },
-                      child: ApresentaProgresso(),
+                      child: ApresentaProgressoLogin(),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                           side: BorderSide(color: Palette.purple)),
@@ -258,7 +258,7 @@ class _loginPageState extends State<LoginPage> {
   }
 
 //==============================================================================
-  Widget ApresentaProgresso() {
+  Widget ApresentaProgressoLogin() {
     return showProgress
         ? SizedBox(
             height: 15,

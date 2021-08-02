@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/sensores.dart';
-import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as Charts;
+import 'package:intl/intl.dart';
 
 class dashBoard extends StatefulWidget {
   @override
@@ -13,6 +14,13 @@ class dashBoard extends StatefulWidget {
 }
 
 class _dashBoardState extends State<dashBoard> {
+  TextEditingController dataSelecionadaAtual = TextEditingController();
+  TextEditingController dataSelecionadaAnterior = TextEditingController();
+  var dataFiltro = DateFormat("y-MM-d", "pt_BR").format(DateTime.now());
+  bool showProgress = false;
+  botaoAtualizar botaoAtt;
+  Widget currentPage;
+//==============================================================================
   BoxDecoration myBoxDecoration() {
     return BoxDecoration(
       border: Border.all(width: 1.0),
@@ -34,11 +42,17 @@ class _dashBoardState extends State<dashBoard> {
     final response = await http.post(
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_requestSensores.php'),
-      body: {"codigoEmpresa": '1'},
+      body: {"codigoEmpresa": '1', "dataFiltro": dataFiltro.toString()},
     );
 
     if (response.statusCode == 200) {
       list = fromJson(response.body);
+      print(dataFiltro.toString());
+      setState(() {
+        showProgress = false;
+      });
+    } else {
+      showProgress = true;
     }
     return list;
   }
@@ -49,7 +63,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, String>(
           id: 'dht11_Temperatura_barra',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
           measureFn: (sensores sensor, _) => sensor.Temperatura_DHT11,
           data: dados)
@@ -62,7 +76,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, String>(
           id: 'dht11_Umidade_barra',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
           measureFn: (sensores sensor, _) => sensor.Umidade_DHT11,
           data: dados)
@@ -75,7 +89,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, String>(
           id: 'bmp180_Altitude_barra',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
           measureFn: (sensores sensor, _) => sensor.Altitude_BMP180,
           data: dados)
@@ -88,10 +102,10 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, String>(
           id: 'bmp180_PressaoATM_barra',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
           measureFn: (sensores sensor, _) => sensor.Pressao_BMP180,
-          data: dados)
+          data: dados),
     ];
   }
 
@@ -101,7 +115,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, String>(
           id: 'bmp180_Temperatura_barra',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
           measureFn: (sensores sensor, _) => sensor.Temperatura_BMP180,
           data: dados)
@@ -114,7 +128,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, String>(
           id: 'MICS_CO_barra',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
           measureFn: (sensores sensor, _) => sensor.MICS_CO,
           data: dados)
@@ -127,7 +141,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, String>(
           id: 'MICS_NO2_barra',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
           measureFn: (sensores sensor, _) => sensor.MICS_NO2,
           data: dados)
@@ -140,7 +154,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, String>(
           id: 'MICS_NH3_barra',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
           measureFn: (sensores sensor, _) => sensor.MICS_NH3,
           data: dados)
@@ -156,7 +170,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, int>(
           id: 'dht11_Temperatura_linha',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia,
           measureFn: (sensores sensor, _) => sensor.Temperatura_DHT11,
           data: dados)
@@ -169,7 +183,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, int>(
           id: 'dht11_Umidade_linha',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia,
           measureFn: (sensores sensor, _) => sensor.Umidade_DHT11,
           data: dados)
@@ -182,7 +196,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, int>(
           id: 'bmp180_Altitude_linha',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia,
           measureFn: (sensores sensor, _) => sensor.Altitude_BMP180,
           data: dados)
@@ -195,7 +209,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, int>(
           id: 'bmp180_PressaoATM_linha',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia,
           measureFn: (sensores sensor, _) => sensor.Pressao_BMP180,
           data: dados)
@@ -208,7 +222,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, int>(
           id: 'bmp180_Temperatura_linha',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia,
           measureFn: (sensores sensor, _) => sensor.Temperatura_BMP180,
           data: dados)
@@ -221,7 +235,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, int>(
           id: 'MICS_CO_linha',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia,
           measureFn: (sensores sensor, _) => sensor.MICS_CO,
           data: dados)
@@ -234,7 +248,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, int>(
           id: 'MICS_NO2_linha',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia,
           measureFn: (sensores sensor, _) => sensor.MICS_NO2,
           data: dados)
@@ -247,7 +261,7 @@ class _dashBoardState extends State<dashBoard> {
     return [
       Charts.Series<sensores, int>(
           id: 'MICS_NH3_linha',
-          colorFn: (_, __) => Charts.MaterialPalette.purple.shadeDefault,
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
           domainFn: (sensores sensor, _) => sensor.sequencia,
           measureFn: (sensores sensor, _) => sensor.MICS_NH3,
           data: dados)
@@ -260,6 +274,8 @@ class _dashBoardState extends State<dashBoard> {
 
   @override
   void initState() {
+    showProgress = true;
+    ApresentaProgressoDashBoard();
     getData().then((value) => dados = value);
     super.initState();
   }
@@ -268,6 +284,7 @@ class _dashBoardState extends State<dashBoard> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      initialIndex: 0,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
@@ -296,11 +313,15 @@ class _dashBoardState extends State<dashBoard> {
           title: const Text('DashBoard'),
           centerTitle: true,
         ),
-        body: TabBarView(
-          children: <Widget>[graficosBarra(), graficosLinha()],
-        ),
+        body: ApresentaProgressoDashBoard(),
         floatingActionButton: botaoCalendario(),
       ),
+    );
+  }
+
+  Widget bodyGraficos() {
+    return TabBarView(
+      children: <Widget>[graficosBarra(), graficosLinha()],
     );
   }
 
@@ -500,5 +521,54 @@ class _dashBoardState extends State<dashBoard> {
         ],
       ),
     );
+  }
+
+  Widget ApresentaProgressoDashBoard() {
+    return showProgress
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(
+                  backgroundColor: (Palette.purple.shade100),
+                  valueColor: AlwaysStoppedAnimation<Color>(Palette.purple),
+                ),
+                Text("Carregando dados...",
+                    style: TextStyle(color: Colors.grey)),
+              ],
+            ),
+          )
+        : bodyGraficos();
+  }
+
+  Future<Null> selectcDate(BuildContext context) async {
+    DateTime date = DateTime.now();
+    final DateTime picked = await showDatePicker(
+      cancelText: "Cancelar",
+      confirmText: "Filtrar",
+      helpText: "Selecione a data desejada:",
+      context: context,
+      initialDate: date,
+      firstDate: DateTime(1990),
+      lastDate: DateTime(2030),
+    );
+    if (picked != null && picked != date) {
+      setState(() {
+        dataFiltro = DateFormat("y-MM-d", "pt_BR").format(picked);
+        getData().then((value) => dados = value);
+        ApresentaProgressoDashBoard();
+      });
+    }
+  }
+
+  Widget botaoCalendario() {
+    return FloatingActionButton(
+        heroTag: "Botão de calendário",
+        backgroundColor: Palette.purple,
+        onPressed: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+          selectcDate(context);
+        },
+        child: Icon(Icons.calendar_today));
   }
 }
