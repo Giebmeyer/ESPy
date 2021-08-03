@@ -15,13 +15,14 @@ class dashBoard extends StatefulWidget {
 }
 
 class _dashBoardState extends State<dashBoard> {
+  //==============================================================================
   TextEditingController dataSelecionadaAtual = TextEditingController();
   TextEditingController dataSelecionadaAnterior = TextEditingController();
-  var dataFiltro = DateFormat("y-MM-d", "pt_BR").format(DateTime.now());
+  var dataInicial = DateFormat("y-MM-d", "pt_BR").format(DateTime.now());
+  var dataFinal = DateFormat("y-MM-d", "pt_BR").format(DateTime.now());
   bool showProgress = false;
   botaoAtualizar botaoAtt;
   Widget currentPage;
-//==============================================================================
 
 //==============================================================================
   List<sensores> fromJson(String strJson) {
@@ -37,14 +38,17 @@ class _dashBoardState extends State<dashBoard> {
     final response = await http.post(
       Uri.parse(
           'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_requestSensores.php'),
-      body: {"codigoEmpresa": '1', "dataFiltro": dataFiltro.toString()},
+      body: {
+        "codigoEmpresa": emp.codigo.toString(),
+        "dataInicial": dataInicial.toString(),
+        "dataFinal": dataFinal.toString()
+      },
     );
 
     if (response.statusCode == 200) {
       list = fromJson(response.body);
-      print(dataFiltro.toString());
-
       setState(() {
+        print(emp.codigo.toString());
         showProgress = false;
       });
     } else {
@@ -554,18 +558,36 @@ class _dashBoardState extends State<dashBoard> {
 
   Future<Null> selectcDate(BuildContext context) async {
     DateTime date = DateTime.now();
-    final DateTime picked = await showDatePicker(
+    DateTime dataFinalEscolhida;
+
+    final DateTime dataInicialEscolhida = await showDatePicker(
       cancelText: "Cancelar",
-      confirmText: "Filtrar",
-      helpText: "Selecione a data desejada:",
+      confirmText: "Próximo",
+      helpText: "Data inicial",
       context: context,
       initialDate: date,
       firstDate: DateTime(1990),
-      lastDate: DateTime(2030),
+      lastDate: date,
     );
-    if (picked != null && picked != date) {
+
+    if (dataInicialEscolhida != null) {
+      dataFinalEscolhida = await showDatePicker(
+        cancelText: "Cancelar",
+        confirmText: "Filtrar",
+        helpText: "Data final",
+        context: context,
+        initialDate: date,
+        firstDate: dataInicialEscolhida,
+        lastDate: date,
+      );
+    }
+
+    if (dataFinalEscolhida != null && dataInicialEscolhida != null) {
       setState(() {
-        dataFiltro = DateFormat("y-MM-d", "pt_BR").format(picked);
+        dataInicial =
+            DateFormat("y-MM-d", "pt_BR").format(dataInicialEscolhida);
+
+        dataFinal = DateFormat("y-MM-d", "pt_BR").format(dataFinalEscolhida);
         getData().then((value) => dados = value);
         ApresentaProgressoDashBoard();
       });

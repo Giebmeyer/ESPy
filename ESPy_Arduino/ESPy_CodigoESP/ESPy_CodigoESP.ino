@@ -143,9 +143,11 @@ void enviaDadosBD()   {
   //Conecta com o servidor sql
   if (client.connect(server, 80)) {
     SerialBT.println("Conectado!");
+    
+    delay(1000);
 
     Serial.print("GET /ESPy/ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");
-    client.print("GET /ESPy/ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");     //YOUR URL
+    client.print("GET /ESPy/ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");     //URL php
     Serial.println(Umidade_DHT11);
     client.print(Umidade_DHT11);
 
@@ -189,9 +191,9 @@ void enviaDadosBD()   {
     client.print(codigoEmpresa);
     Serial.println(codigoEmpresa);
 
-    enviaDadosBT();
+    //enviaDadosBT();
 
-    client.print(" ");      //SPACE BEFORE HTTP/1.1
+    client.print(" ");      //Espaço depois do HTTP/1.1
     client.print("HTTP/1.1");
     client.println();
     client.println("Host: 192.168.66.109");
@@ -203,7 +205,7 @@ void enviaDadosBD()   {
 }
 
 
-void recebeDadosWifiBT() {
+void recebeDadosWifiBT() { // Função que recebe os dados do Wifi pelo BT
 
     if (Serial.available()) {
     SerialBT.write(Serial.read());
@@ -235,7 +237,7 @@ void enviaDadosBT(){
          SerialBT.printf("NH3. BMP180: %.2lf ppm", MICS_NH3);  
 }
 
-void converteStringChar(String Recebido){
+void converteStringChar(String Recebido){ // Função que converte String para Char
   
     SerialBT.print("**Recebido para Conversao S > C: ");
     SerialBT.print(Recebido);
@@ -248,7 +250,7 @@ void converteStringChar(String Recebido){
     divideString(EnviaConversao);
   
 }
-void divideString(char* EnviaConversao) {
+void divideString(char* EnviaConversao) { // Função que ira dividir a mensagem "NomeRede;SenhaRede;CodigoEmpresa" em suas respectivas variaveis
     delay(500);
     SerialBT.print("**Recebido para divisao: ");
     SerialBT.print(EnviaConversao);
@@ -274,7 +276,7 @@ void divideString(char* EnviaConversao) {
   conectaWifi(Rede, password);
 
 }
-void conectaWifi(char* Rede, char* password) {
+void conectaWifi(char* Rede, char* password) { // Função que realiza a conexão com o Wifi
 
   SerialBT.println("**Dados recebidos da DivideString");
   SerialBT.print("Nome da rede Wifi: ");

@@ -37,7 +37,7 @@
                 if($resultado3 > 0){
                     $return["sucessoEntrarEmpresa"] = true;
                     $return["erroEntrarEmpresa"] = false;
-                    $return["mensagemEntrarEmpresa"] = "Seja bem-vindo a equipe $nomeEmp!";
+                    $return["mensagemEntrarEmpresa"] = "Seja bem-vindo a $nomeEmp!";
 
                 }else{
                     $return["sucessoEntrarEmpresa"] = false;

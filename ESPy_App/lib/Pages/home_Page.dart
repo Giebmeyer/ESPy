@@ -19,7 +19,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
         actions: [
           botaoSair(),
         ],
@@ -64,6 +63,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Palette.purple.shade200, Palette.purple],
+  ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
   Widget textoCentralHomePage() {
     separaPrimeiroNome();
     return Container(
@@ -71,11 +74,11 @@ class _HomePageState extends State<HomePage> {
         "Bem vindo, " + primeiroNome + "!",
         style: TextStyle(
             fontFamily: 'Orbitron',
-            fontSize: 30,
+            fontSize: 50,
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = 2
-              ..color = Palette.purple.shade300
+              ..shader = linearGradient
               ..invertColors = false),
         textAlign: TextAlign.center,
       ),

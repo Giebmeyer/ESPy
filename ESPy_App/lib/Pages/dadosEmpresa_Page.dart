@@ -47,34 +47,52 @@ class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
               alignment: Alignment.center,
               child: Column(
                 children: [
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(emp.nome),
+                      Text(
+                        emp.nome,
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(emp.CEO),
+                      Text(
+                        emp.CEO,
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(emp.email_ceo),
+                      Text(
+                        emp.email_ceo,
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(emp.telefone.toString()),
+                      Text(
+                        emp.telefone.toString(),
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(emp.qtdFuncionarios.toString()),
+                      Text(
+                        emp.qtdFuncionarios.toString(),
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ],
                   ),
                 ],

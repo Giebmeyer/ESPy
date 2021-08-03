@@ -22,7 +22,7 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
   String msgErro;
   List data;
   String codigoUsuarioSelecionadoLista;
-//==============================================================================
+//================================================================lum==============
 
   void _coletaFuncionarios() async {
     final response = await http.post(
@@ -34,7 +34,10 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
 
       this.setState(() {
         data = json.decode(response.body);
-        showProgress = false;
+        emp.qtdFuncionarios = data.length;
+        setState(() {
+          showProgress = false;
+        });
       });
     }
   }
@@ -53,7 +56,8 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
       if (jsondata["StatusExpulsausuario"]) {
         this.setState(() {
           msgErro = jsondata["mensagemExpulsaUsuario"];
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text(msgErro)));
+          showCaixaDialogoSimples(context, msgErro);
+          _coletaFuncionarios();
           showProgress = false;
         });
       } else {
@@ -76,6 +80,7 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
   @override
   void atualizarTela() {
     setState(() {
+      print(emp.qtdFuncionarios);
       showProgress = true;
       this._coletaFuncionarios();
     });

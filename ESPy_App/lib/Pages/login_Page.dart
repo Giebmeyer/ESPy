@@ -40,7 +40,6 @@ class _loginPageState extends State<LoginPage> {
 
 //==============================================================================
 
-//==============================================================================
   void _coletaFuncionarios() async {
     final response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_coletaFuncionarios.php'),
