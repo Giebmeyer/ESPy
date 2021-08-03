@@ -203,7 +203,7 @@ class _botaoSairState extends State<botaoSair> {
   Widget build(BuildContext context) {
     return IconButton(
       alignment: Alignment.center,
-      icon: Icon(Icons.door_back),
+      icon: Icon(Icons.exit_to_app_outlined),
       onPressed: () {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => LoginPage()));
@@ -228,4 +228,11 @@ class _botaoAtualizarState extends State<botaoAtualizar> {
       },
     );
   }
+}
+
+BoxDecoration myBoxDecoration(double border, double radius, Color corBorda) {
+  return BoxDecoration(
+    border: Border.all(width: border, color: corBorda),
+    borderRadius: BorderRadius.all(Radius.circular(radius)),
+  );
 }

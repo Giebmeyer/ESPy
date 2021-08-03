@@ -4,10 +4,13 @@ import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Pages/cadastroEmpresa_Page.dart';
 import 'package:ESPy/Pages/entrarEmpresa_Page.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
 import 'dadosEmpresa_Page.dart';
 import 'home_Page.dart';
 import 'listaFuncionario_Page.dart';
 import 'login_Page.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class EmpresaPage extends StatefulWidget {
   @override
@@ -27,12 +30,18 @@ class _EmpresaPgeState extends State<EmpresaPage> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Widget Empresa() {
     return possuiEmpresa ? confereUsuarioChefeEmpregado() : showErroEmpresa();
   }
 
   Widget showErroEmpresa() {
     return Container(
+      padding: const EdgeInsets.only(top: 50.0),
       decoration: new BoxDecoration(
           gradient: LinearGradient(
         begin: Alignment.topLeft,
@@ -43,7 +52,6 @@ class _EmpresaPgeState extends State<EmpresaPage> {
         ],
       )),
       child: Container(
-        decoration: new BoxDecoration(),
         child: Align(
           alignment: Alignment.center,
           child: Container(
@@ -102,7 +110,8 @@ class _EmpresaPgeState extends State<EmpresaPage> {
             decoration: new BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(300.0),
+                topLeft: const Radius.circular(115.0),
+                topRight: const Radius.circular(115.0),
               ),
             ),
           ),
@@ -119,7 +128,7 @@ class _EmpresaPgeState extends State<EmpresaPage> {
 
   Widget showEmpresa() {
     return Container(
-      /* padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0), */
+      padding: const EdgeInsets.only(top: 50.0),
       decoration: new BoxDecoration(
           gradient: LinearGradient(
         begin: Alignment.topLeft,
@@ -183,7 +192,8 @@ class _EmpresaPgeState extends State<EmpresaPage> {
           decoration: new BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(300.0),
+              topLeft: const Radius.circular(115.0),
+              topRight: const Radius.circular(115.0),
             ),
           ),
         ),
@@ -193,7 +203,7 @@ class _EmpresaPgeState extends State<EmpresaPage> {
 
   Widget showEmpresaFuncionario() {
     return Container(
-      /* padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0), */
+      padding: const EdgeInsets.only(top: 50.0),
       decoration: new BoxDecoration(
           gradient: LinearGradient(
         begin: Alignment.topLeft,
@@ -241,7 +251,8 @@ class _EmpresaPgeState extends State<EmpresaPage> {
           decoration: new BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(300.0),
+              topLeft: const Radius.circular(115.0),
+              topRight: const Radius.circular(115.0),
             ),
           ),
         ),

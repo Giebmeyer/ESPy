@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'configSensor_Page.dart';
 import 'dashBoard_Page.dart';
 import 'home_Page.dart';
-import 'Empresa_Page.dart';
+import 'empresa_Page.dart';
 
 class inicialPage extends StatefulWidget {
   @override

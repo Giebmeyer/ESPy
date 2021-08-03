@@ -12,7 +12,7 @@ class empresa {
   String rua = '';
   int numero = 0;
   String complemento = '';
-  List<dynamic> dadosEmpresa = [];
+  int qtdFuncionarios = 0;
 
   empresa(
       {this.codigo,

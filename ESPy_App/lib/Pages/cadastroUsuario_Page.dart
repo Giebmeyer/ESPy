@@ -90,7 +90,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
             width: MediaQuery.of(context).size.width * 0.97,
             child: ListView(
               children: [
-                SizedBox(height: 50),
+                SizedBox(height: 20),
 //==============================================================================
                 TextField(
                     controller: nome,
@@ -237,6 +237,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 50),
               ],
             ),
           ),

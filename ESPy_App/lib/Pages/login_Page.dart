@@ -4,13 +4,13 @@ import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/Funcoes/snackBar.dart';
 import 'package:ESPy/Pages/cadastroUsuario_Page.dart';
 import 'package:ESPy/Pages/inicial_Page.dart';
 import 'package:ESPy/Pages/recoverPass_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../main.dart';
-import 'home_Page.dart';
 import 'package:http/http.dart' as http;
 
 bool possuiEmpresa;
@@ -29,18 +29,32 @@ class _loginPageState extends State<LoginPage> {
 //==============================================================================
   String msgErro = '';
   bool erro, showProgress;
-
+  List data;
 //==============================================================================
   @override
   void initState() {
-    erroEmpresa = false;
+    erro = false;
     showProgress = false;
-    jaCarregouDados = false;
     super.initState();
   }
 
 //==============================================================================
-  bool erroEmpresa, erroRequestSensores, jaCarregouDados;
+
+//==============================================================================
+  void _coletaFuncionarios() async {
+    final response = await http.post(
+      Uri.parse(ESPy_url + '/ESPy_coletaFuncionarios.php'),
+      body: {"codigoEmpresa": emp.codigo.toString()},
+    );
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+
+      this.setState(() {
+        data = json.decode(response.body);
+        emp.qtdFuncionarios = data.length;
+      });
+    }
+  }
 
 //==============================================================================
   void _coletaDadosEmpresa() async {
@@ -55,7 +69,7 @@ class _loginPageState extends State<LoginPage> {
       if (jsondata["errorEmpresa"]) {
         setState(() {
           showProgress = false;
-          erroEmpresa = true;
+          erro = true;
           msgErro = jsondata["messagemEmpresa"];
           showCaixaDialogoSimples(context, msgErro);
         });
@@ -74,16 +88,18 @@ class _loginPageState extends State<LoginPage> {
           emp.rua = jsondata['rua'];
           emp.numero = jsondata['numero'];
           emp.complemento = jsondata['complemento'];
+          emp.qtdFuncionarios = jsondata['qtdFuncionarios'];
+          _coletaFuncionarios();
           setState(() {
             possuiEmpresa = true;
-            erroEmpresa = false;
+            erro = false;
             showProgress = true;
           });
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => inicialPage()));
         } else {
           showProgress = false;
-          erroEmpresa = true;
+          erro = true;
           msgErro = "Algo deu errado.";
           showCaixaDialogoSimples(context, msgErro);
         }
@@ -91,7 +107,7 @@ class _loginPageState extends State<LoginPage> {
     } else {
       setState(() {
         showProgress = false;
-        erroEmpresa = true;
+        erro = true;
         msgErro = "Erro na conexão com o servidor.";
         showCaixaDialogoSimples(context, msgErro);
       });
@@ -170,91 +186,119 @@ class _loginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Bem-vindo ao '),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.97,
-            child: ListView(
-              children: [
-                Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.90,
-                    height: MediaQuery.of(context).size.height * 0.40,
-                    alignment: Alignment.center,
-                    child: Image.asset('assents/imagens/Logo.png'),
+      appBar: AppBar(
+        title: Text('Bem-vindo ao '),
+        centerTitle: true,
+      ),
+      body: Container(
+        decoration: new BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Palette.purple.shade900,
+            Palette.purple.shade50,
+          ],
+        )),
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 50.0),
+            child: Container(
+                decoration: new BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(115.0),
+                    topRight: const Radius.circular(115.0),
                   ),
                 ),
+                child: Align(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.97,
+                    child: ListView(
+                      children: [
+                        Center(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.90,
+                            height: MediaQuery.of(context).size.height * 0.40,
+                            alignment: Alignment.center,
+                            child: Image.asset('assents/imagens/Logo.png'),
+                          ),
+                        ),
 //==============================================================================
-                TextFormField(
-                    controller: email,
-                    decoration: InputDecoration(
-                        labelText: 'Email',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0))),
-                    keyboardType: TextInputType.emailAddress),
-                SizedBox(height: 10),
+                        TextFormField(
+                            controller: email,
+                            decoration: InputDecoration(
+                                labelText: 'Email',
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15.0))),
+                            keyboardType: TextInputType.emailAddress),
+                        SizedBox(height: 10),
 //==============================================================================
-                TextFormField(
-                    controller: senha,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        labelText: 'Senha',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
+                        TextFormField(
+                            controller: senha,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                labelText: 'Senha',
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(15.0)))),
 //==============================================================================
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => recoverPassPage()));
-                    },
-                    child: Text(
-                      "Esqueci minha senha",
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => recoverPassPage()));
+                            },
+                            child: Text(
+                              "Esqueci minha senha",
+                              textAlign: TextAlign.right,
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 13.0),
+                            ),
+                          ),
+                        ),
+//==============================================================================
+                        Align(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.30,
+                            child: FlatButton(
+                              onPressed: () {
+                                setState(() {
+                                  showProgress = true;
+                                });
+                                _login();
+                              },
+                              child: ApresentaProgressoLogin(),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  side: BorderSide(color: Palette.purple)),
+                            ),
+                          ),
+                        ),
+//==============================================================================
+                        FlatButton(
+                          focusColor: Palette.purple.shade50,
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => CadastroUserPage()));
+                          },
+                          child: Text(
+                            "Não possui login? Cadastre-se",
+                            textAlign: TextAlign.right,
+                            style:
+                                TextStyle(color: Colors.grey, fontSize: 13.0),
+                          ),
+                        ),
+//==============================================================================
+                      ],
                     ),
                   ),
-                ),
-//==============================================================================
-                Align(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.30,
-                    child: FlatButton(
-                      onPressed: () {
-                        setState(() {
-                          showProgress = true;
-                        });
-                        _login();
-                      },
-                      child: ApresentaProgressoLogin(),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                          side: BorderSide(color: Palette.purple)),
-                    ),
-                  ),
-                ),
-//==============================================================================
-                FlatButton(
-                  focusColor: Palette.purple.shade50,
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CadastroUserPage()));
-                  },
-                  child: Text(
-                    "Não possui login? Cadastre-se",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(color: Colors.grey, fontSize: 13.0),
-                  ),
-                ),
-//==============================================================================
-              ],
-            ),
+                )),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
 //==============================================================================

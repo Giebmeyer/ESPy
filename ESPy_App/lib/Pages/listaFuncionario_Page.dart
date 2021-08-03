@@ -24,7 +24,7 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
   String codigoUsuarioSelecionadoLista;
 //==============================================================================
 
-  void coletaFuncionarios() async {
+  void _coletaFuncionarios() async {
     final response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_coletaFuncionarios.php'),
       body: {"codigoEmpresa": emp.codigo.toString()},
@@ -70,14 +70,14 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
   void initState() {
     super.initState();
     showProgress = true;
-    this.coletaFuncionarios();
+    this._coletaFuncionarios();
   }
 
   @override
   void atualizarTela() {
     setState(() {
       showProgress = true;
-      this.coletaFuncionarios();
+      this._coletaFuncionarios();
     });
   }
 
@@ -94,9 +94,11 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
   }
 
   Widget funcionarios() {
-    return data == null
-        ? ApresentaProgressoUsuariosEmpresa()
-        : showEmpresaUsuarios();
+    if (emp.qtdFuncionarios == 0 || data == null) {
+      return ApresentaProgressoUsuariosEmpresa();
+    } else {
+      return showEmpresaUsuarios();
+    }
   }
 
   Widget imagemUsuarioLetra(String nome, String imagem) {
@@ -117,61 +119,91 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
   }
 
   Widget showEmpresaUsuarios() {
-    return new ListView.builder(
-      itemCount: data == null ? 0 : data.length,
-      itemBuilder: (BuildContext context, int index) {
-        return new Card(
-          margin: EdgeInsetsDirectional.all(5),
-          child: new Row(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.10,
-                width: MediaQuery.of(context).size.width * 0.02,
+    return Container(
+      decoration: new BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          Palette.purple.shade900,
+          Palette.purple.shade50,
+        ],
+      )),
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50.0),
+          child: Container(
+            padding: const EdgeInsets.only(top: 50.0),
+            decoration: new BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(115.0),
+                topRight: const Radius.circular(115.0),
               ),
-              Column(
-                children: [
-                  imagemUsuarioLetra(data[index]["nome"], ""),
-                ],
-              ),
-              SizedBox(width: 20),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    data[index]["nome"],
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            child: new ListView.builder(
+              itemCount: data == null ? 0 : data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return new Card(
+                  color: Colors.grey.shade200,
+                  margin: EdgeInsetsDirectional.fromSTEB(35.0, 30.0, 35.0, 00),
+                  child: new Row(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.10,
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                      Column(
+                        children: [
+                          imagemUsuarioLetra(data[index]["nome"], ""),
+                        ],
+                      ),
+                      SizedBox(width: 20),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data[index]["nome"],
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Text(data[index]["email"]),
+                          Text(data[index]["telefone"]),
+                        ],
+                      ),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            child: FlatButton(
+                                onPressed: () {
+                                  codigoUsuarioSelecionadoLista =
+                                      data[index]["codigo"];
+                                  showCaixaDialogoAvancada(context,
+                                      "Deseja realmente retirar esse funcionário da sua empresa?");
+                                },
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Palette.purple.shade500,
+                                )),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  Text(data[index]["email"]),
-                  Text(data[index]["telefone"]),
-                ],
-              ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    child: IconButton(
-                        onPressed: () {
-                          codigoUsuarioSelecionadoLista = data[index]["codigo"];
-                          showCaixaDialogoAvancada(context,
-                              "Deseja realmente retirar esse funcionário da sua empresa?");
-                        },
-                        icon: Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        )),
-                  ),
-                ),
-              )
-            ],
+                );
+              },
+            ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
   Widget showErrorEmpresaSemFuncionarios() {
     return Container(
+      padding: const EdgeInsets.only(top: 50.0),
       decoration: new BoxDecoration(
           gradient: LinearGradient(
         begin: Alignment.topLeft,
@@ -192,7 +224,7 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                      "Sua empresa ainda não possui funcionários vinculados.\ncompartilhe a chave de convite da sua empresa: ",
+                      "Sua empresa ainda não possui funcionários vinculados.\ncompartilhe a chave de convite da sua empresa a seus funcionários: ",
                       style: TextStyle(fontSize: 15),
                       textAlign: TextAlign.center),
                   Text(
@@ -205,7 +237,8 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
             decoration: new BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(300.0),
+                topLeft: const Radius.circular(115.0),
+                topRight: const Radius.circular(115.0),
               ),
             ),
           ),

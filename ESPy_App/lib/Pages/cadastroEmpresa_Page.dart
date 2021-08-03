@@ -4,6 +4,7 @@ import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Funcoes/snackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -47,7 +48,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
         "nome": _nome.text,
         "ceo": _ceo.text,
         "email_ceo": user.email,
-        "telefone": _telefone.text,
+        "telefone": _telefone.text.toString(),
         "cpf_cnpj": _cpf_cnpj.text,
         "estado": dropdownValueEstado,
         "cidade": _cidade.text,
@@ -122,7 +123,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
                 (Route<dynamic> route) => false);
           });
 
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text(msgErro)));
+          ScaffoldMessenger.of(context).showSnackBar(sucessCadastro);
         } else {
           showProgress = false;
           erroCadastroEmpresa = true;

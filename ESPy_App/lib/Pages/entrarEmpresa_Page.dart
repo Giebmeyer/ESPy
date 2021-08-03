@@ -81,6 +81,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
           emp.rua = jsondata['rua'];
           emp.numero = jsondata['numero'];
           emp.complemento = jsondata['complemento'];
+          emp.qtdFuncionarios = jsondata['qtdFuncionarios'];
           setState(() {
             possuiEmpresa = true;
             erroEmpresa = false;
@@ -198,9 +199,9 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         child: TextFormField(
                           focusNode: numero_1,
                           autofocus: true,
+                          showCursor: false,
                           onChanged: (numero1) {
                             n1 = numero1;
-
                             _focusNodeChange(context, numero_1, numero_2);
                           },
                           inputFormatters: [
@@ -217,6 +218,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          showCursor: false,
                           focusNode: numero_2,
                           onChanged: (numero2) {
                             n2 = numero2;
@@ -237,6 +239,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          showCursor: false,
                           focusNode: numero_3,
                           onChanged: (numero3) {
                             n3 = numero3;
@@ -257,6 +260,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          showCursor: false,
                           focusNode: numero_4,
                           onChanged: (numero4) {
                             n4 = numero4;
@@ -277,6 +281,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          showCursor: false,
                           focusNode: numero_5,
                           onChanged: (numero5) {
                             n5 = numero5;
@@ -297,6 +302,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          showCursor: false,
                           onChanged: (numero6) {
                             n6 = numero6;
                             _focusNodeChange(context, numero_6, next_botao);

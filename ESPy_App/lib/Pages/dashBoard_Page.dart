@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
@@ -21,12 +22,6 @@ class _dashBoardState extends State<dashBoard> {
   botaoAtualizar botaoAtt;
   Widget currentPage;
 //==============================================================================
-  BoxDecoration myBoxDecoration() {
-    return BoxDecoration(
-      border: Border.all(width: 1.0),
-      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-    );
-  }
 
 //==============================================================================
   List<sensores> fromJson(String strJson) {
@@ -48,6 +43,7 @@ class _dashBoardState extends State<dashBoard> {
     if (response.statusCode == 200) {
       list = fromJson(response.body);
       print(dataFiltro.toString());
+
       setState(() {
         showProgress = false;
       });
@@ -288,6 +284,14 @@ class _dashBoardState extends State<dashBoard> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20)),
+          ),
+          title: const Text('DashBoard'),
+          centerTitle: true,
+          backgroundColor: Palette.purple,
           actions: [
             IconButton(
               alignment: Alignment.center,
@@ -300,18 +304,19 @@ class _dashBoardState extends State<dashBoard> {
             ),
           ],
           bottom: TabBar(
-            indicatorColor: Colors.white,
+            indicator: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Colors.deepPurple, Colors.deepPurple]),
+                borderRadius: BorderRadius.circular(20)),
             tabs: [
               Tab(
-                icon: Icon(Icons.insert_chart),
+                child: Icon(Icons.bar_chart),
               ),
               Tab(
-                icon: Icon(Icons.show_chart),
+                child: Icon(Icons.show_chart),
               ),
             ],
           ),
-          title: const Text('DashBoard'),
-          centerTitle: true,
         ),
         body: ApresentaProgressoDashBoard(),
         floatingActionButton: botaoCalendario(),
@@ -327,198 +332,204 @@ class _dashBoardState extends State<dashBoard> {
 
   Widget graficosBarra() {
     return Center(
-      child: ListView(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.BarChart(
-              dht11_Temperatura_barra(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('DHT11: Temperatura')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.BarChart(
+                dht11_Temperatura_barra(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('DHT11: Temperatura')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.BarChart(
-              dht11_Umidade_barra(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('DHT11: Umidade')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.BarChart(
+                dht11_Umidade_barra(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('DHT11: Umidade')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.BarChart(
-              bmp180_Altitude_barra(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('DHT11: Altitude')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.BarChart(
+                bmp180_Altitude_barra(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('DHT11: Altitude')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.BarChart(
-              bmp180_PressaoATM_barra(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('BMP180: Pressão Atmosferica')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.BarChart(
+                bmp180_PressaoATM_barra(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('BMP180: Pressão Atmosferica')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.BarChart(
-              bmp180_Temperatura_barra(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('BMP180: Temperatura')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.BarChart(
+                bmp180_Temperatura_barra(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('BMP180: Temperatura')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.BarChart(
-              MICS_CO_barra(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('MICS: Monóxido de carbono')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.BarChart(
+                MICS_CO_barra(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('MICS: Monóxido de carbono')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.BarChart(
-              MICS_NH3_barra(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('MICS: Hidróxido de amônia')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.BarChart(
+                MICS_NH3_barra(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('MICS: Hidróxido de amônia')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.BarChart(
-              MICS_NO2_barra(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('MICS: Dióxido de nitrogênio')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.BarChart(
+                MICS_NO2_barra(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('MICS: Dióxido de nitrogênio')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget graficosLinha() {
     return Center(
-      child: ListView(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.LineChart(
-              dht11_Temperatura_linha(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('DHT11: Temperatura')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.LineChart(
+                dht11_Temperatura_linha(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('DHT11: Temperatura')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.LineChart(
-              dht11_Umidade_linha(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('DHT11: Umidade')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.LineChart(
+                dht11_Umidade_linha(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('DHT11: Umidade')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.LineChart(
-              bmp180_Altitude_linha(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('DHT11: Altitude')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.LineChart(
+                bmp180_Altitude_linha(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('DHT11: Altitude')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.LineChart(
-              bmp180_PressaoATM_linha(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('BMP180: Pressão Atmosferica')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.LineChart(
+                bmp180_PressaoATM_linha(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('BMP180: Pressão Atmosferica')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.LineChart(
-              bmp180_Temperatura_linha(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('BMP180: Temperatura')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.LineChart(
+                bmp180_Temperatura_linha(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('BMP180: Temperatura')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.LineChart(
-              MICS_CO_linha(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('MICS: Monóxido de carbono')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.LineChart(
+                MICS_CO_linha(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('MICS: Monóxido de carbono')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.LineChart(
-              MICS_NH3_linha(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('MICS: Hidróxido de amônia')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.LineChart(
+                MICS_NH3_linha(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('MICS: Hidróxido de amônia')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Charts.LineChart(
-              MICS_NO2_linha(dados),
-              animate: true,
-              behaviors: [Charts.ChartTitle('MICS: Dióxido de nitrogênio')],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.LineChart(
+                MICS_NO2_linha(dados),
+                animate: true,
+                behaviors: [Charts.ChartTitle('MICS: Dióxido de nitrogênio')],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
-            decoration: myBoxDecoration(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 //==============================================================================
-        ],
+          ],
+        ),
       ),
     );
   }

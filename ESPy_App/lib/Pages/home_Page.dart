@@ -4,7 +4,6 @@ import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:http/http.dart' as http;
 
 var primeiroNome;
 
@@ -20,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         actions: [
           botaoSair(),
         ],
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget showBody() {
     return Container(
-      /* padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0), */
+      padding: const EdgeInsets.only(top: 50.0),
       decoration: new BoxDecoration(
           gradient: LinearGradient(
         begin: Alignment.topRight,
@@ -54,7 +54,8 @@ class _HomePageState extends State<HomePage> {
             decoration: new BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topRight: const Radius.circular(300.0),
+                topLeft: const Radius.circular(115.0),
+                topRight: const Radius.circular(115.0),
               ),
             ),
           ),
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = 2
-              ..color = Palette.purple.shade200
+              ..color = Palette.purple.shade300
               ..invertColors = false),
         textAlign: TextAlign.center,
       ),
