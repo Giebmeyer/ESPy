@@ -1,13 +1,12 @@
 import 'package:ESPy/Bluetooth/bluetoohPage.dart';
-import 'package:ESPy/Classes/empresa.dart';
-import 'package:ESPy/Pages/configSensor_Page.dart';
-import 'package:ESPy/Pages/dashBoard_Page.dart';
-import 'package:ESPy/Pages/empresa_Page.dart';
-import 'package:ESPy/Pages/inicial_Page.dart';
-import 'package:ESPy/Pages/splash_Page.dart';
+import 'package:ESPy/Paginas/configSensor_Page.dart';
+import 'package:ESPy/Paginas/dashBoard_Page.dart';
+import 'package:ESPy/Paginas/empresa_Page.dart';
+import 'package:ESPy/Paginas/inicial_Page.dart';
+import 'package:ESPy/Paginas/splash_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'Pages/login_Page.dart';
+import 'Paginas/login_Page.dart';
 import 'Classes/palette.dart';
 
 void main() => runApp(new MyApp());

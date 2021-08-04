@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Pages/login_Page.dart';
+import 'package:ESPy/Paginas/login_Page.dart';
 import 'package:http/http.dart' as http;
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
