@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/Pages/login_Page.dart';
 import 'package:http/http.dart' as http;
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
@@ -43,7 +44,13 @@ class _recoverPassPageState extends State<recoverPassPage> {
       user.complemento = jsondata['complemento'];
       user.usuario_chefe = jsondata['usuario_chefe'];
       user.usuario_empregado = jsondata['usuario_empregado'];
-      sendEmail(user.email);
+
+      if (mandaEmailRecuperacaoSenha(email) != false) {
+        showCaixaDialogoRapida(context, "Email enviado", 'login', 1);
+      } else {
+        showCaixaDialogoSimples(
+            context, "Ocorreu um erro ao enviar o email para ${email}");
+      }
     } else {
       setState(() {
         erro = true;
@@ -58,7 +65,6 @@ class _recoverPassPageState extends State<recoverPassPage> {
   void initState() {
     erro = false;
     showProgress = false;
-    var emailEspy = Email('ESPy.EnviaEmail@gmail.com', '@EspySendEmail');
     super.initState();
   }
 

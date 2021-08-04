@@ -1,3 +1,8 @@
+import 'package:ESPy/Bluetooth/bluetoohPage.dart';
+import 'package:ESPy/Classes/empresa.dart';
+import 'package:ESPy/Pages/configSensor_Page.dart';
+import 'package:ESPy/Pages/dashBoard_Page.dart';
+import 'package:ESPy/Pages/empresa_Page.dart';
 import 'package:ESPy/Pages/inicial_Page.dart';
 import 'package:ESPy/Pages/splash_Page.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +39,10 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => new LoginPage(),
         '/inicial': (BuildContext context) => new inicialPage(),
+        '/configSensor': (BuildContext context) => new configSensor(),
+        '/minhaEmpresa': (BuildContext context) => new EmpresaPage(),
+        '/dashBoard': (BuildContext context) => new dashBoard(),
+        '/Bluetooth': (BuildContext context) => new Bluetooth(),
       },
     );
   }

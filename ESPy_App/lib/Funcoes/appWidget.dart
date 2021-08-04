@@ -1,12 +1,14 @@
-import 'package:ESPy/Pages/inicial_Page.dart';
+import 'dart:async';
 import 'package:ESPy/Pages/login_Page.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-
 import '../Classes/palette.dart';
 
+//==============================================================================
 String dropdownValueEstado;
 String dropdownValueTempoColeta;
 
+//==============================================================================
 class dropDownEstados extends StatefulWidget {
   @override
   _dropDownEstadosState createState() => _dropDownEstadosState();
@@ -67,6 +69,7 @@ class _dropDownEstadosState extends State<dropDownEstados> {
   }
 }
 
+//==============================================================================
 class dropDownTempoColeta extends StatefulWidget {
   @override
   _dropDownTempoColetaState createState() => _dropDownTempoColetaState();
@@ -161,6 +164,7 @@ class _dropDownTempoColetaState extends State<dropDownTempoColeta> {
   }
 }
 
+//==============================================================================
 void showCaixaDialogoSimples(BuildContext context, String msg) {
   // configura o button
   Widget okButton = FlatButton(
@@ -193,6 +197,23 @@ void showCaixaDialogoSimples(BuildContext context, String msg) {
   );
 }
 
+//==============================================================================
+void showCaixaDialogoRapida(
+    BuildContext context, String msg, var paginaDestino, var duracao) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        Future.delayed(Duration(seconds: duracao), () {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/${paginaDestino}', (route) => false);
+        });
+        return AlertDialog(
+          title: Text(msg),
+        );
+      });
+}
+
+//==============================================================================
 class botaoSair extends StatefulWidget {
   @override
   _botaoSairState createState() => _botaoSairState();
@@ -212,6 +233,7 @@ class _botaoSairState extends State<botaoSair> {
   }
 }
 
+//==============================================================================
 class botaoAtualizar extends StatefulWidget {
   @override
   _botaoAtualizarState createState() => _botaoAtualizarState();
@@ -230,9 +252,36 @@ class _botaoAtualizarState extends State<botaoAtualizar> {
   }
 }
 
+//==============================================================================
 BoxDecoration myBoxDecoration(double border, double radius, Color corBorda) {
   return BoxDecoration(
     border: Border.all(width: border, color: corBorda),
     borderRadius: BorderRadius.all(Radius.circular(radius)),
   );
 }
+
+//==============================================================================
+
+StreamSubscription<ConnectivityResult> connectivitySubscription;
+final Connectivity _connectivity = Connectivity();
+
+void updateStatus(ConnectivityResult connectivityResult) async {
+  if (connectivityResult == ConnectivityResult.mobile) {
+    print("3G/4G");
+  } else if (connectivityResult == ConnectivityResult.wifi) {
+    String wifiName = await _connectivity.getWifiName();
+    String wifiSsid = await _connectivity.getWifiBSSID();
+    String wifiIp = await _connectivity.getWifiIP();
+    print("Wi-Fi\n$wifiName\n$wifiSsid\n$wifiIp");
+  } else {
+    print("Não Conectado!");
+  }
+}
+
+@override
+void dispose() {
+  connectivitySubscription.cancel();
+}
+
+
+//==============================================================================

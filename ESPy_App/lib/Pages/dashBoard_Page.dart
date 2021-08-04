@@ -4,6 +4,7 @@ import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as Charts;
@@ -275,6 +276,8 @@ class _dashBoardState extends State<dashBoard> {
   @override
   void initState() {
     showProgress = true;
+    connectivitySubscription =
+        Connectivity().onConnectivityChanged.listen(updateStatus);
     ApresentaProgressoDashBoard();
     getData().then((value) => dados = value);
     super.initState();

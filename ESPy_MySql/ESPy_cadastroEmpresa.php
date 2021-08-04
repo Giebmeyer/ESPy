@@ -9,8 +9,8 @@
 	    $nome  = mysqli_real_escape_string ($conexao,$_POST['nome']);
  	    $ceo = mysqli_real_escape_string ($conexao,$_POST['ceo']);
 	    $email_ceo  = mysqli_real_escape_string ($conexao,$_POST['email_ceo']);
-        $telefone = (int)  mysqli_real_escape_string ($conexao,$_POST['telefone']);
- 	    $cpf_cnpj = (int) mysqli_real_escape_string ($conexao,$_POST['cpf_cnpj']);
+        $telefone = mysqli_real_escape_string ($conexao,$_POST['telefone']);
+ 	    $cpf_cnpj = mysqli_real_escape_string ($conexao,$_POST['cpf_cnpj']);
 	    $estado =  mysqli_real_escape_string ($conexao,$_POST['estado']);
 	    $cidade =  mysqli_real_escape_string ($conexao,$_POST['cidade']);
 	    $bairro =  mysqli_real_escape_string ($conexao,$_POST['bairro']);

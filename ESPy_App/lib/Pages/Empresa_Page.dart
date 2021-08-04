@@ -1,16 +1,15 @@
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Pages/cadastroEmpresa_Page.dart';
 import 'package:ESPy/Pages/entrarEmpresa_Page.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import 'dadosEmpresa_Page.dart';
-import 'home_Page.dart';
 import 'listaFuncionario_Page.dart';
 import 'login_Page.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 class EmpresaPage extends StatefulWidget {
   @override
@@ -32,6 +31,8 @@ class _EmpresaPgeState extends State<EmpresaPage> {
 
   @override
   void initState() {
+    connectivitySubscription =
+        Connectivity().onConnectivityChanged.listen(updateStatus);
     super.initState();
   }
 
@@ -220,7 +221,7 @@ class _EmpresaPgeState extends State<EmpresaPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 new Image.network(
-                  'https://image.flaticon.com/icons/png/512/181/181548.png',
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpKMW8aqrxdeG_x6rbDAO5A8tHgQxyHVw37A&usqp=CAU',
                   width: 100.0,
                   height: 100.0,
                 ),
@@ -230,9 +231,8 @@ class _EmpresaPgeState extends State<EmpresaPage> {
                     TextButton(
                         child: TextButton.icon(
                             onPressed: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => dadosEmpresaPage()));
                             },
                             icon: Icon(
                               Icons.list_alt,

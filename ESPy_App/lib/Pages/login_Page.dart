@@ -4,10 +4,10 @@ import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Funcoes/snackBar.dart';
 import 'package:ESPy/Pages/cadastroUsuario_Page.dart';
 import 'package:ESPy/Pages/inicial_Page.dart';
 import 'package:ESPy/Pages/recoverPass_Page.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../main.dart';
@@ -35,11 +35,12 @@ class _loginPageState extends State<LoginPage> {
   void initState() {
     erro = false;
     showProgress = false;
+    connectivitySubscription =
+        Connectivity().onConnectivityChanged.listen(updateStatus);
     super.initState();
   }
 
 //==============================================================================
-
   void _coletaFuncionarios() async {
     final response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_coletaFuncionarios.php'),
@@ -316,4 +317,6 @@ class _loginPageState extends State<LoginPage> {
             style: TextStyle(color: Palette.purple),
           );
   }
+
+//==============================================================================
 }

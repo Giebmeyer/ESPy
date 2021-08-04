@@ -39,6 +39,8 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
           showProgress = false;
         });
       });
+    } else {
+      print("Nao foi possivel conectar-se.");
     }
   }
 

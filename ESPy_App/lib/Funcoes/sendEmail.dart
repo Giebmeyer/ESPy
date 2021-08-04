@@ -1,66 +1,78 @@
+import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 
-String _username;
-var smtpServer;
+Future<bool> mandaEmailRecuperacaoSenha(var _emailDestinatario) async {
+  var dataFomatada =
+      DateFormat(" d / MM / y 'as' hh:mm:ss", "pt_BR").format(DateTime.now());
 
-Email(String username, String password) {
-  smtpServer = gmail(username, password);
-}
+  String _username = 'ESPy.EnviaEmail@gmail.com';
+  String _password = '@EspySendEmail';
 
-//Envia um email para o destinatário, contendo a mensagem com o nome do sorteado
-Future<bool> sendMessage(
-    String mensagem, String destinatario, String assunto) async {
-  /* abrirEmail(); */
-  //Configurar a mensagem
+  final smtpServer = gmail(_username, _password);
+
   final message = Message()
     ..from = Address(_username, 'ESPy')
-    ..recipients.add(destinatario)
-    ..subject = assunto
-    ..text = mensagem;
+    ..recipients.add(_emailDestinatario) //Email de quem irá receber o email.
+    ..subject = 'ESPy - Email de recuperação de senha' //Titulo do email.
+    ..text =
+        'Olá ${user.nome},\nRecebemos uma solicitação para restaurar sua senha de acesso em nosso site.\nEla ocorreu em ${dataFomatada}\nA sua senha é ${user.senha}'; //corpo do email
 
   try {
     final sendReport = await send(message, smtpServer);
-    print('Messagem enviada: ' + sendReport.toString());
-
     return true;
   } on MailerException catch (e) {
-    print('Message não enviada.');
-    for (var p in e.problems) {
-      print('Problema: ${p.code}: ${p.msg}');
-    }
     return false;
   }
 }
 
-void sendEmail(String email) async {
-  Email('ESPy.EnviaEmail@gmail.com', '@EspySendEmail');
-  var momento = DateTime.now();
-
+Future<bool> mandaEmailFuncionarioEntrouEmpresa(var _emailDestinatario) async {
   var dataFomatada =
-      DateFormat(" d / MM / y 'as' hh:mm:ss", "pt_BR").format(momento);
+      DateFormat(" d / MM / y 'as' hh:mm:ss", "pt_BR").format(DateTime.now());
 
-  print(dataFomatada);
+  String _username = 'ESPy.EnviaEmail@gmail.com';
+  String _password = '@EspySendEmail';
 
-  String _assunto = 'ESPy - Email de recuperação de senha.';
-  String _mensagem = 'Olá, ' +
-      user.nome +
-      '\nRecebemos uma solicitação para restaurar sua senha de acesso em nosso site.\nEla ocorreu em ' +
-      '$dataFomatada' +
-      '\nSua senha é: ' +
-      user.senha;
+  final smtpServer = gmail(_username, _password);
 
-  bool result = await sendMessage(_mensagem, email, _assunto);
+  final message = Message()
+    ..from = Address(_username, 'ESPy')
+    ..recipients.add(_emailDestinatario) //Email de quem irá receber o email.
+    ..subject = 'ESPy - Funcionário novo' //Titulo do email.
+    ..text =
+        'Olá ${emp.CEO},\nO ${user.nome} juntou-se a equipe ${emp.nome} em ${dataFomatada}!'; //corpo do email
+
+  try {
+    final sendReport = await send(message, smtpServer);
+    return true;
+  } on MailerException catch (e) {
+    return false;
+  }
 }
 
-abrirEmail() async {
-  const url = 'https://gmail.com/';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Não foi possivel abrir: $url';
+Future<bool> mandaEmailCadastroUsuario(
+    var _emailDestinatario, var _nome) async {
+  var dataFomatada =
+      DateFormat(" d / MM / y 'as' hh:mm:ss", "pt_BR").format(DateTime.now());
+
+  String _username = 'ESPy.EnviaEmail@gmail.com';
+  String _password = '@EspySendEmail';
+
+  final smtpServer = gmail(_username, _password);
+
+  final message = Message()
+    ..from = Address(_username, 'ESPy')
+    ..recipients.add(_emailDestinatario) //Email de quem irá receber o email.
+    ..subject = 'ESPy - Cadastro' //Titulo do email.
+    ..text =
+        'Olá ${_nome},\nO seu cadastro no sistema do ESPy foi realizado com sucesso e ocorreu em ${dataFomatada}!'; //corpo do email
+
+  try {
+    final sendReport = await send(message, smtpServer);
+    return true;
+  } on MailerException catch (e) {
+    return false;
   }
 }

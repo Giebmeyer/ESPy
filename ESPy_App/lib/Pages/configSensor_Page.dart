@@ -1,5 +1,6 @@
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 class configSensor extends StatefulWidget {
@@ -8,6 +9,13 @@ class configSensor extends StatefulWidget {
 }
 
 class _configSensorState extends State<configSensor> {
+  @override
+  void initState() {
+    connectivitySubscription =
+        Connectivity().onConnectivityChanged.listen(updateStatus);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

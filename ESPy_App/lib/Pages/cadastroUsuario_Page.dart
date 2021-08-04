@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/Funcoes/sendEmail.dart';
 import 'package:ESPy/main.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -50,26 +51,29 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
     final response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_cadastroUsuario.php'),
       body: {
-        "nome": nome.text,
-        "senha": senha.text,
-        "email": email.text,
-        "cpf": cpf.text,
-        "telefone": telefone.text,
-        "estado": dropdownValueEstado,
-        "cidade": cidade.text,
-        "bairro": bairro.text,
-        "rua": rua.text,
-        "numero": numero.text,
-        "complemento": complemento.text,
+        "nome": nome.text.trim(),
+        "senha": senha.text.trim(),
+        "email": email.text.trim(),
+        "cpf": cpf.text.trim(),
+        "telefone": telefone.text.trim(),
+        "estado": dropdownValueEstado.trim(),
+        "cidade": cidade.text.trim(),
+        "bairro": bairro.text.trim(),
+        "rua": rua.text.trim(),
+        "numero": numero.text.trim(),
+        "complemento": complemento.text.trim(),
       },
     );
     if (response.statusCode == 200) {
+      print(telefone.toString());
       var jsondata = json.decode(response.body);
       if (jsondata["sucessoCadastroUser"]) {
+        mandaEmailCadastroUsuario(
+            email.toString().trim(), nome.toString().trim());
         setState(() {
           erroCadastro = false;
           msgErro = jsondata["mensagemCadastroUser"];
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text(msgErro)));
+          showCaixaDialogoRapida(context, msgErro, 'login', 2);
         });
       }
     }

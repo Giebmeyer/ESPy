@@ -45,18 +45,18 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
     var response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_cadastroEmpresa.php'),
       body: {
-        "nome": _nome.text,
-        "ceo": _ceo.text,
-        "email_ceo": user.email,
-        "telefone": _telefone.text.toString(),
-        "cpf_cnpj": _cpf_cnpj.text,
-        "estado": dropdownValueEstado,
-        "cidade": _cidade.text,
-        "bairro": _bairro.text,
-        "rua": _rua.text,
-        "numero": _numero.text,
-        "complemento": _complemento.text,
-        "codigoUsuario": user.codigo.toString(),
+        "nome": _nome.text.trim(),
+        "ceo": _ceo.text.trim(),
+        "email_ceo": user.email.trim(),
+        "telefone": _telefone.text.trim(),
+        "cpf_cnpj": _cpf_cnpj.text.trim(),
+        "estado": dropdownValueEstado.trim(),
+        "cidade": _cidade.text.trim(),
+        "bairro": _bairro.text.trim(),
+        "rua": _rua.text.trim(),
+        "numero": _numero.text.trim(),
+        "complemento": _complemento.text.trim(),
+        "codigoUsuario": user.codigo.toString().trim(),
       },
     );
 
@@ -70,7 +70,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
       if (jsondata["erroCadastroEmpresa"]) {
         msgErro = jsondata["mensagemCadastroEmpresa"];
         showProgress = false;
-        showCaixaDialogoSimples(context, msgErro);
+        showCaixaDialogoRapida(context, msgErro, 'inicial', 2);
       } else if (jsondata["sucessoCadastroEmpresa"]) {
         setState(() {
           msgErro = jsondata["mensagemCadastroEmpresa"];

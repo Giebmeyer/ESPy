@@ -8,8 +8,8 @@
 	    $nome  = mysqli_real_escape_string ($conexao,$_POST['nome']);
  	    $senha = mysqli_real_escape_string ($conexao,$_POST['senha']);
 	    $email  = mysqli_real_escape_string ($conexao,$_POST['email']);
- 	    $cpf = (int) mysqli_real_escape_string ($conexao,$_POST['cpf']);
-	    $telefone = (int)  mysqli_real_escape_string ($conexao,$_POST['telefone']);
+ 	    $cpf = mysqli_real_escape_string ($conexao,$_POST['cpf']);
+	    $telefone = mysqli_real_escape_string ($conexao,$_POST['telefone']);
 	    $estado =  mysqli_real_escape_string ($conexao,$_POST['estado']);
 	    $cidade =  mysqli_real_escape_string ($conexao,$_POST['cidade']);
 	    $bairro =  mysqli_real_escape_string ($conexao,$_POST['bairro']);

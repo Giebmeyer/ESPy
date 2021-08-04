@@ -32,6 +32,7 @@ dependencies:
   url_launcher: ^5.5.0
   http: ^0.13.3
   random_color: ^1.0.3
+  connectivity: ^0.4.8+1
   
 dev_dependencies:
   flutter_test:

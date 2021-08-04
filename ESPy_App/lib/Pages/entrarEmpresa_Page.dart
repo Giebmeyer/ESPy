@@ -2,6 +2,7 @@ import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/Funcoes/sendEmail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -82,16 +83,16 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
           emp.numero = jsondata['numero'];
           emp.complemento = jsondata['complemento'];
           emp.qtdFuncionarios = jsondata['qtdFuncionarios'];
+
+          if (mandaEmailFuncionarioEntrouEmpresa(emp.email_ceo.trim()) !=
+              false) {
+            showCaixaDialogoRapida(context, msgErro, 'inicial', 2);
+          }
           setState(() {
             possuiEmpresa = true;
             erroEmpresa = false;
             showProgress = true;
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => inicialPage()),
-                (Route<dynamic> route) => false);
           });
-
-          showCaixaDialogoSimples(context, msgErro);
         } else {
           showProgress = false;
           erroEmpresa = true;
@@ -140,8 +141,8 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
           setState(() {
             erroEmpresa = false;
             showProgress = true;
-            msgErro = jsondata["mensagemEntrarEmpresa"];
             _AjustaDadosUsuario();
+            msgErro = jsondata["mensagemEntrarEmpresa"];
           });
         } else {
           showProgress = false;
