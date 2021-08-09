@@ -36,69 +36,25 @@ class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
         child: Padding(
           padding: const EdgeInsets.only(top: 50.0),
           child: Container(
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(115.0),
-                topRight: const Radius.circular(115.0),
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(115.0),
+                  topRight: const Radius.circular(115.0),
+                ),
               ),
-            ),
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        emp.nome,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        emp.CEO,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        emp.email_ceo,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        emp.telefone.toString(),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        emp.qtdFuncionarios.toString(),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 45),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      emp.nome,
+                      style: TextStyle(fontSize: 30, fontFamily: 'Orbitron'),
+                    ),
+                  ],
+                ),
+              )),
         ),
       ),
     );

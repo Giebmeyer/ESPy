@@ -40,7 +40,7 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
       mask: "###.###.###-##", filter: {"#": RegExp(r'[0-9]')});
 
   final maskCell = MaskTextInputFormatter(
-      mask: "(##) # ####-####", filter: {"#": RegExp(r'[0-9]')});
+      mask: "(##) #####-####", filter: {"#": RegExp(r'[0-9]')});
 
 //==============================================================================
   String msgErro = '';

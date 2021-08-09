@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class sensores {
   int sequencia;
   double Umidade_DHT11;
@@ -8,6 +10,9 @@ class sensores {
   double MICS_CO;
   double MICS_NO2;
   double MICS_NH3;
+  String data;
+
+  var qtdDados;
 
   sensores(
       {this.sequencia,
@@ -18,19 +23,22 @@ class sensores {
       this.Altitude_BMP180,
       this.MICS_CO,
       this.MICS_NO2,
-      this.MICS_NH3});
+      this.MICS_NH3,
+      this.data});
 
   factory sensores.fromJson(Map<String, dynamic> map) {
     return sensores(
-        sequencia: int.parse(map["sequencia"]),
-        Umidade_DHT11: double.parse(map["Umidade_DHT11"]),
-        Temperatura_DHT11: double.parse(map["Temperatura_DHT11"]),
-        Temperatura_BMP180: double.parse(map["Temperatura_BMP180"]),
-        Pressao_BMP180: double.parse(map["Pressao_BMP180"]),
-        Altitude_BMP180: double.parse(map["Altitude_BMP180"]),
-        MICS_CO: double.parse(map["MICS_CO"]),
-        MICS_NO2: double.parse(map["MICS_NO2"]),
-        MICS_NH3: double.parse(map["MICS_NH3"]));
+      sequencia: int.parse(map["sequencia"]),
+      Umidade_DHT11: double.parse(map["Umidade_DHT11"]),
+      Temperatura_DHT11: double.parse(map["Temperatura_DHT11"]),
+      Temperatura_BMP180: double.parse(map["Temperatura_BMP180"]),
+      Pressao_BMP180: double.parse(map["Pressao_BMP180"]),
+      Altitude_BMP180: double.parse(map["Altitude_BMP180"]),
+      MICS_CO: double.parse(map["MICS_CO"]),
+      MICS_NO2: double.parse(map["MICS_NO2"]),
+      MICS_NH3: double.parse(map["MICS_NH3"]),
+      data: map["Data_Hora"],
+    );
   }
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +51,7 @@ class sensores {
         'CO_MICS': MICS_CO,
         'NO2_MICS': MICS_NO2,
         'NH3_MICS': MICS_NH3,
+        'Data_Hora': data,
       };
 }
 

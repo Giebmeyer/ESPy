@@ -5,6 +5,8 @@
 #include <Adafruit_BMP085.h>
 #include <MICS6814.h>
 #include "BluetoothSerial.h"
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
 
 //==========================================================================================
 //Condiguração dos Sensores-----------------------------------------------------------------
@@ -62,6 +64,7 @@ MICS6814 gas(PIN_CO, PIN_NO2, PIN_NH3);
 //Wifi
 //==========================================================================================
 WiFiClient client;//Cria um cliente seguro (para ter acesso ao HTTPS)
+HTTPClient client_http;
 
 char *server = "192.168.66.109";
 char *Rede = "";
@@ -69,7 +72,8 @@ char *password = "";
 //==========================================================================================
 //MySql
 //==========================================================================================
-char *codigoEmpresa = "";
+char *codigoEmpresa = "108";
+char tempoColeta;
 //==========================================================================================
 //Setup
 //==========================================================================================
@@ -78,6 +82,8 @@ void setup() {
   dht.begin();
   bmp.begin();
   SerialBT.begin("ESPy"); //Bluetooth device name
+
+  Serial.println("INICIOU");
 
   WiFi.mode(WIFI_STA);//Habilita o modo estaçao
   delay(5000);
@@ -92,11 +98,11 @@ void setup() {
 //==========================================================================================
 void loop() {
 
-
+  Serial.println("LOOP");
     recebeDadosWifiBT();
     requestSensores();
     enviaDadosBD();
-    
+    coletaDadosBD();
     delay(3000); // interval
 }
 
@@ -105,6 +111,7 @@ void loop() {
 //==========================================================================================
 
 void requestSensores() {
+    Serial.println("SENSORES");
   ////Request dos  Sensores---------------------------------------------------------------------------------------------
   //DHT11
   Temperatura_DHT11 = dht.readTemperature();
@@ -140,9 +147,10 @@ void requestSensores() {
 }
 
 void enviaDadosBD()   {
+    Serial.println("ENVIA");
   //Conecta com o servidor sql
   if (client.connect(server, 80)) {
-    SerialBT.println("Conectado!");
+    Serial.println("Conectado!");
     
     delay(1000);
 
@@ -200,7 +208,56 @@ void enviaDadosBD()   {
     client.println("Connection: close");
     client.println();
   } else {
-    SerialBT.println("Falha na conexao");
+    Serial.println("Falha na conexao");
+  }
+}
+
+void coletaDadosBD()   {
+    Serial.println("COLETA");
+  //Conecta com o servidor sql
+  if (client.connect(server, 80)) {
+    Serial.println("Conectado!");
+    Serial.println(codigoEmpresa);
+        
+    delay(1000);
+
+    Serial.print("GET /ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=");
+    client.print("GET /ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=");     //URL php
+    Serial.println(codigoEmpresa);
+    client.print(codigoEmpresa);
+
+   if (client.available()) {                                               
+    requestHTTP = client.GET();
+    if(requestHTTP > 0){
+      String load = client_http.getString();
+      Serial.println("Status: " + String(requestHTTP));
+      Serial.println(load);
+
+      char json[500];
+      load.replace(" ", "");
+      load.replace("\n", " ");
+      load.trim();
+      load.remove(0, 1);
+      load.toCharArray(json, 500);
+      
+      StaticJsonDocument<200> doc;
+      deserializeJson(doc, json);
+
+      tempoColeta = doc["tempo_coleta"];
+      Serial.println("Tempo coletado: " + String(tempoColeta));
+    }else{
+      SerialBT.println("Erro no request do tempo de coleta");
+    }
+  }
+
+    client.print(" ");      //Espaço depois do HTTP/1.1
+    client.print("HTTP/1.1");
+    client.println();
+    client.println("Host: 192.168.66.109");
+    client.println("Connection: close");
+    client.println();
+  } else {
+    Serial.println("Falha na conexao");
   }
 }
 

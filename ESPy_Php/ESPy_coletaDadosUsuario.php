@@ -5,7 +5,7 @@
     $return["mensagemColetaUser"] = "";
     $return["sucessoColetaUser"] = false;
 
-	    $email  = 'lumes_001@hotmail.com'/* mysqli_real_escape_string ($conexao,$_POST['email']) */;
+	    $email  = mysqli_real_escape_string ($conexao,$_POST['email']);
 
 		$query = "SELECT * FROM usuarios WHERE email = '$email'";
 
@@ -14,7 +14,7 @@
 
 			if($numrows>0){
 					$obj = mysqli_fetch_object($resultado);
-				 if($email == $obj->email){ 
+				 
                         $return["erroColetaUser"] = false;
                         $return["sucessoColetaUser"] = true;
                         $return["codigo"] = (int) $obj->codigo;
@@ -30,17 +30,15 @@
                         $return["numero"] = (int) $obj->numero;
                         $return["complemento"] = $obj->complemento;
                         $return["usuario_chefe"] = (int) $obj->usuario_chefe;
-				 }else{
-						$return["mensagemColetaUser"] = 'Usuario nao existe.';
-						$return["erroColetaUser"] = true;
-					} 
+				 
 				}else{
 					$return["erroColetaUser"] = true;
 					$return["mensagemColetaUser"] = 'Email nao cadastrado.';
 
 				}  
-
-                mysqli_close($conexao);
+                
                 echo json_encode($return);
+                mysqli_close($conexao);
+                
 
 	    ?>

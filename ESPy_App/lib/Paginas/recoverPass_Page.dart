@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Paginas/login_Page.dart';
+import 'package:ESPy/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
@@ -20,8 +21,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
 //==============================================================================
   _ColetaDadosUsuario() async {
     final response = await http.post(
-      Uri.parse(
-          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_coletaDadosUsuario.php'),
+      Uri.parse(ESPy_url + '/ESPy_coletaDadosUsuario.php'),
       body: {
         "email": email,
       },
@@ -32,6 +32,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
       msgErro = jsondata["mensagemColetaUser"];
       user.codigo = jsondata['codigo'];
       user.nome = jsondata['nome'];
+      print(user.nome);
       user.senha = jsondata['senha'];
       user.email = jsondata['email'];
       user.cpf = jsondata['cpf'];

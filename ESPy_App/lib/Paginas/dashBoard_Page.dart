@@ -4,11 +4,14 @@ import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/main.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as Charts;
 import 'package:intl/intl.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class dashBoard extends StatefulWidget {
   @override
@@ -19,8 +22,10 @@ class _dashBoardState extends State<dashBoard> {
   //==============================================================================
   TextEditingController dataSelecionadaAtual = TextEditingController();
   TextEditingController dataSelecionadaAnterior = TextEditingController();
+
   var dataInicial = DateFormat("y-MM-d", "pt_BR").format(DateTime.now());
   var dataFinal = DateFormat("y-MM-d", "pt_BR").format(DateTime.now());
+
   bool showProgress = false;
   botaoAtualizar botaoAtt;
   Widget currentPage;
@@ -33,16 +38,59 @@ class _dashBoardState extends State<dashBoard> {
 
 //==============================================================================
   List<sensores> dados = [];
-  Future<List<sensores>> getData() async {
+  Future<List<sensores>> getData_Filtrada() async {
     List<sensores> list = [];
 
     final response = await http.post(
-      Uri.parse(
-          'http://192.168.66.109/ESPy/ESPy_MySql/ESPy_requestSensores.php'),
+      Uri.parse(ESPy_url + '/ESPy_requestSensoresFiltro.php'),
       body: {
         "codigoEmpresa": emp.codigo.toString(),
         "dataInicial": dataInicial.toString(),
         "dataFinal": dataFinal.toString()
+      },
+    );
+
+    if (response.statusCode == 200) {
+      list = fromJson(response.body);
+      setState(() {
+        print(emp.codigo.toString());
+        showProgress = false;
+      });
+    } else {
+      showProgress = true;
+    }
+    return list;
+  }
+
+  Future<List<sensores>> getData_TempoReal() async {
+    List<sensores> list = [];
+
+    final response = await http.post(
+      Uri.parse(ESPy_url + '/ESPy_requestSensoresTempoReal.php'),
+      body: {
+        "codigoEmpresa": emp.codigo.toString(),
+      },
+    );
+
+    if (response.statusCode == 200) {
+      list = fromJson(response.body);
+      setState(() {
+        print(emp.codigo.toString());
+        showProgress = false;
+      });
+    } else {
+      showProgress = true;
+    }
+    return list;
+  }
+
+  Future<List<sensores>> getData_Historico() async {
+    List<sensores> list = [];
+
+    final response = await http.post(
+      Uri.parse(ESPy_url + '/ESPy_requestSensoresTempoReal.php'),
+      body: {
+        "codigoEmpresa": emp.codigo.toString(),
       },
     );
 
@@ -279,7 +327,8 @@ class _dashBoardState extends State<dashBoard> {
     connectivitySubscription =
         Connectivity().onConnectivityChanged.listen(updateStatus);
     ApresentaProgressoDashBoard();
-    getData().then((value) => dados = value);
+    getData_Filtrada().then((value) => dados = value);
+    getData_TempoReal().then((value) => dados = value);
     super.initState();
   }
 
@@ -305,7 +354,7 @@ class _dashBoardState extends State<dashBoard> {
               icon: Icon(Icons.restart_alt),
               onPressed: () {
                 setState(() {
-                  getData().then((value) => dados = value);
+                  getData_Filtrada().then((value) => dados = value);
                 });
               },
             ),
@@ -326,7 +375,7 @@ class _dashBoardState extends State<dashBoard> {
           ),
         ),
         body: ApresentaProgressoDashBoard(),
-        floatingActionButton: botaoCalendario(),
+        floatingActionButton: buildSpeedDial(),
       ),
     );
   }
@@ -591,20 +640,55 @@ class _dashBoardState extends State<dashBoard> {
             DateFormat("y-MM-d", "pt_BR").format(dataInicialEscolhida);
 
         dataFinal = DateFormat("y-MM-d", "pt_BR").format(dataFinalEscolhida);
-        getData().then((value) => dados = value);
+        getData_Filtrada().then((value) => dados = value);
         ApresentaProgressoDashBoard();
       });
     }
   }
 
-  Widget botaoCalendario() {
-    return FloatingActionButton(
-        heroTag: "Botão de calendário",
-        backgroundColor: Palette.purple,
-        onPressed: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-          selectcDate(context);
-        },
-        child: Icon(Icons.calendar_today));
+  SpeedDial buildSpeedDial() {
+    return SpeedDial(
+      animatedIcon: AnimatedIcons.menu_close,
+      animatedIconTheme: IconThemeData(size: 28.0),
+      backgroundColor: Palette.purple,
+      visible: true,
+      curve: Curves.bounceInOut,
+      children: [
+        SpeedDialChild(
+          child: Icon(Icons.holiday_village, color: Colors.white),
+          backgroundColor: Palette.purple.shade800,
+          onTap: () => getData_TempoReal(),
+          label: 'Tempo Real',
+          labelStyle:
+              TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+        ),
+        SpeedDialChild(
+          child: Icon(Icons.history, color: Colors.white),
+          backgroundColor: Palette.purple.shade600,
+          onTap: () {
+            setState(() {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              selectcDate(context);
+            });
+          },
+          label: 'Histórico',
+          labelStyle:
+              TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+        ),
+        SpeedDialChild(
+          child: Icon(Icons.calendar_today, color: Colors.white),
+          backgroundColor: Palette.purple.shade400,
+          onTap: () {
+            setState(() {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              selectcDate(context);
+            });
+          },
+          label: 'Filtro',
+          labelStyle:
+              TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+        ),
+      ],
+    );
   }
 }
