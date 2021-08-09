@@ -35,6 +35,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 float Umidade_DHT11;
 float Temperatura_DHT11;
+
 //==========================================================================================
 //BMP180
 //==========================================================================================
@@ -43,6 +44,7 @@ Adafruit_BMP085 bmp;
 float Temperatura_BMP180;
 float Pressao_BMP180;
 float Altitude_BMP180;
+
 //==========================================================================================
 //MICS6814
 //==========================================================================================
@@ -63,17 +65,18 @@ MICS6814 gas(PIN_CO, PIN_NO2, PIN_NH3);
 //==========================================================================================
 //Wifi
 //==========================================================================================
-WiFiClient client;//Cria um cliente seguro (para ter acesso ao HTTPS)
-HTTPClient client_http;
+WiFiClient client; //Cria um cliente seguro (para ter acesso ao HTTPS)
 
 char *server = "192.168.66.109";
 char *Rede = "";
 char *password = "";
+
 //==========================================================================================
 //MySql
 //==========================================================================================
 char *codigoEmpresa = "108";
-char tempoColeta;
+int tempoColeta = 1500;
+
 //==========================================================================================
 //Setup
 //==========================================================================================
@@ -81,38 +84,37 @@ void setup() {
   Serial.begin(115200);//Inicia a comunicacao serial
   dht.begin();
   bmp.begin();
-  SerialBT.begin("ESPy"); //Bluetooth device name
-
-  Serial.println("INICIOU");
+  
+  SerialBT.begin("ESPy"); //Nome do Bluetooth
 
   WiFi.mode(WIFI_STA);//Habilita o modo estaçao
-  delay(5000);
 
   //MICS6814
-  //  Serial.println("Calibrating Sensor");
-  //  gas.calibrate();
-  //  Serial.println("OK!");
+    gas.calibrate();
 }
+
 //==========================================================================================
 //Loop
 //==========================================================================================
 void loop() {
 
-  Serial.println("LOOP");
     recebeDadosWifiBT();
     requestSensores();
     enviaDadosBD();
-    coletaDadosBD();
-    delay(3000); // interval
+    
+    delay(tempoColeta); // interval
 }
 
 //==========================================================================================
 //Funcoes
 //==========================================================================================
 
+
+
+
+
+//==========================================================================================Função que coleta os dados de cada sensor
 void requestSensores() {
-    Serial.println("SENSORES");
-  ////Request dos  Sensores---------------------------------------------------------------------------------------------
   //DHT11
   Temperatura_DHT11 = dht.readTemperature();
   Umidade_DHT11 = dht.readHumidity();
@@ -146,6 +148,10 @@ void requestSensores() {
   MICS_NH3 = 8;
 }
 
+
+
+
+//==========================================================================================Função que envia os dados dos sensores para a tabela Dados
 void enviaDadosBD()   {
     Serial.println("ENVIA");
   //Conecta com o servidor sql
@@ -212,57 +218,62 @@ void enviaDadosBD()   {
   }
 }
 
-void coletaDadosBD()   {
+
+
+
+//==========================================================================================Função que coleta os dados da tabela Configurações
+void coletaDadosBD(){
+  
+  if(WiFi.status() == WL_CONNECTED){
+    HTTPClient client_http;
+    
     Serial.println("COLETA");
-  //Conecta com o servidor sql
-  if (client.connect(server, 80)) {
-    Serial.println("Conectado!");
     Serial.println(codigoEmpresa);
         
-    delay(1000);
-
-    Serial.print("GET /ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=");
-    client.print("GET /ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=");     //URL php
-    Serial.println(codigoEmpresa);
-    client.print(codigoEmpresa);
-
-   if (client.available()) {                                               
-    requestHTTP = client.GET();
-    if(requestHTTP > 0){
+    client_http.begin("http://192.168.66.109/ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
+    int httpCode = client_http.GET();
+    
+   if (httpCode > 0) {                                               
       String load = client_http.getString();
-      Serial.println("Status: " + String(requestHTTP));
+      Serial.println("\nStatus: " + String(httpCode));
       Serial.println(load);
 
       char json[500];
       load.replace(" ", "");
-      load.replace("\n", " ");
+      load.replace("\n", "");
       load.trim();
-      load.remove(0, 1);
+      load.remove(0,1);
       load.toCharArray(json, 500);
       
       StaticJsonDocument<200> doc;
       deserializeJson(doc, json);
 
-      tempoColeta = doc["tempo_coleta"];
-      Serial.println("Tempo coletado: " + String(tempoColeta));
+      int tempoColetaAUX = doc["tempo_coleta"];
+      Serial.println(tempoColeta);
+                                                // se o tempo de coleta for diferente de 
+                                                //1500 milissegundos, ele altera o valor para o que estava no BD, se for igual a 1500, ele altera para 900000 que são 15 minutos
+     
+      if(tempoColetaAUX != tempoColeta){  
+         tempoColeta = tempoColetaAUX * 60000; //Como esta salvo em minutos no BD, é necessário fazer x60000 para transformar em milissegundos
+         
+      }else{
+        tempoColeta = 900000; 
+      }
+      
+      Serial.println(tempoColeta);
+      
     }else{
-      SerialBT.println("Erro no request do tempo de coleta");
+      SerialBT.println("Erro no request");
     }
-  }
-
-    client.print(" ");      //Espaço depois do HTTP/1.1
-    client.print("HTTP/1.1");
-    client.println();
-    client.println("Host: 192.168.66.109");
-    client.println("Connection: close");
-    client.println();
-  } else {
-    Serial.println("Falha na conexao");
+    client_http.end();
   }
 }
 
 
-void recebeDadosWifiBT() { // Função que recebe os dados do Wifi pelo BT
+
+
+//==========================================================================================Função que recebe os dados do Wifi pelo BT
+void recebeDadosWifiBT() { 
 
     if (Serial.available()) {
     SerialBT.write(Serial.read());
@@ -281,6 +292,10 @@ void recebeDadosWifiBT() { // Função que recebe os dados do Wifi pelo BT
   }
 }
 
+
+
+
+//==========================================================================================Função que envia para o Chat do BT os dados de cada sensor.
 void enviaDadosBT(){
   SerialBT.printf("Temp. DHT11: %.2f °", Temperatura_DHT11);
     SerialBT.printf("Umid. DHT11: %.2f %%", Umidade_DHT11);
@@ -294,7 +309,11 @@ void enviaDadosBT(){
          SerialBT.printf("NH3. BMP180: %.2lf ppm", MICS_NH3);  
 }
 
-void converteStringChar(String Recebido){ // Função que converte String para Char
+
+
+
+//==========================================================================================Função que converte String para Char
+void converteStringChar(String Recebido){
   
     SerialBT.print("**Recebido para Conversao S > C: ");
     SerialBT.print(Recebido);
@@ -307,7 +326,12 @@ void converteStringChar(String Recebido){ // Função que converte String para C
     divideString(EnviaConversao);
   
 }
-void divideString(char* EnviaConversao) { // Função que ira dividir a mensagem "NomeRede;SenhaRede;CodigoEmpresa" em suas respectivas variaveis
+
+
+
+
+//==========================================================================================Função que ira dividir a mensagem "NomeRede;SenhaRede;CodigoEmpresa" em suas respectivas variaveis
+void divideString(char* EnviaConversao){
     delay(500);
     SerialBT.print("**Recebido para divisao: ");
     SerialBT.print(EnviaConversao);
@@ -333,7 +357,12 @@ void divideString(char* EnviaConversao) { // Função que ira dividir a mensagem
   conectaWifi(Rede, password);
 
 }
-void conectaWifi(char* Rede, char* password) { // Função que realiza a conexão com o Wifi
+
+
+
+
+//==========================================================================================Função que realizada a conexão do ESP32 no WIFI
+void conectaWifi(char* Rede, char* password){
 
   SerialBT.println("**Dados recebidos da DivideString");
   SerialBT.print("Nome da rede Wifi: ");
@@ -351,4 +380,7 @@ void conectaWifi(char* Rede, char* password) { // Função que realiza a conexã
   }
   delay(2000);//Espera um tempo para se conectar no WiFi
   SerialBT.println("Conectado");
+  
+  coletaDadosBD();
 }
+//==========================================================================================

@@ -5,9 +5,10 @@
     $return["mensagemRequestFuncionarios"] = "";
     $return["sucessoRequestFuncionarios"] = false;
 
-        $codigoEmpresa = mysqli_real_escape_string ($conexao,$_POST['codigoEmpresa']);
+        $codigoEmpresa = $_GET['codigoEmpresa'];
 
-		$query = "SELECT c.tempo_coleta FROM configuracao c JOIN empresa u ON u.codigo = c.codigo_empresa WHERE u.codigo = $codigoEmpresa";	 
+
+		$query = "SELECT c.* FROM configuracao c JOIN empresa u ON u.codigo = c.codigo_empresa WHERE u.codigo = $codigoEmpresa";	 
         $execut =  mysqli_query($conexao, $query);
 	    $resultado = array();
 

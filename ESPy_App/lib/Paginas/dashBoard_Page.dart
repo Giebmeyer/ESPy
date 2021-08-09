@@ -74,8 +74,11 @@ class _dashBoardState extends State<dashBoard> {
 
     if (response.statusCode == 200) {
       list = fromJson(response.body);
+      sensor.qtdDados = list.length;
+      if (list.length == 0) {
+        print("Sem dados...");
+      }
       setState(() {
-        print(emp.codigo.toString());
         showProgress = false;
       });
     } else {
@@ -88,7 +91,7 @@ class _dashBoardState extends State<dashBoard> {
     List<sensores> list = [];
 
     final response = await http.post(
-      Uri.parse(ESPy_url + '/ESPy_requestSensoresTempoReal.php'),
+      Uri.parse(ESPy_url + '/ESPy_requestSensoresHistorico.php'),
       body: {
         "codigoEmpresa": emp.codigo.toString(),
       },
@@ -113,7 +116,7 @@ class _dashBoardState extends State<dashBoard> {
       Charts.Series<sensores, String>(
           id: 'dht11_Temperatura_barra',
           colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
-          domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
+          domainFn: (sensores sensor, _) => sensor.data,
           measureFn: (sensores sensor, _) => sensor.Temperatura_DHT11,
           data: dados)
     ];
@@ -126,7 +129,7 @@ class _dashBoardState extends State<dashBoard> {
       Charts.Series<sensores, String>(
           id: 'dht11_Umidade_barra',
           colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
-          domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
+          domainFn: (sensores sensor, _) => sensor.data,
           measureFn: (sensores sensor, _) => sensor.Umidade_DHT11,
           data: dados)
     ];
@@ -139,7 +142,7 @@ class _dashBoardState extends State<dashBoard> {
       Charts.Series<sensores, String>(
           id: 'bmp180_Altitude_barra',
           colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
-          domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
+          domainFn: (sensores sensor, _) => sensor.data,
           measureFn: (sensores sensor, _) => sensor.Altitude_BMP180,
           data: dados)
     ];
@@ -152,7 +155,7 @@ class _dashBoardState extends State<dashBoard> {
       Charts.Series<sensores, String>(
           id: 'bmp180_PressaoATM_barra',
           colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
-          domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
+          domainFn: (sensores sensor, _) => sensor.data,
           measureFn: (sensores sensor, _) => sensor.Pressao_BMP180,
           data: dados),
     ];
@@ -165,7 +168,7 @@ class _dashBoardState extends State<dashBoard> {
       Charts.Series<sensores, String>(
           id: 'bmp180_Temperatura_barra',
           colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
-          domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
+          domainFn: (sensores sensor, _) => sensor.data,
           measureFn: (sensores sensor, _) => sensor.Temperatura_BMP180,
           data: dados)
     ];
@@ -178,7 +181,7 @@ class _dashBoardState extends State<dashBoard> {
       Charts.Series<sensores, String>(
           id: 'MICS_CO_barra',
           colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
-          domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
+          domainFn: (sensores sensor, _) => sensor.data,
           measureFn: (sensores sensor, _) => sensor.MICS_CO,
           data: dados)
     ];
@@ -191,7 +194,7 @@ class _dashBoardState extends State<dashBoard> {
       Charts.Series<sensores, String>(
           id: 'MICS_NO2_barra',
           colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
-          domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
+          domainFn: (sensores sensor, _) => sensor.data,
           measureFn: (sensores sensor, _) => sensor.MICS_NO2,
           data: dados)
     ];
@@ -204,7 +207,7 @@ class _dashBoardState extends State<dashBoard> {
       Charts.Series<sensores, String>(
           id: 'MICS_NH3_barra',
           colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
-          domainFn: (sensores sensor, _) => sensor.sequencia.toString(),
+          domainFn: (sensores sensor, _) => sensor.data,
           measureFn: (sensores sensor, _) => sensor.MICS_NH3,
           data: dados)
     ];
@@ -657,7 +660,11 @@ class _dashBoardState extends State<dashBoard> {
         SpeedDialChild(
           child: Icon(Icons.holiday_village, color: Colors.white),
           backgroundColor: Palette.purple.shade800,
-          onTap: () => getData_TempoReal(),
+          onTap: () {
+            setState(() {
+              getData_TempoReal().then((value) => dados = value);
+            });
+          },
           label: 'Tempo Real',
           labelStyle:
               TextStyle(fontWeight: FontWeight.w500, color: Colors.black),

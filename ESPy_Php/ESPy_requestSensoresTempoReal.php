@@ -7,7 +7,7 @@
 
         $codigoEmpresa = mysqli_real_escape_string ($conexao,$_POST['codigoEmpresa']);
 
-		$query = "SELECT * FROM dados WHERE codigo_empresa = '$codigoEmpresa' ORDER BY sequencia ASC LIMIT 5";	
+		$query = "SELECT * FROM dados WHERE codigo_empresa = '$codigoEmpresa' ORDER BY `Data_Hora` ASC LIMIT 5";	
         $execut =  mysqli_query($conexao, $query);
 	    $resultado = array();
          
