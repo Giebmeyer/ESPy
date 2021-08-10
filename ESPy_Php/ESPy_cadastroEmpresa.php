@@ -10,7 +10,7 @@
  	    $ceo = mysqli_real_escape_string ($conexao,$_POST['ceo']);
 	    $email_ceo  = mysqli_real_escape_string ($conexao,$_POST['email_ceo']);
         $telefone = mysqli_real_escape_string ($conexao,$_POST['telefone']);
- 	    $cpf_cnpj = mysqli_real_escape_string ($conexao,$_POST['cpf_cnpj']);
+ 	    $cnpj = mysqli_real_escape_string ($conexao,$_POST['cnpj']);
 	    $estado =  mysqli_real_escape_string ($conexao,$_POST['estado']);
 	    $cidade =  mysqli_real_escape_string ($conexao,$_POST['cidade']);
 	    $bairro =  mysqli_real_escape_string ($conexao,$_POST['bairro']);
@@ -20,7 +20,7 @@
 	    $codigoUsuario = (int) mysqli_real_escape_string ($conexao,$_POST['codigoUsuario']);  
 		$chaveConvite = (int) rand(100000, 999999);
 
-		$query  = "INSERT INTO empresa (`chaveConvite`, `nome`, `ceo`, `email_ceo`, `telefone`, `cpf_cnpj`, `estado`, `cidade`, `bairro`, `rua`, `numero`, `complemento`) VALUES ('$chaveConvite', '$nome', '$ceo', '$email_ceo', '$telefone', '$cpf_cnpj',  '$estado', '$cidade', '$bairro', '$rua', '$numero', '$complemento');";	 
+		$query  = "INSERT INTO empresa (`chaveConvite`, `nome`, `ceo`, `email_ceo`, `telefone`, `cnpj`, `estado`, `cidade`, `bairro`, `rua`, `numero`, `complemento`) VALUES ('$chaveConvite', '$nome', '$ceo', '$email_ceo', '$telefone', '$cnpj',  '$estado', '$cidade', '$bairro', '$rua', '$numero', '$complemento');";	 
         $query2 = "UPDATE usuarios SET usuario_chefe = 1 WHERE codigo = '$codigoUsuario';"; 
 		$query3 = "SELECT * FROM empresa WHERE email_ceo = '$email_ceo';";
 
@@ -48,7 +48,18 @@
 							$return["mensagemCadastroEmpresa"] = 'Empresa cadastrada com sucesso!';
 							$return["erroCadastroEmpresa"] = false;	
 							$return["sucessoCadastroEmpresa"] = true;
+							
+							$query5 = "INSERT INTO `configuracao`(`codigo_empresa`, `tempo_coleta`) VALUES ($codigoEmpresa,'15')";
+							$resultado5 = mysqli_query($conexao, $query5);
 
+							if($resultado5 > 0){
+								$return["mensagemCadastroEmpresa"] = 'Configuração salva com sucesso!';
+								$return["erroCadastroEmpresa"] = false;	
+								$return["sucessoCadastroEmpresa"] = true;
+							}else{
+								$return["mensagemCadastroEmpresa"] = 'Erro ao inserir configuração.';
+								$return["erroCadastroEmpresa"] = true;
+							}
 
 						}else{
 							$return["mensagemCadastroEmpresa"] = 'Erro ao inserir usuario_empresa.';

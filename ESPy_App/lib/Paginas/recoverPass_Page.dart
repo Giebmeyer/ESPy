@@ -45,13 +45,9 @@ class _recoverPassPageState extends State<recoverPassPage> {
       user.complemento = jsondata['complemento'];
       user.usuario_chefe = jsondata['usuario_chefe'];
       user.usuario_empregado = jsondata['usuario_empregado'];
+      mandaEmailRecuperacaoSenha(email);
 
-      if (mandaEmailRecuperacaoSenha(email) != false) {
-        showCaixaDialogoRapida(context, "Email enviado", 'login', 1);
-      } else {
-        showCaixaDialogoSimples(
-            context, "Ocorreu um erro ao enviar o email para ${email}");
-      }
+      showCaixaDialogoRapida(context, "Email enviado", 'login', 1);
     } else {
       setState(() {
         erro = true;

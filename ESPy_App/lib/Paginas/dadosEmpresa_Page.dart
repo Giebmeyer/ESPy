@@ -45,12 +45,53 @@ class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(top: 45),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Column(
                   children: [
-                    Text(
-                      emp.nome,
-                      style: TextStyle(fontSize: 30, fontFamily: 'Orbitron'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          emp.nome,
+                          style:
+                              TextStyle(fontSize: 30, fontFamily: 'Orbitron'),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 75),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(" "),
+                              Text("CEO: " + emp.CEO),
+                              Text("CNPJ: " + emp.cnpj),
+                              Text("Telefone: " + emp.telefone),
+                              Divider(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Text("Estado: " + emp.estado),
+                                  Text(" | Cidade: " + emp.cidade)
+                                ],
+                              ),
+                              Text("Bairro: " + emp.bairro),
+                              Text("Complemento: " + emp.complemento),
+                              Row(
+                                children: [
+                                  Text("Rua: " + emp.rua),
+                                  Text(" | nº " + emp.numero.toString()),
+                                ],
+                              ),
+                              Text("")
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -61,11 +102,18 @@ class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
   }
 
   Widget botaoEditarEmpresa() {
-    return FloatingActionButton(
-      heroTag: "Editar Empresa",
-      backgroundColor: Palette.purple,
-      onPressed: () {},
-      child: Icon(Icons.edit),
+    return SizedBox(
+      width: 45,
+      height: 45,
+      child: FloatingActionButton(
+        heroTag: "Editar Empresa",
+        backgroundColor: Palette.purple,
+        onPressed: () {
+          showCaixaDialogoSimples(context,
+              "Para realizar a edição dos dados da sua empresa é necessário alterar atraves do site do ESPy");
+        },
+        child: Icon(Icons.warning),
+      ),
     );
   }
 }

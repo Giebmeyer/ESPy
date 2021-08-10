@@ -34,7 +34,8 @@ dependencies:
   random_color: ^1.0.3
   connectivity: ^0.4.8+1
   flutter_speed_dial: 
-  
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

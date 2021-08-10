@@ -198,6 +198,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          textAlign: TextAlign.center,
                           focusNode: numero_1,
                           autofocus: true,
                           showCursor: false,
@@ -219,6 +220,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          textAlign: TextAlign.center,
                           showCursor: false,
                           focusNode: numero_2,
                           onChanged: (numero2) {
@@ -240,6 +242,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          textAlign: TextAlign.center,
                           showCursor: false,
                           focusNode: numero_3,
                           onChanged: (numero3) {
@@ -261,6 +264,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          textAlign: TextAlign.center,
                           showCursor: false,
                           focusNode: numero_4,
                           onChanged: (numero4) {
@@ -282,6 +286,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          textAlign: TextAlign.center,
                           showCursor: false,
                           focusNode: numero_5,
                           onChanged: (numero5) {
@@ -303,6 +308,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
                         width: MediaQuery.of(context).size.width * 0.10,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: TextFormField(
+                          textAlign: TextAlign.center,
                           showCursor: false,
                           onChanged: (numero6) {
                             n6 = numero6;

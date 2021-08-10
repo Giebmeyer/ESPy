@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:ESPy/Paginas/login_Page.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../Classes/palette.dart';
 
 //==============================================================================
@@ -274,7 +275,9 @@ void updateStatus(ConnectivityResult connectivityResult) async {
     String wifiIp = await _connectivity.getWifiIP();
     print("Wi-Fi\n$wifiName\n$wifiSsid\n$wifiIp");
   } else {
-    print("Não Conectado!");
+    Container(
+      child: Text("Sem rede"),
+    );
   }
 }
 
@@ -283,5 +286,12 @@ void dispose() {
   connectivitySubscription.cancel();
 }
 
-
 //==============================================================================
+
+abrirUrl(var url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}

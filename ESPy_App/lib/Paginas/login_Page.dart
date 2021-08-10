@@ -82,6 +82,7 @@ class _loginPageState extends State<LoginPage> {
           emp.email_ceo = jsondata['email_ceo'];
           emp.telefone = jsondata['telefone'];
           emp.cnpj = jsondata['cnpj'];
+          print(emp.cnpj);
           emp.estado = jsondata['estado'];
           emp.cidade = jsondata['cidade'];
           emp.bairro = jsondata['bairro'];

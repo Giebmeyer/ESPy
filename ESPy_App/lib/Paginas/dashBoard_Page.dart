@@ -28,7 +28,7 @@ class _dashBoardState extends State<dashBoard> {
 
   bool showProgress = false;
   botaoAtualizar botaoAtt;
-  Widget currentPage;
+  var tipoGraficoSelecionado; //1 tempo real; 2 historico; 3 filtrado
 
 //==============================================================================
   List<sensores> fromJson(String strJson) {
@@ -330,8 +330,8 @@ class _dashBoardState extends State<dashBoard> {
     connectivitySubscription =
         Connectivity().onConnectivityChanged.listen(updateStatus);
     ApresentaProgressoDashBoard();
-    getData_Filtrada().then((value) => dados = value);
     getData_TempoReal().then((value) => dados = value);
+    getData_Filtrada().then((value) => dados = value);
     super.initState();
   }
 
@@ -357,7 +357,7 @@ class _dashBoardState extends State<dashBoard> {
               icon: Icon(Icons.restart_alt),
               onPressed: () {
                 setState(() {
-                  getData_Filtrada().then((value) => dados = value);
+                  attTelaGrafico();
                 });
               },
             ),
@@ -402,7 +402,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.BarChart(
                 dht11_Temperatura_barra(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('DHT11: Temperatura')],
+                behaviors: [
+                  new Charts.ChartTitle('DHT11: Temperatura'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ºC',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  ),
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -413,7 +423,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.BarChart(
                 dht11_Umidade_barra(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('DHT11: Umidade')],
+                behaviors: [
+                  Charts.ChartTitle('DHT11: Umidade'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    '%',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  ),
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -424,7 +444,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.BarChart(
                 bmp180_Altitude_barra(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('DHT11: Altitude')],
+                behaviors: [
+                  Charts.ChartTitle('DHT11: Altitude'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'm',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  ),
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -435,7 +465,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.BarChart(
                 bmp180_PressaoATM_barra(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('BMP180: Pressão Atmosferica')],
+                behaviors: [
+                  Charts.ChartTitle('BMP180: Pressão Atmosferica'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ATM',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  ),
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -446,7 +486,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.BarChart(
                 bmp180_Temperatura_barra(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('BMP180: Temperatura')],
+                behaviors: [
+                  Charts.ChartTitle('BMP180: Temperatura'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ºC',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -457,7 +507,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.BarChart(
                 MICS_CO_barra(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('MICS: Monóxido de carbono')],
+                behaviors: [
+                  Charts.ChartTitle('MICS: Monóxido de carbono'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ppm',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -468,7 +528,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.BarChart(
                 MICS_NH3_barra(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('MICS: Hidróxido de amônia')],
+                behaviors: [
+                  Charts.ChartTitle('MICS: Hidróxido de amônia'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ppm',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -479,7 +549,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.BarChart(
                 MICS_NO2_barra(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('MICS: Dióxido de nitrogênio')],
+                behaviors: [
+                  Charts.ChartTitle('MICS: Dióxido de nitrogênio'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ppm',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -504,7 +584,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.LineChart(
                 dht11_Temperatura_linha(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('DHT11: Temperatura')],
+                behaviors: [
+                  Charts.ChartTitle('DHT11: Temperatura'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ºC',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -515,7 +605,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.LineChart(
                 dht11_Umidade_linha(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('DHT11: Umidade')],
+                behaviors: [
+                  Charts.ChartTitle('DHT11: Umidade'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    '%',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -526,7 +626,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.LineChart(
                 bmp180_Altitude_linha(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('DHT11: Altitude')],
+                behaviors: [
+                  Charts.ChartTitle('BMP180: Altitude'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'm',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -537,7 +647,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.LineChart(
                 bmp180_PressaoATM_linha(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('BMP180: Pressão Atmosferica')],
+                behaviors: [
+                  Charts.ChartTitle('BMP180: Pressão Atmosferica'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ATM',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -548,7 +668,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.LineChart(
                 bmp180_Temperatura_linha(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('BMP180: Temperatura')],
+                behaviors: [
+                  Charts.ChartTitle('BMP180: Temperatura'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ºC',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -559,7 +689,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.LineChart(
                 MICS_CO_linha(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('MICS: Monóxido de carbono')],
+                behaviors: [
+                  Charts.ChartTitle('MICS: Monóxido de carbono'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ppm',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -570,7 +710,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.LineChart(
                 MICS_NH3_linha(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('MICS: Hidróxido de amônia')],
+                behaviors: [
+                  Charts.ChartTitle('MICS: Hidróxido de amônia'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ppm',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -581,7 +731,17 @@ class _dashBoardState extends State<dashBoard> {
               child: Charts.LineChart(
                 MICS_NO2_linha(dados),
                 animate: true,
-                behaviors: [Charts.ChartTitle('MICS: Dióxido de nitrogênio')],
+                behaviors: [
+                  Charts.ChartTitle('MICS: Dióxido de nitrogênio'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'ppm',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
             ),
@@ -662,6 +822,7 @@ class _dashBoardState extends State<dashBoard> {
           backgroundColor: Palette.purple.shade800,
           onTap: () {
             setState(() {
+              tipoGraficoSelecionado = 1;
               getData_TempoReal().then((value) => dados = value);
             });
           },
@@ -674,6 +835,7 @@ class _dashBoardState extends State<dashBoard> {
           backgroundColor: Palette.purple.shade600,
           onTap: () {
             setState(() {
+              tipoGraficoSelecionado = 2;
               FocusScope.of(context).requestFocus(new FocusNode());
               selectcDate(context);
             });
@@ -687,6 +849,7 @@ class _dashBoardState extends State<dashBoard> {
           backgroundColor: Palette.purple.shade400,
           onTap: () {
             setState(() {
+              tipoGraficoSelecionado = 3;
               FocusScope.of(context).requestFocus(new FocusNode());
               selectcDate(context);
             });
@@ -697,5 +860,15 @@ class _dashBoardState extends State<dashBoard> {
         ),
       ],
     );
+  }
+
+  void attTelaGrafico() {
+    if (tipoGraficoSelecionado == 1) {
+      getData_TempoReal().then((value) => dados = value);
+    } else if (tipoGraficoSelecionado == 2) {
+      getData_Filtrada().then((value) => dados = value);
+    } else {
+      getData_Filtrada().then((value) => dados = value);
+    }
   }
 }

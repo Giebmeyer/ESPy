@@ -22,8 +22,8 @@
             $return["nome"] = $obj->nome;
             $return["ceo"] = $obj->ceo;
             $return["email_ceo"] = $obj->email_ceo;
-            $return["telefone"] = (int) $obj->telefone;
-            $return["cnpj"] = (int) $obj->cpf_cnpj;
+            $return["telefone"] =  $obj->telefone;
+            $return["cnpj"] =  $obj->cnpj;
             $return["estado"] = $obj->estado;
             $return["cidade"] = $obj->cidade;
             $return["bairro"] = $obj->bairro;

@@ -4,8 +4,8 @@ class empresa {
   String nome = '';
   String CEO = '';
   String email_ceo = '';
-  int telefone = 0;
-  int cnpj = 0;
+  String telefone = '';
+  String cnpj = '';
   String estado = '';
   String cidade = '';
   String bairro = '';

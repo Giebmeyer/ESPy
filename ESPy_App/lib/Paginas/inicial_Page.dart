@@ -2,6 +2,7 @@ import 'package:ESPy/Bluetooth/bluetoohPage.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/Paginas/senhaConfig_Page.dart';
 import 'package:flutter/material.dart';
 import 'configSensor_Page.dart';
 import 'dashBoard_Page.dart';
@@ -15,7 +16,7 @@ class inicialPage extends StatefulWidget {
 
 class _inicialPageState extends State<inicialPage> {
   final List<Widget> telasChefe = [
-    configSensor(),
+    senhaConfig(),
     EmpresaPage(),
     HomePage(),
     Bluetooth(),

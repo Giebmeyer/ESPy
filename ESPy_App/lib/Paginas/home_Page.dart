@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
         "Bem vindo, " + primeiroNome + "!",
         style: TextStyle(
             fontFamily: 'Orbitron',
-            fontSize: 50,
+            fontSize: 30,
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = 2

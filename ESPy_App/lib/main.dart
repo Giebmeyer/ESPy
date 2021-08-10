@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         pageTransitionsTheme: PageTransitionsTheme(
           builders: {
             TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
-            TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+            TargetPlatform.android: ZoomPageTransitionsBuilder(),
           },
         ),
         primarySwatch: Palette.purple,

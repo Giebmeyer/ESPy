@@ -10,6 +10,7 @@ class sensores {
   double MICS_CO;
   double MICS_NO2;
   double MICS_NH3;
+  double IDK;
   String data;
 
   var qtdDados;
@@ -24,6 +25,7 @@ class sensores {
       this.MICS_CO,
       this.MICS_NO2,
       this.MICS_NH3,
+      this.IDK,
       this.data});
 
   factory sensores.fromJson(Map<String, dynamic> map) {
@@ -37,6 +39,7 @@ class sensores {
       MICS_CO: double.parse(map["MICS_CO"]),
       MICS_NO2: double.parse(map["MICS_NO2"]),
       MICS_NH3: double.parse(map["MICS_NH3"]),
+      IDK: double.parse(map["IDK"]),
       data: map["Data_Hora"],
     );
   }
@@ -51,6 +54,7 @@ class sensores {
         'CO_MICS': MICS_CO,
         'NO2_MICS': MICS_NO2,
         'NH3_MICS': MICS_NH3,
+        'IDK': IDK,
         'Data_Hora': data,
       };
 }

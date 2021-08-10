@@ -7,6 +7,7 @@
 #include "BluetoothSerial.h"
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
+#include "math.h"
 
 //==========================================================================================
 //Condiguração dos Sensores-----------------------------------------------------------------
@@ -35,6 +36,8 @@ DHT dht(DHTPIN, DHTTYPE);
 
 float Umidade_DHT11;
 float Temperatura_DHT11;
+
+double IDK;
 
 //==========================================================================================
 //BMP180
@@ -74,7 +77,7 @@ char *password = "";
 //==========================================================================================
 //MySql
 //==========================================================================================
-char *codigoEmpresa = "108";
+char *codigoEmpresa = "";
 int tempoColeta = 1500;
 
 //==========================================================================================
@@ -101,6 +104,7 @@ void loop() {
     recebeDadosWifiBT();
     requestSensores();
     enviaDadosBD();
+    coletaDadosBD();
     
     delay(tempoColeta); // interval
 }
@@ -146,6 +150,10 @@ void requestSensores() {
   MICS_CO = 6;
   MICS_NO2 = 7;
   MICS_NH3 = 8;
+
+  double mediaTemperaturas = ((Temperatura_BMP180 + Temperatura_DHT11)/ 2);
+  double tempOrvalho = mediaTemperaturas - (14,55 + 0,114 * mediaTemperaturas) * (1 - (0,01 * Umidade_DHT11)) - ((2,5 + 0,007 * mediaTemperaturas) * (1 - pow((0,01 * Umidade_DHT11),3))) - (15,9 + 0,117 * mediaTemperaturas) * (1 - pow((((0,01 * Umidade_DHT11))),14));
+  IDK = (0,99 * mediaTemperaturas) + (0,36 * tempOrvalho) + 41,5;
 }
 
 
@@ -153,10 +161,10 @@ void requestSensores() {
 
 //==========================================================================================Função que envia os dados dos sensores para a tabela Dados
 void enviaDadosBD()   {
-    Serial.println("ENVIA");
+    SerialBT.println("ENVIA");
   //Conecta com o servidor sql
   if (client.connect(server, 80)) {
-    Serial.println("Conectado!");
+    SerialBT.println("Conectado!");
     
     delay(1000);
 
@@ -200,6 +208,11 @@ void enviaDadosBD()   {
     client.print(MICS_NH3);
     Serial.println(MICS_NH3);
 
+    client.print("&IDK=");
+    Serial.println("&IDK=");
+    client.print(IDK);
+    Serial.println(IDK);
+
     client.print("&codigo_empresa=");
     Serial.println("&codigo_empresa=");
     client.print(codigoEmpresa);
@@ -214,7 +227,7 @@ void enviaDadosBD()   {
     client.println("Connection: close");
     client.println();
   } else {
-    Serial.println("Falha na conexao");
+    SerialBT.println("Falha na conexao");
   }
 }
 
@@ -227,16 +240,16 @@ void coletaDadosBD(){
   if(WiFi.status() == WL_CONNECTED){
     HTTPClient client_http;
     
-    Serial.println("COLETA");
-    Serial.println(codigoEmpresa);
+    SerialBT.println("COLETA");
+    SerialBT.println(codigoEmpresa);
         
     client_http.begin("http://192.168.66.109/ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
     int httpCode = client_http.GET();
-    
+    SerialBT.println(httpCode);
    if (httpCode > 0) {                                               
       String load = client_http.getString();
-      Serial.println("\nStatus: " + String(httpCode));
-      Serial.println(load);
+      SerialBT.println("\nStatus: " + String(httpCode));
+      SerialBT.println(load);
 
       char json[500];
       load.replace(" ", "");
@@ -249,7 +262,7 @@ void coletaDadosBD(){
       deserializeJson(doc, json);
 
       int tempoColetaAUX = doc["tempo_coleta"];
-      Serial.println(tempoColeta);
+      SerialBT.println(tempoColeta);
                                                 // se o tempo de coleta for diferente de 
                                                 //1500 milissegundos, ele altera o valor para o que estava no BD, se for igual a 1500, ele altera para 900000 que são 15 minutos
      
