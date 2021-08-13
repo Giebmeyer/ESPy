@@ -75,9 +75,11 @@ class _dashBoardState extends State<dashBoard> {
     if (response.statusCode == 200) {
       list = fromJson(response.body);
       sensor.qtdDados = list.length;
+
       if (list.length == 0) {
         print("Sem dados...");
       }
+
       setState(() {
         showProgress = false;
       });
@@ -330,8 +332,11 @@ class _dashBoardState extends State<dashBoard> {
     connectivitySubscription =
         Connectivity().onConnectivityChanged.listen(updateStatus);
     ApresentaProgressoDashBoard();
-    getData_TempoReal().then((value) => dados = value);
+
+    getData_Historico().then((value) => dados = value);
     getData_Filtrada().then((value) => dados = value);
+    getData_TempoReal().then((value) => dados = value);
+
     super.initState();
   }
 
@@ -836,8 +841,7 @@ class _dashBoardState extends State<dashBoard> {
           onTap: () {
             setState(() {
               tipoGraficoSelecionado = 2;
-              FocusScope.of(context).requestFocus(new FocusNode());
-              selectcDate(context);
+              getData_Historico().then((value) => dados = value);
             });
           },
           label: 'Histórico',
@@ -866,7 +870,7 @@ class _dashBoardState extends State<dashBoard> {
     if (tipoGraficoSelecionado == 1) {
       getData_TempoReal().then((value) => dados = value);
     } else if (tipoGraficoSelecionado == 2) {
-      getData_Filtrada().then((value) => dados = value);
+      getData_Historico().then((value) => dados = value);
     } else {
       getData_Filtrada().then((value) => dados = value);
     }

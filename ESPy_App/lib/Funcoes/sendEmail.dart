@@ -30,7 +30,7 @@ Future<bool> mandaEmailRecuperacaoSenha(var _emailDestinatario) async {
 
 Future<bool> mandaEmailFuncionarioEntrouEmpresa(var _emailDestinatario) async {
   var dataFomatada =
-      DateFormat(" d / MM / y 'as' hh:mm:ss", "pt_BR").format(DateTime.now());
+      DateFormat(" d/MM/y 'as' hh:mm:ss", "pt_BR").format(DateTime.now());
 
   String _username = 'ESPy.EnviaEmail@gmail.com';
   String _password = '@EspySendEmail';

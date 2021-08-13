@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
@@ -6,8 +8,10 @@ import 'package:ESPy/Paginas/cadastroEmpresa_Page.dart';
 import 'package:ESPy/Paginas/entrarEmpresa_Page.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
 import 'dadosEmpresa_Page.dart';
 import 'listaFuncionario_Page.dart';
+import 'package:http/http.dart' as http;
 import 'login_Page.dart';
 
 class EmpresaPage extends StatefulWidget {
@@ -16,14 +20,66 @@ class EmpresaPage extends StatefulWidget {
 }
 
 class _EmpresaPgeState extends State<EmpresaPage> {
+  var msgErro;
+
+  void expulsaUsuarioEmpresa() async {
+    final response = await http.post(
+      Uri.parse(ESPy_url + '/ESPy_expulsarFuncionarioEmpresa.php'),
+      body: {"codigoUsuarioSelecionadoLista": user.codigo.toString()},
+    );
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+
+      if (jsondata["StatusExpulsausuario"]) {
+        this.setState(() {
+          msgErro = jsondata["mensagemExpulsaUsuario"];
+          showCaixaDialogoRapida(context, msgErro, 'login', 1);
+        });
+      } else {
+        this.setState(() {
+          msgErro = jsondata["mensagemExpulsaUsuario"];
+          showCaixaDialogoSimples(context, msgErro);
+        });
+      }
+    }
+  }
+
+  Widget ajustaAppBar() {
+    if (user.usuario_empregado == 1) {
+      return AppBar(
+        title: Text("Minha Empresa"),
+        actions: [
+          IconButton(
+            alignment: Alignment.center,
+            icon: Icon(Icons.exit_to_app_outlined),
+            onPressed: () {
+              showCaixaDialogoAvancada(
+                  context, "Deseja realmente deixar a empresa?");
+            },
+          )
+        ],
+        centerTitle: true,
+      );
+    } else {
+      return AppBar(
+        title: Text("Minha Empresa"),
+        centerTitle: true,
+      );
+    }
+  }
+
+  @override
+  void atualizarTela() {
+    setState(() {
+      print(emp.qtdFuncionarios);
+    });
+  }
+
 //==============================================================================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Minha Empresa"),
-        centerTitle: true,
-      ),
+      appBar: ajustaAppBar(),
       body: Empresa(),
     );
   }
@@ -256,6 +312,74 @@ class _EmpresaPgeState extends State<EmpresaPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void confirmaExpulsaoFuncao() {
+    if (confirmaExpulsao == true) {
+      setState(() {
+        atualizarTela();
+      });
+      expulsaUsuarioEmpresa();
+      Navigator.of(context).pop();
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
+
+  void showCaixaDialogoAvancada(BuildContext context, String msg) {
+    // configura o button
+
+    Widget cancelaButton, confirmaButton;
+
+    Widget linhaBotoes() {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          cancelaButton = FlatButton(
+            minWidth: MediaQuery.of(context).size.width * 0.15,
+            shape: RoundedRectangleBorder(),
+            child: Text(
+              "Cancelar",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey),
+            ),
+            onPressed: () {
+              confirmaExpulsao = false;
+              confirmaExpulsaoFuncao();
+            },
+          ),
+          confirmaButton = FlatButton(
+            minWidth: MediaQuery.of(context).size.width * 0.15,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+                side: BorderSide(color: Palette.purple)),
+            child: Text(
+              "Confirmar",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Palette.purple),
+            ),
+            onPressed: () {
+              confirmaExpulsao = true;
+              confirmaExpulsaoFuncao();
+            },
+          ),
+        ],
+      );
+    }
+
+    AlertDialog alerta = AlertDialog(
+        title: Text(msg, style: TextStyle(), textAlign: TextAlign.center),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+        ),
+        actions: [linhaBotoes()]);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
     );
   }
 }

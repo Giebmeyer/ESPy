@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Paginas/login_Page.dart';
 import 'package:ESPy/main.dart';
@@ -14,6 +15,8 @@ class recoverPassPage extends StatefulWidget {
 }
 
 class _recoverPassPageState extends State<recoverPassPage> {
+  GlobalKey<FormState> _key = new GlobalKey();
+  bool _validate = false;
 //==============================================================================
   String email = '';
   String msgErro = '';
@@ -69,41 +72,79 @@ class _recoverPassPageState extends State<recoverPassPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Recuperação de senha'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Container(
-          width: 400,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-//==============================================================================
-              TextField(
-                  onChanged: (emailx) {
-                    email = emailx;
-                  },
-                  decoration: InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0))),
-                  keyboardType: TextInputType.emailAddress),
-              SizedBox(height: 10.0),
-              FlatButton(
-                focusColor: Palette.purple.shade50,
-                onPressed: () {
-                  _ColetaDadosUsuario();
-                },
-                child: const Text('Recuperar'),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(color: Palette.purple)),
-              ),
-            ],
-          ),
+        appBar: AppBar(
+          title: Text('Recuperação de senha'),
+          centerTitle: true,
         ),
-      ),
-    );
+        body: new Form(
+          key: _key,
+          autovalidate: _validate,
+          child: Center(
+            child: Container(
+              width: 400,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+//==============================================================================
+                  Divider(
+                    indent: 30,
+                    endIndent: 70,
+                    color: Colors.black,
+                  ),
+                  Text(
+                    "Informe o email utilizado na criação da conta",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+
+                  Divider(
+                    indent: 70,
+                    endIndent: 30,
+                    color: Colors.black,
+                  ),
+                  SizedBox(height: 20),
+//==============================================================================
+                  TextFormField(
+                      validator: validarEmail,
+                      onChanged: (email) {
+                        email = email;
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Email',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0))),
+                      keyboardType: TextInputType.emailAddress),
+                  SizedBox(height: 10.0),
+                  FlatButton(
+                    focusColor: Palette.purple.shade50,
+                    onPressed: () {
+                      _sendForm();
+                    },
+                    child: const Text('Recuperar'),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        side: BorderSide(color: Palette.purple)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ));
+  }
+
+  _sendForm() {
+    if (_key.currentState.validate()) {
+      // Sem erros na validação
+      _key.currentState.save();
+      _ColetaDadosUsuario();
+    } else {
+      // erro de validação
+      setState(() {
+        _validate = true;
+        showProgress = false;
+      });
+    }
   }
 }

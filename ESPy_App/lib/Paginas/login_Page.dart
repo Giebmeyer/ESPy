@@ -3,6 +3,7 @@ import 'package:ESPy/Classes/empresa.dart';
 
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Paginas/cadastroUsuario_Page.dart';
 import 'package:ESPy/Paginas/inicial_Page.dart';
@@ -23,8 +24,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _loginPageState extends State<LoginPage> {
-  TextEditingController email = new TextEditingController();
-  TextEditingController senha = new TextEditingController();
+  GlobalKey<FormState> _key = new GlobalKey();
+  bool _validate = false;
+
+  String _email = '';
+  String _senha = '';
 
 //==============================================================================
   String msgErro = '';
@@ -117,12 +121,12 @@ class _loginPageState extends State<LoginPage> {
 
 //==============================================================================
 
-  _login() async {
+  _login(String email, String senha) async {
     final response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_login.php'),
       body: {
-        "email": email.text,
-        "senha": senha.text,
+        "email": email.toString(),
+        "senha": senha.toString(),
       },
     );
 
@@ -191,113 +195,10 @@ class _loginPageState extends State<LoginPage> {
         title: Text('Bem-vindo ao '),
         centerTitle: true,
       ),
-      body: Container(
-        decoration: new BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Palette.purple.shade900,
-            Palette.purple.shade50,
-          ],
-        )),
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 50.0),
-            child: Container(
-                decoration: new BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(115.0),
-                    topRight: const Radius.circular(115.0),
-                  ),
-                ),
-                child: Align(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.97,
-                    child: ListView(
-                      children: [
-                        Center(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.90,
-                            height: MediaQuery.of(context).size.height * 0.40,
-                            alignment: Alignment.center,
-                            child: Image.asset('assents/imagens/Logo.png'),
-                          ),
-                        ),
-//==============================================================================
-                        TextFormField(
-                            controller: email,
-                            decoration: InputDecoration(
-                                labelText: 'Email',
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15.0))),
-                            keyboardType: TextInputType.emailAddress),
-                        SizedBox(height: 10),
-//==============================================================================
-                        TextFormField(
-                            controller: senha,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                labelText: 'Senha',
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(15.0)))),
-//==============================================================================
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => recoverPassPage()));
-                            },
-                            child: Text(
-                              "Esqueci minha senha",
-                              textAlign: TextAlign.right,
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 13.0),
-                            ),
-                          ),
-                        ),
-//==============================================================================
-                        Align(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.30,
-                            child: FlatButton(
-                              onPressed: () {
-                                setState(() {
-                                  showProgress = true;
-                                });
-                                _login();
-                              },
-                              child: ApresentaProgressoLogin(),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  side: BorderSide(color: Palette.purple)),
-                            ),
-                          ),
-                        ),
-//==============================================================================
-                        FlatButton(
-                          focusColor: Palette.purple.shade50,
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => CadastroUserPage()));
-                          },
-                          child: Text(
-                            "Não possui login? Cadastre-se",
-                            textAlign: TextAlign.right,
-                            style:
-                                TextStyle(color: Colors.grey, fontSize: 13.0),
-                          ),
-                        ),
-//==============================================================================
-                      ],
-                    ),
-                  ),
-                )),
-          ),
-        ),
+      body: new Form(
+        key: _key,
+        autovalidate: _validate,
+        child: _FormUI(),
       ),
     );
   }
@@ -320,4 +221,133 @@ class _loginPageState extends State<LoginPage> {
   }
 
 //==============================================================================
+
+  Widget _FormUI() {
+    return new Container(
+      decoration: new BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          Palette.purple.shade900,
+          Palette.purple.shade50,
+        ],
+      )),
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50.0),
+          child: Container(
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(115.0),
+                  topRight: const Radius.circular(115.0),
+                ),
+              ),
+              child: Align(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.97,
+                  child: ListView(
+                    children: [
+                      Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.90,
+                          height: MediaQuery.of(context).size.height * 0.40,
+                          alignment: Alignment.center,
+                          child: Image.asset('assents/imagens/Logo.png'),
+                        ),
+                      ),
+//==============================================================================
+                      TextFormField(
+                          validator: validarEmail,
+                          onSaved: (String email) {
+                            _email = email;
+                          },
+                          decoration: InputDecoration(
+                              labelText: 'Email',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0))),
+                          keyboardType: TextInputType.emailAddress),
+                      SizedBox(height: 10),
+//==============================================================================
+                      TextFormField(
+                          validator: validarSenha,
+                          onSaved: (String senha) {
+                            _senha = senha;
+                          },
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              labelText: 'Senha',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0)))),
+//==============================================================================
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => recoverPassPage()));
+                          },
+                          child: Text(
+                            "Esqueci minha senha",
+                            textAlign: TextAlign.right,
+                            style:
+                                TextStyle(color: Colors.grey, fontSize: 13.0),
+                          ),
+                        ),
+                      ),
+//==============================================================================
+                      Align(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.30,
+                          child: FlatButton(
+                            onPressed: () {
+                              setState(() {
+                                showProgress = true;
+                              });
+                              _sendForm();
+                            },
+                            child: ApresentaProgressoLogin(),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: BorderSide(color: Palette.purple)),
+                          ),
+                        ),
+                      ),
+//==============================================================================
+                      FlatButton(
+                        focusColor: Palette.purple.shade50,
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CadastroUserPage()));
+                        },
+                        child: Text(
+                          "Não possui login? Cadastre-se",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                        ),
+                      ),
+//==============================================================================
+                    ],
+                  ),
+                ),
+              )),
+        ),
+      ),
+    );
+  }
+
+  _sendForm() {
+    if (_key.currentState.validate()) {
+      // Sem erros na validação
+      _key.currentState.save();
+      _login(_email, _senha);
+    } else {
+      // erro de validação
+      setState(() {
+        _validate = true;
+        showProgress = false;
+      });
+    }
+  }
 }

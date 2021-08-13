@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
+import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/snackBar.dart';
@@ -20,6 +21,8 @@ class cadastroEmpresaPage extends StatefulWidget {
 }
 
 class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
+  GlobalKey<FormState> _key = new GlobalKey();
+  bool _validate = false;
 //==============================================================================
   String msgErro = '';
   bool erroCadastroEmpresa, showProgress, sucesso;
@@ -27,7 +30,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
   TextEditingController _nome = new TextEditingController();
   TextEditingController _ceo = new TextEditingController();
   TextEditingController _telefone = new TextEditingController();
-  TextEditingController _cpf_cnpj = new TextEditingController();
+  TextEditingController _cnpj = new TextEditingController();
   TextEditingController _estado = new TextEditingController();
   TextEditingController _cidade = new TextEditingController();
   TextEditingController _bairro = new TextEditingController();
@@ -49,7 +52,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
         "ceo": _ceo.text.trim(),
         "email_ceo": user.email.trim(),
         "telefone": _telefone.text.trim(),
-        "cpf_cnpj": _cpf_cnpj.text.trim(),
+        "cnpj": _cnpj.text.trim(),
         "estado": dropdownValueEstado.trim(),
         "cidade": _cidade.text.trim(),
         "bairro": _bairro.text.trim(),
@@ -161,17 +164,28 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Cadastro de empresa'),
-          centerTitle: true,
-        ),
-        body: Center(
-            child: Container(
-          width: 400,
-          child: ListView(children: [
+      appBar: AppBar(
+        title: Text('Cadastro de empresa'),
+        centerTitle: true,
+      ),
+      body: new Form(
+        key: _key,
+        autovalidate: _validate,
+        child: _formUI(),
+      ),
+    );
+  }
+
+  Widget _formUI() {
+    return Center(
+      child: Container(
+        width: 400,
+        child: ListView(
+          children: [
             SizedBox(height: 10),
 //==============================================================================
-            TextField(
+            TextFormField(
+                validator: validarNome,
                 controller: _nome,
                 decoration: InputDecoration(
                     labelText: 'Nome da empresa',
@@ -180,7 +194,8 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
                 keyboardType: TextInputType.emailAddress),
             SizedBox(height: 10),
 //==============================================================================
-            TextField(
+            TextFormField(
+                validator: validarNome,
                 controller: _ceo,
                 decoration: InputDecoration(
                     labelText: 'Nome do CEO da empresa',
@@ -188,9 +203,10 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
                         borderRadius: BorderRadius.circular(15.0)))),
             SizedBox(height: 10),
 //==============================================================================
-            TextField(
+            TextFormField(
+              validator: validarCNPJ,
               inputFormatters: [maskCNPJ],
-              controller: _cpf_cnpj,
+              controller: _cnpj,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   labelText: 'CPF/CNPJ',
@@ -199,12 +215,13 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             ),
             SizedBox(height: 10),
 //==============================================================================
-            TextField(
+            TextFormField(
+              validator: validarTelefoneFixo,
               inputFormatters: [maskCell],
               controller: _telefone,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  labelText: 'Telefone',
+                  labelText: 'Telefone fixo',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0))),
             ),
@@ -223,7 +240,8 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
 //==================
                     Container(
                       width: MediaQuery.of(context).size.width * 0.75,
-                      child: TextField(
+                      child: TextFormField(
+                          validator: validarCidade,
                           controller: _cidade,
                           decoration: InputDecoration(
                               labelText: 'Cidade',
@@ -236,7 +254,8 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             ),
             SizedBox(height: 10),
 //==============================================================================
-            TextField(
+            TextFormField(
+                validator: validarBairro,
                 controller: _bairro,
                 decoration: InputDecoration(
                     labelText: 'Bairro',
@@ -244,7 +263,8 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
                         borderRadius: BorderRadius.circular(15.0)))),
             SizedBox(height: 10),
 //==============================================================================
-            TextField(
+            TextFormField(
+                validator: validarRua,
                 controller: _rua,
                 decoration: InputDecoration(
                     labelText: 'Rua',
@@ -252,18 +272,18 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
                         borderRadius: BorderRadius.circular(15.0)))),
             SizedBox(height: 10),
 //==============================================================================
-            TextField(
-              controller: _numero,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  labelText: 'Número',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.0))),
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            ),
-            SizedBox(height: 20),
+            TextFormField(
+                validator: validarNumero,
+                controller: _numero,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    labelText: 'Número',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0)))),
+            SizedBox(height: 10),
 //==============================================================================
-            TextField(
+            TextFormField(
+                validator: validarComplemento,
                 controller: _complemento,
                 decoration: InputDecoration(
                     labelText: 'Complemento',
@@ -280,7 +300,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
                     setState(() {
                       showProgress = true;
                     });
-                    _cadastroEmpresa();
+                    _sendForm();
                   },
                   child: ApresentaProgresso(),
                   shape: RoundedRectangleBorder(
@@ -291,8 +311,25 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             ),
             SizedBox(height: 10),
 //==============================================================================
-          ]),
-        )));
+          ],
+        ),
+      ),
+    );
+  }
+
+//==============================================================================
+  _sendForm() {
+    if (_key.currentState.validate()) {
+      // Sem erros na validação
+      _key.currentState.save();
+      _cadastroEmpresa();
+    } else {
+      // erro de validação
+      setState(() {
+        _validate = true;
+        showProgress = false;
+      });
+    }
   }
 
 //==============================================================================

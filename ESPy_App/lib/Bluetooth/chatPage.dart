@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 bool msgConectadoBool = false;
+bool confirmaEnvioBool = false;
 
 class ChatPage extends StatefulWidget {
   final BluetoothDevice server;
@@ -93,9 +94,6 @@ class _ChatPage extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     final List<Row> list = messages.map((_message) {
-      if (_message.text == 'Conectado!') {
-        msgConectadoBool = true;
-      }
       return Row(
         children: <Widget>[
           Container(
@@ -178,7 +176,7 @@ class _ChatPage extends State<ChatPage> {
                         },
                         style: const TextStyle(
                             color: Palette.purple, fontSize: 15.0),
-                        obscureText: true,
+                        /* obscureText: true, */
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -202,7 +200,8 @@ class _ChatPage extends State<ChatPage> {
                         icon: const Icon(Icons.send_outlined,
                             color: Colors.white),
                         onPressed: isConnected()
-                            ? () => _sendMessage(_mensagemFinal)
+                            ? () => showCaixaDialogoAvancada(
+                                context, "Rede: ${_rede}\nSenha:${_senha}")
                             : null),
                   ),
                 ],
@@ -264,6 +263,12 @@ class _ChatPage extends State<ChatPage> {
   }
 
   void _sendMessage(String _RedeSenha) async {
+    setState(
+      () {
+        _rede = '';
+        _senha = '';
+      },
+    );
     _RedeSenha = _RedeSenha.trim();
     textEditingController.clear();
 
@@ -289,5 +294,71 @@ class _ChatPage extends State<ChatPage> {
 
   bool isConnected() {
     return connection != null && connection.isConnected;
+  }
+
+  void confirmaEnvio() {
+    if (confirmaEnvio == true) {
+      setState(() {});
+      _sendMessage(_mensagemFinal);
+      Navigator.of(context).pop();
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
+
+  void showCaixaDialogoAvancada(BuildContext context, String msg) {
+    // configura o button
+
+    Widget cancelaButton, confirmaButton;
+
+    Widget linhaBotoes() {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          cancelaButton = FlatButton(
+            minWidth: MediaQuery.of(context).size.width * 0.15,
+            shape: RoundedRectangleBorder(),
+            child: Text(
+              "Cancelar",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey),
+            ),
+            onPressed: () {
+              confirmaEnvioBool = false;
+              confirmaEnvio();
+            },
+          ),
+          confirmaButton = FlatButton(
+            minWidth: MediaQuery.of(context).size.width * 0.15,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+                side: BorderSide(color: Palette.purple)),
+            child: Text(
+              "Confirmar",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Palette.purple),
+            ),
+            onPressed: () {
+              confirmaEnvioBool = true;
+              confirmaEnvio();
+            },
+          ),
+        ],
+      );
+    }
+
+    AlertDialog alerta = AlertDialog(
+        title: Text(msg, style: TextStyle(), textAlign: TextAlign.center),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+        ),
+        actions: [linhaBotoes()]);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
   }
 }

@@ -331,6 +331,7 @@ void converteStringChar(String Recebido){
     SerialBT.print("**Recebido para Conversao S > C: ");
     SerialBT.print(Recebido);
     delay(500);
+    Recebido.trim();
     Recebido.toCharArray(EnviaConversao, 40);
     delay(500);
     SerialBT.print("**Convertido para Conversao S > C: ");

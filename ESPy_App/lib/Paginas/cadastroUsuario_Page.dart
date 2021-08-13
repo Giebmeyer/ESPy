@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Funcoes/sendEmail.dart';
 import 'package:ESPy/main.dart';
@@ -17,8 +18,9 @@ class CadastroUserPage extends StatefulWidget {
 }
 
 class _cadastroUserPageState extends State<CadastroUserPage> {
+  GlobalKey<FormState> _key = new GlobalKey();
+  bool _validate = false;
   void initState() {
-    dropdownValueEstado = 'PR';
     super.initState();
   }
 
@@ -88,165 +90,198 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
         title: Text('Cadastro de usuário'),
         centerTitle: true,
       ),
-      body: Container(
-        child: Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.97,
-            child: ListView(
-              children: [
-                SizedBox(height: 20),
+      body: new Form(
+        key: _key,
+        autovalidate: _validate,
+        child: _formUI(),
+      ),
+    );
+  }
+
+  Widget _formUI() {
+    return Container(
+      child: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.97,
+          child: ListView(
+            children: [
+              SizedBox(height: 20),
 //==============================================================================
-                TextField(
-                    controller: nome,
-                    decoration: InputDecoration(
-                        labelText: 'Nome',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
-                SizedBox(height: 10),
+              TextFormField(
+                  validator: validarNome,
+                  controller: nome,
+                  decoration: InputDecoration(
+                      labelText: 'Nome',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)))),
+              SizedBox(height: 10),
 //==============================================================================
-                TextField(
-                    controller: email,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        labelText: 'Email',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
-                SizedBox(height: 10),
+              TextFormField(
+                  validator: validarEmail,
+                  controller: email,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)))),
+              SizedBox(height: 10),
 //==============================================================================
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.47,
-                          child: TextField(
-                              controller: senha,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                  labelText: 'Senha',
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15.0)))),
-                        ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.47,
+                        child: TextFormField(
+                            validator: validarSenhaCadastro,
+                            controller: senha,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                labelText: 'Senha',
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(15.0)))),
+                      ),
 //==================
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.47,
-                          child: TextField(
-                              controller: confirmacaoSenha,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                  labelText: 'Confirmar senha',
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15.0)))),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.47,
+                        child: TextFormField(
+                            validator: validarSenhaCadastro,
+                            controller: confirmacaoSenha,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                labelText: 'Confirmar senha',
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(15.0)))),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
 //==============================================================================
-                TextField(
-                    inputFormatters: [maskCpf],
-                    controller: cpf,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        labelText: 'CPF',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
-                SizedBox(height: 10),
+              TextFormField(
+                  validator: validarCPF,
+                  inputFormatters: [maskCpf],
+                  controller: cpf,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      labelText: 'CPF',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)))),
+              SizedBox(height: 10),
 //==============================================================================
-                TextField(
-                    inputFormatters: [maskCell],
-                    controller: telefone,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        labelText: 'Telefone',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
-                SizedBox(height: 10),
+              TextFormField(
+                  validator: validarCelular,
+                  inputFormatters: [maskCell],
+                  controller: telefone,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      labelText: 'Telefone celular',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)))),
+              SizedBox(height: 10),
 //==============================================================================
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.20,
-                          child: dropDownEstados(),
-                        ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.20,
+                        child: dropDownEstados(),
+                      ),
 //==================
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.75,
-                          child: TextField(
-                              controller: cidade,
-                              decoration: InputDecoration(
-                                  labelText: 'Cidade',
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15.0)))),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        child: TextFormField(
+                            validator: validarCidade,
+                            controller: cidade,
+                            decoration: InputDecoration(
+                                labelText: 'Cidade',
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(15.0)))),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
 //==============================================================================
-                TextField(
-                    controller: bairro,
-                    decoration: InputDecoration(
-                        labelText: 'Bairro',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
-                SizedBox(height: 10),
+              TextFormField(
+                  validator: validarBairro,
+                  controller: bairro,
+                  decoration: InputDecoration(
+                      labelText: 'Bairro',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)))),
+              SizedBox(height: 10),
 //==============================================================================
-                TextField(
-                    controller: rua,
-                    decoration: InputDecoration(
-                        labelText: 'Rua',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
-                SizedBox(height: 10),
+              TextFormField(
+                  validator: validarRua,
+                  controller: rua,
+                  decoration: InputDecoration(
+                      labelText: 'Rua',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)))),
+              SizedBox(height: 10),
 //==============================================================================
-                TextField(
-                    controller: numero,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        labelText: 'Número',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
-                SizedBox(height: 10),
+              TextFormField(
+                  validator: validarNumero,
+                  controller: numero,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      labelText: 'Número',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)))),
+              SizedBox(height: 10),
 //==============================================================================
-                TextField(
-                    controller: complemento,
-                    decoration: InputDecoration(
-                        labelText: 'Complemento',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)))),
-                SizedBox(height: 20),
+              TextFormField(
+                  validator: validarComplemento,
+                  controller: complemento,
+                  decoration: InputDecoration(
+                      labelText: 'Complemento',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)))),
+              SizedBox(height: 20),
 //==============================================================================
-                Align(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.30,
-                    child: FlatButton(
-                      focusColor: Palette.purple.shade50,
-                      onPressed: _cadastraUsuario,
-                      child: const Text('Enviar'),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                          side: BorderSide(color: Palette.purple)),
-                    ),
+              Align(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.30,
+                  child: FlatButton(
+                    focusColor: Palette.purple.shade50,
+                    onPressed: _sendForm,
+                    child: const Text('Enviar'),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        side: BorderSide(color: Palette.purple)),
                   ),
                 ),
-                SizedBox(height: 50),
-              ],
-            ),
+              ),
+              SizedBox(height: 50),
+            ],
           ),
         ),
       ),
     );
+  }
+
+  _sendForm() {
+    if (_key.currentState.validate()) {
+      // Sem erros na validação
+      _key.currentState.save();
+      _cadastraUsuario();
+    } else {
+      // erro de validação
+      setState(() {
+        _validate = true;
+        showProgress = false;
+      });
+    }
   }
 }

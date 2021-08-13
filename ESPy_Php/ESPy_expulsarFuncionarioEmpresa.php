@@ -15,16 +15,16 @@
 			$resultado2 = mysqli_query($conexao, $query2);	
 
 			if($resultado2){
-				$return["mensagemExpulsaUsuario"] = "Funcionário removido com sucesso!";
+				$return["mensagemExpulsaUsuario"] = "Sucesso ao realizar ação!";
 				$return["StatusExpulsausuario"] = true;	
 			}else{
-				$return["mensagemExpulsaUsuario"] = "Erro ao remover funcionário.";
+				$return["mensagemExpulsaUsuario"] = "Tente novamente";
 				$return["StatusExpulsausuario"] = false;
 			}
     		
 		}else{
 			
-			$return["mensagemExpulsaUsuario"] = "Erro ao remover funcionário.";
+			$return["mensagemExpulsaUsuario"] = "Ocorreu um erro inesperado, tente novamente";
 			$return["StatusExpulsausuario"] = false;
 		}
 
