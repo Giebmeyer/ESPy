@@ -18,7 +18,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
 //==============================================================================
-  String email = '';
+  TextEditingController _email = new TextEditingController();
   String msgErro = '';
   bool erro, showProgress;
 //==============================================================================
@@ -26,7 +26,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
     final response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_coletaDadosUsuario.php'),
       body: {
-        "email": email,
+        "email": _email.text.toString().trim(),
       },
     );
     var jsondata = json.decode(response.body);
@@ -48,9 +48,13 @@ class _recoverPassPageState extends State<recoverPassPage> {
       user.complemento = jsondata['complemento'];
       user.usuario_chefe = jsondata['usuario_chefe'];
       user.usuario_empregado = jsondata['usuario_empregado'];
-      mandaEmailRecuperacaoSenha(email);
 
-      showCaixaDialogoRapida(context, "Email enviado", 'login', 1);
+      if (_email.text.toString().trim() == user.email.trim()) {
+        mandaEmailRecuperacaoSenha(_email.text.toString().trim());
+        showCaixaDialogoRapida(context, "Email enviado", 'login', 1);
+      } else {
+        showCaixaDialogoSimples(context, "Algo deu errado, tente novamente");
+      }
     } else {
       setState(() {
         erro = true;
@@ -108,9 +112,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
 //==============================================================================
                   TextFormField(
                       validator: validarEmail,
-                      onChanged: (email) {
-                        email = email;
-                      },
+                      controller: _email,
                       decoration: InputDecoration(
                           labelText: 'Email',
                           border: OutlineInputBorder(
@@ -138,6 +140,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
     if (_key.currentState.validate()) {
       // Sem erros na validação
       _key.currentState.save();
+      print(_email.text.toString());
       _ColetaDadosUsuario();
     } else {
       // erro de validação
