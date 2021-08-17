@@ -227,8 +227,63 @@ class _botaoSairState extends State<botaoSair> {
       alignment: Alignment.center,
       icon: Icon(Icons.exit_to_app_outlined),
       onPressed: () {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginPage()));
+        showCaixaDialogoAvancada(context, "Deseja realmente sair?");
+      },
+    );
+  }
+
+  void showCaixaDialogoAvancada(BuildContext context, String msg) {
+    // configura o button
+
+    Widget cancelaButton, confirmaButton;
+
+    Widget linhaBotoes() {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          cancelaButton = FlatButton(
+            minWidth: MediaQuery.of(context).size.width * 0.25,
+            shape: RoundedRectangleBorder(),
+            child: Text(
+              "Voltar",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          confirmaButton = FlatButton(
+            minWidth: MediaQuery.of(context).size.width * 0.25,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+                side: BorderSide(color: Palette.purple)),
+            child: Text(
+              "Sair",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Palette.purple),
+            ),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  (Route<dynamic> route) => false);
+            },
+          ),
+        ],
+      );
+    }
+
+    AlertDialog alerta = AlertDialog(
+        title: Text(msg, style: TextStyle(), textAlign: TextAlign.center),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+        ),
+        actions: [linhaBotoes()]);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
       },
     );
   }

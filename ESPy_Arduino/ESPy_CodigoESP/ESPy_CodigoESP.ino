@@ -37,7 +37,8 @@ DHT dht(DHTPIN, DHTTYPE);
 float Umidade_DHT11;
 float Temperatura_DHT11;
 
-double IDK;
+double tempOrvalho = 0;
+double IDK = 0;
 
 //==========================================================================================
 //BMP180
@@ -106,16 +107,12 @@ void loop() {
     enviaDadosBD();
     coletaDadosBD();
     
-    delay(tempoColeta); // interval
+    delay(tempoColeta); // intervalo
 }
 
 //==========================================================================================
 //Funcoes
 //==========================================================================================
-
-
-
-
 
 //==========================================================================================Função que coleta os dados de cada sensor
 void requestSensores() {
@@ -123,11 +120,11 @@ void requestSensores() {
   Temperatura_DHT11 = dht.readTemperature();
   Umidade_DHT11 = dht.readHumidity();
 //
-//  //BMP180
-//
-//  Temperatura_BMP180 = bmp.readTemperature();
-//  Pressao_BMP180 = bmp.readPressure();
-//  Altitude_BMP180 = bmp.readAltitude();
+  //BMP180
+
+  Temperatura_BMP180 = bmp.readTemperature();
+  Pressao_BMP180 = bmp.readPressure();
+  Altitude_BMP180 = bmp.readAltitude();
 //
 //  //MICS6814
 //  for (int i = 0; i < 5; i ++) {
@@ -136,6 +133,7 @@ void requestSensores() {
 //    MICS_NH3 += gas.measure(NH3);
 //    delay(1000);
 //  }
+
 //  MICS_CO /= 5;  //CO
 //  MICS_NO2 /= 5;  //NO2
 //  MICS_NH3 /= 5;  //NH3
@@ -143,17 +141,19 @@ void requestSensores() {
 //  Temperatura_DHT11 = 1;
 //  Umidade_DHT11 = 2;
 
-  Temperatura_BMP180 = 3;
-  Pressao_BMP180 = 4;
-  Altitude_BMP180 = 5;
+//  Temperatura_BMP180 = 3;
+//  Pressao_BMP180 = 4;
+//  Altitude_BMP180 = 5;
 
-  MICS_CO = 6;
-  MICS_NO2 = 7;
-  MICS_NH3 = 8;
+  MICS_CO = rand()%10;
+  MICS_NO2 = rand()%10;
+  MICS_NH3 = rand()%10;
+  
+  double mediaTemperaturas = Temperatura_DHT11;
 
-  double mediaTemperaturas = ((Temperatura_BMP180 + Temperatura_DHT11)/ 2);
-  double tempOrvalho = mediaTemperaturas - (14,55 + 0,114 * mediaTemperaturas) * (1 - (0,01 * Umidade_DHT11)) - ((2,5 + 0,007 * mediaTemperaturas) * (1 - pow((0,01 * Umidade_DHT11),3))) - (15,9 + 0,117 * mediaTemperaturas) * (1 - pow((((0,01 * Umidade_DHT11))),14));
-  IDK = (0,99 * mediaTemperaturas) + (0,36 * tempOrvalho) + 41,5;
+  tempOrvalho = (mediaTemperaturas - (14.55 + 0.114 * mediaTemperaturas) * (1.0 - (0.01 * Umidade_DHT11)) - pow((2.5 + 0.007 * mediaTemperaturas) * (1.0 - (0.01 * Umidade_DHT11)), 3.0) - (15.9 + 0.117 * mediaTemperaturas) * pow(1.0 - (0.01 * Umidade_DHT11), 14.0));
+  IDK = ((0.99 * mediaTemperaturas) + (0.36) * (tempOrvalho + 41.5));
+
 }
 
 
@@ -250,7 +250,7 @@ void coletaDadosBD(){
       String load = client_http.getString();
       SerialBT.println("\nStatus: " + String(httpCode));
       SerialBT.println(load);
-
+      delay(500);
       char json[500];
       load.replace(" ", "");
       load.replace("\n", "");
@@ -263,7 +263,7 @@ void coletaDadosBD(){
 
       int tempoColetaAUX = doc["tempo_coleta"];
       SerialBT.println(tempoColeta);
-                                                // se o tempo de coleta for diferente de 
+      Serial.println(tempoColeta);                                          // se o tempo de coleta for diferente de 
                                                 //1500 milissegundos, ele altera o valor para o que estava no BD, se for igual a 1500, ele altera para 900000 que são 15 minutos
      
       if(tempoColetaAUX != tempoColeta){  
@@ -274,7 +274,7 @@ void coletaDadosBD(){
       }
       
       Serial.println(tempoColeta);
-      
+      delay(1000);
     }else{
       SerialBT.println("Erro no request");
     }
@@ -395,6 +395,5 @@ void conectaWifi(char* Rede, char* password){
   delay(2000);//Espera um tempo para se conectar no WiFi
   SerialBT.println("Conectado");
   
-  coletaDadosBD();
 }
 //==========================================================================================

@@ -129,8 +129,8 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
     return Container(
       decoration: new BoxDecoration(
           gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
         colors: [
           Palette.purple.shade900,
           Palette.purple.shade50,

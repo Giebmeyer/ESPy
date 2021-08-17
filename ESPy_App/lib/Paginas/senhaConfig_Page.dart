@@ -1,3 +1,4 @@
+import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
@@ -53,6 +54,7 @@ class _senhaConfigState extends State<senhaConfig> {
         centerTitle: true,
       ),
       body: showBody(),
+      floatingActionButton: botaoAviso(),
     );
   }
 
@@ -224,11 +226,27 @@ class _senhaConfigState extends State<senhaConfig> {
   ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
   void confereSenha() {
-    if (senha == '094152') {
+    if (senha == emp.chaveConvite.toString()) {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => configSensor()));
     } else {
       showCaixaDialogoSimples(context, "Senha incorreta");
     }
+  }
+
+  Widget botaoAviso() {
+    return SizedBox(
+      width: 45,
+      height: 45,
+      child: FloatingActionButton(
+        heroTag: "Aviso de senha",
+        backgroundColor: Palette.purple,
+        onPressed: () {
+          showCaixaDialogoSimples(context,
+              "A senha de acesso as configurações é a chave de convite da sua empresa");
+        },
+        child: Icon(Icons.warning),
+      ),
+    );
   }
 }

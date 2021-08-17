@@ -187,8 +187,8 @@ class _EmpresaPgeState extends State<EmpresaPage> {
       padding: const EdgeInsets.only(top: 50.0),
       decoration: new BoxDecoration(
           gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
         colors: [
           Palette.purple.shade900,
           Palette.purple.shade50,
@@ -262,8 +262,8 @@ class _EmpresaPgeState extends State<EmpresaPage> {
       padding: const EdgeInsets.only(top: 50.0),
       decoration: new BoxDecoration(
           gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
         colors: [
           Palette.purple.shade900,
           Palette.purple.shade50,
@@ -296,7 +296,7 @@ class _EmpresaPgeState extends State<EmpresaPage> {
                             label: Text(
                               "Dados da empresa",
                               style: TextStyle(
-                                  color: Palette.purple, fontSize: 15),
+                                  color: Palette.purple, fontSize: 20),
                             ))),
                   ],
                 ),

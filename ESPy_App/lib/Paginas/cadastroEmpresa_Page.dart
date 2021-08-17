@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../main.dart';
-import 'inicial_Page.dart';
+import 'Pages.dart';
 import 'login_Page.dart';
 
 class cadastroEmpresaPage extends StatefulWidget {
@@ -122,7 +122,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
             erroCadastroEmpresa = false;
             showProgress = true;
             Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => inicialPage()),
+                MaterialPageRoute(builder: (context) => Pages()),
                 (Route<dynamic> route) => false);
           });
 

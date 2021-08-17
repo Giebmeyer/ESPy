@@ -1,5 +1,6 @@
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -87,7 +88,9 @@ class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
                                   Text(" | nº " + emp.numero.toString()),
                                 ],
                               ),
-                              Text("")
+                              if (user.usuario_chefe == 1)
+                                Text("Chave de Convite: " +
+                                    emp.chaveConvite.toString()),
                             ],
                           )
                         ],

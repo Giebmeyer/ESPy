@@ -2,7 +2,7 @@ import 'package:ESPy/Bluetooth/bluetoohPage.dart';
 import 'package:ESPy/Paginas/configSensor_Page.dart';
 import 'package:ESPy/Paginas/dashBoard_Page.dart';
 import 'package:ESPy/Paginas/empresa_Page.dart';
-import 'package:ESPy/Paginas/inicial_Page.dart';
+import 'package:ESPy/Paginas/Pages.dart';
 import 'package:ESPy/Paginas/splash_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,7 +11,7 @@ import 'Classes/palette.dart';
 
 void main() => runApp(new MyApp());
 
-String ESPy_url = 'http://192.168.66.109/ESPy/ESPy_Php';
+const String ESPy_url = 'http://192.168.66.109/ESPy/ESPy_Php';
 
 class MyApp extends StatelessWidget {
   @override
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       home: new SplashPage(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => new LoginPage(),
-        '/inicial': (BuildContext context) => new inicialPage(),
+        '/inicial': (BuildContext context) => new Pages(),
         '/configSensor': (BuildContext context) => new configSensor(),
         '/minhaEmpresa': (BuildContext context) => new EmpresaPage(),
         '/dashBoard': (BuildContext context) => new dashBoard(),

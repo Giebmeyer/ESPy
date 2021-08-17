@@ -6,12 +6,15 @@ import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/main.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as Charts;
 import 'package:intl/intl.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+
+var tipoGraficoSelecionado = 1; //1 tempo real; 2 historico; 3 filtrado
 
 class dashBoard extends StatefulWidget {
   @override
@@ -28,7 +31,6 @@ class _dashBoardState extends State<dashBoard> {
 
   bool showProgress = false;
   botaoAtualizar botaoAtt;
-  var tipoGraficoSelecionado; //1 tempo real; 2 historico; 3 filtrado
 
 //==============================================================================
   List<sensores> fromJson(String strJson) {
@@ -102,13 +104,24 @@ class _dashBoardState extends State<dashBoard> {
     if (response.statusCode == 200) {
       list = fromJson(response.body);
       setState(() {
-        print(emp.codigo.toString());
         showProgress = false;
       });
     } else {
       showProgress = true;
     }
     return list;
+  }
+
+//==============================================================================
+  static List<Charts.Series<sensores, String>> IDK_barra(List<sensores> dados) {
+    return [
+      Charts.Series<sensores, String>(
+          id: 'IDK_barra',
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
+          domainFn: (sensores sensor, _) => sensor.data,
+          measureFn: (sensores sensor, _) => sensor.IDK,
+          data: dados)
+    ];
   }
 
 //==============================================================================
@@ -217,6 +230,19 @@ class _dashBoardState extends State<dashBoard> {
 
 //==============================================================================
 //==============================================================================
+//==============================================================================
+
+  static List<Charts.Series<sensores, int>> IDK_linha(List<sensores> dados) {
+    return [
+      Charts.Series<sensores, int>(
+          id: 'IDK_linha',
+          colorFn: (_, __) => Charts.ColorUtil.fromDartColor(Palette.purple),
+          domainFn: (sensores sensor, _) => sensor.sequencia,
+          measureFn: (sensores sensor, _) => sensor.IDK,
+          data: dados)
+    ];
+  }
+
 //==============================================================================
 
   static List<Charts.Series<sensores, int>> dht11_Temperatura_linha(
@@ -329,13 +355,10 @@ class _dashBoardState extends State<dashBoard> {
   @override
   void initState() {
     showProgress = true;
+    attTelaGrafico();
     connectivitySubscription =
         Connectivity().onConnectivityChanged.listen(updateStatus);
     ApresentaProgressoDashBoard();
-
-    getData_Historico().then((value) => dados = value);
-    getData_Filtrada().then((value) => dados = value);
-    getData_TempoReal().then((value) => dados = value);
 
     super.initState();
   }
@@ -405,6 +428,73 @@ class _dashBoardState extends State<dashBoard> {
             Container(
               height: MediaQuery.of(context).size.height * 0.40,
               child: Charts.BarChart(
+                IDK_barra(dados),
+                animate: true,
+                behaviors: [
+                  new Charts.ChartTitle('Índice de qualidade'),
+                  new Charts.SlidingViewport(),
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'IDK',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  ),
+                  new Charts.ChartTitle(' ',
+                      behaviorPosition: Charts.BehaviorPosition.bottom,
+                      titleOutsideJustification:
+                          Charts.OutsideJustification.middleDrawArea),
+                  new Charts.RangeAnnotation([
+                    new Charts.RangeAnnotationSegment(
+                      0,
+                      55,
+                      Charts.RangeAnnotationAxisType.measure,
+                      middleLabel: 'Estresse devido ao frio',
+                      labelAnchor: Charts.AnnotationLabelAnchor.end,
+                      color: Charts.MaterialPalette.gray.shade200,
+                    ),
+                    new Charts.RangeAnnotationSegment(
+                      55,
+                      60,
+                      Charts.RangeAnnotationAxisType.measure,
+                      middleLabel: 'Desconforto devido ao frio',
+                      labelAnchor: Charts.AnnotationLabelAnchor.end,
+                      color: Charts.MaterialPalette.gray.shade300,
+                    ),
+                    new Charts.RangeAnnotationSegment(
+                      60,
+                      75,
+                      Charts.RangeAnnotationAxisType.measure,
+                      middleLabel: 'Confortável',
+                      labelAnchor: Charts.AnnotationLabelAnchor.end,
+                      color: Charts.MaterialPalette.gray.shade500,
+                    ),
+                    new Charts.RangeAnnotationSegment(
+                      75,
+                      80,
+                      Charts.RangeAnnotationAxisType.measure,
+                      middleLabel: 'Desconforto devido ao calor',
+                      labelAnchor: Charts.AnnotationLabelAnchor.end,
+                      color: Charts.MaterialPalette.gray.shade300,
+                    ),
+                    new Charts.RangeAnnotationSegment(
+                      80,
+                      100,
+                      Charts.RangeAnnotationAxisType.measure,
+                      middleLabel: 'Estresse devido ao calor',
+                      labelAnchor: Charts.AnnotationLabelAnchor.end,
+                      color: Charts.MaterialPalette.gray.shade200,
+                    ),
+                  ])
+                ],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+//==============================================================================
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.BarChart(
                 dht11_Temperatura_barra(dados),
                 animate: true,
                 behaviors: [
@@ -417,6 +507,10 @@ class _dashBoardState extends State<dashBoard> {
                     titleOutsideJustification:
                         Charts.OutsideJustification.middleDrawArea,
                   ),
+                  new Charts.ChartTitle(' ',
+                      behaviorPosition: Charts.BehaviorPosition.bottom,
+                      titleOutsideJustification:
+                          Charts.OutsideJustification.middleDrawArea),
                 ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
@@ -438,6 +532,10 @@ class _dashBoardState extends State<dashBoard> {
                     titleOutsideJustification:
                         Charts.OutsideJustification.middleDrawArea,
                   ),
+                  new Charts.ChartTitle(' ',
+                      behaviorPosition: Charts.BehaviorPosition.bottom,
+                      titleOutsideJustification:
+                          Charts.OutsideJustification.middleDrawArea),
                 ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
@@ -459,6 +557,10 @@ class _dashBoardState extends State<dashBoard> {
                     titleOutsideJustification:
                         Charts.OutsideJustification.middleDrawArea,
                   ),
+                  new Charts.ChartTitle(' ',
+                      behaviorPosition: Charts.BehaviorPosition.bottom,
+                      titleOutsideJustification:
+                          Charts.OutsideJustification.middleDrawArea),
                 ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
@@ -521,7 +623,7 @@ class _dashBoardState extends State<dashBoard> {
                     behaviorPosition: Charts.BehaviorPosition.start,
                     titleOutsideJustification:
                         Charts.OutsideJustification.middleDrawArea,
-                  )
+                  ),
                 ],
               ),
               decoration: myBoxDecoration(1.0, 10.0, Colors.black),
@@ -587,11 +689,74 @@ class _dashBoardState extends State<dashBoard> {
             Container(
               height: MediaQuery.of(context).size.height * 0.40,
               child: Charts.LineChart(
+                IDK_linha(dados),
+                animate: true,
+                behaviors: [
+                  Charts.ChartTitle('Índice de qualidade'),
+                  /*   new Charts.SlidingViewport(), */
+                  new Charts.PanAndZoomBehavior(),
+                  new Charts.ChartTitle(
+                    'IDK',
+                    behaviorPosition: Charts.BehaviorPosition.start,
+                    titleOutsideJustification:
+                        Charts.OutsideJustification.middleDrawArea,
+                  ),
+                  new Charts.RangeAnnotation([
+                    new Charts.RangeAnnotationSegment(
+                      0,
+                      55,
+                      Charts.RangeAnnotationAxisType.measure,
+                      middleLabel: 'Estresse devido ao frio',
+                      labelAnchor: Charts.AnnotationLabelAnchor.end,
+                      color: Charts.MaterialPalette.gray.shade200,
+                    ),
+                    new Charts.RangeAnnotationSegment(
+                      55,
+                      60,
+                      Charts.RangeAnnotationAxisType.measure,
+                      middleLabel: 'Desconforto devido ao frio',
+                      labelAnchor: Charts.AnnotationLabelAnchor.end,
+                      color: Charts.MaterialPalette.gray.shade300,
+                    ),
+                    new Charts.RangeAnnotationSegment(
+                      60,
+                      75,
+                      Charts.RangeAnnotationAxisType.measure,
+                      middleLabel: 'Confortável',
+                      labelAnchor: Charts.AnnotationLabelAnchor.end,
+                      color: Charts.MaterialPalette.gray.shade400,
+                    ),
+                    new Charts.RangeAnnotationSegment(
+                      75,
+                      80,
+                      Charts.RangeAnnotationAxisType.measure,
+                      middleLabel: 'Desconforto devido ao calor',
+                      labelAnchor: Charts.AnnotationLabelAnchor.end,
+                      color: Charts.MaterialPalette.gray.shade300,
+                    ),
+                    new Charts.RangeAnnotationSegment(
+                      80,
+                      100,
+                      Charts.RangeAnnotationAxisType.measure,
+                      middleLabel: 'Estresse devido ao calor',
+                      labelAnchor: Charts.AnnotationLabelAnchor.end,
+                      color: Charts.MaterialPalette.gray.shade200,
+                    ),
+                  ])
+                ],
+              ),
+              decoration: myBoxDecoration(1.0, 10.0, Colors.black),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+//==============================================================================
+            Container(
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Charts.LineChart(
                 dht11_Temperatura_linha(dados),
                 animate: true,
                 behaviors: [
                   Charts.ChartTitle('DHT11: Temperatura'),
-                  new Charts.SlidingViewport(),
+                  /*   new Charts.SlidingViewport(), */
                   new Charts.PanAndZoomBehavior(),
                   new Charts.ChartTitle(
                     'ºC',
@@ -612,7 +777,6 @@ class _dashBoardState extends State<dashBoard> {
                 animate: true,
                 behaviors: [
                   Charts.ChartTitle('DHT11: Umidade'),
-                  new Charts.SlidingViewport(),
                   new Charts.PanAndZoomBehavior(),
                   new Charts.ChartTitle(
                     '%',
@@ -633,7 +797,6 @@ class _dashBoardState extends State<dashBoard> {
                 animate: true,
                 behaviors: [
                   Charts.ChartTitle('BMP180: Altitude'),
-                  new Charts.SlidingViewport(),
                   new Charts.PanAndZoomBehavior(),
                   new Charts.ChartTitle(
                     'm',
@@ -654,7 +817,6 @@ class _dashBoardState extends State<dashBoard> {
                 animate: true,
                 behaviors: [
                   Charts.ChartTitle('BMP180: Pressão Atmosferica'),
-                  new Charts.SlidingViewport(),
                   new Charts.PanAndZoomBehavior(),
                   new Charts.ChartTitle(
                     'ATM',
@@ -675,7 +837,6 @@ class _dashBoardState extends State<dashBoard> {
                 animate: true,
                 behaviors: [
                   Charts.ChartTitle('BMP180: Temperatura'),
-                  new Charts.SlidingViewport(),
                   new Charts.PanAndZoomBehavior(),
                   new Charts.ChartTitle(
                     'ºC',
@@ -696,7 +857,6 @@ class _dashBoardState extends State<dashBoard> {
                 animate: true,
                 behaviors: [
                   Charts.ChartTitle('MICS: Monóxido de carbono'),
-                  new Charts.SlidingViewport(),
                   new Charts.PanAndZoomBehavior(),
                   new Charts.ChartTitle(
                     'ppm',
@@ -717,7 +877,6 @@ class _dashBoardState extends State<dashBoard> {
                 animate: true,
                 behaviors: [
                   Charts.ChartTitle('MICS: Hidróxido de amônia'),
-                  new Charts.SlidingViewport(),
                   new Charts.PanAndZoomBehavior(),
                   new Charts.ChartTitle(
                     'ppm',
@@ -738,7 +897,6 @@ class _dashBoardState extends State<dashBoard> {
                 animate: true,
                 behaviors: [
                   Charts.ChartTitle('MICS: Dióxido de nitrogênio'),
-                  new Charts.SlidingViewport(),
                   new Charts.PanAndZoomBehavior(),
                   new Charts.ChartTitle(
                     'ppm',
@@ -804,12 +962,12 @@ class _dashBoardState extends State<dashBoard> {
 
     if (dataFinalEscolhida != null && dataInicialEscolhida != null) {
       setState(() {
+        showProgress = true;
+        tipoGraficoSelecionado = 3;
         dataInicial =
             DateFormat("y-MM-d", "pt_BR").format(dataInicialEscolhida);
-
         dataFinal = DateFormat("y-MM-d", "pt_BR").format(dataFinalEscolhida);
         getData_Filtrada().then((value) => dados = value);
-        ApresentaProgressoDashBoard();
       });
     }
   }
@@ -823,11 +981,12 @@ class _dashBoardState extends State<dashBoard> {
       curve: Curves.bounceInOut,
       children: [
         SpeedDialChild(
-          child: Icon(Icons.holiday_village, color: Colors.white),
-          backgroundColor: Palette.purple.shade800,
+          child: Icon(CupertinoIcons.eye_fill, color: Colors.white),
+          backgroundColor: Palette.purple.shade900,
           onTap: () {
             setState(() {
               tipoGraficoSelecionado = 1;
+              showProgress = true;
               getData_TempoReal().then((value) => dados = value);
             });
           },
@@ -837,10 +996,11 @@ class _dashBoardState extends State<dashBoard> {
         ),
         SpeedDialChild(
           child: Icon(Icons.history, color: Colors.white),
-          backgroundColor: Palette.purple.shade600,
+          backgroundColor: Palette.purple.shade700,
           onTap: () {
             setState(() {
               tipoGraficoSelecionado = 2;
+              showProgress = true;
               getData_Historico().then((value) => dados = value);
             });
           },
@@ -850,10 +1010,9 @@ class _dashBoardState extends State<dashBoard> {
         ),
         SpeedDialChild(
           child: Icon(Icons.calendar_today, color: Colors.white),
-          backgroundColor: Palette.purple.shade400,
+          backgroundColor: Palette.purple.shade500,
           onTap: () {
             setState(() {
-              tipoGraficoSelecionado = 3;
               FocusScope.of(context).requestFocus(new FocusNode());
               selectcDate(context);
             });
@@ -871,8 +1030,8 @@ class _dashBoardState extends State<dashBoard> {
       getData_TempoReal().then((value) => dados = value);
     } else if (tipoGraficoSelecionado == 2) {
       getData_Historico().then((value) => dados = value);
-    } else {
+    } else if (tipoGraficoSelecionado == 3) {
       getData_Filtrada().then((value) => dados = value);
-    }
+    } else {}
   }
 }

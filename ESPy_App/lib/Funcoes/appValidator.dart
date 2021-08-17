@@ -10,12 +10,12 @@ String validarNome(String value) {
 }
 
 String validarCelular(String value) {
-  String patttern = r'(^[0-9]*$)';
+  String patttern = r'(^[0-9() -]*$)';
   RegExp regExp = new RegExp(patttern);
   if (value.length == 0) {
     return "Informe o seu número de celular";
-  } else if (value.length != 10) {
-    return "O celular deve ter 10 dígitos";
+  } else if (value.length > 15) {
+    return "O celular deve ter 15 dígitos";
   } else if (!regExp.hasMatch(value)) {
     return "O número do celular so deve conter dígitos";
   }
@@ -38,7 +38,7 @@ String validarSenha(String value) {
   if (value.length == 0) {
     return "Informe a sua Senha";
   } else if (value.length < 6) {
-    return "A senha precisa contar no minímo 6 digitos";
+    return "Minímo 6 digitos";
   } else {
     return null;
   }
@@ -48,18 +48,18 @@ String validarSenhaCadastro(String value) {
   if (value.length == 0) {
     return "Informe a sua Senha";
   } else if (value.length < 6) {
-    return "A senha precisa contar no minímo 6 digitos";
+    return "Minímo 6 digitos";
   } else {
     return null;
   }
 }
 
 String validarCPF(String value) {
-  String patttern = r'(^[0-9]*$)';
+  String patttern = r'(^[0-9-.]*$)';
   RegExp regExp = new RegExp(patttern);
   if (value.length == 0) {
     return "Informe o CPF";
-  } else if (value.length < 10) {
+  } else if (value.length < 14) {
     return "CPF inválido";
   } else if (!regExp.hasMatch(value)) {
     return "O CPF deve conter apenas números";
@@ -69,11 +69,11 @@ String validarCPF(String value) {
 }
 
 String validarCNPJ(String value) {
-  String patttern = r'(^[0-9]*$)';
+  String patttern = r'(^[0-9./-]*$)';
   RegExp regExp = new RegExp(patttern);
   if (value.length == 0) {
     return "Informe o CNPJ";
-  } else if (value.length < 13) {
+  } else if (value.length < 18) {
     return "CNPJ inválido";
   } else if (!regExp.hasMatch(value)) {
     return "O CNPJ deve conter apenas números";
@@ -82,22 +82,8 @@ String validarCNPJ(String value) {
   }
 }
 
-String validarTelefone(String value) {
-  String patttern = r'(^[0-9]*$)';
-  RegExp regExp = new RegExp(patttern);
-  if (value.length == 0) {
-    return "Informe o número de telefone celular";
-  } else if (value.length < 11) {
-    return "Telefone inválido";
-  } else if (!regExp.hasMatch(value)) {
-    return "O número de telefone deve conter apenas números";
-  } else {
-    return null;
-  }
-}
-
 String validarTelefoneFixo(String value) {
-  String patttern = r'(^[0-9]*$)';
+  String patttern = r'(^[0-9() -]*$)';
   RegExp regExp = new RegExp(patttern);
   if (value.length == 0) {
     return "Informe o número de telefone fixo";
@@ -111,7 +97,7 @@ String validarTelefoneFixo(String value) {
 }
 
 String validarCidade(String value) {
-  String patttern = r'(^[a-zA-Z ]*$)';
+  String patttern = r'(^[a-zA-Z ç]*$)';
   RegExp regExp = new RegExp(patttern);
   if (value.length == 0) {
     return "Informe o nome da sua cidade";

@@ -37,7 +37,8 @@ class _ChatPage extends State<ChatPage> {
 
   List<_Message> messages = [];
   String _messageBuffer = '';
-
+  final TextEditingController _redeController = new TextEditingController();
+  final TextEditingController _senhaController = new TextEditingController();
   final TextEditingController textEditingController =
       new TextEditingController();
   final ScrollController listScrollController = new ScrollController();
@@ -144,6 +145,7 @@ class _ChatPage extends State<ChatPage> {
                     child: Container(
                       margin: const EdgeInsets.all(8.0),
                       child: TextField(
+                        controller: _redeController,
                         onChanged: (rede) {
                           _rede = rede;
                         },
@@ -169,10 +171,12 @@ class _ChatPage extends State<ChatPage> {
                   Flexible(
                     child: Container(
                       child: TextField(
+                        controller: _senhaController,
                         onChanged: (senha) {
                           _senha = senha;
                           _RedeSenha = _rede + ';' + _senha;
-                          _mensagemFinal = _RedeSenha + ';' + _codigoEmpresa;
+                          _mensagemFinal =
+                              _RedeSenha.trim() + ';' + _codigoEmpresa;
                         },
                         style: const TextStyle(
                             color: Palette.purple, fontSize: 15.0),
@@ -201,7 +205,7 @@ class _ChatPage extends State<ChatPage> {
                             color: Colors.white),
                         onPressed: isConnected()
                             ? () => showCaixaDialogoAvancada(
-                                context, "Rede: ${_rede}\nSenha:${_senha}")
+                                context, "Rede: ${_rede}\nSenha: ${_senha}")
                             : null),
                   ),
                 ],
@@ -263,14 +267,9 @@ class _ChatPage extends State<ChatPage> {
   }
 
   void _sendMessage(String _RedeSenha) async {
-    setState(
-      () {
-        _rede = '';
-        _senha = '';
-      },
-    );
     _RedeSenha = _RedeSenha.trim();
-    textEditingController.clear();
+    _redeController.clear();
+    _senhaController.clear();
 
     try {
       connection.output.add(utf8.encode(_RedeSenha + "\r\n"));
@@ -297,7 +296,7 @@ class _ChatPage extends State<ChatPage> {
   }
 
   void confirmaEnvio() {
-    if (confirmaEnvio == true) {
+    if (confirmaEnvioBool == true) {
       setState(() {});
       _sendMessage(_mensagemFinal);
       Navigator.of(context).pop();
@@ -317,7 +316,7 @@ class _ChatPage extends State<ChatPage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           cancelaButton = FlatButton(
-            minWidth: MediaQuery.of(context).size.width * 0.15,
+            minWidth: MediaQuery.of(context).size.width * 0.25,
             shape: RoundedRectangleBorder(),
             child: Text(
               "Cancelar",
@@ -330,7 +329,7 @@ class _ChatPage extends State<ChatPage> {
             },
           ),
           confirmaButton = FlatButton(
-            minWidth: MediaQuery.of(context).size.width * 0.15,
+            minWidth: MediaQuery.of(context).size.width * 0.25,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
                 side: BorderSide(color: Palette.purple)),

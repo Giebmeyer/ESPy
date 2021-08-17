@@ -9,12 +9,12 @@ import 'dashBoard_Page.dart';
 import 'home_Page.dart';
 import 'empresa_Page.dart';
 
-class inicialPage extends StatefulWidget {
+class Pages extends StatefulWidget {
   @override
-  _inicialPageState createState() => _inicialPageState();
+  _PagesState createState() => _PagesState();
 }
 
-class _inicialPageState extends State<inicialPage> {
+class _PagesState extends State<Pages> {
   final List<Widget> telasChefe = [
     senhaConfig(),
     EmpresaPage(),

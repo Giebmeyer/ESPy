@@ -6,7 +6,7 @@ import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Paginas/cadastroUsuario_Page.dart';
-import 'package:ESPy/Paginas/inicial_Page.dart';
+import 'package:ESPy/Paginas/Pages.dart';
 import 'package:ESPy/Paginas/recoverPass_Page.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +24,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _loginPageState extends State<LoginPage> {
+//==============================================================================
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
 
@@ -53,10 +54,8 @@ class _loginPageState extends State<LoginPage> {
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
 
-      this.setState(() {
-        data = json.decode(response.body);
-        emp.qtdFuncionarios = data.length;
-      });
+      data = json.decode(response.body);
+      emp.qtdFuncionarios = data.length;
     }
   }
 
@@ -86,7 +85,6 @@ class _loginPageState extends State<LoginPage> {
           emp.email_ceo = jsondata['email_ceo'];
           emp.telefone = jsondata['telefone'];
           emp.cnpj = jsondata['cnpj'];
-          print(emp.cnpj);
           emp.estado = jsondata['estado'];
           emp.cidade = jsondata['cidade'];
           emp.bairro = jsondata['bairro'];
@@ -101,7 +99,7 @@ class _loginPageState extends State<LoginPage> {
             showProgress = true;
           });
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => inicialPage()));
+              MaterialPageRoute(builder: (context) => Pages()));
         } else {
           showProgress = false;
           erro = true;
@@ -165,7 +163,7 @@ class _loginPageState extends State<LoginPage> {
           } else {
             possuiEmpresa = false;
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => inicialPage()));
+                MaterialPageRoute(builder: (context) => Pages()));
           }
         } else {
           setState(() {
@@ -226,8 +224,8 @@ class _loginPageState extends State<LoginPage> {
     return new Container(
       decoration: new BoxDecoration(
           gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
         colors: [
           Palette.purple.shade900,
           Palette.purple.shade50,
