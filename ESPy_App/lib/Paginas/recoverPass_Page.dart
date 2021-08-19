@@ -35,7 +35,6 @@ class _recoverPassPageState extends State<recoverPassPage> {
       msgErro = jsondata["mensagemColetaUser"];
       user.codigo = jsondata['codigo'];
       user.nome = jsondata['nome'];
-      print(user.nome);
       user.senha = jsondata['senha'];
       user.email = jsondata['email'];
       user.cpf = jsondata['cpf'];

@@ -3,6 +3,7 @@ import 'package:ESPy/Classes/usuario.dart';
 import 'package:intl/intl.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Future<bool> mandaEmailRecuperacaoSenha(var _emailDestinatario) async {
   var dataFomatada =
@@ -19,7 +20,6 @@ Future<bool> mandaEmailRecuperacaoSenha(var _emailDestinatario) async {
     ..subject = 'ESPy - Email de recuperação de senha' //Titulo do email.
     ..text =
         'Olá ${user.nome},\nRecebemos uma solicitação para recuperar sua senha de acesso em nosso site.\nEla ocorreu em ${dataFomatada}\nA sua senha é ${user.senha}'; //corpo do email
-
   try {
     final sendReport = await send(message, smtpServer);
     return true;

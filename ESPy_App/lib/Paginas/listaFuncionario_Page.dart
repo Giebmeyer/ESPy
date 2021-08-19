@@ -213,8 +213,8 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
       padding: const EdgeInsets.only(top: 50.0),
       decoration: new BoxDecoration(
           gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
         colors: [
           Palette.purple.shade900,
           Palette.purple.shade50,

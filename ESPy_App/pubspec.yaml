@@ -30,7 +30,7 @@ dependencies:
   intl: ^0.17.0
   charts_flutter: ^0.10.0
   mask_text_input_formatter: ^2.0.0
-  url_launcher: ^5.5.0
+  url_launcher: ^6.0.9
   http: ^0.13.3
   random_color: ^1.0.3
   connectivity: ^0.4.8+1
