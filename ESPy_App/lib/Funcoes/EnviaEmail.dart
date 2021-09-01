@@ -3,7 +3,6 @@ import 'package:ESPy/Classes/usuario.dart';
 import 'package:intl/intl.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 Future<bool> mandaEmailRecuperacaoSenha(var _emailDestinatario) async {
   var dataFomatada =

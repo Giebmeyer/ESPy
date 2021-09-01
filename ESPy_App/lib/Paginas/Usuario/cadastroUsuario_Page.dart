@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Funcoes/EnviaEmail.dart';
 import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Funcoes/sendEmail.dart';
 import 'package:ESPy/main.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';

@@ -47,6 +47,7 @@ class _dashBoardState extends State<dashBoard> {
       Uri.parse(ESPy_url + '/ESPy_requestSensoresFiltro.php'),
       body: {
         "codigoEmpresa": emp.codigo.toString(),
+        "codigoCaixa": sensor.codigoCaixa.toString(),
         "dataInicial": dataInicial.toString(),
         "dataFinal": dataFinal.toString()
       },
@@ -71,6 +72,7 @@ class _dashBoardState extends State<dashBoard> {
       Uri.parse(ESPy_url + '/ESPy_requestSensoresTempoReal.php'),
       body: {
         "codigoEmpresa": emp.codigo.toString(),
+        "codigoCaixa": sensor.codigoCaixa.toString(),
       },
     );
 
@@ -98,6 +100,7 @@ class _dashBoardState extends State<dashBoard> {
       Uri.parse(ESPy_url + '/ESPy_requestSensoresHistorico.php'),
       body: {
         "codigoEmpresa": emp.codigo.toString(),
+        "codigoCaixa": sensor.codigoCaixa.toString(),
       },
     );
 

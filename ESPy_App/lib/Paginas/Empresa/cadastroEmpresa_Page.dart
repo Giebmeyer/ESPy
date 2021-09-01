@@ -6,14 +6,15 @@ import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/snackBar.dart';
+import 'package:ESPy/Paginas/Usuario/login_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../main.dart';
-import 'Pages.dart';
-import 'login_Page.dart';
+import '../../main.dart';
+import '../Pages.dart';
+
 
 class cadastroEmpresaPage extends StatefulWidget {
   @override

@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:ESPy/Paginas/login_Page.dart';
+import 'package:ESPy/Paginas/Usuario/login_Page.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../Classes/palette.dart';
 
 //==============================================================================
@@ -61,101 +60,6 @@ class _dropDownEstadosState extends State<dropDownEstados> {
         color: Palette.purple,
       ),
       alignment: Alignment.bottomLeft,
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValueEstado = newValue;
-        });
-      },
-    );
-  }
-}
-
-//==============================================================================
-class dropDownTempoColeta extends StatefulWidget {
-  @override
-  _dropDownTempoColetaState createState() => _dropDownTempoColetaState();
-}
-
-class _dropDownTempoColetaState extends State<dropDownTempoColeta> {
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValueEstado,
-      items: <String>[
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-        '12',
-        '13',
-        '14',
-        '15',
-        '16',
-        '17',
-        '18',
-        '19',
-        '20',
-        '21',
-        '22',
-        '23',
-        '24',
-        '25',
-        '26',
-        '27',
-        '28',
-        '29',
-        '30',
-        '31',
-        '32',
-        '33',
-        '34',
-        '35',
-        '36',
-        '37',
-        '38',
-        '39',
-        '40',
-        '41',
-        '42',
-        '43',
-        '44',
-        '45',
-        '46',
-        '47',
-        '48',
-        '49',
-        '50',
-        '51',
-        '52',
-        '53',
-        '54',
-        '55',
-        '56',
-        '57',
-        '58',
-        '59',
-        '60'
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      hint: Text("Tempo"),
-      menuMaxHeight: MediaQuery.of(context).size.width * 0.60,
-      style: const TextStyle(color: Palette.purple),
-      alignment: Alignment.bottomCenter,
-      underline: Container(
-        height: 2,
-        color: Palette.purple,
-      ),
       onChanged: (String newValue) {
         setState(() {
           dropdownValueEstado = newValue;
@@ -246,7 +150,7 @@ class _botaoSairState extends State<botaoSair> {
             minWidth: MediaQuery.of(context).size.width * 0.25,
             shape: RoundedRectangleBorder(),
             child: Text(
-              "Voltar",
+              "Cancelar",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey),
             ),
@@ -343,10 +247,3 @@ void dispose() {
 
 //==============================================================================
 
-abrirUrl(var url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}

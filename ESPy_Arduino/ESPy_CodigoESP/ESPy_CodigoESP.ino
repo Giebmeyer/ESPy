@@ -8,6 +8,7 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include "math.h"
+#include <EEPROM.h>
 
 //==========================================================================================
 //Condiguração dos Sensores-----------------------------------------------------------------
@@ -73,12 +74,16 @@ WiFiClient client; //Cria um cliente seguro (para ter acesso ao HTTPS)
 
 char *server = "192.168.66.109";
 char *Rede = "";
-char *password = "";
+char *Password = "";
+
+String Rede_String;
+String Password_String;
 
 //==========================================================================================
 //MySql
 //==========================================================================================
 char *codigoEmpresa = "";
+int codigoCaixa = 1;
 int tempoColeta = 1500;
 
 //==========================================================================================
@@ -88,13 +93,17 @@ void setup() {
   Serial.begin(115200);//Inicia a comunicacao serial
   dht.begin();
   bmp.begin();
-  
+
   SerialBT.begin("ESPy"); //Nome do Bluetooth
 
   WiFi.mode(WIFI_STA);//Habilita o modo estaçao
 
   //MICS6814
-    gas.calibrate();
+  gas.calibrate();
+
+  Rede_String = leString(1); //Le as String da
+  Password_String = leString(2); //EEPROM
+
 }
 
 //==========================================================================================
@@ -102,12 +111,12 @@ void setup() {
 //==========================================================================================
 void loop() {
 
-    recebeDadosWifiBT();
-    requestSensores();
-    enviaDadosBD();
-    coletaDadosBD();
-    
-    delay(tempoColeta); // intervalo
+  recebeDadosWifiBT();
+  coletaDadosBD();
+  requestSensores();
+  enviaDadosBD();
+
+  delay(tempoColeta); // intervalo
 }
 
 //==========================================================================================
@@ -119,36 +128,36 @@ void requestSensores() {
   //DHT11
   Temperatura_DHT11 = dht.readTemperature();
   Umidade_DHT11 = dht.readHumidity();
-//
+  //
   //BMP180
 
   Temperatura_BMP180 = bmp.readTemperature();
   Pressao_BMP180 = bmp.readPressure();
   Altitude_BMP180 = bmp.readAltitude();
-//
-//  //MICS6814
-//  for (int i = 0; i < 5; i ++) {
-//    MICS_CO += gas.measure(CO); //variável para armazenar o valor proveniente do sensor
-//    MICS_NO2 += gas.measure(NO2);
-//    MICS_NH3 += gas.measure(NH3);
-//    delay(1000);
-//  }
+  //
+  //  //MICS6814
+  //  for (int i = 0; i < 5; i ++) {
+  //    MICS_CO += gas.measure(CO); //variável para armazenar o valor proveniente do sensor
+  //    MICS_NO2 += gas.measure(NO2);
+  //    MICS_NH3 += gas.measure(NH3);
+  //    delay(1000);
+  //  }
 
-//  MICS_CO /= 5;  //CO
-//  MICS_NO2 /= 5;  //NO2
-//  MICS_NH3 /= 5;  //NH3
+  //  MICS_CO /= 5;  //CO
+  //  MICS_NO2 /= 5;  //NO2
+  //  MICS_NH3 /= 5;  //NH3
 
-//  Temperatura_DHT11 = 1;
-//  Umidade_DHT11 = 2;
+  //  Temperatura_DHT11 = 1;
+  //  Umidade_DHT11 = 2;
 
-//  Temperatura_BMP180 = 3;
-//  Pressao_BMP180 = 4;
-//  Altitude_BMP180 = 5;
+  //  Temperatura_BMP180 = 3;
+  //  Pressao_BMP180 = 4;
+  //  Altitude_BMP180 = 5;
 
-  MICS_CO = rand()%10;
-  MICS_NO2 = rand()%10;
-  MICS_NH3 = rand()%10;
-  
+  MICS_CO = rand() % 10;
+  MICS_NO2 = rand() % 10;
+  MICS_NH3 = rand() % 10;
+
   double mediaTemperaturas = Temperatura_DHT11;
 
   tempOrvalho = (mediaTemperaturas - (14.55 + 0.114 * mediaTemperaturas) * (1.0 - (0.01 * Umidade_DHT11)) - pow((2.5 + 0.007 * mediaTemperaturas) * (1.0 - (0.01 * Umidade_DHT11)), 3.0) - (15.9 + 0.117 * mediaTemperaturas) * pow(1.0 - (0.01 * Umidade_DHT11), 14.0));
@@ -161,11 +170,11 @@ void requestSensores() {
 
 //==========================================================================================Função que envia os dados dos sensores para a tabela Dados
 void enviaDadosBD()   {
-    SerialBT.println("ENVIA");
+  SerialBT.println("ENVIA");
   //Conecta com o servidor sql
   if (client.connect(server, 80)) {
     SerialBT.println("Conectado!");
-    
+
     delay(1000);
 
     Serial.print("GET /ESPy/ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");
@@ -235,18 +244,19 @@ void enviaDadosBD()   {
 
 
 //==========================================================================================Função que coleta os dados da tabela Configurações
-void coletaDadosBD(){
-  
-  if(WiFi.status() == WL_CONNECTED){
+void coletaDadosBD() {
+
+  if (WiFi.status() == WL_CONNECTED) {
     HTTPClient client_http;
-    
+
     SerialBT.println("COLETA");
     SerialBT.println(codigoEmpresa);
-        
+
     client_http.begin("http://192.168.66.109/ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
     int httpCode = client_http.GET();
     SerialBT.println(httpCode);
-   if (httpCode > 0) {                                               
+
+    if (httpCode > 0) {
       String load = client_http.getString();
       SerialBT.println("\nStatus: " + String(httpCode));
       SerialBT.println(load);
@@ -255,27 +265,27 @@ void coletaDadosBD(){
       load.replace(" ", "");
       load.replace("\n", "");
       load.trim();
-      load.remove(0,1);
+      load.remove(0, 1);
       load.toCharArray(json, 500);
-      
+
       StaticJsonDocument<200> doc;
       deserializeJson(doc, json);
 
       int tempoColetaAUX = doc["tempo_coleta"];
       SerialBT.println(tempoColeta);
-      Serial.println(tempoColeta);                                          // se o tempo de coleta for diferente de 
-                                                //1500 milissegundos, ele altera o valor para o que estava no BD, se for igual a 1500, ele altera para 900000 que são 15 minutos
-     
-      if(tempoColetaAUX != tempoColeta){  
-         tempoColeta = tempoColetaAUX * 60000; //Como esta salvo em minutos no BD, é necessário fazer x60000 para transformar em milissegundos
-         
-      }else{
-        tempoColeta = 900000; 
+      Serial.println(tempoColeta);                                          // se o tempo de coleta for diferente de
+      //1500 milissegundos, ele altera o valor para o que estava no BD, se for igual a 1500, ele altera para 900000 que são 15 minutos
+
+      if (tempoColetaAUX != tempoColeta) {
+        tempoColeta = tempoColetaAUX * 60000; //Como esta salvo em minutos no BD, é necessário fazer x60000 para transformar em milissegundos
+
+      } else {
+        tempoColeta = 900000;
       }
-      
+
       Serial.println(tempoColeta);
       delay(1000);
-    }else{
+    } else {
       SerialBT.println("Erro no request");
     }
     client_http.end();
@@ -286,9 +296,9 @@ void coletaDadosBD(){
 
 
 //==========================================================================================Função que recebe os dados do Wifi pelo BT
-void recebeDadosWifiBT() { 
+void recebeDadosWifiBT() {
 
-    if (Serial.available()) {
+  if (Serial.available()) {
     SerialBT.write(Serial.read());
   }
   if (SerialBT.available()) {
@@ -309,66 +319,67 @@ void recebeDadosWifiBT() {
 
 
 //==========================================================================================Função que envia para o Chat do BT os dados de cada sensor.
-void enviaDadosBT(){
+void enviaDadosBT() {
   SerialBT.printf("Temp. DHT11: %.2f °", Temperatura_DHT11);
-    SerialBT.printf("Umid. DHT11: %.2f %%", Umidade_DHT11);
-   delay(1000);
-   SerialBT.printf("Temp. BMP180: %.2f º", Temperatura_BMP180);   
-      SerialBT.printf("Press. BMP180: %.2f bar", Pressao_BMP180);   
-         SerialBT.printf("Alti. BMP180: %.2f m", Altitude_BMP180);   
-   delay(1000);
-   SerialBT.printf("CO. BMP180: %.2lf ppm", MICS_CO);   
-      SerialBT.printf("NO2. BMP180: %.2lf ppm", MICS_NO2);  
-         SerialBT.printf("NH3. BMP180: %.2lf ppm", MICS_NH3);  
+  SerialBT.printf("Umid. DHT11: %.2f %%", Umidade_DHT11);
+  delay(1000);
+  SerialBT.printf("Temp. BMP180: %.2f º", Temperatura_BMP180);
+  SerialBT.printf("Press. BMP180: %.2f bar", Pressao_BMP180);
+  SerialBT.printf("Alti. BMP180: %.2f m", Altitude_BMP180);
+  delay(1000);
+  SerialBT.printf("CO. BMP180: %.2lf ppm", MICS_CO);
+  SerialBT.printf("NO2. BMP180: %.2lf ppm", MICS_NO2);
+  SerialBT.printf("NH3. BMP180: %.2lf ppm", MICS_NH3);
 }
 
 
 
 
 //==========================================================================================Função que converte String para Char
-void converteStringChar(String Recebido){
-  
-    SerialBT.print("**Recebido para Conversao S > C: ");
-    SerialBT.print(Recebido);
-    delay(500);
-    Recebido.trim();
-    Recebido.toCharArray(EnviaConversao, 40);
-    delay(500);
-    SerialBT.print("**Convertido para Conversao S > C: ");
-    SerialBT.print(EnviaConversao);
+void converteStringChar(String Recebido) {
 
-    divideString(EnviaConversao);
-  
+  SerialBT.print("**Recebido para Conversao S > C: ");
+  SerialBT.print(Recebido);
+  delay(500);
+  Recebido.trim();
+  Recebido.toCharArray(EnviaConversao, 40);
+  delay(500);
+  SerialBT.print("**Convertido para Conversao S > C: ");
+  SerialBT.print(EnviaConversao);
+
 }
 
 
 
 
 //==========================================================================================Função que ira dividir a mensagem "NomeRede;SenhaRede;CodigoEmpresa" em suas respectivas variaveis
-void divideString(char* EnviaConversao){
-    delay(500);
-    SerialBT.print("**Recebido para divisao: ");
-    SerialBT.print(EnviaConversao);
+void divideString(char* EnviaConversao) {
+  delay(500);
+  SerialBT.print("**Recebido para divisao: ");
+  SerialBT.print(EnviaConversao);
 
   aux = strtok(EnviaConversao, ";");
   Rede = aux;
 
   if (aux != NULL) {
     aux = strtok(NULL, ";");
-    password = aux;
-    codigoEmpresa = strtok(NULL, ";"); 
+    Password = aux;
+    codigoEmpresa = strtok(NULL, ";");
   }
+
   SerialBT.print("**Codigo empresa: ");
   SerialBT.println(codigoEmpresa);
-    delay(500);
+  delay(500);
+
   SerialBT.print("**Dados enviados para a ConectaWifi \n");
   SerialBT.print("Nome da rede Wifi: ");
   SerialBT.println(Rede);
-    delay(500);
-  SerialBT.print("Senha da rede Wifi: ");
-  SerialBT.println(password);
+  delay(500);
 
-  conectaWifi(Rede, password);
+  SerialBT.print("Senha da rede Wifi: ");
+  SerialBT.println(Password);
+
+  conectaWifi(Rede, Password);
 
 }
 
@@ -376,24 +387,60 @@ void divideString(char* EnviaConversao){
 
 
 //==========================================================================================Função que realizada a conexão do ESP32 no WIFI
-void conectaWifi(char* Rede, char* password){
+void conectaWifi(char* Rede, char* Password) {
 
   SerialBT.println("**Dados recebidos da DivideString");
   SerialBT.print("Nome da rede Wifi: ");
   SerialBT.println(Rede);
-    delay(500);
+  delay(500);
+
   SerialBT.print("Senha da rede Wifi: ");
-  SerialBT.println(password);
-    delay(500);
+  SerialBT.println(Password);
+  delay(500);
+
   SerialBT.printf("Conectando na rede: %s \n", Rede);
-  WiFi.begin(Rede, password);
-    delay(500);
+  WiFi.begin(Rede, Password);
+  delay(500);
+
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     SerialBT.print(".");
   }
+
   delay(2000);//Espera um tempo para se conectar no WiFi
   SerialBT.println("Conectado");
+
+    escreveString(1, Rede);
+    escreveString(2, Password);
   
 }
 //==========================================================================================
+String leString(int enderecoBase) {
+  String mensagem = "";
+  if (enderecoBase > EEPROM.length()) {
+    return mensagem;
+  }
+  else {
+    char pos;
+    do {
+      pos = EEPROM.read(enderecoBase);
+      enderecoBase++;
+      mensagem = mensagem + pos;
+    }
+    while (pos != '\0');
+  }
+  return mensagem;
+}
+//==========================================================================================
+void escreveString(int enderecoBase, String mensagem) {
+  if (mensagem.length() > EEPROM.length() || (enderecoBase + mensagem.length()) > EEPROM.length() ) {
+    Serial.println ("A sua String não cabe na EEPROM");
+  }
+  else {
+    for (int i = 0; i < mensagem.length(); i++) {
+      EEPROM.write(enderecoBase, mensagem[i]);
+      enderecoBase++;
+    }
+    EEPROM.write(enderecoBase, '\0');
+  }
+}

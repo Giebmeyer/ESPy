@@ -4,7 +4,7 @@
 	    $chaveConviteUser  = mysqli_real_escape_string ($conexao,$_POST['chaveConvite']);
 	    $codigoUsuario  = mysqli_real_escape_string ($conexao,$_POST['codigoUsuario']);
 
-		$query = "SELECT * FROM empresa WHERE chaveConvite = '$chaveConviteUser';";	 
+		$query = "SELECT * FROM empresas WHERE chaveConvite = '$chaveConviteUser';";	 
 	    $resultado = mysqli_query($conexao, $query);
         $numrows = mysqli_num_rows($resultado);
 
@@ -27,7 +27,7 @@
             $return["numero"] = (int) $obj->numero;
             $return["complemento"] = $obj->complemento;
 
-            $query2 = "INSERT INTO usuarios_empresa (`codigo_usuario`, `codigo_empresa`) VALUES ('$codigoUsuario', '$codigoEmp');";
+            $query2 = "INSERT INTO usuarios_empresas (`codigo_usuario`, `codigo_empresa`) VALUES ('$codigoUsuario', '$codigoEmp');";
             $resultado2 = mysqli_query($conexao, $query2); 
 
             if($resultado2 > 0){

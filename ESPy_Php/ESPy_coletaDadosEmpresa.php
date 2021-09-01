@@ -7,7 +7,7 @@
 
         $codigoUsuario = mysqli_real_escape_string ($conexao,$_POST['codigoUsuario']);
 
-		$query = "SELECT e.* FROM empresa e JOIN usuarios_empresa ue ON ue.codigo_empresa = e.codigo WHERE ue.codigo_usuario = '$codigoUsuario'";	 
+		$query = "SELECT e.* FROM empresas e JOIN usuarios_empresas ue ON ue.codigo_empresa = e.codigo WHERE ue.codigo_usuario = '$codigoUsuario'";	 
 
 	    $resultado = mysqli_query($conexao, $query);
 

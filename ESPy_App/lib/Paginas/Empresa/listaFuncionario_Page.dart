@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:random_color/random_color.dart';
 
-import '../main.dart';
+import '../../main.dart';
 
 class listaFuncionariosPage extends StatefulWidget {
   @override

@@ -6,9 +6,10 @@
 
         $codigoEmpresa =mysqli_real_escape_string ($conexao,$_POST['codigoEmpresa']) ;
 	    $tempoColeta  =  mysqli_real_escape_string ($conexao,$_POST['tempoColeta']) ;
+	    $idCaixa  =  mysqli_real_escape_string ($conexao,$_POST['idCaixa']) ;
         $agora = date('Y-m-d H:i:s');
 
-		$query = "UPDATE `configuracao` SET `tempo_coleta`='$tempoColeta',`data_hora_alteracao`='$agora'  WHERE `codigo_empresa` = '$codigoEmpresa'";	 
+		$query = "UPDATE `configuracao` SET `tempo_coleta`='$tempoColeta',`data_hora_alteracao`='$agora'  WHERE `codigo_empresa` = '$codigoEmpresa' and codigo_caixa = '$idCaixa'";	 
 
 	    $resultado = mysqli_query($conexao, $query);
 

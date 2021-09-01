@@ -1,13 +1,10 @@
-import 'package:ESPy/Bluetooth/bluetoohPage.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/usuario.dart';
-import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Paginas/senhaConfig_Page.dart';
+import 'package:ESPy/Paginas/DashBoard/listaCaixasColeta_Page.dart';
 import 'package:flutter/material.dart';
-import 'configSensor_Page.dart';
-import 'dashBoard_Page.dart';
-import 'home_Page.dart';
-import 'empresa_Page.dart';
+import 'DashBoard/dashBoard_Page.dart';
+import 'Empresa/empresa_Page.dart';
+import 'Usuario/home_Page.dart';
 
 class Pages extends StatefulWidget {
   @override
@@ -16,11 +13,9 @@ class Pages extends StatefulWidget {
 
 class _PagesState extends State<Pages> {
   final List<Widget> telasChefe = [
-    senhaConfig(),
     EmpresaPage(),
     HomePage(),
-    Bluetooth(),
-    dashBoard(),
+    caixasColeta(),
   ];
 
   final List<Widget> telasEmpregado = [
@@ -34,7 +29,7 @@ class _PagesState extends State<Pages> {
     HomePage(),
   ];
 
-  int selectedIndexChefe = 2;
+  int selectedIndexChefe = 1;
   int selectedIndexEmpregado = 1;
   int selectedIndexNovoUser = 1;
 
@@ -127,12 +122,6 @@ class _PagesState extends State<Pages> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
             icon: Icon(
-              Icons.settings,
-              color: Palette.purple,
-            ),
-            title: Text('_____')),
-        BottomNavigationBarItem(
-            icon: Icon(
               Icons.business,
               color: Palette.purple,
             ),
@@ -140,12 +129,6 @@ class _PagesState extends State<Pages> {
         BottomNavigationBarItem(
             icon: Icon(
               Icons.workspaces_outline,
-              color: Palette.purple,
-            ),
-            title: Text('_____')),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.bluetooth,
               color: Palette.purple,
             ),
             title: Text('_____')),

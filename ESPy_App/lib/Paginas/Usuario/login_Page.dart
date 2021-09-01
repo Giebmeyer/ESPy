@@ -5,14 +5,15 @@ import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Paginas/cadastroUsuario_Page.dart';
+import 'package:ESPy/Paginas/Usuario/recoverPass_Page.dart';
 import 'package:ESPy/Paginas/Pages.dart';
-import 'package:ESPy/Paginas/recoverPass_Page.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'package:http/http.dart' as http;
+
+import 'cadastroUsuario_Page.dart';
 
 bool possuiEmpresa;
 

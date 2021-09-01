@@ -1,13 +1,12 @@
 import 'dart:convert';
+import 'package:ESPy/Funcoes/EnviaEmail.dart';
 import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Paginas/login_Page.dart';
 import 'package:ESPy/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:flutter/material.dart';
-import '../Funcoes/sendEmail.dart';
 
 class recoverPassPage extends StatefulWidget {
   @override

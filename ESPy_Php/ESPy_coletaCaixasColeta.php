@@ -7,7 +7,7 @@
 
         $codigoEmpresa = mysqli_real_escape_string ($conexao,$_POST['codigoEmpresa']);
 
-		$query = "SELECT u.* FROM usuarios u JOIN usuarios_empresas ue ON u.codigo = ue.codigo_usuario JOIN empresas e ON e.codigo = ue.codigo_empresa WHERE ue.codigo_empresa = '$codigoEmpresa' AND u.usuario_chefe != 1 AND ue.saiuEmpresa != 1 ORDER BY `data_hora_cadastro` desc";	 
+		$query = "Select cc.* from caixas_coleta cc join empresas e On e.codigo = cc.codigo_empresa WHERE e.codigo = '$codigoEmpresa' AND cc.excluida != 1 ORDER BY `data_hora_cadastro` desc";	 
         $execut =  mysqli_query($conexao, $query);
 	    $resultado = array();
          
@@ -20,4 +20,4 @@
   mysqli_close($conexao);
 
 
-	?>  
+	?>

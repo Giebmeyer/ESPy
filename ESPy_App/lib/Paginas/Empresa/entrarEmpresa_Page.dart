@@ -1,16 +1,15 @@
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/usuario.dart';
+import 'package:ESPy/Funcoes/EnviaEmail.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Funcoes/sendEmail.dart';
+import 'package:ESPy/Paginas/Usuario/login_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../main.dart';
-import 'Pages.dart';
-import 'login_Page.dart';
+import '../../main.dart';
 
 class entrarEmpresaPage extends StatefulWidget {
   @override

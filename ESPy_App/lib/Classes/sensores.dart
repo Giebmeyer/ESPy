@@ -12,6 +12,7 @@ class sensores {
   double MICS_NH3;
   double IDK;
   String data;
+  int codigoCaixa;
 
   var qtdDados;
 

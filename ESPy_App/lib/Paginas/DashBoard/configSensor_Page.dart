@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../main.dart';
+import '../../main.dart';
 
 class configSensor extends StatefulWidget {
   @override
@@ -38,6 +39,7 @@ class _configSensorState extends State<configSensor> {
       body: {
         "codigoEmpresa": emp.codigo.toString(),
         "tempoColeta": tempoColeta.text,
+        "idCaixa": sensor.codigoCaixa.toString(),
       },
     );
 
