@@ -51,11 +51,12 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
     }
   }
 
-  void deletaCaixaColeta() async {
+  void _deletaCaixaColeta() async {
+    print(_codigoCaixaSelecionadaLista.toString());
     final response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_removerCaixaColeta.php'),
       body: {
-        "codigoCaixaSelecionadaLista": sensor.codigoCaixa.toString(),
+        "codigoCaixaSelecionadaLista": _codigoCaixaSelecionadaLista.toString(),
         "codigoEmpresa": emp.codigo.toString()
       },
     );
@@ -79,7 +80,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
     }
   }
 
-  void cadastraCaixaColeta() async {
+  void _cadastraCaixaColeta() async {
     final response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_cadastroCaixasColeta.php'),
       body: {
@@ -304,18 +305,6 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
     );
   }
 
-  void confirmaExpulsaoFuncao() {
-    if (confirmaExpulsao == true) {
-      setState(() {
-        deletaCaixaColeta();
-        atualizarTela();
-      });
-      Navigator.of(context).pop();
-    } else {
-      Navigator.of(context).pop();
-    }
-  }
-
   void showCaixaDialogoAvancada(BuildContext context, String msg) {
     // configura o button
 
@@ -335,8 +324,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
               style: TextStyle(color: Colors.grey),
             ),
             onPressed: () {
-              confirmaExpulsao = false;
-              confirmaExpulsaoFuncao();
+              Navigator.of(context).pop();
             },
           ),
           confirmaButton = FlatButton(
@@ -350,8 +338,11 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
               style: TextStyle(color: Palette.purple),
             ),
             onPressed: () {
-              confirmaExpulsao = true;
-              confirmaExpulsaoFuncao();
+              setState(() {
+                _deletaCaixaColeta();
+                atualizarTela();
+              });
+              Navigator.of(context).pop();
             },
           ),
         ],
@@ -465,7 +456,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
     if (_key.currentState.validate()) {
       // Sem erros na validação
       _key.currentState.save();
-      cadastraCaixaColeta();
+      _cadastraCaixaColeta();
     } else {
       // erro de validação
       setState(() {
