@@ -8,7 +8,9 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include "math.h"
-#include <EEPROM.h>
+#include <SD.h>
+#include <SPI.h>
+
 
 //==========================================================================================
 //Condiguração dos Sensores-----------------------------------------------------------------
@@ -19,13 +21,25 @@ char *aux;
 char EnviaConversao[40];
 String Recebido;
 String RecebidoDividido;
-String BTopcao = "";
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
 
 BluetoothSerial SerialBT;
+
+//==========================================================================================
+//SD
+//==========================================================================================
+
+struct Config {
+  char *nomeRede;
+  char *senhaRede;
+  char *caixaCodigo;
+};
+
+const char *NomeArquivoTXT = "/ESPy_ConfigJson.txt";  // <- SD library uses 8.3 NomeArquivoTXTs
+Config config;  
 
 //==========================================================================================
 //DHT11
@@ -71,19 +85,15 @@ MICS6814 gas(PIN_CO, PIN_NO2, PIN_NH3);
 //Wifi
 //==========================================================================================
 WiFiClient client; //Cria um cliente seguro (para ter acesso ao HTTPS)
-
+  
 char *server = "192.168.66.109";
 char *Rede = "";
 char *Password = "";
-
-String Rede_String;
-String Password_String;
-
 //==========================================================================================
 //MySql
 //==========================================================================================
 char *codigoEmpresa = "";
-int codigoCaixa = 1;
+char *codigoCaixa = "1";
 int tempoColeta = 1500;
 
 //==========================================================================================
@@ -94,15 +104,23 @@ void setup() {
   dht.begin();
   bmp.begin();
 
+   while (!SD.begin()) {
+    SerialBT.println(("Falha ao iniciar o cartão SD..."));
+    delay(1000);
+  }
+
+  SerialBT.println(("Carregando configuração..."));
+  escreveConfiguracaoSD(NomeArquivoTXT, config);
+
+  Serial.println(("Salvando configuração..."));
+  leituraConfiguracaoSD(NomeArquivoTXT, config);
+  
   SerialBT.begin("ESPy"); //Nome do Bluetooth
 
   WiFi.mode(WIFI_STA);//Habilita o modo estaçao
 
   //MICS6814
   gas.calibrate();
-
-  Rede_String = leString(1); //Le as String da
-  Password_String = leString(2); //EEPROM
 
 }
 
@@ -346,7 +364,7 @@ void converteStringChar(String Recebido) {
   delay(500);
   SerialBT.print("**Convertido para Conversao S > C: ");
   SerialBT.print(EnviaConversao);
-
+  divideString(EnviaConversao);
 }
 
 
@@ -365,10 +383,15 @@ void divideString(char* EnviaConversao) {
     aux = strtok(NULL, ";");
     Password = aux;
     codigoEmpresa = strtok(NULL, ";");
+    codigoCaixa = strtok(NULL, ";");
   }
 
   SerialBT.print("**Codigo empresa: ");
   SerialBT.println(codigoEmpresa);
+  delay(500);
+
+  SerialBT.print("**Codigo caixa: ");
+  SerialBT.println(codigoCaixa);
   delay(500);
 
   SerialBT.print("**Dados enviados para a ConectaWifi \n");
@@ -389,7 +412,9 @@ void divideString(char* EnviaConversao) {
 //==========================================================================================Função que realizada a conexão do ESP32 no WIFI
 void conectaWifi(char* Rede, char* Password) {
 
-  SerialBT.println("**Dados recebidos da DivideString");
+  int timeOut = 0;
+
+  SerialBT.println("**Dados recebidos Para conectar no WiFi");
   SerialBT.print("Nome da rede Wifi: ");
   SerialBT.println(Rede);
   delay(500);
@@ -405,42 +430,81 @@ void conectaWifi(char* Rede, char* Password) {
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     SerialBT.print(".");
+
+
+    if (timeOut == 10) {
+      break;
+    }
+
+    timeOut++;
+
   }
 
   delay(2000);//Espera um tempo para se conectar no WiFi
   SerialBT.println("Conectado");
+}
 
-    escreveString(1, Rede);
-    escreveString(2, Password);
-  
+
+
+
+//==========================================================================================Função que realizada a escrita no cartão SD
+void escreveConfiguracaoSD(const char *NomeArquivoTXT, Config &config) {
+  File file = SD.open(NomeArquivoTXT);
+
+  StaticJsonDocument<512> doc;
+
+  DeserializationError error = deserializeJson(doc, file);
+  if (error)
+    Serial.println(F("Falha ao carregar dados para o Cartão SD"));
+
+  Rede = doc["nomeRede"];     
+  Password = doc["senhaRede"]; 
+  codigoCaixa = doc["codigoCaixa"];  
+
+  file.close();
 }
-//==========================================================================================
-String leString(int enderecoBase) {
-  String mensagem = "";
-  if (enderecoBase > EEPROM.length()) {
-    return mensagem;
+
+
+
+
+//==========================================================================================Função que realizada a leitura no cartão SD
+void leituraConfiguracaoSD(const char *NomeArquivoTXT, const Config &config) {
+  SD.remove(NomeArquivoTXT);
+
+  File file = SD.open(NomeArquivoTXT, FILE_WRITE);
+  if (!file) {
+    SerialBT.println(("Falha ao criar arquivo de texto..."));
+    return;
   }
-  else {
-    char pos;
-    do {
-      pos = EEPROM.read(enderecoBase);
-      enderecoBase++;
-      mensagem = mensagem + pos;
-    }
-    while (pos != '\0');
+
+  StaticJsonDocument<256> doc;
+
+  doc["nomeRede"] = config.nomeRede;
+  doc["senhaRede"] = config.senhaRede;
+  doc["caixaCodigo"] = config.caixaCodigo;
+
+  if (serializeJson(doc, file) == 0) {
+    Serial.println(F("Falha ao escrever no"));
   }
-  return mensagem;
+
+  file.close();
 }
-//==========================================================================================
-void escreveString(int enderecoBase, String mensagem) {
-  if (mensagem.length() > EEPROM.length() || (enderecoBase + mensagem.length()) > EEPROM.length() ) {
-    Serial.println ("A sua String não cabe na EEPROM");
+
+
+
+
+//==========================================================================================Função que apresenta a escrita do cartão SD
+void printArquivo(const char *NomeArquivoTXT) {
+  File file = SD.open(NomeArquivoTXT);
+  if (!file) {
+    Serial.println(F("Falha ao ler o arquivo..."));
+    return;
   }
-  else {
-    for (int i = 0; i < mensagem.length(); i++) {
-      EEPROM.write(enderecoBase, mensagem[i]);
-      enderecoBase++;
-    }
-    EEPROM.write(enderecoBase, '\0');
+
+  while (file.available()) {
+    Serial.print((char)file.read());
   }
+  Serial.println();
+
+  file.close();
 }

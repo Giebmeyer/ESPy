@@ -1,4 +1,5 @@
 import 'package:ESPy/Classes/empresa.dart';
+import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
@@ -25,7 +26,7 @@ class _CaixaColetaPageState extends State<CaixaColetaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(tituloPage),
+        title: Text(sensor.nomeCaixa),
         centerTitle: true,
       ),
       body: showOpcaoCaixaColeta(),

@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
+import 'package:ESPy/Classes/sensores.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
@@ -174,9 +175,12 @@ class _ChatPage extends State<ChatPage> {
                         controller: _senhaController,
                         onChanged: (senha) {
                           _senha = senha;
-                          _RedeSenha = _rede + ';' + _senha;
-                          _mensagemFinal =
-                              _RedeSenha.trim() + ';' + _codigoEmpresa;
+                          _RedeSenha = _rede.trim() + ';' + _senha.trim();
+                          _mensagemFinal = _RedeSenha.trim() +
+                              ';' +
+                              _codigoEmpresa.trim() +
+                              ';' +
+                              sensor.codigoCaixa.toString().trim();
                         },
                         style: const TextStyle(
                             color: Palette.purple, fontSize: 15.0),

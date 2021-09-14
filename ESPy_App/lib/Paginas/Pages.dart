@@ -21,7 +21,7 @@ class _PagesState extends State<Pages> {
   final List<Widget> telasEmpregado = [
     EmpresaPage(),
     HomePage(),
-    dashBoard(),
+    caixasColeta(),
   ];
 
   final List<Widget> telasNovoUsuario = [

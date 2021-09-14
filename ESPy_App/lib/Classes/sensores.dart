@@ -13,6 +13,7 @@ class sensores {
   double IDK;
   String data;
   int codigoCaixa;
+  String nomeCaixa;
 
   var qtdDados;
 

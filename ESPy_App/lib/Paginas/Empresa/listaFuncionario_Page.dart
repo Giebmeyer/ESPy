@@ -192,7 +192,7 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
                                 },
                                 child: Icon(
                                   Icons.delete,
-                                  color: Palette.purple.shade500,
+                                  color: Palette.purple.shade700,
                                 )),
                           ),
                         ),

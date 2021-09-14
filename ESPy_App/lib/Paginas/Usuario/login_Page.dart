@@ -31,7 +31,7 @@ class _loginPageState extends State<LoginPage> {
 
   String _email = '';
   String _senha = '';
-
+  bool _apresentaSenha;
 //==============================================================================
   String msgErro = '';
   bool erro, showProgress;
@@ -39,6 +39,7 @@ class _loginPageState extends State<LoginPage> {
 //==============================================================================
   @override
   void initState() {
+    _apresentaSenha = false;
     erro = false;
     showProgress = false;
     connectivitySubscription =
@@ -270,15 +271,32 @@ class _loginPageState extends State<LoginPage> {
                       SizedBox(height: 10),
 //==============================================================================
                       TextFormField(
-                          validator: validarSenha,
-                          onSaved: (String senha) {
-                            _senha = senha;
-                          },
-                          obscureText: true,
-                          decoration: InputDecoration(
-                              labelText: 'Senha',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0)))),
+                        validator: validarSenha,
+                        onSaved: (String senha) {
+                          _senha = senha;
+                        },
+                        obscureText: _apresentaSenha,
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0)),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _apresentaSenha
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Theme.of(context).primaryColorDark,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _apresentaSenha
+                                    ? _apresentaSenha = false
+                                    : _apresentaSenha = true;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
 //==============================================================================
                       Align(
                         alignment: Alignment.centerRight,

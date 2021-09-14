@@ -4,7 +4,7 @@ import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
-import 'package:ESPy/Paginas/DashBoard/caixaColetaOpcao_Page.dart';
+import 'package:ESPy/Paginas/DashBoard/caixaColeta_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:random_color/random_color.dart';
@@ -30,6 +30,8 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
   String _codigoCaixaSelecionadaLista;
   String _nomeCaixa;
   TextEditingController _nomeCaixaCadastro = new TextEditingController();
+  TextEditingController _novoNome = new TextEditingController();
+  var sendFormCOD = 0;
 //==============================================================================
 
   void _coletaCaixasColeta() async {
@@ -56,7 +58,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
     final response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_removerCaixaColeta.php'),
       body: {
-        "codigoCaixaSelecionadaLista": _codigoCaixaSelecionadaLista.toString(),
+        "codigoCaixaSelecionadaLista": sensor.codigoCaixa.toString(),
         "codigoEmpresa": emp.codigo.toString()
       },
     );
@@ -66,9 +68,29 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
       if (jsondata["StatusDeletaCaixa"]) {
         this.setState(() {
           msgErro = jsondata["mensagemDeletaCaixa"];
-          showCaixaDialogoSimples(context, msgErro);
           _coletaCaixasColeta();
           showProgress = false;
+          final snackBar = SnackBar(
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            content: const Text(
+              'Caixa excluida!',
+              style: TextStyle(color: Colors.black),
+            ),
+            action: SnackBarAction(
+              label: 'Desfazer',
+              textColor: Palette.purple,
+              onPressed: () {
+                setState(() {
+                  _RecuperaCaixaAposExcluir();
+                });
+              },
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         });
       } else {
         this.setState(() {
@@ -97,11 +119,70 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
           showCaixaDialogoSimples(context, msgErro);
           Navigator.of(context).pop();
           _coletaCaixasColeta();
-          showProgress = false;
+          _nomeCaixaCadastro.clear();
         });
       } else {
         this.setState(() {
           msgErro = jsondata["mensagemCadastraCaixa"];
+          showCaixaDialogoSimples(context, msgErro);
+          showProgress = false;
+        });
+      }
+    }
+  }
+
+  void _editaCaixaColeta() async {
+    final response = await http.post(
+      Uri.parse(ESPy_url + '/ESPy_editarCaixaColeta.php'),
+      body: {
+        "codigoCaixaSelecionadaLista": sensor.codigoCaixa.toString(),
+        "codigoEmpresa": emp.codigo.toString(),
+        "novoNome": _novoNome.text.trim(),
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body);
+
+      if (jsondata["statusEditaCaixa"]) {
+        this.setState(() {
+          msgErro = jsondata["mensagemEditaCaixa"];
+          _coletaCaixasColeta();
+          showCaixaDialogoSimples(context, msgErro);
+          Navigator.of(context).pop();
+          atualizarTela();
+          _novoNome.clear();
+        });
+      } else {
+        this.setState(() {
+          msgErro = jsondata["mensagemEditaCaixa"];
+          showCaixaDialogoSimples(context, msgErro);
+        });
+      }
+    }
+  }
+
+  void _RecuperaCaixaAposExcluir() async {
+    final response = await http.post(
+      Uri.parse(ESPy_url + '/ESPy_recuperaCaixaColeta.php'),
+      body: {
+        "codigoCaixaSelecionadaLista": sensor.codigoCaixa.toString(),
+        "codigoEmpresa": emp.codigo.toString(),
+      },
+    );
+    if (response.statusCode == 200) {
+      var jsondata = json.decode(response.body); 
+
+      if (jsondata["StatusRecuperaCaixa"]) {
+        this.setState(() {
+          msgErro = jsondata["mensagemRecuperaCaixa"];
+          _coletaCaixasColeta();
+          atualizarTela();
+          showProgress = false;
+        });
+      } else {
+        this.setState(() {
+          msgErro = jsondata["mensagemRecuperaCaixa"];
           showCaixaDialogoSimples(context, msgErro);
           showProgress = false;
         });
@@ -194,52 +275,73 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
                   child: new InkWell(
                     onTap: () {
                       sensor.codigoCaixa = int.parse(data[index]["codigo"]);
-                      tituloPage = data[index]["nome"];
+                      sensor.nomeCaixa = data[index]["nome"];
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => CaixaColetaPage()));
                     },
-                    child: new Row(
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.10,
-                          width: MediaQuery.of(context).size.width * 0.02,
-                        ),
-                        Column(
-                          children: [
-                            imagemUsuarioLetra(data[index]["nome"], ""),
-                          ],
-                        ),
-                        SizedBox(width: 20),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              data[index]["nome"],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                          ],
-                        ),
-                        Expanded(
-                          child: Align(
+                    child: Container(
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.08,
+                            width: MediaQuery.of(context).size.width * 0.02,
+                          ),
+                          Column(
+                            children: [
+                              imagemUsuarioLetra(data[index]["nome"], ""),
+                            ],
+                          ),
+                          SizedBox(width: 20),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 85,
+                                child: Text(
+                                  sensor.nomeCaixa = data[index]["nome"],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
                             alignment: Alignment.centerRight,
-                            child: Container(
-                              child: FlatButton(
+                            child: Row(
+                              children: [
+                                FlatButton(
                                   onPressed: () {
-                                    _codigoCaixaSelecionadaLista =
-                                        data[index]["codigo"];
-                                    showCaixaDialogoAvancada(context,
+                                    sensor.nomeCaixa = data[index]["nome"];
+                                    sensor.codigoCaixa =
+                                        int.parse(data[index]["codigo"]);
+                                    _CaixaDialogoEditaCaixa(context);
+                                  },
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: Palette.purple.shade700,
+                                  ),
+                                ),
+                                FlatButton(
+                                  onPressed: () {
+                                    sensor.nomeCaixa = data[index]["nome"];
+                                    sensor.codigoCaixa =
+                                        int.parse(data[index]["codigo"]);
+                                    _showDialogoDeletaCaixa(context,
                                         "Deseja realmente remover essa caixa de coleta?");
                                   },
                                   child: Icon(
                                     Icons.delete,
-                                    color: Palette.purple.shade500,
-                                  )),
+                                    color: Palette.purple.shade700,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -305,7 +407,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
     );
   }
 
-  void showCaixaDialogoAvancada(BuildContext context, String msg) {
+  void _showDialogoDeletaCaixa(BuildContext context, String msg) {
     // configura o button
 
     Widget cancelaButton, confirmaButton;
@@ -340,7 +442,6 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
             onPressed: () {
               setState(() {
                 _deletaCaixaColeta();
-                atualizarTela();
               });
               Navigator.of(context).pop();
             },
@@ -444,7 +545,68 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
+                  setState(() {
+                    sendFormCOD = 1;
+                  });
                   _sendForm();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  Future<void> _CaixaDialogoEditaCaixa(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            ),
+            title:
+                Text(sensor.nomeCaixa.toString(), textAlign: TextAlign.center),
+            content: Form(
+              key: _key,
+              child: TextFormField(
+                validator: validarNome,
+                controller: _novoNome,
+                decoration: InputDecoration(
+                    labelText: 'Novo nome',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0))),
+                keyboardType: TextInputType.name,
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                minWidth: MediaQuery.of(context).size.width * 0.25,
+                shape: RoundedRectangleBorder(),
+                child: Text(
+                  "Cancelar",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.grey),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                minWidth: MediaQuery.of(context).size.width * 0.25,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    side: BorderSide(color: Palette.purple)),
+                child: Text(
+                  "Salvar",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Palette.purple),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    sendFormCOD = 2;
+                    _sendForm();
+                  });
                 },
               ),
             ],
@@ -456,7 +618,12 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
     if (_key.currentState.validate()) {
       // Sem erros na validação
       _key.currentState.save();
-      _cadastraCaixaColeta();
+      if (sendFormCOD == 1) {
+        _cadastraCaixaColeta();
+      }
+      if (sendFormCOD == 2) {
+        _editaCaixaColeta();
+      }
     } else {
       // erro de validação
       setState(() {
