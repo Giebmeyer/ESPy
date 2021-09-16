@@ -4,6 +4,7 @@ import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/Funcoes/snackBar.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -50,25 +51,15 @@ class _configSensorState extends State<configSensor> {
           showProgress = false;
           erro = true;
           msgErro = jsondata["mensagemConfiguracao"];
-          showCaixaDialogoRapida(context, msgErro, 'inicial', 1);
+          showCaixaDialogoRapida(context, msgErro, 'dashBoard', 1);
         });
       } else {
-        if (jsondata["sucessoConfiguracao"]) {
-          setState(() {
-            erro = false;
-            showProgress = false;
-          });
-
-          msgErro = jsondata["sucessoConfiguracao"];
-          showCaixaDialogoSimples(context, msgErro);
-        } else {
-          setState(() {
-            showProgress = false;
-            erro = true;
-          });
-          msgErro = jsondata["mensagemConfiguracao"];
-          showCaixaDialogoSimples(context, msgErro);
-        }
+        setState(() {
+          showProgress = false;
+          erro = true;
+        });
+        msgErro = jsondata["mensagemConfiguracao"];
+        ScaffoldMessenger.of(context).showSnackBar(falhaRealizarAcao);
       }
     } else {
       msgErro = 'Erro ao conectar no servidor';

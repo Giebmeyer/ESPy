@@ -39,7 +39,7 @@ class _loginPageState extends State<LoginPage> {
 //==============================================================================
   @override
   void initState() {
-    _apresentaSenha = false;
+    _apresentaSenha = true;
     erro = false;
     showProgress = false;
     connectivitySubscription =

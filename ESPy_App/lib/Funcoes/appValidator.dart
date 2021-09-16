@@ -4,7 +4,7 @@ String validarNome(String value) {
   if (value.length == 0) {
     return "Informe o nome";
   } else if (!regExp.hasMatch(value)) {
-    return "O nome deve conter caracteres de a-z ou A-Z";
+    return "Nome inválido";
   }
   return null;
 }
@@ -17,7 +17,7 @@ String validarCelular(String value) {
   } else if (value.length > 15) {
     return "O celular deve ter 15 dígitos";
   } else if (!regExp.hasMatch(value)) {
-    return "O número do celular so deve conter dígitos";
+    return "Deve conter apenas dígitos";
   }
   return null;
 }

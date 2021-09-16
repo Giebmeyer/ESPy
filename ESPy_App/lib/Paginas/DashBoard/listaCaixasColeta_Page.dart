@@ -4,6 +4,7 @@ import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/sensores.dart';
 import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/Funcoes/snackBar.dart';
 import 'package:ESPy/Paginas/DashBoard/caixaColeta_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -72,17 +73,17 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
           showProgress = false;
           final snackBar = SnackBar(
             behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.redAccent,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
             content: const Text(
               'Caixa excluida!',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
             ),
             action: SnackBarAction(
               label: 'Desfazer',
-              textColor: Palette.purple,
+              textColor: Colors.white,
               onPressed: () {
                 setState(() {
                   _RecuperaCaixaAposExcluir();
@@ -95,7 +96,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
       } else {
         this.setState(() {
           msgErro = jsondata["mensagemDeletaCaixa"];
-          showCaixaDialogoSimples(context, msgErro);
+          ScaffoldMessenger.of(context).showSnackBar(falhaRealizarAcao);
           showProgress = false;
         });
       }
@@ -116,15 +117,14 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
       if (jsondata["statusCadastroCaixa"]) {
         this.setState(() {
           msgErro = jsondata["mensagemCadastraCaixa"];
-          showCaixaDialogoSimples(context, msgErro);
-          Navigator.of(context).pop();
           _coletaCaixasColeta();
           _nomeCaixaCadastro.clear();
+          ScaffoldMessenger.of(context).showSnackBar(sucessRealizarAcao);
         });
       } else {
         this.setState(() {
           msgErro = jsondata["mensagemCadastraCaixa"];
-          showCaixaDialogoSimples(context, msgErro);
+          ScaffoldMessenger.of(context).showSnackBar(falhaRealizarAcao);
           showProgress = false;
         });
       }
@@ -148,15 +148,14 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
         this.setState(() {
           msgErro = jsondata["mensagemEditaCaixa"];
           _coletaCaixasColeta();
-          showCaixaDialogoSimples(context, msgErro);
-          Navigator.of(context).pop();
-          atualizarTela();
           _novoNome.clear();
+          ScaffoldMessenger.of(context).showSnackBar(sucessRealizarAcao);
         });
       } else {
         this.setState(() {
           msgErro = jsondata["mensagemEditaCaixa"];
-          showCaixaDialogoSimples(context, msgErro);
+          ScaffoldMessenger.of(context).showSnackBar(falhaRealizarAcao);
+          _novoNome.clear();
         });
       }
     }
@@ -171,7 +170,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
       },
     );
     if (response.statusCode == 200) {
-      var jsondata = json.decode(response.body); 
+      var jsondata = json.decode(response.body);
 
       if (jsondata["StatusRecuperaCaixa"]) {
         this.setState(() {
@@ -179,12 +178,13 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
           _coletaCaixasColeta();
           atualizarTela();
           showProgress = false;
+          ScaffoldMessenger.of(context).showSnackBar(sucessRealizarAcao);
         });
       } else {
         this.setState(() {
           msgErro = jsondata["mensagemRecuperaCaixa"];
-          showCaixaDialogoSimples(context, msgErro);
           showProgress = false;
+          ScaffoldMessenger.of(context).showSnackBar(falhaRealizarAcao);
         });
       }
     }
@@ -219,28 +219,11 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
   }
 
   Widget caixas() {
-    if (data == null) {
+    if (data == null || data.length == 0) {
       return ApresentaProgressoCaixasColeta();
     } else {
       return showCaixasColeta();
     }
-  }
-
-  Widget imagemUsuarioLetra(String nome, String imagem) {
-    RandomColor _randomColor = RandomColor();
-    Color _color =
-        _randomColor.randomColor(colorBrightness: ColorBrightness.light);
-
-    var nomeInicial = nome[0].toUpperCase();
-    double tamanho = 25.0;
-    return CircleAvatar(
-      backgroundColor: _color,
-      foregroundColor: Colors.black,
-      backgroundImage: NetworkImage(imagem),
-      radius: tamanho,
-      child: Text(nomeInicial,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: tamanho)),
-    );
   }
 
   Widget showCaixasColeta() {
@@ -286,11 +269,6 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.08,
                             width: MediaQuery.of(context).size.width * 0.02,
-                          ),
-                          Column(
-                            children: [
-                              imagemUsuarioLetra(data[index]["nome"], ""),
-                            ],
                           ),
                           SizedBox(width: 20),
                           Column(
@@ -544,7 +522,6 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
                   style: TextStyle(color: Palette.purple),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop();
                   setState(() {
                     sendFormCOD = 1;
                   });
@@ -602,11 +579,10 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
                   style: TextStyle(color: Palette.purple),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop();
                   setState(() {
                     sendFormCOD = 2;
-                    _sendForm();
                   });
+                  _sendForm();
                 },
               ),
             ],
@@ -620,9 +596,11 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
       _key.currentState.save();
       if (sendFormCOD == 1) {
         _cadastraCaixaColeta();
+        Navigator.of(context).pop();
       }
       if (sendFormCOD == 2) {
         _editaCaixaColeta();
+        Navigator.of(context).pop();
       }
     } else {
       // erro de validação

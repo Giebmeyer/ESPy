@@ -2,6 +2,7 @@ import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/Funcoes/snackBar.dart';
 import 'package:ESPy/Paginas/DashBoard/configSensor_Page.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
@@ -230,7 +231,7 @@ class _senhaConfigState extends State<senhaConfig> {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => configSensor()));
     } else {
-      showCaixaDialogoSimples(context, "Senha incorreta");
+      ScaffoldMessenger.of(context).showSnackBar(erroSenha);
     }
   }
 

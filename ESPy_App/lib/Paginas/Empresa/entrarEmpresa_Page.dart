@@ -3,6 +3,7 @@ import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/EnviaEmail.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
+import 'package:ESPy/Funcoes/snackBar.dart';
 import 'package:ESPy/Paginas/Usuario/login_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -147,6 +148,7 @@ class _entrarEmpresaPageState extends State<entrarEmpresaPage> {
           showProgress = false;
           erroEmpresa = true;
           msgErro = "Algo deu errado.";
+          ScaffoldMessenger.of(context).showSnackBar(falhaRealizarAcao);
         }
       }
     } else {

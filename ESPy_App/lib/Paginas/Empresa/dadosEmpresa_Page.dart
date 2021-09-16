@@ -10,6 +10,8 @@ class dadosEmpresaPage extends StatefulWidget {
 }
 
 class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
+  double _tamanhoFonte = 20;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +70,10 @@ class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(" "),
-                              Text("CEO: " + emp.CEO),
+                              Text(
+                                "CEO: " + emp.CEO,
+                                style: TextStyle(fontSize: _tamanhoFonte),
+                              ),
                               Text("CNPJ: " + emp.cnpj),
                               Text("Telefone: " + emp.telefone),
                               Divider(

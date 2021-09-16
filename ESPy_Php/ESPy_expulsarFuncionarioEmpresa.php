@@ -23,7 +23,6 @@
 			}
     		
 		}else{
-			
 			$return["mensagemExpulsaUsuario"] = "Ocorreu um erro inesperado, tente novamente";
 			$return["StatusExpulsausuario"] = false;
 		}

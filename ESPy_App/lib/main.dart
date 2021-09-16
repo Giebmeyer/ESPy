@@ -13,7 +13,7 @@ import 'Classes/palette.dart';
 
 void main() => runApp(new MyApp());
 
-const String ESPy_url = 'http://192.168.66.109/ESPy/ESPy_Php';
+const String ESPy_url = 'http://192.168.66.101/ESPy/ESPy_Php';
 
 class MyApp extends StatelessWidget {
   @override
@@ -30,13 +30,13 @@ class MyApp extends StatelessWidget {
         /* fontFamily: 'Orbitron', */
         pageTransitionsTheme: PageTransitionsTheme(
           builders: {
-            TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
+            TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
             TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
           },
         ),
         primarySwatch: Palette.purple,
       ),
-      home: new SplashPage(),
+      home: new LoginPage(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => new LoginPage(),
         '/inicial': (BuildContext context) => new Pages(),
