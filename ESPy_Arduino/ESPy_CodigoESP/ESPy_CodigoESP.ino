@@ -133,27 +133,27 @@ void requestSensores() {
   Altitude_BMP180 = bmp.readAltitude();
 
   //  //MICS6814
-    for (int i = 0; i < 5; i ++) {
-      MICS_CO += gas.measure(CO); //variável para armazenar o valor proveniente do sensor
-      MICS_NO2 += gas.measure(NO2);
-      MICS_NH3 += gas.measure(NH3);
-      delay(1000);
-    }
-
-    MICS_CO /= 5;  //CO
-    MICS_NO2 /= 5;  //NO2
-    MICS_NH3 /= 5;  //NH3
-
-//    Temperatura_DHT11 = 1;
-//    Umidade_DHT11 = 2;
+//    for (int i = 0; i < 5; i ++) {
+//      MICS_CO += gas.measure(CO); //variável para armazenar o valor proveniente do sensor
+//      MICS_NO2 += gas.measure(NO2);
+//      MICS_NH3 += gas.measure(NH3);
+//      delay(1000);
+//    }
 //
-//    Temperatura_BMP180 = 3;
-//    Pressao_BMP180 = 4;
-//    Altitude_BMP180 = 5;
-//
-//   MICS_CO = rand() % 10;
-//   MICS_NO2 = rand() % 10;
-//   MICS_NH3 = rand() % 10;
+//    MICS_CO /= 5;  //CO
+//    MICS_NO2 /= 5;  //NO2
+//    MICS_NH3 /= 5;  //NH3
+
+    Temperatura_DHT11 = 1;
+    Umidade_DHT11 = 2;
+
+    Temperatura_BMP180 = 3;
+    Pressao_BMP180 = 4;
+    Altitude_BMP180 = 5;
+
+   MICS_CO = rand() % 10;
+   MICS_NO2 = rand() % 10;
+   MICS_NH3 = rand() % 10;
 
   double mediaTemperaturas = Temperatura_DHT11;
 
@@ -219,6 +219,12 @@ void enviaDadosBD()   {
     client.print(IDK);
     Serial.println(IDK);
 
+    client.print("&codigo_caixa=");
+    Serial.println("&codigo_caixa=");
+    client.print(codigoCaixa);
+    Serial.println(codigoCaixa);
+
+
     client.print("&codigo_empresa=");
     Serial.println("&codigo_empresa=");
     client.print(codigoEmpresa);
@@ -248,7 +254,7 @@ void coletaDadosBD() {
 
     SerialBT.println("COLETA");
     SerialBT.println(codigoEmpresa);
-
+    Serial.println("http://" +String(server)+ "/ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
     client_http.begin("http://" +String(server)+ "/ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
     int httpCode = client_http.GET();
     SerialBT.println(httpCode);
