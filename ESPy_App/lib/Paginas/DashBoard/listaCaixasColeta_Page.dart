@@ -29,7 +29,6 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
   String msgErro;
   List data;
   String _codigoCaixaSelecionadaLista;
-  String _nomeCaixa;
   TextEditingController _nomeCaixaCadastro = new TextEditingController();
   TextEditingController _novoNome = new TextEditingController();
   var sendFormCOD = 0;
@@ -489,7 +488,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
             content: Form(
               key: _key,
               child: TextFormField(
-                validator: validarNome,
+                validator: validarNomeCaixaColeta,
                 controller: _nomeCaixaCadastro,
                 decoration: InputDecoration(
                     labelText: 'Nome',

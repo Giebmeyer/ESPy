@@ -9,6 +9,17 @@ String validarNome(String value) {
   return null;
 }
 
+String validarNomeCaixaColeta(String value) {
+  String patttern = r'^[a-zA-Z0-9.a-zA-Z0-9`´ ]';
+  RegExp regExp = new RegExp(patttern);
+  if (value.length == 0) {
+    return "Informe o nome";
+  } else if (!regExp.hasMatch(value)) {
+    return "Nome inválido";
+  }
+  return null;
+}
+
 String validarCelular(String value) {
   String patttern = r'(^[0-9() -]*$)';
   RegExp regExp = new RegExp(patttern);

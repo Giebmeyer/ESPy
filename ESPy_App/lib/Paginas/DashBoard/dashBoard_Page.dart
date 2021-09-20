@@ -29,6 +29,8 @@ class _dashBoardState extends State<dashBoard> {
   var dataInicial = DateFormat("y-MM-d", "pt_BR").format(DateTime.now());
   var dataFinal = DateFormat("y-MM-d", "pt_BR").format(DateTime.now());
 
+  String _titulo = 'DashBoard' + sensor.nomeCaixa;
+
   bool showProgress = false;
   botaoAtualizar botaoAtt;
 
@@ -379,7 +381,7 @@ class _dashBoardState extends State<dashBoard> {
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20)),
           ),
-          title: const Text('DashBoard'),
+          title: Text(_titulo),
           centerTitle: true,
           backgroundColor: Palette.purple,
           actions: [

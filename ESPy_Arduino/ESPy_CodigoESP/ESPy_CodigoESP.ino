@@ -32,15 +32,6 @@ BluetoothSerial SerialBT;
 //SD
 //==========================================================================================
 
-struct Config {
-  char *nomeRede;
-  char *senhaRede;
-  char *caixaCodigo;
-};
-
-const char *NomeArquivoTXT = "/ESPy_ConfigJson.txt";  // <- SD library uses 8.3 NomeArquivoTXTs
-Config config;  
-
 //==========================================================================================
 //DHT11
 //==========================================================================================
@@ -86,7 +77,7 @@ MICS6814 gas(PIN_CO, PIN_NO2, PIN_NH3);
 //==========================================================================================
 WiFiClient client; //Cria um cliente seguro (para ter acesso ao HTTPS)
   
-char *server = "192.168.66.109";
+char *server = "192.168.66.101";
 char *Rede = "";
 char *Password = "";
 //==========================================================================================
@@ -104,17 +95,6 @@ void setup() {
   dht.begin();
   bmp.begin();
 
-   while (!SD.begin()) {
-    SerialBT.println(("Falha ao iniciar o cartão SD..."));
-    delay(1000);
-  }
-
-  SerialBT.println(("Carregando configuração..."));
-  escreveConfiguracaoSD(NomeArquivoTXT, config);
-
-  Serial.println(("Salvando configuração..."));
-  leituraConfiguracaoSD(NomeArquivoTXT, config);
-  
   SerialBT.begin("ESPy"); //Nome do Bluetooth
 
   WiFi.mode(WIFI_STA);//Habilita o modo estaçao
@@ -148,33 +128,32 @@ void requestSensores() {
   Umidade_DHT11 = dht.readHumidity();
   //
   //BMP180
-
   Temperatura_BMP180 = bmp.readTemperature();
   Pressao_BMP180 = bmp.readPressure();
   Altitude_BMP180 = bmp.readAltitude();
-  //
+
   //  //MICS6814
-  //  for (int i = 0; i < 5; i ++) {
-  //    MICS_CO += gas.measure(CO); //variável para armazenar o valor proveniente do sensor
-  //    MICS_NO2 += gas.measure(NO2);
-  //    MICS_NH3 += gas.measure(NH3);
-  //    delay(1000);
-  //  }
+    for (int i = 0; i < 5; i ++) {
+      MICS_CO += gas.measure(CO); //variável para armazenar o valor proveniente do sensor
+      MICS_NO2 += gas.measure(NO2);
+      MICS_NH3 += gas.measure(NH3);
+      delay(1000);
+    }
 
-  //  MICS_CO /= 5;  //CO
-  //  MICS_NO2 /= 5;  //NO2
-  //  MICS_NH3 /= 5;  //NH3
+    MICS_CO /= 5;  //CO
+    MICS_NO2 /= 5;  //NO2
+    MICS_NH3 /= 5;  //NH3
 
-  //  Temperatura_DHT11 = 1;
-  //  Umidade_DHT11 = 2;
-
-  //  Temperatura_BMP180 = 3;
-  //  Pressao_BMP180 = 4;
-  //  Altitude_BMP180 = 5;
-
-  MICS_CO = rand() % 10;
-  MICS_NO2 = rand() % 10;
-  MICS_NH3 = rand() % 10;
+//    Temperatura_DHT11 = 1;
+//    Umidade_DHT11 = 2;
+//
+//    Temperatura_BMP180 = 3;
+//    Pressao_BMP180 = 4;
+//    Altitude_BMP180 = 5;
+//
+//   MICS_CO = rand() % 10;
+//   MICS_NO2 = rand() % 10;
+//   MICS_NH3 = rand() % 10;
 
   double mediaTemperaturas = Temperatura_DHT11;
 
@@ -250,7 +229,7 @@ void enviaDadosBD()   {
     client.print(" ");      //Espaço depois do HTTP/1.1
     client.print("HTTP/1.1");
     client.println();
-    client.println("Host: 192.168.66.109");
+    client.println("Host: "+String(server));
     client.println("Connection: close");
     client.println();
   } else {
@@ -270,7 +249,7 @@ void coletaDadosBD() {
     SerialBT.println("COLETA");
     SerialBT.println(codigoEmpresa);
 
-    client_http.begin("http://192.168.66.109/ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
+    client_http.begin("http://" +String(server)+ "/ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
     int httpCode = client_http.GET();
     SerialBT.println(httpCode);
 
@@ -442,69 +421,4 @@ void conectaWifi(char* Rede, char* Password) {
 
   delay(2000);//Espera um tempo para se conectar no WiFi
   SerialBT.println("Conectado");
-}
-
-
-
-
-//==========================================================================================Função que realizada a escrita no cartão SD
-void escreveConfiguracaoSD(const char *NomeArquivoTXT, Config &config) {
-  File file = SD.open(NomeArquivoTXT);
-
-  StaticJsonDocument<512> doc;
-
-  DeserializationError error = deserializeJson(doc, file);
-  if (error)
-    Serial.println(F("Falha ao carregar dados para o Cartão SD"));
-
-  Rede = doc["nomeRede"];     
-  Password = doc["senhaRede"]; 
-  codigoCaixa = doc["codigoCaixa"];  
-
-  file.close();
-}
-
-
-
-
-//==========================================================================================Função que realizada a leitura no cartão SD
-void leituraConfiguracaoSD(const char *NomeArquivoTXT, const Config &config) {
-  SD.remove(NomeArquivoTXT);
-
-  File file = SD.open(NomeArquivoTXT, FILE_WRITE);
-  if (!file) {
-    SerialBT.println(("Falha ao criar arquivo de texto..."));
-    return;
-  }
-
-  StaticJsonDocument<256> doc;
-
-  doc["nomeRede"] = config.nomeRede;
-  doc["senhaRede"] = config.senhaRede;
-  doc["caixaCodigo"] = config.caixaCodigo;
-
-  if (serializeJson(doc, file) == 0) {
-    Serial.println(F("Falha ao escrever no"));
-  }
-
-  file.close();
-}
-
-
-
-
-//==========================================================================================Função que apresenta a escrita do cartão SD
-void printArquivo(const char *NomeArquivoTXT) {
-  File file = SD.open(NomeArquivoTXT);
-  if (!file) {
-    Serial.println(F("Falha ao ler o arquivo..."));
-    return;
-  }
-
-  while (file.available()) {
-    Serial.print((char)file.read());
-  }
-  Serial.println();
-
-  file.close();
 }

@@ -2,7 +2,7 @@
 
 	$db_user="Guib";
 	$db_pass="Nkysd3m8tg"; 
-	$host="192.168.66.101";
+	$host="localhost";
 	$db_name="espy"; 
 
 	ini_set('default_charset', 'utf-8');
