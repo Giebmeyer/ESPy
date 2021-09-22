@@ -2,7 +2,7 @@ import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Paginas/DashBoard/listaCaixasColeta_Page.dart';
 import 'package:flutter/material.dart';
-import 'DashBoard/dashBoard_Page.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'Empresa/empresa_Page.dart';
 import 'Usuario/home_Page.dart';
 
@@ -62,82 +62,96 @@ class _PagesState extends State<Pages> {
   }
 
   Widget barraDeNavegacaoInferior() {
-    return BottomNavigationBar(
-      showUnselectedLabels: false,
-      type: BottomNavigationBarType.fixed,
-      currentIndex: selectedIndexNovoUser,
-      onTap: onItemTapped,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
+    return BottomNavyBar(
+      selectedIndex: selectedIndexEmpregado,
+      showElevation: true,
+      itemCornerRadius: 24,
+      curve: Curves.easeIn,
+      onItemSelected: (index) => setState(() => selectedIndexEmpregado = index),
+      items: <BottomNavyBarItem>[
+        BottomNavyBarItem(
             icon: Icon(
               Icons.business,
               color: Palette.purple,
             ),
-            title: Text('_____')),
-        BottomNavigationBarItem(
+            activeColor: Palette.purple.shade50,
+            title: Text('Empresa', style: TextStyle(color: Colors.white))),
+        BottomNavyBarItem(
             icon: Icon(
               Icons.workspaces_outline,
               color: Palette.purple,
             ),
-            title: Text('_____')),
+            activeColor: Palette.purple.shade50,
+            title: Text('Principal', style: TextStyle(color: Colors.white))),
       ],
     );
   }
 
   Widget barraDeNavegacaoInferiorEmpregado() {
-    return BottomNavigationBar(
-      showUnselectedLabels: false,
-      type: BottomNavigationBarType.fixed,
-      currentIndex: selectedIndexEmpregado,
-      onTap: onItemTapped,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
+    return BottomNavyBar(
+      selectedIndex: selectedIndexEmpregado,
+      showElevation: true,
+      itemCornerRadius: 24,
+      curve: Curves.easeIn,
+      onItemSelected: (index) => setState(() => selectedIndexEmpregado = index),
+      items: <BottomNavyBarItem>[
+        BottomNavyBarItem(
             icon: Icon(
               Icons.business,
               color: Palette.purple,
             ),
-            title: Text('_____')),
-        BottomNavigationBarItem(
+            activeColor: Palette.purple.shade50,
+            title: Text('Empresa', style: TextStyle(color: Colors.white))),
+        BottomNavyBarItem(
             icon: Icon(
               Icons.workspaces_outline,
               color: Palette.purple,
             ),
-            title: Text('_____')),
-        BottomNavigationBarItem(
+            activeColor: Palette.purple.shade50,
+            title: Text('Principal', style: TextStyle(color: Colors.white))),
+        BottomNavyBarItem(
             icon: Icon(
               Icons.dashboard,
               color: Palette.purple,
             ),
-            title: Text('_____'))
+            activeColor: Palette.purple.shade50,
+            title: Text('Caixas', style: TextStyle(color: Colors.white)))
       ],
     );
   }
 
   Widget barraDeNavegacaoChefeInferior() {
-    return BottomNavigationBar(
-      showUnselectedLabels: false,
-      type: BottomNavigationBarType.fixed,
-      currentIndex: selectedIndexChefe,
-      onTap: onItemTapped,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
+    return BottomNavyBar(
+      selectedIndex: selectedIndexChefe,
+      showElevation: true,
+      itemCornerRadius: 24,
+      curve: Curves.easeIn,
+      onItemSelected: (index) => setState(() => selectedIndexChefe = index),
+      items: <BottomNavyBarItem>[
+        BottomNavyBarItem(
             icon: Icon(
               Icons.business,
               color: Palette.purple,
             ),
-            title: Text('_____')),
-        BottomNavigationBarItem(
+            activeColor: Palette.purple.shade50,
+            title: Text(
+              'Minha Empresa',
+              style: TextStyle(color: Colors.white),
+            )),
+        BottomNavyBarItem(
             icon: Icon(
               Icons.workspaces_outline,
               color: Palette.purple,
             ),
-            title: Text('_____')),
-        BottomNavigationBarItem(
+            activeColor: Palette.purple.shade50,
+            title: Text('Principal', style: TextStyle(color: Colors.white))),
+        BottomNavyBarItem(
             icon: Icon(
               Icons.dashboard,
               color: Palette.purple,
             ),
-            title: Text('_____'))
+            activeColor: Palette.purple.shade50,
+            title: Text('Caixas', style: TextStyle(color: Colors.white)))
       ],
     );
   }

@@ -34,6 +34,7 @@ dependencies:
   random_color: ^1.0.3
   connectivity: ^0.4.8+1
   flutter_speed_dial: 
+  bottom_navy_bar: ^6.0.0
 
 dev_dependencies:
   flutter_test:

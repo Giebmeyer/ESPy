@@ -144,12 +144,12 @@ void requestSensores() {
 //    MICS_NO2 /= 5;  //NO2
 //    MICS_NH3 /= 5;  //NH3
 
-    Temperatura_DHT11 = 1;
-    Umidade_DHT11 = 2;
-
-    Temperatura_BMP180 = 3;
-    Pressao_BMP180 = 4;
-    Altitude_BMP180 = 5;
+//    Temperatura_DHT11 = 1;
+//    Umidade_DHT11 = 2;
+//
+//    Temperatura_BMP180 = 3;
+//    Pressao_BMP180 = 4;
+//    Altitude_BMP180 = 5;
 
    MICS_CO = rand() % 10;
    MICS_NO2 = rand() % 10;
