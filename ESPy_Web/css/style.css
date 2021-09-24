@@ -1,0 +1,100 @@
+#ContainerLoginCentro {
+    margin-top: 10%;
+    padding: 1%;
+    background-color: rgba(128, 128, 128, 0.060);
+}
+
+#ContainerCadastroCentro {
+    padding: 1%;
+    background-color: rgba(128, 128, 128, 0.060);
+}
+
+*:focus {
+    box-shadow: none;
+}
+
+.form-control {
+    border-radius: 15px;
+}
+
+#cidade {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#LinkPageCadastro {
+    text-align: center;
+    color: grey;
+}
+
+#LinkPageRecoverPass {
+    color: grey;
+}
+
+#divLinkRecoverPass {
+    text-align: end;
+}
+
+.form-control:focus {
+    box-shadow: 1px 1px 1px purple;
+    border-color: purple;
+}
+
+#SenhaCodastro {
+    width: 50px;
+}
+
+#BtnLogin {
+    width: 200px;
+    color: purple;
+    background-color: white;
+    border-color: purple;
+    border-radius: 15px;
+}
+
+#BtnLogin:hover {
+    transition: 200ms;
+    color: white;
+    background-color: purple;
+    border-color: white;
+}
+
+#BtnRecoverPass {
+    width: 200px;
+    color: purple;
+    background-color: white;
+    border-color: purple;
+    border-radius: 15px;
+}
+
+#BtnRecoverPass:hover {
+    transition: 200ms;
+    color: white;
+    background-color: purple;
+    border-color: white;
+}
+
+#BtnCancelarRecoverPass {
+    width: 100px;
+    color: black;
+    background-color: white;
+    border: none;
+}
+
+#BtnCancelarRecoverPass:hover {
+    transition: 200ms;
+    color: purple;
+    border-color: purple;
+    border-radius: 15;
+}
+
+#linkCadastroRecoverPass {
+    color: grey;
+    font-size: 12px;
+}
+
+#DropDownEstados{
+    height: 40px;
+    display: grid;
+}
+
