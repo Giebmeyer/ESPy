@@ -36,8 +36,9 @@
 }
 
 .form-control:focus {
-    box-shadow: 1px 1px 1px purple;
-    border-color: purple;
+    transition: 200ms;
+    box-shadow: 1px 1px 1px rgb(74, 20, 140);
+    border-color: rgb(74, 20, 140);
 }
 
 #SenhaCodastro {
@@ -46,31 +47,31 @@
 
 #BtnLogin {
     width: 200px;
-    color: purple;
+    color: rgb(74, 20, 140);
     background-color: white;
-    border-color: purple;
+    border-color: rgb(74, 20, 140);
     border-radius: 15px;
 }
 
 #BtnLogin:hover {
     transition: 200ms;
     color: white;
-    background-color: purple;
+    background-color: rgb(74, 20, 140);
     border-color: white;
 }
 
 #BtnRecoverPass {
     width: 200px;
-    color: purple;
+    color: rgb(74, 20, 140);
     background-color: white;
-    border-color: purple;
+    border-color: rgb(74, 20, 140);
     border-radius: 15px;
 }
 
 #BtnRecoverPass:hover {
     transition: 200ms;
     color: white;
-    background-color: purple;
+    background-color: rgb(74, 20, 140);
     border-color: white;
 }
 
@@ -83,8 +84,8 @@
 
 #BtnCancelarRecoverPass:hover {
     transition: 200ms;
-    color: purple;
-    border-color: purple;
+    color: rgb(74, 20, 140);
+    border-color: rgb(74, 20, 140);
     border-radius: 15;
 }
 
@@ -93,8 +94,11 @@
     font-size: 12px;
 }
 
-#DropDownEstados{
-    height: 40px;
-    display: grid;
+#UF{
+    height: 36px;
+    margin-top: 25px;
+    background-color: rgba(128, 128, 128, 0.342);
+    border-color: rgba(128, 128, 128, 0.342);
+
 }
 

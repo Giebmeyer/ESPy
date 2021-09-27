@@ -28,19 +28,19 @@
 
 
     <div class="container col-4" id="ContainerLoginCentro">
-        <form method="POST" action="../ESPy_Php/ESPy_login.php" id="FormularioLogin">
+        <form id="FormularioLogin"> <!-- method="POST" action="../ESPy_Php/ESPy_login.php"  -->
 
             <!-- From email -->
             <div class="form-group">
-                <label for="InputEmail">Endereço de email</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                <label for="email">Endereço de email</label>
+                <input type="email" class="form-control" id="emailLogin" name="email" aria-describedby="emailHelp"
                     placeholder="Seu email">
             </div>
 
             <!-- From senha -->
             <div class="form-group mt-4">
-                <label for="InputSenha">Senha</label>
-                <input type="password" class="form-control" id="senha" name="senha" placeholder="Sua senha">
+                <label for="senha">Senha</label>
+                <input type="password" class="form-control" id="senhaLogin" name="senha" placeholder="Sua senha">
             </div>
 
             <!-- Botão recuperar senha -->
@@ -85,7 +85,7 @@
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-md-auto ">
-                        <button type="submit" class="btn btn-primary" id="BtnLogin" value="Entrar">Entrar</button>
+                        <button type="submit" class="btn btn-primary" id="BtnLogin" value="Entrar" onclick="login()">Entrar</button>
                     </div>
                 </div>
             </div>
@@ -97,8 +97,15 @@
             </div>
         </form>
     </div>
+
+    <script>
+  
+        function login(){
+        var email = document.querySelector('#emailLogin');
+		var senha = document.querySelector('#senhaLogin');
+        }
+
+	</script>
+
 </body>
-
-
-
 </html>

@@ -32,14 +32,14 @@
 
             <!-- From Nome -->
             <div class="form-group">
-                <label for="InputEmail">Seu nome</label>
+                <label for="nome">Seu nome</label>
                 <input type="name" class="form-control" id="nome" name="nome" aria-describedby="name"
                     placeholder="Nome">
             </div>
 
             <!-- From email -->
             <div class="form-group mt-3">
-                <label for="InputEmail">Endereço de email</label>
+                <label for="email">Endereço de email</label>
                 <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
                     placeholder="Seu email">
             </div>
@@ -48,12 +48,12 @@
             <div class="container px-4 mt-3">
                 <div class="row gx-5">
                     <div class="col">
-                        <label for="InputSenha">Senha</label>
+                        <label for="senha">Senha</label>
                         <input type="password" aria-label="senha" id="senha" name="senha" class="form-control"
                             placeholder="Senha">
                     </div>
                     <div class="col">
-                        <label for="InputSenha">Confirma Senha</label>
+                        <label for="ConfirmaSenha">Confirma Senha</label>
                         <input type="password" aria-label="ConfirmaSenha" id="ConfirmaSenha" name="ConfirmaSenha"
                             class="form-control" placeholder="Confirmar Senha">
                     </div>
@@ -62,30 +62,52 @@
 
             <!-- From CPF -->
             <div class="form-group mt-3">
-                <label for="InputCPF">CPF</label>
+                <label for="CPF">CPF</label>
                 <input type="text" class="form-control" id="CPF" name="CPF" aria-describedby="CPFHelp"
                     placeholder="Seu CPF">
             </div>
 
             <!-- From Telefone -->
             <div class="form-group mt-3">
-                <label for="InputTelefone">Telefone Celular</label>
+                <label for="Telefone">Telefone Celular</label>
                 <input type="text" class="form-control" id="Telefone" name="Telefone" aria-describedby="TelefoneHelp"
                     placeholder="Seu Telefone">
             </div>
 
             <!-- From Estado/Cidade -->
             <div class="input-group mb-3 mt-3">
-                <button class="btn btn-outline-secondary dropdown-toggle h-50 mt-4" type="button"
-                    data-bs-toggle="dropdown-menu" aria-expanded="true">Estado</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">A</a></li>
-                    <li><a class="dropdown-item" href="#">B</a></li>
-                    <li><a class="dropdown-item" href="#">C</a></li>
-
-                </ul>
+                <select id="UF" name="UF">
+                    <option value="Null">Estado</option>
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AP">AP</option>
+                    <option value="AM">AM</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="MG">MG</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PR">PR</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RS">RS</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="SC">SC</option>
+                    <option value="SP">SP</option>
+                    <option value="SE">SE</option>
+                    <option value="TO">TO</option>
+                 </select>
                 <div class="col">
-                    <label for="InputEmail">Sua Cidade</label>
+                    <label for="cidade">Sua Cidade</label>
                     <input type="text" class="form-control" id="cidade" name="cidade" aria-describedby="cidade"
                         placeholder="Cidade">
                 </div>
@@ -93,20 +115,20 @@
 
             <!-- From Bairro -->
             <div class="form-group">
-                <label for="InputEmail">Bairro</label>
+                <label for="bairro">Bairro</label>
                 <input type="text" class="form-control" id="bairro" name="bairro" aria-describedby="bairro"
                     placeholder="Bairro">
             </div>
 
             <!-- From Rua/Número -->
             <div class="input-group mb-3 mt-4" id="divRuaNumero">
-                <div class="col">
-                    <label for="InputEmail">Rua</label>
+                <div class="col m-1">
+                    <label for="rua">Rua</label>
                     <input type="text" class="form-control" id="rua" name="rua" aria-describedby="rua"
                         placeholder="Rua">
                 </div>
-                <div class="col">
-                    <label for="InputEmail">Número</label>
+                <div class="col m-1">
+                    <label for="numero">Número</label>
                     <input type="text" class="form-control" id="numero" name="numero" aria-describedby="numero"
                         placeholder="Número">
                 </div>
@@ -114,7 +136,7 @@
 
             <!-- From Complemento -->
             <div class="form-group">
-                <label for="InputEmail">Complemento</label>
+                <label for="complemento">Complemento</label>
                 <input type="text" class="form-control" id="complemento" name="complemento"
                     aria-describedby="complemento" placeholder="Complemento">
             </div>
