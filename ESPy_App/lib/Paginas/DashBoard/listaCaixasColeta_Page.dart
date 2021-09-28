@@ -238,9 +238,9 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
       )),
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50.0),
+          padding: const EdgeInsets.only(top: 10.0),
           child: Container(
-            padding: const EdgeInsets.only(top: 50.0),
+            padding: const EdgeInsets.only(top: 32.0, bottom: 60),
             decoration: new BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -332,38 +332,52 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
 
   Widget showErrorEmpresaSemCaixas() {
     return Container(
-      padding: const EdgeInsets.only(top: 50.0),
       decoration: new BoxDecoration(
           gradient: LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
         colors: [
           Palette.purple.shade900,
           Palette.purple.shade50,
         ],
       )),
       child: Container(
-        decoration: new BoxDecoration(),
-        child: Align(
-          alignment: Alignment.center,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
           child: Container(
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                      "Sua empresa ainda não possui nenhuma caixa de coleta cadastrada.",
-                      style: TextStyle(fontSize: 15),
-                      textAlign: TextAlign.center),
-                ],
-              ),
-            ),
+            padding: const EdgeInsets.only(top: 32.0, bottom: 60),
             decoration: new BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(115.0),
                 topRight: const Radius.circular(115.0),
+              ),
+            ),
+            child: Container(
+              decoration: new BoxDecoration(),
+              child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                            "Sua empresa ainda não possui nenhuma caixa de coleta cadastrada.",
+                            style: TextStyle(fontSize: 15),
+                            textAlign: TextAlign.center),
+                      ],
+                    ),
+                  ),
+                  decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: const Radius.circular(115.0),
+                      topRight: const Radius.circular(115.0),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -460,18 +474,46 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
   }
 
   Widget botaoCadastrarCaixas() {
-    return SizedBox(
-      width: 45,
-      height: 45,
-      child: FloatingActionButton(
-        heroTag: "Cadastrar Caixa",
-        backgroundColor: Palette.purple,
-        onPressed: () {
-          setState(() {
-            _CaixaDialogoCadastraCaixa(context);
-          });
-        },
-        child: Icon(Icons.add),
+    return Container(
+      width: 190,
+      height: 40,
+      decoration: new BoxDecoration(
+        color: Palette.purple,
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(115.0),
+          bottomLeft: const Radius.circular(115.0),
+          bottomRight: const Radius.circular(115.0),
+          topRight: const Radius.circular(115.0),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          new RawMaterialButton(
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                _CaixaDialogoCadastraCaixa(context);
+              });
+            },
+          ),
+          new Text(
+            " | ",
+            style: TextStyle(color: Colors.white),
+          ),
+          new RawMaterialButton(
+            child: Icon(
+              Icons.article_outlined,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/relatorioPage');
+            },
+          ),
+        ],
       ),
     );
   }

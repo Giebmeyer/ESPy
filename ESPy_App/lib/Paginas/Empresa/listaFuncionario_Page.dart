@@ -138,9 +138,9 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
       )),
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50.0),
+          padding: const EdgeInsets.only(top: 10.0),
           child: Container(
-            padding: const EdgeInsets.only(top: 50.0),
+            padding: const EdgeInsets.only(top: 32.0),
             decoration: new BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(

@@ -135,7 +135,7 @@ class _PagesState extends State<Pages> {
             ),
             activeColor: Palette.purple.shade50,
             title: Text(
-              'Minha Empresa',
+              'Empresa',
               style: TextStyle(color: Colors.white),
             )),
         BottomNavyBarItem(
