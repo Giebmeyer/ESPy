@@ -1,63 +1,44 @@
-#ContainerLoginCentro {
-    margin-top: 10%;
-    padding: 1%;
-    background-color: rgba(128, 128, 128, 0.060);
+/*  */ /*  */ /*  */ /* GERAL */ /*  */ /*  */ /*  */
+
+textarea:focus, input:focus, select:focus, button:focus, *:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
 }
 
-#ContainerCadastroCentro {
-    padding: 1%;
-    background-color: rgba(128, 128, 128, 0.060);
-}
-
-*:focus {
-    box-shadow: none;
-}
+/* Inputs */
 
 .form-control {
     border-radius: 15px;
 }
 
-#cidade {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-}
-
-#LinkPageCadastro {
-    text-align: center;
-    color: grey;
-}
-
-#LinkPageRecoverPass {
-    color: grey;
-}
-
-#divLinkRecoverPass {
-    text-align: end;
-}
-
 .form-control:focus {
     transition: 200ms;
-    box-shadow: 1px 1px 1px rgb(74, 20, 140);
+    box-shadow: 0px 0px 0px 0px rgb(74, 20, 140);
     border-color: rgb(74, 20, 140);
 }
 
-#SenhaCodastro {
-    width: 50px;
+/* Links */
+
+a {
+    color: grey;
 }
 
-#BtnLogin {
-    width: 200px;
-    color: rgb(74, 20, 140);
-    background-color: white;
-    border-color: rgb(74, 20, 140);
-    border-radius: 15px;
+/*  */ /*  */ /*  */ /* Formulario de LOGIN */ /*  */ /*  */ /*  */
+
+#ContainerLoginCentro {
+    margin-top: 10%;
+    padding: 1%;
+    background-color: rgba(128, 128, 128, 0.060);
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 
-#BtnLogin:hover {
-    transition: 200ms;
-    color: white;
-    background-color: rgb(74, 20, 140);
-    border-color: white;
+/* Div link e modal esqueci minha senha */
+
+#DivLinkRecoverPass {
+    text-align: end;
+    color: grey;
 }
 
 #BtnRecoverPass {
@@ -82,23 +63,80 @@
     border: none;
 }
 
-#BtnCancelarRecoverPass:hover {
+#BtnCancelarRecoverPass:hover, #BtnCancelarRecoverPass:focus  {
     transition: 200ms;
-    color: rgb(74, 20, 140);
-    border-color: rgb(74, 20, 140);
-    border-radius: 15;
+    border: 2px solid rgba(128, 128, 128, 0.26);
+    
 }
+
+/* Link cadastre-se dentro do modal */
 
 #linkCadastroRecoverPass {
     color: grey;
     font-size: 12px;
 }
 
-#UF{
+/* Div e link Cadastre-se */
+
+#DivLinkPageCadastro {
+    text-align: center;
+    color: grey;
+}
+
+#LinkPageCadastro:focus, #LinkPageCadastro:hover{
+    color: rgba(0, 0, 0, 0.746);
+}
+
+/* Botao de login */
+
+#BtnLogin {
+    width: 10vw;
+    color: rgb(74, 20, 140);
+    background-color: white;
+    border-color: rgb(74, 20, 140);
+    border-radius: 15px;
+}
+
+#BtnLogin:hover {
+    transition: 200ms;
+    color: white;
+    background-color: rgb(74, 20, 140);
+    border-color: white;
+}
+
+/*  */ /*  */ /*  */ /* Formulario de CADASTRO */ /*  */ /*  */ /*  */
+
+#ContainerCadastroCentro {
+    padding: 1%;
+    background-color: rgba(128, 128, 128, 0.060);
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+#SenhaCodastro {
+    width: 50px;
+}
+
+/* DropDown dos estados */
+
+#cidade {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#UF {
+    transition: 1s;
     height: 36px;
     margin-top: 25px;
     background-color: rgba(128, 128, 128, 0.342);
     border-color: rgba(128, 128, 128, 0.342);
-
 }
+
+#UF:focus {
+    height: 36px;
+    margin-top: 25px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgba(128, 128, 128, 0.342);
+}
+
 

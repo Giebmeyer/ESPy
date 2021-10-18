@@ -13,6 +13,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/funcoes.js"></script>
 </head>
 
 <body>
@@ -28,7 +29,8 @@
 
 
     <div class="container col-4" id="ContainerLoginCentro">
-        <form id="FormularioLogin"> <!-- method="POST" action="../ESPy_Php/ESPy_login.php"  -->
+        <form id="FormularioLogin">
+            <!-- method="POST" action="../ESPy_Php/ESPy_login.php"  -->
 
             <!-- From email -->
             <div class="form-group">
@@ -44,13 +46,13 @@
             </div>
 
             <!-- Botão recuperar senha -->
-            <div class="mt-1" id="divLinkRecoverPass">
+            <div class="mt-1" id="DivLinkRecoverPass">
                 <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalRecoverPass"
-                    id="LinkPageRecoverPass">Esqueci minha senha</button>
+                    id="DivLinkRecoverPass">Esqueci minha senha</button>
             </div>
 
             <!-- Modal -->
-            <div class="modal fade mt-4" id="modalRecoverPass" tabindex="-1" aria-labelledby="modalRecoverPass"
+            <div class="modal fade" id="modalRecoverPass" tabindex="-1" aria-labelledby="modalRecoverPass"
                 aria-hidden="true">
                 <div class="modal-dialog ">
                     <div class="modal-content">
@@ -74,7 +76,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                 id="BtnCancelarRecoverPass">Cancelar</button>
-                            <button type="button" class="btn btn-primary" id="BtnRecoverPass">Recuperar</button>
+                            <button type="button" class="btn btn-primary" id="BtnRecoverPass" onclick="recuperarSenha()">Recuperar</button>
 
                         </div>
                     </div>
@@ -82,30 +84,19 @@
             </div>
 
             <!-- Botão login -->
-            <div class="container">
-                <div class="row justify-content-md-center">
-                    <div class="col-md-auto ">
-                        <button type="submit" class="btn btn-primary" id="BtnLogin" value="Entrar" onclick="login()">Entrar</button>
-                    </div>
-                </div>
+            <div class="col-md-auto row justify-content-md-center">
+                <button type="submit" class="btn btn-primary" id="BtnLogin" value="Entrar"
+                    onclick="login()">Entrar</button>
             </div>
 
             <!-- Botão Cadastre-se -->
-            <div class="mt-2" id="LinkPageCadastro">
+            <div class="mt-2" id="DivLinkPageCadastro">
                 Não possui login? <a href="../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.html"
                     id="LinkPageCadastro">Cadastre-se</a>
             </div>
         </form>
     </div>
 
-    <script>
-  
-        function login(){
-        var email = document.querySelector('#emailLogin');
-		var senha = document.querySelector('#senhaLogin');
-        }
-
-	</script>
-
 </body>
+
 </html>

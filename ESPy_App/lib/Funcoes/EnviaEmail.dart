@@ -17,8 +17,8 @@ Future<bool> mandaEmailRecuperacaoSenha(var _emailDestinatario) async {
     ..from = Address(_username, 'ESPy')
     ..recipients.add(_emailDestinatario) //Email de quem irá receber o email.
     ..subject = 'ESPy - Email de recuperação de senha' //Titulo do email.
-    ..text =
-        'Olá ${user.nome},\nRecebemos uma solicitação para recuperar sua senha de acesso em nosso sistema.\nEla ocorreu em ${dataFomatada}\nA sua senha é ${user.senha}'; //corpo do email
+    ..html =
+        'Olá <b>${user.nome}!</b>,\nRecebemos uma solicitação para recuperar sua senha de acesso em nosso sistema.\nEla ocorreu em ${dataFomatada}\nA sua senha é <b>${user.senha}</b>'; //corpo do email
   try {
     final sendReport = await send(message, smtpServer);
     return true;
