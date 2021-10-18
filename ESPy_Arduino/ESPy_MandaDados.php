@@ -8,7 +8,7 @@ class Sensores{
  }
 
  function connect(){
-    $this->link = mysqli_connect('192.168.66.101','Guib','Nkysd3m8tg') or die('Cannot connect to the DB');
+    $this->link = mysqli_connect('192.168.66.102','Guib','Nkysd3m8tg') or die('Cannot connect to the DB');
     mysqli_select_db($this->link,'espy') or die('Cannot select the DB');
    }
  

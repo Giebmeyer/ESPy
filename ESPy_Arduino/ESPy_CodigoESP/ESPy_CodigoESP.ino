@@ -77,7 +77,7 @@ MICS6814 gas(PIN_CO, PIN_NO2, PIN_NH3);
 //==========================================================================================
 WiFiClient client; //Cria um cliente seguro (para ter acesso ao HTTPS)
   
-char *server = "192.168.66.101";
+char *server = "192.168.66.102";
 char *Rede = "";
 char *Password = "";
 //==========================================================================================

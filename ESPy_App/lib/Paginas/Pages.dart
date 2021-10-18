@@ -63,11 +63,11 @@ class _PagesState extends State<Pages> {
 
   Widget barraDeNavegacaoInferior() {
     return BottomNavyBar(
-      selectedIndex: selectedIndexEmpregado,
+      selectedIndex: selectedIndexNovoUser,
       showElevation: true,
       itemCornerRadius: 24,
       curve: Curves.easeIn,
-      onItemSelected: (index) => setState(() => selectedIndexEmpregado = index),
+      onItemSelected: (index) => setState(() => selectedIndexNovoUser = index),
       items: <BottomNavyBarItem>[
         BottomNavyBarItem(
             icon: Icon(

@@ -10,7 +10,7 @@ class dadosEmpresaPage extends StatefulWidget {
 }
 
 class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
-  double _tamanhoFonte = 20;
+  double _tamanhoFonte = 25;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
         centerTitle: true,
       ),
       body: showBodyDados(),
-      floatingActionButton: botaoEditarEmpresa(),
+      floatingActionButton: apresentaBotao(),
     );
   }
 
@@ -124,5 +124,12 @@ class _dadosEmpresaPageState extends State<dadosEmpresaPage> {
         child: Icon(Icons.warning),
       ),
     );
+  }
+
+  Widget apresentaBotao() {
+    if (user.usuario_empregado == 1) {
+    } else {
+      return botaoEditarEmpresa();
+    }
   }
 }

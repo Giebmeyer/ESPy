@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/sensores.dart';
+import 'package:ESPy/Classes/usuario.dart';
 import 'package:ESPy/Funcoes/appValidator.dart';
 import 'package:ESPy/Funcoes/appWidget.dart';
 import 'package:ESPy/Funcoes/snackBar.dart';
@@ -213,7 +214,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
         actions: [botaoAtualizar()],
       ),
       body: caixas(),
-      floatingActionButton: botaoCadastrarCaixas(),
+      floatingActionButton: apresentaBotao(),
     );
   }
 
@@ -221,7 +222,11 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
     if (data == null || data.length == 0) {
       return ApresentaProgressoCaixasColeta();
     } else {
-      return showCaixasColeta();
+      if (user.usuario_chefe == 1) {
+        return showCaixasColeta();
+      } else {
+        return showCaixasColetaEmpregado();
+      }
     }
   }
 
@@ -311,6 +316,98 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
                                   },
                                   child: Icon(
                                     Icons.delete,
+                                    color: Palette.purple.shade700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget showCaixasColetaEmpregado() {
+    return Container(
+      decoration: new BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Palette.purple.shade900,
+          Palette.purple.shade50,
+        ],
+      )),
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: Container(
+            padding: const EdgeInsets.only(top: 32.0, bottom: 60),
+            decoration: new BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(115.0),
+                topRight: const Radius.circular(115.0),
+              ),
+            ),
+            child: new ListView.builder(
+              itemCount: data == null ? 0 : data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return new Card(
+                  color: Colors.grey.shade200,
+                  margin: EdgeInsetsDirectional.fromSTEB(35.0, 30.0, 35.0, 00),
+                  child: new InkWell(
+                    onTap: () {
+                      sensor.codigoCaixa = int.parse(data[index]["codigo"]);
+                      sensor.nomeCaixa = data[index]["nome"];
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CaixaColetaPage()));
+                    },
+                    child: Container(
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.08,
+                            width: MediaQuery.of(context).size.width * 0.02,
+                          ),
+                          SizedBox(width: 20),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 85,
+                                child: Text(
+                                  sensor.nomeCaixa = data[index]["nome"],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25),
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            child: Row(
+                              children: [
+                                FlatButton(
+                                  onPressed: () {
+                                    sensor.codigoCaixa =
+                                        int.parse(data[index]["codigo"]);
+                                    sensor.nomeCaixa = data[index]["nome"];
+                                    Navigator.pushNamed(context, '/dashBoard');
+                                  },
+                                  child: Icon(
+                                    Icons.select_all,
                                     color: Palette.purple.shade700,
                                   ),
                                 ),
@@ -471,6 +568,13 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
             ),
           )
         : showErrorEmpresaSemCaixas();
+  }
+
+  Widget apresentaBotao() {
+    if (user.usuario_empregado == 1) {
+    } else {
+      return botaoCadastrarCaixas();
+    }
   }
 
   Widget botaoCadastrarCaixas() {
