@@ -110,10 +110,9 @@ class _listaRelatorioPageState extends State<relatorioColeta> {
             child: new ListView.builder(
               itemCount: data == null ? 0 : data.length,
               itemBuilder: (BuildContext context, int index) {
-                String _dataColeta = data[index]["Data_Hora"];
                 String _dataFomartada =
                     DateFormat(" d/MM/y \n hh:mm:ss", "pt_BR")
-                        .format(DateTime.parse(_dataColeta));
+                        .format(DateTime.parse(data[index]["Data_Hora"]));
                 return new Card(
                   color: Colors.grey.shade200,
                   margin: EdgeInsetsDirectional.fromSTEB(35.0, 30.0, 35.0, 00),
