@@ -1,5 +1,5 @@
 <?php 
-	include "ESPy_mySqlConfig.php";
+	include "../ESPy_MySql/ESPy_MySqlCredenciais.php";
 
 	$return["erroCadastroUser"] = false;
 	$return["mensagemCadastroUser"] = "";
