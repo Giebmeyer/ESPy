@@ -133,6 +133,14 @@ class _listaRelatorioPageState extends State<relatorioColeta> {
                           Container(
                             width: 170,
                             child: Text(
+                              "ID #" + data[index]["codigo"],
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            ),
+                          ),
+                          Container(
+                            width: 170,
+                            child: Text(
                               "IDK: " + data[index]["IDK"],
                               style: TextStyle(fontSize: 15),
                             ),

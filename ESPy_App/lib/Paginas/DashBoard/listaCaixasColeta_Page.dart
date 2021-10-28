@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:ESPy/Classes/empresa.dart';
 import 'package:ESPy/Classes/palette.dart';
 import 'package:ESPy/Classes/sensores.dart';
@@ -119,7 +120,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
           msgErro = jsondata["mensagemCadastraCaixa"];
           _coletaCaixasColeta();
           _nomeCaixaCadastro.clear();
-          ScaffoldMessenger.of(context).showSnackBar(sucessRealizarAcao);
+          //  ScaffoldMessenger.of(context).showSnackBar(sucessRealizarAcao);
         });
       } else {
         this.setState(() {
@@ -149,7 +150,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
           msgErro = jsondata["mensagemEditaCaixa"];
           _coletaCaixasColeta();
           _novoNome.clear();
-          ScaffoldMessenger.of(context).showSnackBar(sucessRealizarAcao);
+          //  ScaffoldMessenger.of(context).showSnackBar(sucessRealizarAcao);
         });
       } else {
         this.setState(() {
@@ -178,7 +179,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
           _coletaCaixasColeta();
           atualizarTela();
           showProgress = false;
-          ScaffoldMessenger.of(context).showSnackBar(sucessRealizarAcao);
+          //   ScaffoldMessenger.of(context).showSnackBar(sucessRealizarAcao);
         });
       } else {
         this.setState(() {
@@ -263,6 +264,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
                     onTap: () {
                       sensor.codigoCaixa = int.parse(data[index]["codigo"]);
                       sensor.nomeCaixa = data[index]["nome"];
+                      sensor.IDK = double.parse(data[index]["IDK"]);
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => CaixaColetaPage()));
                     },
@@ -272,9 +274,12 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
                         children: [
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.08,
-                            width: MediaQuery.of(context).size.width * 0.02,
                           ),
-                          SizedBox(width: 20),
+                          Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child:
+                                  circuloIDK(double.parse(data[index]["IDK"]))),
+                          SizedBox(width: 10),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -282,10 +287,59 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
                               Container(
                                 width: 85,
                                 child: Text(
-                                  sensor.nomeCaixa = data[index]["nome"],
+                                  data[index]["nome"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "IDK: " + data[index]["IDK"],
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ),
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01,
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      child: apresentaIconeStressCalor(
+                                          double.parse(data[index]["IDK"])),
+                                      color: Colors.red,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05,
+                                    ),
+                                    Container(
+                                      child: apresentaIconeDesconfortoCalor(
+                                          double.parse(data[index]["IDK"])),
+                                      color: Colors.red.shade300,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05,
+                                    ),
+                                    Container(
+                                      child: apresentaIconeConforto(
+                                          double.parse(data[index]["IDK"])),
+                                      color: Colors.green.shade300,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05,
+                                    ),
+                                    Container(
+                                      child: apresentaIconeDesconfortoFrio(
+                                          double.parse(data[index]["IDK"])),
+                                      color: Colors.blue.shade200,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05,
+                                    ),
+                                    Container(
+                                      child: apresentaIconeStressFrio(
+                                          double.parse(data[index]["IDK"])),
+                                      color: Colors.blue.shade500,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05,
+                                    ),
+                                  ],
                                 ),
                               )
                             ],
@@ -332,6 +386,102 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget apresentaIconeStressCalor(double IDK) {
+    if (IDK >= 80) {
+      return Icon(
+        Icons.keyboard_arrow_up,
+        size: 20,
+      );
+    } else if (IDK <= 0) {
+      return Icon(null);
+    } else {}
+  }
+
+  Widget apresentaIconeDesconfortoCalor(double IDK) {
+    if (IDK > 75 && IDK < 80) {
+      return Icon(
+        Icons.keyboard_arrow_up,
+        size: 20,
+      );
+    } else if (IDK <= 0) {
+      return Icon(null);
+    } else {}
+  }
+
+  Widget apresentaIconeConforto(double IDK) {
+    if (IDK > 60 && IDK < 75) {
+      return Icon(
+        Icons.keyboard_arrow_up,
+        size: 20,
+      );
+    } else if (IDK <= 0) {
+      return Icon(null);
+    } else {}
+  }
+
+  Widget apresentaIconeDesconfortoFrio(double IDK) {
+    if (IDK > 55 && IDK < 60) {
+      return Icon(
+        Icons.keyboard_arrow_up,
+        size: 20,
+      );
+    } else if (IDK <= 0) {
+      return Icon(null);
+    } else {}
+  }
+
+  Widget apresentaIconeStressFrio(double IDK) {
+    if (IDK <= 0) {
+      return Icon(null);
+    } else if (IDK < 55) {
+      return Icon(
+        Icons.keyboard_arrow_up,
+        size: 20,
+      );
+    } else {}
+  }
+
+  Widget circuloIDK(double IDK) {
+    Color _color;
+    Icon _icone;
+
+    if (IDK >= 80) {
+      // estresse calor
+      _color = Colors.red.shade500;
+      _icone = Icon(Icons.sentiment_very_dissatisfied);
+    } else if (IDK >= 75 && IDK < 80) {
+      // desconforto calor
+      _color = Colors.red.shade300;
+      _icone = Icon(Icons.sentiment_dissatisfied);
+    } else if (IDK >= 60 && IDK < 75) {
+      // confortavel
+      _color = Colors.green.shade300;
+      _icone = Icon(Icons.sentiment_satisfied_alt);
+    } else if (IDK >= 55 && IDK < 60) {
+      // desconforto frio
+      _color = Colors.blue.shade200;
+      _icone = Icon(Icons.sentiment_dissatisfied);
+    } else if (IDK <= 0) {
+      // zerado
+      _color = Colors.white;
+      _icone = Icon(Icons.sentiment_neutral);
+    } else if (IDK <= 55) {
+      // estresse frio
+      _color = Colors.blue.shade500;
+      _icone = Icon(Icons.sentiment_dissatisfied);
+    } else {
+      // tratamento erro
+      _color = Colors.black;
+      _icone = Icon(Icons.sentiment_very_dissatisfied);
+    }
+
+    return CircleAvatar(
+      backgroundColor: _color,
+      foregroundColor: Colors.black,
+      child: _icone,
     );
   }
 
