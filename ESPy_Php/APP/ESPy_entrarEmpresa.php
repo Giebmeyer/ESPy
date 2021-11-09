@@ -1,5 +1,5 @@
 <?php 
-	include "../ESPy_MySql/ESPy_MySqlCredenciais.php";
+	include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
 
 	    $chaveConviteUser  = mysqli_real_escape_string ($conexao,$_POST['chaveConvite']);
 	    $codigoUsuario  = mysqli_real_escape_string ($conexao,$_POST['codigoUsuario']);

@@ -1,4 +1,16 @@
-/*  */ /*  */ /*  */ /* GERAL */ /*  */ /*  */ /*  */
+/*  */
+
+/*  */
+
+/*  */
+
+/* GERAL */
+
+/*  */
+
+/*  */
+
+/*  */
 
 textarea:focus, input:focus, select:focus, button:focus, *:focus {
     box-shadow: 0 0 0 0;
@@ -24,7 +36,19 @@ a {
     color: grey;
 }
 
-/*  */ /*  */ /*  */ /* Formulario de LOGIN */ /*  */ /*  */ /*  */
+/*  */
+
+/*  */
+
+/*  */
+
+/* Formulario de LOGIN */
+
+/*  */
+
+/*  */
+
+/*  */
 
 #ContainerLoginCentro {
     margin-top: 10%;
@@ -63,10 +87,9 @@ a {
     border: none;
 }
 
-#BtnCancelarRecoverPass:hover, #BtnCancelarRecoverPass:focus  {
+#BtnCancelarRecoverPass:hover, #BtnCancelarRecoverPass:focus {
     transition: 200ms;
     border: 2px solid rgba(128, 128, 128, 0.26);
-    
 }
 
 /* Link cadastre-se dentro do modal */
@@ -83,7 +106,7 @@ a {
     color: grey;
 }
 
-#LinkPageCadastro:focus, #LinkPageCadastro:hover{
+#LinkPageCadastro:focus, #LinkPageCadastro:hover {
     color: rgba(0, 0, 0, 0.746);
 }
 
@@ -95,16 +118,29 @@ a {
     background-color: white;
     border-color: rgb(74, 20, 140);
     border-radius: 15px;
+    margin: 1px;
 }
 
 #BtnLogin:hover {
     transition: 200ms;
     color: white;
-    background-color: rgb(74, 20, 140);
+    background-color: rgba(74, 20, 140, 0.781);
     border-color: white;
 }
 
-/*  */ /*  */ /*  */ /* Formulario de CADASTRO */ /*  */ /*  */ /*  */
+/*  */
+
+/*  */
+
+/*  */
+
+/* Formulario de CADASTRO */
+
+/*  */
+
+/*  */
+
+/*  */
 
 #ContainerCadastroCentro {
     padding: 1%;
@@ -139,4 +175,91 @@ a {
     border-color: rgba(128, 128, 128, 0.342);
 }
 
+/*  */
 
+/*  */
+
+/*  */
+
+/* TELA INICIAL USUARIO */
+
+/*  */
+
+/*  */
+
+/*  */
+
+#divBemVindoUsuario {
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+/*  */
+
+/*  */
+
+/*  */
+
+/* TELA CAIXAS DE COLETA */
+
+/*  */
+
+/*  */
+
+/*  */
+
+#CaixaColeta {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 1%;
+    
+}
+
+#ModalNovaCaixa {
+    margin: 0 auto;
+    width: 70%;
+}
+
+#txtCaixaColeta {
+    font-size: 20px;
+}
+
+#btnModalNovaCaixa {
+    font-size: 15px;
+    width: 10vw;
+    color: rgb(74, 20, 140);
+    background-color: white;
+    border-color: rgb(74, 20, 140);
+    border-radius: 15px;
+}
+
+#btnModalNovaCaixa:hover {
+    cursor: pointer;
+    transition: 200ms;
+    color: white;
+    background-color: rgba(74, 20, 140, 0.781);
+    border-color: white;
+}
+
+#btnCaixaColeta {
+    width: 10vw;
+    height: 2vw;
+    color: rgb(74, 20, 140);
+    background-color: white;
+    border-color: rgb(74, 20, 140);
+    border-radius: 15px;
+    margin: 2px;
+}
+
+#btnCaixaColeta:hover {
+    transition: 200ms;
+    color: white;
+    background-color: rgba(74, 20, 140, 0.781);
+    border-color: white;
+}

@@ -1,5 +1,5 @@
 <?php 
-	include "../ESPy_MySql/ESPy_MySqlCredenciais.php";
+	include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
 
 	$return["erroColetaUser"] = false;
     $return["mensagemColetaUser"] = "";
