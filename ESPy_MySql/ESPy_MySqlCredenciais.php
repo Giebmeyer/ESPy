@@ -9,5 +9,3 @@ $MySql_host="localhost";
 $MySql_dbName="espy"; 
 
 $conexao = mysqli_connect($MySql_host,$MySql_user,$MySql_pass,$MySql_dbName);
-
-?>

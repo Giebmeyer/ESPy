@@ -4,7 +4,7 @@
 	$return["statusCadastroCaixa"] = false;
 	$return["mensagemCadastraCaixa"] = "";
 
-	    $nome  = mysqli_real_escape_string ($conexao,$_GET['nome']);
+	    $nome  = mysqli_real_escape_string ($conexao,$_POST['nome']);
 	    $codigoEmpresa  = mysqli_real_escape_string ($conexao,$_POST['codigoEmpresa']);
 
 		$query = "INSERT INTO caixas_coleta (nome, excluida, codigo_empresa) VALUES ('$nome', '0', '$codigoEmpresa');";	  
@@ -55,3 +55,5 @@
 
 		mysqli_close($conexao);
 		echo json_encode($return);
+
+	    ?>

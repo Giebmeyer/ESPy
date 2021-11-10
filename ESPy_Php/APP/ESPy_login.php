@@ -8,10 +8,7 @@
         $email  = mysqli_real_escape_string ($conexao,$_POST['email']);
  	    $senha = mysqli_real_escape_string ($conexao,$_POST['senha']);
 
-
-		$query = "SELECT * FROM usuarios WHERE email = '$email'";	 
-
-	    $resultado = mysqli_query($conexao, $query);
+	    $resultado = mysqli_query($conexao, "SELECT * FROM usuarios WHERE email = '$email' and senha = MD5('$senha')");
 
        $numrows = mysqli_num_rows($resultado);
        if($numrows > 0){
@@ -19,6 +16,8 @@
            $obj = mysqli_fetch_object($resultado);
         
            if($senha == $obj->senha){
+
+
                $return["errorLogin"] = false;
                $return["sucessoLogin"] = true;
                $return["codigo"] = (int) $obj->codigo;
@@ -35,23 +34,19 @@
                $return["complemento"] = $obj->complemento;
                $return["usuario_chefe"] = (int) $obj->usuario_chefe;
                $return["usuario_empregado"] = (int) $obj->usuario_empregado;
-               echo json_encode($return);
+
+
            }else{
                $return["errorLogin"] = true;
                $return["sucessoLogin"] = false;
                $return["mensagemLogin"] = "Senha incorreta.";
-               echo json_encode($return);
+               
            }
        }else{
            $return["errorLogin"] = true;
            $return["sucessoLogin"] = false;
            $return["mensagemLogin"] = 'Email não cadastrado.';
-           echo json_encode($return);
        }
        
   mysqli_close($conexao);
-  
-
-  
-
-	?>
+  echo json_encode($return);

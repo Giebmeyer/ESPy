@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<?php
+session_start();
+if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
+  header('location: ../../index.html');
+}
+?>
 
 <head>
   <meta charset="UTF-8">
@@ -18,36 +24,44 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="../Usuario/inicial_Page.html">
+      <a class="navbar-brand" href="../Usuario/inicial_Page.php">
         <img src="../../assents/imagens/ic_launcher_foreground.png" width="50" height="50" alt="">
       </a>
     </nav>
-    <a class="navbar-brand" href="../Usuario/inicial_Page.html">ESPy</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado"
-      aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+    <a class="navbar-brand" href="../Usuario/inicial_Page.php">ESPy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-link disabled">|</li>
         <li class="nav-item active">
           <a class="nav-link" href="">Minha Epresa</a>
         </li>
         <li class="nav-link disabled">|</li>
         <li class="nav-item">
-          <a class="nav-link" href="../Usuario/inicial_Page.html">Principal</a>
+          <a class="nav-link" href="../Usuario/inicial_Page.php">Principal</a>
         </li>
-        <li class="nav-link disabled">|</li>
-        <li class="nav-item">
-          <a class="nav-link" href="../DashBoard/caixasColeta_Page.php">Caixas de Coleta</a>
-        </li>
+
+        <?php
+        if (!$_SESSION['usuario_chefe'] || !$_SESSION['usuario_empregado']) {
+          echo ('<li class="nav-link disabled">|</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../DashBoard/caixasColeta_Page.php">Caixas de Coleta</a>
+                </li>');
+        }
+        ?>
+
 
       </ul>
 
     </div>
   </nav>
   <div id="divBemVindoUsuario" class="container-fluid">
-    Minha Empresa
+    <?php
+    echo $_SESSION['nomeEmpresa'];
+    ?>
   </div>
 </body>
 

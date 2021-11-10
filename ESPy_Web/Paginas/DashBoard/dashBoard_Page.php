@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    
+<?php
+session_start();
+if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
+    header('location: ../../index.html');
+}
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -33,8 +40,7 @@
             <!-- From email -->
             <div class="form-group">
                 <label for="InputEmail">Endereço de email</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
-                    placeholder="Seu email">
+                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Seu email">
             </div>
 
             <!-- From senha -->
@@ -45,13 +51,11 @@
 
             <!-- Botão recuperar senha -->
             <div class="mt-1" id="divLinkRecoverPass">
-                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalRecoverPass"
-                    id="LinkPageRecoverPass">Esqueci minha senha</button>
+                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalRecoverPass" id="LinkPageRecoverPass">Esqueci minha senha</button>
             </div>
 
             <!-- Modal -->
-            <div class="modal fade mt-4" id="modalRecoverPass" tabindex="-1" aria-labelledby="modalRecoverPass"
-                aria-hidden="true">
+            <div class="modal fade mt-4" id="modalRecoverPass" tabindex="-1" aria-labelledby="modalRecoverPass" aria-hidden="true">
                 <div class="modal-dialog ">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -62,18 +66,15 @@
                         <div class="modal-body">
                             <!-- From email -->
                             <div class="form-group">
-                                <input type="email" class="form-control" id="emailRecoverPass" name="emailRecoverPass"
-                                    aria-describedby="emailHelp" placeholder="Seu email cadastrado">
+                                <input type="email" class="form-control" id="emailRecoverPass" name="emailRecoverPass" aria-describedby="emailHelp" placeholder="Seu email cadastrado">
                             </div>
                             <!-- Botão Cadastre-se -->
                             <div class="mt-2" id="linkCadastroRecoverPass">
-                                Não possui login? <a href="../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.html"
-                                    id="linkCadastroRecoverPass">Cadastre-se</a>
+                                Não possui login? <a href="../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.html" id="linkCadastroRecoverPass">Cadastre-se</a>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                id="BtnCancelarRecoverPass">Cancelar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarRecoverPass">Cancelar</button>
                             <button type="button" class="btn btn-primary" id="BtnRecoverPass">Recuperar</button>
 
                         </div>
@@ -92,8 +93,7 @@
 
             <!-- Botão Cadastre-se -->
             <div class="mt-2" id="LinkPageCadastro">
-                Não possui login? <a href="../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.html"
-                    id="LinkPageCadastro">Cadastre-se</a>
+                Não possui login? <a href="../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.html" id="LinkPageCadastro">Cadastre-se</a>
             </div>
         </form>
     </div>

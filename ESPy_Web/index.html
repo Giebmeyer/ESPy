@@ -29,9 +29,8 @@
 
 
     <div class="container col-4" id="ContainerLoginCentro">
-        <form id="FormularioLogin">
-            <!-- method="POST" action="../ESPy_Php/ESPy_login.php"  -->
-
+        <form id="FormularioLogin" method="POST" action="../../ESPy/ESPy_Php/WEB/ESPy_login.php">
+            
             <!-- From email -->
             <div class="form-group">
                 <label for="email">Endereço de email</label>
@@ -50,44 +49,10 @@
                 <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalRecoverPass"
                     id="DivLinkRecoverPass">Esqueci minha senha</button>
             </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="modalRecoverPass" tabindex="-1" aria-labelledby="modalRecoverPass"
-                aria-hidden="true">
-                <div class="modal-dialog ">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalRecoverPass">Informe o email utilizado na criação da conta
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- From email -->
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="emailRecoverPass" name="emailRecoverPass"
-                                    aria-describedby="emailHelp" placeholder="Seu email cadastrado">
-                            </div>
-                            <!-- Botão Cadastre-se -->
-                            <div class="mt-2" id="linkCadastroRecoverPass">
-                                Não possui login? <a href="../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.html"
-                                    id="linkCadastroRecoverPass">Cadastre-se</a>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                id="BtnCancelarRecoverPass">Cancelar</button>
-                            <button type="button" class="btn btn-primary" id="BtnRecoverPass"
-                                onclick="recuperarSenha()">Recuperar</button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            
             <!-- Botão login -->
             <div class="col-md-auto row justify-content-md-center">
-                <button type="submit" class="btn btn-primary" id="BtnLogin" value="Entrar"
-                    onclick="login()">Entrar</button>
+                    <input class="btn btn-primary" type="submit" id="BtnLogin" value="Entrar">
             </div>
 
             <!-- Botão Cadastre-se -->
@@ -97,6 +62,41 @@
             </div>
         </form>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalRecoverPass" tabindex="-1" aria-labelledby="modalRecoverPass" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRecoverPass">Informe o email utilizado na criação da conta
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <form id="FormularioRecuperarSenha" method="POST" action="../../ESPy/ESPy_Php/WEB/ESPy_coletaDadosUsuario.php">
+                        <!-- From email -->
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" name="email"
+                                aria-describedby="emailHelp" placeholder="Seu email cadastrado">
+                        </div>
+                        <!-- Botão Cadastre-se -->
+                        <div class="mt-2" id="linkCadastroRecoverPass">
+                            Não possui login? <a href="../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.html"
+                                id="linkCadastroRecoverPass">Cadastre-se</a>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            id="BtnCancelarRecoverPass">Cancelar</button>
+                        <input type="submit" id="BtnRecoverPass" value="Recuperar">
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+
+
+
 
 </body>
 

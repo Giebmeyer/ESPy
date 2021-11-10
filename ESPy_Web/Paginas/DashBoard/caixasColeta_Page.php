@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<?php
+session_start();
+
+if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
+  header('location: ../../index.html');
+}
+?>
 
 <head>
   <meta charset="UTF-8">
@@ -18,37 +25,44 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="../Usuario/inicial_Page.html">
+      <a class="navbar-brand" href="../Usuario/inicial_Page.php">
         <img src="../../assents/imagens/ic_launcher_foreground.png" width="50" height="50" alt="">
       </a>
     </nav>
-    <a class="navbar-brand" href="../Usuario/inicial_Page.html">ESPy</a>
+    <a class="navbar-brand" href="../Usuario/inicial_Page.php">ESPy</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-link disabled">|</li>
         <li class="nav-item active">
-          <a class="nav-link" href="../Empresa/minhaEmpresa_Page.html">Minha Epresa</a>
+          <a class="nav-link" href="../Empresa/minhaEmpresa_Page.php">Minha Epresa</a>
         </li>
         <li class="nav-link disabled">|</li>
         <li class="nav-item">
-          <a class="nav-link" href="../Usuario/inicial_Page.html">Principal</a>
+          <a class="nav-link" href="../Usuario/inicial_Page.php">Principal</a>
         </li>
         <li class="nav-link disabled">|</li>
         <li class="nav-item">
           <a class="nav-link" href="">Caixas de Coleta</a>
         </li>
     </div>
-
-
-
     </ul>
-
     </div>
   </nav>
 
+  <div class="container p-5">
+    <div class="input-group mb-3 mt-3">
+      
+      <div class="col">
+        <label for="cidade">Filtrar Caixa de Coleta</label>
+        <input type="text" class="form-control" id="filtroCaixasColeta" name="filtroCaixasColeta" placeholder="Nome da caixa de coleta">
+      </div>
+      <button type="submit"  id="BtnFiltrarCaixasColeta">Filtrar</button>
+    </div>
+  </div>
 
   <div class="container-fluid p-5">
     <?php
@@ -74,19 +88,19 @@
           </h5>
         </div>
 
-        <form action="ESPy_cadastroCaixasColeta.php" method="GET">
-        <div class="modal-body">
-          <!-- From Nova Caixa -->
-          <div class="form-group">
-            <input type="name" class="form-control" id="nomeNovaCaixa" name="nomeNovaCaixa" placeholder="Nova Caixa">
+        <form action="../../../ESPy_Php/WEB/ESPy_cadastroCaixasColeta.php" method="POST">
+          <div class="modal-body">
+            <!-- From Nova Caixa -->
+            <div class="form-group">
+              <input type="name" class="form-control" id="nomeNovaCaixa" name="nomeNovaCaixa" placeholder="Nova Caixa">
+            </div>
           </div>
-        </div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarRecoverPass">Cancelar</button>
-          <input type="submit" id="btnCaixaColeta" value="Cadastrar">
-        </div>
-       </form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarRecoverPass">Cancelar</button>
+            <input type="submit" id="btnCaixaColeta" value="Cadastrar">
+          </div>
+        </form>
       </div>
     </div>
   </div>
