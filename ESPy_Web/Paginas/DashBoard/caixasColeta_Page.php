@@ -53,18 +53,31 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
     </div>
   </nav>
 
-  <div class="container p-5">
+  <div class="container p-5" id="divFiltroCaixasColeta">
     <div class="input-group mb-3 mt-3">
       
       <div class="col">
-        <label for="cidade">Filtrar Caixa de Coleta</label>
+      <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_listaCaixasColeta.php">
+
         <input type="text" class="form-control" id="filtroCaixasColeta" name="filtroCaixasColeta" placeholder="Nome da caixa de coleta">
       </div>
       <button type="submit"  id="BtnFiltrarCaixasColeta">Filtrar</button>
+      </form>
+    </div>
+
+    <div class="input-group mb-3 mt-3">
+      
+      <div class="col">
+      <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroCaixasColeta.php">
+
+        <input type="text" class="form-control" id="nomeNovaCaixa" name="nomeNovaCaixa" placeholder="Nome da caixa de coleta">
+      </div>
+      <button type="submit"  id="BtnFiltrarCaixasColeta">Adicionar</button>
+      </form>
     </div>
   </div>
 
-  <div class="container-fluid p-5">
+  <div class="container-fluid p-5" id="divCaixasColeta">
     <?php
     include "../../../ESPy_Php/WEB/ESPy_listaCaixasColeta.php";
     ?>

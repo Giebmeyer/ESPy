@@ -274,23 +274,34 @@ a {
 }
 
 #divFiltroCaixasColeta{
+    margin-top: 20px;
     border-radius: 15px;
     border: solid 1px rgba(128, 128, 128, 0.342);
+    text-align: center;
 }
 
 #BtnFiltrarCaixasColeta{
     width: 5vw;
-    height: 2vw;
+    height: 1.8vw;
+    margin-left: 0;
     color: rgb(74, 20, 140);
     background-color: white;
     border-color: rgb(74, 20, 140);
     border-radius: 15px;
-    margin: 2px;
     
+
+    color: white;
     background-color: rgba(74, 20, 140, 0.781);
+
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
 #filtroCaixasColeta{
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
+}
+
+#divCaixasColeta{
+    text-align: center;
 }
