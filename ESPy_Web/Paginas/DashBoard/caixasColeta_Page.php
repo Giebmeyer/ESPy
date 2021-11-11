@@ -40,41 +40,52 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
         <li class="nav-item active">
           <a class="nav-link" href="../Empresa/minhaEmpresa_Page.php">Minha Epresa</a>
         </li>
+
+        <li class="nav-link disabled">|</li>
+        <li class="nav-item active">
+          <a class="nav-link" href="../Usuario/meuPerfil_Page.php">Meu Perfil</a>
+        </li>
+
         <li class="nav-link disabled">|</li>
         <li class="nav-item">
           <a class="nav-link" href="../Usuario/inicial_Page.php">Principal</a>
         </li>
+
         <li class="nav-link disabled">|</li>
         <li class="nav-item">
           <a class="nav-link" href="">Caixas de Coleta</a>
         </li>
+
+        <li class="nav-link disabled">|</li>
+        <li class="nav-item">
+          <a class="nav-link" href="../../index.html">Sair</a>
+        </li>
+
     </div>
     </ul>
     </div>
   </nav>
 
-  <div class="container p-5" id="divFiltroCaixasColeta">
-    <div class="input-group mb-3 mt-3">
-      
-      <div class="col">
-      <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_listaCaixasColeta.php">
+  <div class="container p-5" id="divFiltroCadastroCaixasColeta">
 
-        <input type="text" class="form-control" id="filtroCaixasColeta" name="filtroCaixasColeta" placeholder="Nome da caixa de coleta">
+    <div class="input-group mb-3 mt-3">
+      <div class="col">
+        <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_listaCaixasColeta.php">
+          <input type="text" class="form-control" id="filtroCaixasColeta" name="filtroCaixasColeta" placeholder="Nome da caixa de coleta">
       </div>
-      <button type="submit"  id="BtnFiltrarCaixasColeta">Filtrar</button>
+      <button type="submit" id="BtnFiltrarCaixasColeta">Filtrar</button>
       </form>
     </div>
 
     <div class="input-group mb-3 mt-3">
-      
       <div class="col">
-      <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroCaixasColeta.php">
-
-        <input type="text" class="form-control" id="nomeNovaCaixa" name="nomeNovaCaixa" placeholder="Nome da caixa de coleta">
+        <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroCaixasColeta.php">
+          <input type="text" class="form-control" id="nomeNovaCaixa" name="nomeNovaCaixa" placeholder="Nome da nova caixa de coleta">
       </div>
-      <button type="submit"  id="BtnFiltrarCaixasColeta">Adicionar</button>
+      <button type="submit" id="BtnFiltrarCaixasColeta">Adicionar</button>
       </form>
     </div>
+
   </div>
 
   <div class="container-fluid p-5" id="divCaixasColeta">

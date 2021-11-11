@@ -14,9 +14,6 @@
        if($numrows > 0){
 
            $obj = mysqli_fetch_object($resultado);
-        
-           if($senha == $obj->senha){
-
 
                $return["errorLogin"] = false;
                $return["sucessoLogin"] = true;
@@ -35,17 +32,10 @@
                $return["usuario_chefe"] = (int) $obj->usuario_chefe;
                $return["usuario_empregado"] = (int) $obj->usuario_empregado;
 
-
-           }else{
-               $return["errorLogin"] = true;
-               $return["sucessoLogin"] = false;
-               $return["mensagemLogin"] = "Senha incorreta.";
-               
-           }
        }else{
            $return["errorLogin"] = true;
            $return["sucessoLogin"] = false;
-           $return["mensagemLogin"] = 'Email não cadastrado.';
+           $return["mensagemLogin"] = 'Email ou senha inválidos.';
        }
        
   mysqli_close($conexao);

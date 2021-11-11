@@ -37,7 +37,7 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
       <ul class="navbar-nav mr-auto">
         <li class="nav-link disabled">|</li>
         <li class="nav-item active">
-          <a class="nav-link" href="">Minha Epresa</a>
+          <a class="nav-link" href="../Empresa/minhaEmpresa_Page.php">Minha Epresa</a>
         </li>
 
         <li class="nav-link disabled">|</li>
@@ -64,22 +64,16 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
           <a class="nav-link" href="../../index.html">Sair</a>
         </li>
 
+
       </ul>
 
     </div>
   </nav>
-
   <div id="divBemVindoUsuario" class="container-fluid">
-
     <?php
-    if ($_SESSION['usuario_chefe'] == 0 && $_SESSION['usuario_empregado'] == 0) {
-      echo ' <button> Cadastrar Empresa </button>';
-      echo ' <button> Juntar-se a uma empresa </button>';
-    } else {
-      echo $_SESSION['nomeEmpresa'] . "\n";
-      echo $_SESSION['codigoEmpresa'] . "\n";
-      echo $_SESSION['email_ceoEmpresa'] . "\n";
-    }
+    echo $_SESSION['nome'] . "\n";
+    echo $_SESSION['codigo'] . "\n";
+    echo $_SESSION['email'] . "\n";
     ?>
   </div>
 </body>

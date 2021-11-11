@@ -47,11 +47,16 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
                 </li>
 
                 <li class="nav-link disabled">|</li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="meuPerfil_Page.php">Meu Perfil</a>
+                </li>
+
+                <li class="nav-link disabled">|</li>
                 <li class="nav-item">
                     <a class="nav-link" href="./inicial_Page.php">Principal</a>
                 </li>
                 <?php
-                if (!$_SESSION['usuario_chefe'] || !$_SESSION['usuario_empregado']) {
+                if ($_SESSION['usuario_chefe'] == 1 || $_SESSION['usuario_empregado'] == 1 ) {
                     echo ('<li class="nav-link disabled">|</li>
                 <li class="nav-item">
                     <a class="nav-link" href="../DashBoard/caixasColeta_Page.php">Caixas de Coleta</a>
@@ -60,7 +65,7 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
                 ?>
                 <li class="nav-link disabled">|</li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../index.html" onclick="<?php /* session_unset(); session_destroy(); */ ?>">Sair</a>
+                    <a class="nav-link" href="../../index.html">Sair</a>
                 </li>
 
             </ul>

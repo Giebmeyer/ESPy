@@ -198,14 +198,12 @@ a {
     align-items: center;
     font-size: 40px;
     -webkit-text-stroke-width: 2px;
-    background-image: linear-gradient(to right, rebeccapurple,  purple);
+    background-image: linear-gradient(to right, rebeccapurple, purple);
     color: black;
     background-clip: text;
     -webkit-background-clip: text;
-  
     /* Adicionado: */
     -webkit-text-fill-color: transparent;
-    
 }
 
 /*  */
@@ -227,7 +225,6 @@ a {
     right: 0;
     bottom: 0;
     margin: 1%;
-    
 }
 
 #ModalNovaCaixa {
@@ -273,35 +270,58 @@ a {
     border-color: white;
 }
 
-#divFiltroCaixasColeta{
+#divFiltroCadastroCaixasColeta {
     margin-top: 20px;
     border-radius: 15px;
     border: solid 1px rgba(128, 128, 128, 0.342);
     text-align: center;
 }
 
-#BtnFiltrarCaixasColeta{
-    width: 5vw;
-    height: 1.8vw;
+#BtnFiltrarCaixasColeta {
     margin-left: 0;
     color: rgb(74, 20, 140);
     background-color: white;
     border-color: rgb(74, 20, 140);
     border-radius: 15px;
-    
-
     color: white;
     background-color: rgba(74, 20, 140, 0.781);
-
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
 }
 
-#filtroCaixasColeta{
-    border-top-right-radius: 0px;
+#BtnAdicionarCaixasColeta {
+    margin-left: 0;
+    color: rgb(74, 20, 140);
+    background-color: white;
+    border-color: rgb(74, 20, 140);
+    border-radius: 15px;
+    color: white;
+    background-color: rgba(74, 20, 140, 0.781);
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#divCaixasColeta {
+    text-align: center;
+}
+
+
+#nomeNovaCaixa {
+    margin-top: 20px;
+    border-radius: 15px;
+    border: solid 1px rgba(128, 128, 128, 0.342);
+    border-top-right-radius:  0px;
     border-bottom-right-radius: 0px;
 }
 
-#divCaixasColeta{
-    text-align: center;
+#btnModalNovaCaixa {
+    margin-left: 0;
+    color: rgb(74, 20, 140);
+    background-color: white;
+    border-color: rgb(74, 20, 140);
+    border-radius: 15px;
+    color: white;
+    background-color: rgba(74, 20, 140, 0.781);
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }

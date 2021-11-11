@@ -26,7 +26,7 @@ if ($numrows > 0) {
     $_SESSION['usuario_chefe'] = (int) $obj->usuario_chefe;
     $_SESSION['usuario_empregado'] = (int) $obj->usuario_empregado;
 
-    if ($_SESSION['usuario_empregado'] || $_SESSION['usuario_chefe']) {
+    if ($_SESSION['usuario_empregado'] == 1 || $_SESSION['usuario_chefe'] == 1) {
         $resultado2 = mysqli_query($conexao, "SELECT e.* FROM empresas e JOIN usuarios_empresas ue ON ue.codigo_empresa = e.codigo WHERE ue.codigo_usuario = '$codigoUser'");
 
         $numrows2 = mysqli_num_rows($resultado2);
@@ -47,6 +47,20 @@ if ($numrows > 0) {
             $_SESSION["numerEmpresao"] = (int) $obj2->numero;
             $_SESSION["complementoEmpresa"] = $obj2->complemento;
         }
+    }else{
+        $_SESSION["codigoEmpresa"] = 0;
+        $_SESSION["chaveConvite"] = 0;
+        $_SESSION["nomeEmpresa"] = " ";
+        $_SESSION["ceoEmpresa"] = " ";
+        $_SESSION["email_ceoEmpresa"] = " ";
+        $_SESSION["telefoneEmpresa"] =  " ";
+        $_SESSION["cnpjEmpresa"] =  " ";
+        $_SESSION["estadoEmpresa"] = " ";
+        $_SESSION["cidadeEmpresa"] = " ";
+        $_SESSION["bairroEmpresa"] = " ";
+        $_SESSION["ruaEmpresa"] = " ";
+        $_SESSION["numerEmpresao"] = 0;
+        $_SESSION["complementoEmpresa"] = " ";
     }
     header('Location: ../../ESPy_Web/Paginas/Usuario/inicial_Page.php');
 } else {

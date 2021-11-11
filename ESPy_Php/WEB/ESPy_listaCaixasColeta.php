@@ -1,5 +1,6 @@
 <?php
-include "../../../ESPy_MySql/ESPy_MySqlCredenciais.php";
+include_once("../../../ESPy_MySql/ESPy_MySqlCredenciais.php");
+
 
 $codigoEmpresa  = $_SESSION['codigoEmpresa'];
 $nomeCaixa = "";
