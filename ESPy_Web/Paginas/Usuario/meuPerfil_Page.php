@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php
-session_start();
-if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
-  header('location: ../../index.html');
-}
+include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 ?>
 
 <head>

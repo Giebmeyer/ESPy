@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php
-session_start();
-
-if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
-  header('location: ../../index.html');
-}
+include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 ?>
 
 <head>
@@ -71,18 +67,18 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
     <div class="input-group mb-3 mt-3">
       <div class="col">
         <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_listaCaixasColeta.php">
-          <input type="text" class="form-control" id="filtroCaixasColeta" name="filtroCaixasColeta" placeholder="Nome da caixa de coleta">
+          <input type="text" class="form-control" id="txtAdicionarFiltrarCaixaColeta" name="filtroCaixasColeta" placeholder="Nome da caixa de coleta">
       </div>
-      <button type="submit" id="BtnFiltrarCaixasColeta">Filtrar</button>
+      <button class="btn btn-primary" type="submit" id="btnCaixasColetaFiltoAdiciona">Filtrar</button>
       </form>
     </div>
 
     <div class="input-group mb-3 mt-3">
       <div class="col">
         <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroCaixasColeta.php">
-          <input type="text" class="form-control" id="nomeNovaCaixa" name="nomeNovaCaixa" placeholder="Nome da nova caixa de coleta">
+          <input type="text" class="form-control" id="txtAdicionarFiltrarCaixaColeta" name="nomeNovaCaixa" placeholder="Nome da nova caixa de coleta" title="Preencha o campo antes de adicionar uma nova caixa!" required/>
       </div>
-      <button type="submit" id="BtnFiltrarCaixasColeta">Adicionar</button>
+      <button class="btn btn-primary" type="submit" id="btnCaixasColetaFiltoAdiciona">Adicionar</button>
       </form>
     </div>
 
@@ -92,41 +88,6 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
     <?php
     include "../../../ESPy_Php/WEB/ESPy_listaCaixasColeta.php";
     ?>
-  </div>
-
-  <div id="CaixaColeta">
-    <div id="txtCaixaColeta">Adicione uma nova caixa de coleta!</div>
-
-    <div id="ModalNovaCaixa">
-      <button id="btnModalNovaCaixa" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalNovaCaixa">Adicionar Nova Caixa</button>
-    </div>
-
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="modalNovaCaixa" tabindex="-1" aria-labelledby="modalNovaCaixa" aria-hidden="true">
-    <div class="modal-dialog ">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalNovaCaixa">Informe o nome da nova caixa
-          </h5>
-        </div>
-
-        <form action="../../../ESPy_Php/WEB/ESPy_cadastroCaixasColeta.php" method="POST">
-          <div class="modal-body">
-            <!-- From Nova Caixa -->
-            <div class="form-group">
-              <input type="name" class="form-control" id="nomeNovaCaixa" name="nomeNovaCaixa" placeholder="Nova Caixa">
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarRecoverPass">Cancelar</button>
-            <input type="submit" id="btnCaixaColeta" value="Cadastrar">
-          </div>
-        </form>
-      </div>
-    </div>
   </div>
 
 </body>

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php
-session_start();
-if((!isset ($_SESSION['email']) == true) and (!isset ($_SESSION['senha']) == true))
-{
-  header('location: ../../index.html');
-  }
+include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,6 +25,9 @@ if((!isset ($_SESSION['email']) == true) and (!isset ($_SESSION['senha']) == tru
                 <h1 class="display-4">Cadastre-se!</h1>
                 <p class="lead">Junte a sua empresa com o sistema ESPy e surpreenda-se!</p>
             </div>
+            <div class="m-1">
+                <a id="LinkPageCadastro" href="../Empresa/minhaEmpresa_Page.php">Voltar</a>
+            </div>
             <hr class="my-4">
         </div>
     </div>
@@ -39,15 +39,13 @@ if((!isset ($_SESSION['email']) == true) and (!isset ($_SESSION['senha']) == tru
             <!-- From Nome -->
             <div class="form-group">
                 <label for="nome">Seu nome</label>
-                <input type="name" class="form-control" id="nome" name="nome" aria-describedby="name"
-                    placeholder="Nome">
+                <input type="name" class="form-control" id="nome" name="nome" placeholder="Nome">
             </div>
 
             <!-- From email -->
             <div class="form-group mt-3">
                 <label for="email">Endereço de email</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
-                    placeholder="Seu email">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Seu email">
             </div>
 
             <!-- From senhas -->
@@ -55,13 +53,11 @@ if((!isset ($_SESSION['email']) == true) and (!isset ($_SESSION['senha']) == tru
                 <div class="row gx-5">
                     <div class="col">
                         <label for="senha">Senha</label>
-                        <input type="password" aria-label="senha" id="senha" name="senha" class="form-control"
-                            placeholder="Senha">
+                        <input type="password" id="senha" name="senha" class="form-control" placeholder="Senha">
                     </div>
                     <div class="col">
                         <label for="ConfirmaSenha">Confirma Senha</label>
-                        <input type="password" aria-label="ConfirmaSenha" id="ConfirmaSenha" name="ConfirmaSenha"
-                            class="form-control" placeholder="Confirmar Senha">
+                        <input type="password" id="ConfirmaSenha" name="ConfirmaSenha" class="form-control" placeholder="Confirmar Senha">
                     </div>
                 </div>
             </div>
@@ -69,15 +65,13 @@ if((!isset ($_SESSION['email']) == true) and (!isset ($_SESSION['senha']) == tru
             <!-- From CPF -->
             <div class="form-group mt-3">
                 <label for="CPF">CPF</label>
-                <input type="text" class="form-control" id="CPF" name="CPF" aria-describedby="CPFHelp"
-                    placeholder="Seu CPF">
+                <input type="text" class="form-control" id="CPF" name="CPF" aria-describedby="CPFHelp" placeholder="Seu CPF">
             </div>
 
             <!-- From Telefone -->
             <div class="form-group mt-3">
                 <label for="Telefone">Telefone Celular</label>
-                <input type="text" class="form-control" id="Telefone" name="Telefone" aria-describedby="TelefoneHelp"
-                    placeholder="Seu Telefone">
+                <input type="text" class="form-control" id="Telefone" name="Telefone" placeholder="Seu Telefone">
             </div>
 
             <!-- From Estado/Cidade -->
@@ -111,40 +105,35 @@ if((!isset ($_SESSION['email']) == true) and (!isset ($_SESSION['senha']) == tru
                     <option value="SP">SP</option>
                     <option value="SE">SE</option>
                     <option value="TO">TO</option>
-                 </select>
+                </select>
                 <div class="col">
                     <label for="cidade">Sua Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" aria-describedby="cidade"
-                        placeholder="Cidade">
+                    <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidade">
                 </div>
             </div>
 
             <!-- From Bairro -->
             <div class="form-group">
                 <label for="bairro">Bairro</label>
-                <input type="text" class="form-control" id="bairro" name="bairro" aria-describedby="bairro"
-                    placeholder="Bairro">
+                <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Bairro">
             </div>
 
             <!-- From Rua/Número -->
             <div class="input-group mb-3 mt-4" id="divRuaNumero">
                 <div class="col m-1">
                     <label for="rua">Rua</label>
-                    <input type="text" class="form-control" id="rua" name="rua" aria-describedby="rua"
-                        placeholder="Rua">
+                    <input type="text" class="form-control" id="rua" name="rua" placeholder="Rua">
                 </div>
                 <div class="col m-1">
                     <label for="numero">Número</label>
-                    <input type="text" class="form-control" id="numero" name="numero" aria-describedby="numero"
-                        placeholder="Número">
+                    <input type="number" class="form-control" id="numero" name="numero" placeholder="Número">
                 </div>
             </div>
 
             <!-- From Complemento -->
             <div class="form-group">
                 <label for="complemento">Complemento</label>
-                <input type="text" class="form-control" id="complemento" name="complemento"
-                    aria-describedby="complemento" placeholder="Complemento">
+                <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento">
             </div>
 
             <!-- Botão Cadastro -->
@@ -158,6 +147,13 @@ if((!isset ($_SESSION['email']) == true) and (!isset ($_SESSION['senha']) == tru
 
         </form>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $("#telefone").mask("(00) 0 0000-0000");
+        $("#cpf").mask("000.000.000-00");
+    </script>
 </body>
 
 </html>

@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php
-session_start();
-if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
-  header('location: ../../index.html');
-}
+include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 ?>
 
 <head>
@@ -61,7 +58,7 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
 
         <li class="nav-link disabled">|</li>
         <li class="nav-item">
-          <a class="nav-link" href="../../index.html">Sair</a>
+          <a class="nav-link" href="../../index.php">Sair</a>
         </li>
 
       </ul>
@@ -73,8 +70,8 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
 
     <?php
     if ($_SESSION['usuario_chefe'] == 0 && $_SESSION['usuario_empregado'] == 0) {
-      echo ' <button> Cadastrar Empresa </button>';
-      echo ' <button> Juntar-se a uma empresa </button>';
+      echo ' <a class="btn btn-outline-primary" id="btnCadastrarEmpresa" href="../Empresa/CadastroEmpresa_Page.php"> Cadastrar Empresa </a>
+       <a class="btn btn-outline-primary" id="btnJuntarSeEmpresa" href="../Empresa/entrarEmpresa_Page.php"> Juntar-se a uma empresa </a>';
     } else {
       echo $_SESSION['nomeEmpresa'] . "\n";
       echo $_SESSION['codigoEmpresa'] . "\n";

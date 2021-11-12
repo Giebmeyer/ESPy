@@ -2,12 +2,7 @@
 <html lang="pt-br">
 
 <?php
-session_start();
-
-if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
-    header('location: ../../index.html');
-}
-
+include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 ?>
 
 <head>
@@ -65,7 +60,7 @@ if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true
                 ?>
                 <li class="nav-link disabled">|</li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../index.html">Sair</a>
+                    <a class="nav-link" href="../../../ESPy_Php/WEB/ESPy_logoff.php?sair=true">Sair</a>
                 </li>
 
             </ul>

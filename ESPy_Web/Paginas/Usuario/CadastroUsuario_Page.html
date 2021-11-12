@@ -8,7 +8,7 @@
     <link rel="icon" type="imagem/png" href="../../assents/imagens/Logo_.png" />
 
     <title>ESPy | Cadastro</title>
-    
+
     <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../js/jquery-3.6.0.min.js"></script>
@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
     <div class="container-fluid col-11">
         <div class="jumbotron">
             <div class="m-3">
@@ -34,15 +35,15 @@
             <!-- From Nome -->
             <div class="form-group">
                 <label for="nome">Seu nome</label>
-                <input type="name" class="form-control" id="nome" name="nome" aria-describedby="name"
-                    placeholder="Nome">
+                <input type="name" class="form-control" id="nome" name="nome" aria-describedby="name" placeholder="Nome"
+                    title="Preencha este campo." required>
             </div>
 
             <!-- From email -->
             <div class="form-group mt-3">
                 <label for="email">Endereço de email</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
-                    placeholder="Seu email">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Seu email"
+                    title="Preencha este campo." required>
             </div>
 
             <!-- From senhas -->
@@ -51,12 +52,12 @@
                     <div class="col">
                         <label for="senha">Senha</label>
                         <input type="password" aria-label="senha" id="senha" name="senha" class="form-control"
-                            placeholder="Senha">
+                            placeholder="Senha" title="Preencha este campo." required>
                     </div>
                     <div class="col">
                         <label for="ConfirmaSenha">Confirma Senha</label>
                         <input type="password" aria-label="ConfirmaSenha" id="ConfirmaSenha" name="ConfirmaSenha"
-                            class="form-control" placeholder="Confirmar Senha">
+                            class="form-control" placeholder="Confirmar Senha" title="Preencha este campo." required>
                     </div>
                 </div>
             </div>
@@ -64,20 +65,19 @@
             <!-- From CPF -->
             <div class="form-group mt-3">
                 <label for="CPF">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" aria-describedby="CPFHelp"
-                    placeholder="Seu CPF">
+                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Seu CPF"
+                    title="Preencha este campo." required maxlength="12">
             </div>
 
             <!-- From Telefone -->
             <div class="form-group mt-3">
-                <label for="Telefone">Telefone Celular</label>
-                <input type="text" class="form-control" id="telefone" name="telefone" aria-describedby="TelefoneHelp"
-                    placeholder="Seu Telefone">
+                <label for="Telefone">Telefone celular</label>
+                <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Seu Telefone"
+                    title="Preencha este campo." required maxlength="14">
             </div>
-
             <!-- From Estado/Cidade -->
             <div class="input-group mb-3 mt-3">
-                <select id="UF" name="estado">
+                <select id="UF" name="estado" title="Selecione um estado." required>
                     <option value="Null">Estado</option>
                     <option value="AC">AC</option>
                     <option value="AL">AL</option>
@@ -106,40 +106,39 @@
                     <option value="SP">SP</option>
                     <option value="SE">SE</option>
                     <option value="TO">TO</option>
-                 </select>
+                </select>
                 <div class="col">
                     <label for="cidade">Sua Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" aria-describedby="cidade"
-                        placeholder="Cidade">
+                    <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidade"
+                        title="Preencha este campo." required>
                 </div>
             </div>
 
             <!-- From Bairro -->
             <div class="form-group">
                 <label for="bairro">Bairro</label>
-                <input type="text" class="form-control" id="bairro" name="bairro" aria-describedby="bairro"
-                    placeholder="Bairro">
+                <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Bairro"
+                    title="Preencha este campo." required>
             </div>
 
             <!-- From Rua/Número -->
             <div class="input-group mb-3 mt-4" id="divRuaNumero">
                 <div class="col m-1">
                     <label for="rua">Rua</label>
-                    <input type="text" class="form-control" id="rua" name="rua" aria-describedby="rua"
-                        placeholder="Rua">
+                    <input type="text" class="form-control" id="rua" name="rua" placeholder="Rua"
+                        title="Preencha este campo." required>
                 </div>
                 <div class="col m-1">
                     <label for="numero">Número</label>
-                    <input type="text" class="form-control" id="numero" name="numero" aria-describedby="numero"
-                        placeholder="Número">
+                    <input type="number" class="form-control" id="numero" name="numero" placeholder="Número"
+                        title="Preencha este campo." required>
                 </div>
             </div>
 
             <!-- From Complemento -->
             <div class="form-group">
                 <label for="complemento">Complemento</label>
-                <input type="text" class="form-control" id="complemento" name="complemento"
-                    aria-describedby="complemento" placeholder="Complemento">
+                <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento">
             </div>
 
             <!-- Botão Cadastro -->
@@ -153,6 +152,13 @@
 
         </form>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $("#telefone").mask("(00) 0 0000-0000");
+        $("#cpf").mask("000.000.000-00");
+    </script>
 </body>
 
 </html>
