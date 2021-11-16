@@ -58,7 +58,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
                 <li class="nav-link disabled">|</li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../index.php">Sair</a>
+                    <a class="nav-link" href="../../../ESPy_Php/WEB/ESPy_logoff.php?sair=true">Sair</a>
                 </li>
             </ul>
         </div>

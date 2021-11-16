@@ -44,7 +44,7 @@ if ($numrows > 0) {
             $_SESSION["cidadeEmpresa"] = $obj2->cidade;
             $_SESSION["bairroEmpresa"] = $obj2->bairro;
             $_SESSION["ruaEmpresa"] = $obj2->rua;
-            $_SESSION["numerEmpresao"] = (int) $obj2->numero;
+            $_SESSION["numeroEmpresa"] = (int) $obj2->numero;
             $_SESSION["complementoEmpresa"] = $obj2->complemento;
         }
     }else{

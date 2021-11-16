@@ -270,6 +270,10 @@ a {
     border-bottom-right-radius:  0;
 }
 
+#btnOpcaoCaixaColeta{
+    border: 0 none;
+}
+
 /*  */
 
 /*  */
@@ -284,6 +288,13 @@ a {
 
 /*  */
 
+#ContainerMinhaEmpresaCentro{
+    padding: 1%;
+    background-color: rgba(128, 128, 128, 0.060);
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    width: 60vw;
+}
 
 #btnCadastrarEmpresa{
     width: 500px;
@@ -303,6 +314,14 @@ a {
     font-size: 25px;
     border-radius: 15px;
     margin: 5px;
+}
+
+#numeroEmpresa{
+    width: 150px;
+}
+
+#ruaEmpresa{
+    width: 600px;
 }
 
 /*  */
@@ -352,4 +371,28 @@ a {
     border-color: rgb(74, 20, 140);
     border-radius: 15px;
     margin: 1px;
+}
+
+/*  */
+
+/*  */
+
+/*  */
+
+/* MEU PERFIL */
+
+/*  */
+
+/*  */
+
+/*  */
+
+
+#ContainerMeuPerfilCentro{
+    margin-top: 1%;
+    width: 60vw;
+    padding: 1%;
+    background-color: rgba(128, 128, 128, 0.060);
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }

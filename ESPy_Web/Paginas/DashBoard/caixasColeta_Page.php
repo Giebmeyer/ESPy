@@ -54,7 +54,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
         <li class="nav-link disabled">|</li>
         <li class="nav-item">
-          <a class="nav-link" href="../../index.html">Sair</a>
+          <a class="nav-link" href="../../../ESPy_Php/WEB/ESPy_logoff.php?sair=true">Sair</a>
         </li>
 
     </div>
@@ -76,7 +76,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
     <div class="input-group mb-3 mt-3">
       <div class="col">
         <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroCaixasColeta.php">
-          <input type="text" class="form-control" id="txtAdicionarFiltrarCaixaColeta" name="nomeNovaCaixa" placeholder="Nome da nova caixa de coleta" title="Preencha o campo antes de adicionar uma nova caixa!" required/>
+          <input type="text" class="form-control" id="txtAdicionarFiltrarCaixaColeta" name="nomeNovaCaixa" placeholder="Nome da nova caixa de coleta" title="Preencha o campo antes de adicionar uma nova caixa!" required />
       </div>
       <button class="btn btn-primary" type="submit" id="btnCaixasColetaFiltoAdiciona">Adicionar</button>
       </form>
@@ -85,9 +85,9 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
   </div>
 
   <div class="container-fluid p-5" id="divCaixasColeta">
-    <?php
-    include "../../../ESPy_Php/WEB/ESPy_listaCaixasColeta.php";
-    ?>
+      <?php
+      include "../../../ESPy_Php/WEB/ESPy_listaCaixasColeta.php";
+      ?>
   </div>
 
 </body>

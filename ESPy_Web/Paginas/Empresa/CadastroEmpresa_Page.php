@@ -33,127 +33,117 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
     </div>
 
 
-    <div class="container col-4" id="ContainerCadastroCentro">
-        <form method="POST" action="/ESPy_Php/ESPy_cadastroUsuario.php" id="FormularioCadastro">
+    <div class="container col-4 mt-5" id="ContainerMinhaEmpresaCentro">
+              <form method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroEmpresa.php" id="FormularioCadastro">
+      
+                  <!-- From Nome -->
+                  <div class="form-group">
+                      <label for="nome">Nome da empresa</label>
+                      <input type="name" class="form-control" id="nomeEmpresa" name="nomeEmpresa" placeholder="Nome">
+                  </div>
 
-            <!-- From Nome -->
-            <div class="form-group">
-                <label for="nome">Seu nome</label>
-                <input type="name" class="form-control" id="nome" name="nome" placeholder="Nome">
-            </div>
+                  <div class="form-group">
+                      <label for="nome">CEO da empresa</label>
+                      <input type="name" class="form-control" id="CEOEmpresa" name="ceo" placeholder="Nome do CEO">
+                  </div>
 
-            <!-- From email -->
-            <div class="form-group mt-3">
-                <label for="email">Endereço de email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Seu email">
-            </div>
-
-            <!-- From senhas -->
-            <div class="container px-4 mt-3">
-                <div class="row gx-5">
-                    <div class="col">
-                        <label for="senha">Senha</label>
-                        <input type="password" id="senha" name="senha" class="form-control" placeholder="Senha">
-                    </div>
-                    <div class="col">
-                        <label for="ConfirmaSenha">Confirma Senha</label>
-                        <input type="password" id="ConfirmaSenha" name="ConfirmaSenha" class="form-control" placeholder="Confirmar Senha">
-                    </div>
-                </div>
-            </div>
-
-            <!-- From CPF -->
-            <div class="form-group mt-3">
-                <label for="CPF">CPF</label>
-                <input type="text" class="form-control" id="CPF" name="CPF" aria-describedby="CPFHelp" placeholder="Seu CPF">
-            </div>
-
-            <!-- From Telefone -->
-            <div class="form-group mt-3">
-                <label for="Telefone">Telefone Celular</label>
-                <input type="text" class="form-control" id="Telefone" name="Telefone" placeholder="Seu Telefone">
-            </div>
-
-            <!-- From Estado/Cidade -->
-            <div class="input-group mb-3 mt-3">
-                <select id="UF" name="UF">
-                    <option value="Null">Estado</option>
-                    <option value="AC">AC</option>
-                    <option value="AL">AL</option>
-                    <option value="AP">AP</option>
-                    <option value="AM">AM</option>
-                    <option value="BA">BA</option>
-                    <option value="CE">CE</option>
-                    <option value="DF">DF</option>
-                    <option value="ES">ES</option>
-                    <option value="GO">GO</option>
-                    <option value="MA">MA</option>
-                    <option value="MS">MS</option>
-                    <option value="MT">MT</option>
-                    <option value="MG">MG</option>
-                    <option value="PA">PA</option>
-                    <option value="PB">PB</option>
-                    <option value="PR">PR</option>
-                    <option value="PE">PE</option>
-                    <option value="PI">PI</option>
-                    <option value="RJ">RJ</option>
-                    <option value="RN">RN</option>
-                    <option value="RS">RS</option>
-                    <option value="RO">RO</option>
-                    <option value="RR">RR</option>
-                    <option value="SC">SC</option>
-                    <option value="SP">SP</option>
-                    <option value="SE">SE</option>
-                    <option value="TO">TO</option>
-                </select>
-                <div class="col">
-                    <label for="cidade">Sua Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidade">
-                </div>
-            </div>
-
-            <!-- From Bairro -->
-            <div class="form-group">
-                <label for="bairro">Bairro</label>
-                <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Bairro">
-            </div>
-
-            <!-- From Rua/Número -->
-            <div class="input-group mb-3 mt-4" id="divRuaNumero">
-                <div class="col m-1">
-                    <label for="rua">Rua</label>
-                    <input type="text" class="form-control" id="rua" name="rua" placeholder="Rua">
-                </div>
-                <div class="col m-1">
-                    <label for="numero">Número</label>
-                    <input type="number" class="form-control" id="numero" name="numero" placeholder="Número">
-                </div>
-            </div>
-
-            <!-- From Complemento -->
-            <div class="form-group">
-                <label for="complemento">Complemento</label>
-                <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento">
-            </div>
-
-            <!-- Botão Cadastro -->
-            <div class="container mt-4">
-                <div class="row justify-content-md-center">
-                    <div class="col-md-auto ">
-                        <button type="submit" class="btn btn-primary" id="BtnLogin">Cadastrar</button>
-                    </div>
-                </div>
-            </div>
-
-        </form>
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-    <script type="text/javascript">
-        $("#telefone").mask("(00) 0 0000-0000");
-        $("#cpf").mask("000.000.000-00");
-    </script>
+                  <div class="form-group">
+                      <label for="nome">Email</label>
+                      <input type="name" class="form-control" id="EmailCEOEmpresa" name="emailCeo" placeholder="Email do CEO">
+                  </div>
+      
+                  <!-- From CNPJ -->
+                  <div class="form-group mt-3">
+                      <label for="CPF">CNPJ</label>
+                      <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="CNPJ da empresa">
+                  </div>
+      
+                  <!-- From Telefone -->
+                  <div class="form-group mt-3">
+                      <label for="Telefone">Telefone</label>
+                      <input type="text" class="form-control" id="TelefoneEmpresa" name="TelefoneEmpresa" placeholder="Telefone da Empresa">
+                  </div>
+      
+                  <!-- From Estado/Cidade -->
+                  <div class="input-group mb-3 mt-3">
+                      <select id="UF" name="UFEmpresa">
+                          <option value="Null">Estado</option>
+                          <option value="AC">AC</option>
+                          <option value="AL">AL</option>
+                          <option value="AP">AP</option>
+                          <option value="AM">AM</option>
+                          <option value="BA">BA</option>
+                          <option value="CE">CE</option>
+                          <option value="DF">DF</option>
+                          <option value="ES">ES</option>
+                          <option value="GO">GO</option>
+                          <option value="MA">MA</option>
+                          <option value="MS">MS</option>
+                          <option value="MT">MT</option>
+                          <option value="MG">MG</option>
+                          <option value="PA">PA</option>
+                          <option value="PB">PB</option>
+                          <option value="PR">PR</option>
+                          <option value="PE">PE</option>
+                          <option value="PI">PI</option>
+                          <option value="RJ">RJ</option>
+                          <option value="RN">RN</option>
+                          <option value="RS">RS</option>
+                          <option value="RO">RO</option>
+                          <option value="RR">RR</option>
+                          <option value="SC">SC</option>
+                          <option value="SP">SP</option>
+                          <option value="SE">SE</option>
+                          <option value="TO">TO</option>
+                      </select>
+                      <div class="col">
+                          <label for="cidade">Cidade</label>
+                          <input type="text" class="form-control" id="cidade" name="cidadeEmpresa" placeholder="Cidade">
+                      </div>
+                  </div>
+      
+                  <!-- From Bairro -->
+                  <div class="form-group">
+                      <label for="bairro">Bairro</label>
+                      <input type="text" class="form-control" id="bairroEmpresa" name="bairroEmpresa" placeholder="Bairro">
+                  </div>
+      
+                  <!-- From Rua/Número -->
+                  <div class="input-group mb-3 mt-4" id="divRuaNumeroCadastroEmpresa">
+                      <div class="col m-1">
+                          <label for="rua">Rua</label>
+                          <input type="text" class="form-control" id="ruaEmpresa" name="ruaEmpresa" placeholder="Rua">
+                      </div>
+                      <div class="col m-1">
+                          <label for="numero">Número</label>
+                          <input type="number" class="form-control" id="numeroEmpresa" name="numeroEmpresa" placeholder="Número">
+                      </div>
+                  </div>
+      
+                  <!-- From Complemento -->
+                  <div class="form-group">
+                      <label for="complemento">Complemento</label>
+                      <input type="text" class="form-control" id="complementoEmpresa" name="complementoEmpresa" placeholder="Complemento">
+                  </div>
+      
+                  <!-- Botão Cadastro -->
+                  <div class="container mt-4">
+                      <div class="row justify-content-md-center">
+                          <div class="col-md-auto ">
+                              <button type="submit" class="btn btn-primary" id="BtnLogin">Cadastrar</button>
+                          </div>
+                      </div>
+                  </div>
+      
+              </form>
+          </div>
+      
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+          <script type="text/javascript">
+              $("#TelefoneEmpresa").mask("(00) 0000-0000");
+              $("#cnpj").mask("000.000.000/0000-00");
+          </script>
 </body>
 
 </html>
