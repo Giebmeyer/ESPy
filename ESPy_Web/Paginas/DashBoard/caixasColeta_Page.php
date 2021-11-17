@@ -66,15 +66,6 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
     <div class="input-group mb-3 mt-3">
       <div class="col">
-        <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_listaCaixasColeta.php">
-          <input type="text" class="form-control" id="txtAdicionarFiltrarCaixaColeta" name="filtroCaixasColeta" placeholder="Nome da caixa de coleta">
-      </div>
-      <button class="btn btn-primary" type="submit" id="btnCaixasColetaFiltoAdiciona">Filtrar</button>
-      </form>
-    </div>
-
-    <div class="input-group mb-3 mt-3">
-      <div class="col">
         <form id="FormularioFiltraCaixas" method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroCaixasColeta.php">
           <input type="text" class="form-control" id="txtAdicionarFiltrarCaixaColeta" name="nomeNovaCaixa" placeholder="Nome da nova caixa de coleta" title="Preencha o campo antes de adicionar uma nova caixa!" required />
       </div>

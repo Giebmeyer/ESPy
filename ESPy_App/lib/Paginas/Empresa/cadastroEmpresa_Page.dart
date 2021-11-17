@@ -15,7 +15,6 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../main.dart';
 import '../Pages.dart';
 
-
 class cadastroEmpresaPage extends StatefulWidget {
   @override
   _cadastroEmpresaState createState() => _cadastroEmpresaState();
@@ -50,7 +49,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
       Uri.parse(ESPy_url + '/ESPy_cadastroEmpresa.php'),
       body: {
         "nome": _nome.text.trim(),
-        "ceo": _ceo.text.trim(),
+        "ceo": user.nome.trim(),
         "email_ceo": user.email.trim(),
         "telefone": _telefone.text.trim(),
         "cnpj": _cnpj.text.trim(),
@@ -193,15 +192,6 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0))),
                 keyboardType: TextInputType.emailAddress),
-            SizedBox(height: 10),
-//==============================================================================
-            TextFormField(
-                validator: validarNome,
-                controller: _ceo,
-                decoration: InputDecoration(
-                    labelText: 'Nome do CEO da empresa',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
             SizedBox(height: 10),
 //==============================================================================
             TextFormField(

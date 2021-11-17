@@ -13,7 +13,6 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/funcoes.js"></script>
 </head>
 
 <body>
@@ -21,7 +20,7 @@
         <div class="jumbotron">
             <div class="m-3">
                 <h1 class="display-4">Bem-Vindo ao ESPy!</h1>
-                <p class="lead">O sistema de monitoramento de qualdiade do ambiente remoto para a sua empresa!</p>
+                <p class="lead">Um sistema de monitoramento remoto de qualdiade do ambiente para a sua empresa!</p>
             </div>
             <hr class="my-4">
         </div>
@@ -88,9 +87,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 </body>
 

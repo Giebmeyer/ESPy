@@ -71,7 +71,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
     <?php
     if ($_SESSION['usuario_chefe'] == 0 && $_SESSION['usuario_empregado'] == 0) {
       echo ' <div id="divBemVindoUsuario" class="container-fluid">
-      <a class="btn btn-outline-primary" id="btnCadastrarEmpresa" href="../Empresa/CadastroEmpresa_Page.php"> Cadastrar Empresa </a>
+      <a class="btn btn-outline-primary" id="btnCadastrarEmpresa" href="../Empresa/cadastroEmpresa_Page.php"> Cadastrar Empresa </a>
        <a class="btn btn-outline-primary" id="btnJuntarSeEmpresa" href="../Empresa/entrarEmpresa_Page.php"> Juntar-se a uma empresa </a>
        </div>';
     } else {
@@ -88,18 +88,18 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
                   <div class="form-group mt-3">
                       <label for="nome">CEO da empresa</label>
-                      <input type="name" class="form-control" id="CEOEmpresa" name="ceo" placeholder='.$_SESSION['ceoEmpresa'].'>
+                      <input type="name" class="form-control" id="CEOEmpresa" name="ceo" placeholder='.$_SESSION['ceoEmpresa'].' disabled="">
                   </div>
 
                   <div class="form-group mt-3">
                       <label for="nome">Email</label>
-                      <input type="name" class="form-control" id="EmailCEOEmpresa" name="emailCeo" placeholder='.$_SESSION['email_ceoEmpresa'].'>
+                      <input type="name" class="form-control" id="EmailCEOEmpresa" name="emailCeo" placeholder='.$_SESSION['email_ceoEmpresa'].' disabled="">
                   </div>
       
                   <!-- From CNPJ -->
                   <div class="form-group mt-3">
                       <label for="CPF">CNPJ</label>
-                      <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder='.$_SESSION['cnpjEmpresa'].'>
+                      <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder='.$_SESSION['cnpjEmpresa'].' disabled="">
                   </div>
       
                   <!-- From Telefone -->

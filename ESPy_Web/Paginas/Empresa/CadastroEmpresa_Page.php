@@ -32,24 +32,25 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
         </div>
     </div>
 
-
+    <?php
+    echo '
     <div class="container col-4 mt-5" id="ContainerMinhaEmpresaCentro">
               <form method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroEmpresa.php" id="FormularioCadastro">
       
                   <!-- From Nome -->
                   <div class="form-group">
                       <label for="nome">Nome da empresa</label>
-                      <input type="name" class="form-control" id="nomeEmpresa" name="nomeEmpresa" placeholder="Nome">
+                      <input type="name" class="form-control" id="nomeEmpresa" name="nomeEmpresa" placeholder="Nome da empresa">
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group mt-3">
                       <label for="nome">CEO da empresa</label>
-                      <input type="name" class="form-control" id="CEOEmpresa" name="ceo" placeholder="Nome do CEO">
+                      <input type="name" class="form-control" id="CEOEmpresa" name="ceo" placeholder='.$_SESSION['nome'].' disabled="">
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group mt-3">
                       <label for="nome">Email</label>
-                      <input type="name" class="form-control" id="EmailCEOEmpresa" name="emailCeo" placeholder="Email do CEO">
+                      <input type="name" class="form-control" id="EmailCEOEmpresa" name="emailCeo" placeholder='.$_SESSION['email'].' disabled="">
                   </div>
       
                   <!-- From CNPJ -->
@@ -136,14 +137,15 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
                   </div>
       
               </form>
-          </div>
-      
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-          <script type="text/javascript">
-              $("#TelefoneEmpresa").mask("(00) 0000-0000");
-              $("#cnpj").mask("000.000.000/0000-00");
-          </script>
+          </div>'
+    ?>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $("#TelefoneEmpresa").mask("(00) 0000-0000");
+        $("#cnpj").mask("000.000.000/0000-00");
+    </script>
 </body>
 
 </html>

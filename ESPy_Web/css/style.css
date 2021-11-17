@@ -396,3 +396,50 @@ a {
     border-top-right-radius: 15px;
     border-bottom-left-radius: 15px;
 }
+
+/*  */
+
+/*  */
+
+/*  */
+
+/* GRAFICOS */
+
+/*  */
+
+/*  */
+
+/*  */
+
+
+#IDK_GraficoBarra{
+    height: 500px;
+}
+
+#DHT11_Temperatura_GraficoBarra{
+    height: 500px;
+}
+
+#DHT11_Umidade_GraficoBarra{
+    height: 500px;
+}
+
+#BMP180_Temperatura_GraficoBarra{
+    height: 500px;
+}
+
+#BMP180_PressaoATM_GraficoBarra{
+    height: 500px;
+}
+
+#MICS6814_CO_GraficoBarra{
+    height: 500px;
+}
+
+#MICS6814_NO2_GraficoBarra{
+    height: 500px;
+}
+
+#MICS6814_NH3_GraficoBarra{
+    height: 500px;
+}

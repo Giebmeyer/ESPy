@@ -66,7 +66,7 @@ if ($numrows > 0) {
 } else {
     unset($_SESSION['senha']);
     unset($_SESSION['email']);
-    header('location: ../../ESPy_Web/index.html');
+    header('location: ../../ESPy_Web/index.php');
     echo "Login ou Senha invalidos";
 }
 

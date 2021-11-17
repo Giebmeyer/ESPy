@@ -19,7 +19,7 @@
 
 
         if($resultado > 0){
-			header('Location: ../../ESPy_Web/index.html');
+			header('Location: ../../ESPy_Web/index.php');
 		}else{
 			$return["mensagemCadastroUser"] = "Erro ao cadastrar usuário.";
 		}

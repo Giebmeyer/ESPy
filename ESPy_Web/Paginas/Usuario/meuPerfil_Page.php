@@ -10,7 +10,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="imagem/png" href="../../assents/imagens/Logo_.png" />
 
-  <title>ESPy | Empresa</title>
+  <title>ESPy | Meu Perfil</title>
 
   <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link href="../../css/style.css" rel="stylesheet" type="text/css" />
