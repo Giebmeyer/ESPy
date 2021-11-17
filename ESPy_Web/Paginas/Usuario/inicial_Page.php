@@ -51,7 +51,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
                     <a class="nav-link" href="./inicial_Page.php">Principal</a>
                 </li>
                 <?php
-                if ($_SESSION['usuario_chefe'] == 1 || $_SESSION['usuario_empregado'] == 1 ) {
+                if ($_SESSION['usuario_chefe'] == 1 || $_SESSION['usuario_empregado'] == 1) {
                     echo ('<li class="nav-link disabled">|</li>
                 <li class="nav-item">
                     <a class="nav-link" href="../DashBoard/caixasColeta_Page.php">Caixas de Coleta</a>

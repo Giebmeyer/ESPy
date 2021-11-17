@@ -6,7 +6,7 @@
 
         $codigoUsuarioSelecionadoLista = mysqli_real_escape_string ($conexao,$_POST['codigoUsuarioSelecionadoLista']);
 
-		$query = "UPDATE `usuarios_empresas` SET `saiuEmpresa` = 'E' WHERE `codigo_usuario` = $codigoUsuarioSelecionadoLista";	 
+		$query = "UPDATE `usuarios_empresas` SET `saiuEmpresa` = 'S' WHERE `codigo_usuario` = $codigoUsuarioSelecionadoLista";	 
 		$query2 = "UPDATE `usuarios` SET usuario_empregado = 0 WHERE `codigo` = $codigoUsuarioSelecionadoLista";
 	    $resultado = mysqli_query($conexao, $query);
 

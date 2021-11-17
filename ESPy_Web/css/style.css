@@ -12,8 +12,7 @@
 
 /*  */
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
@@ -227,7 +226,6 @@ a {
     border-color: rgb(74, 20, 140);
     border-radius: 15px;
     margin: 2px;
-    
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
@@ -265,12 +263,12 @@ a {
     text-align: center;
 }
 
-#txtAdicionarFiltrarCaixaColeta{
+#txtAdicionarFiltrarCaixaColeta {
     border-top-right-radius: 0;
-    border-bottom-right-radius:  0;
+    border-bottom-right-radius: 0;
 }
 
-#btnOpcaoCaixaColeta{
+#btnOpcaoCaixaColeta {
     border: 0 none;
 }
 
@@ -288,7 +286,7 @@ a {
 
 /*  */
 
-#ContainerMinhaEmpresaCentro{
+#ContainerMinhaEmpresaCentro {
     padding: 1%;
     background-color: rgba(128, 128, 128, 0.060);
     border-top-right-radius: 15px;
@@ -296,7 +294,7 @@ a {
     width: 60vw;
 }
 
-#btnCadastrarEmpresa{
+#btnCadastrarEmpresa {
     width: 500px;
     color: rgb(74, 20, 140);
     background-color: white;
@@ -306,7 +304,7 @@ a {
     margin: 5px;
 }
 
-#btnJuntarSeEmpresa{
+#btnJuntarSeEmpresa {
     width: 500px;
     color: rgb(74, 20, 140);
     background-color: white;
@@ -316,11 +314,11 @@ a {
     margin: 5px;
 }
 
-#numeroEmpresa{
+#numeroEmpresa {
     width: 150px;
 }
 
-#ruaEmpresa{
+#ruaEmpresa {
     width: 600px;
 }
 
@@ -338,14 +336,14 @@ a {
 
 /*  */
 
-#txtCodigoEntrarEmpresa{
+#txtCodigoEntrarEmpresa {
     height: 200px;
     width: 100px;
     font-size: 40px;
     text-align: center;
 }
 
-#divCamposEntrarEmpresa{
+#divCamposEntrarEmpresa {
     width: 100vw;
     height: 90vh;
     display: flex;
@@ -356,15 +354,15 @@ a {
     -webkit-text-stroke-width: 2px;
 }
 
-#txtEntrarEmpresa{
+#txtEntrarEmpresa {
     text-align: center;
 }
 
-#divBtnEntrarEmpresa{
+#divBtnEntrarEmpresa {
     text-align: center;
 }
 
-#btnEntrarEmpresa{
+#btnEntrarEmpresa {
     width: 10vw;
     color: rgb(74, 20, 140);
     background-color: white;
@@ -387,8 +385,7 @@ a {
 
 /*  */
 
-
-#ContainerMeuPerfilCentro{
+#ContainerMeuPerfilCentro {
     margin-top: 1%;
     width: 60vw;
     padding: 1%;
@@ -411,35 +408,54 @@ a {
 
 /*  */
 
+#btnMudarTipoGrafico {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: rgb(74, 20, 140);
+    color: white;
+    text-align: center;
+    box-shadow: 1px 1px 2px;;
+    z-index: 1000;
+    border-radius: 25px;
+    padding: 0;
+}
 
-#IDK_GraficoBarra{
+#iconBarCharts{
+    font-size: 40px;
+    margin-top: 6px;
+}
+
+#IDK {
     height: 500px;
 }
 
-#DHT11_Temperatura_GraficoBarra{
+#DHT11_Temperatura {
     height: 500px;
 }
 
-#DHT11_Umidade_GraficoBarra{
+#DHT11_Umidade {
     height: 500px;
 }
 
-#BMP180_Temperatura_GraficoBarra{
+#BMP180_Temperatura {
     height: 500px;
 }
 
-#BMP180_PressaoATM_GraficoBarra{
+#BMP180_PressaoATM {
     height: 500px;
 }
 
-#MICS6814_CO_GraficoBarra{
+#MICS6814_CO {
     height: 500px;
 }
 
-#MICS6814_NO2_GraficoBarra{
+#MICS6814_NO2 {
     height: 500px;
 }
 
-#MICS6814_NH3_GraficoBarra{
+#MICS6814_NH3 {
     height: 500px;
 }

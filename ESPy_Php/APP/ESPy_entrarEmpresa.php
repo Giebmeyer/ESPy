@@ -27,7 +27,7 @@
             $return["numero"] = (int) $obj->numero;
             $return["complemento"] = $obj->complemento;
 
-            $query2 = "INSERT INTO usuarios_empresas (`codigo_usuario`, `codigo_empresa`) VALUES ('$codigoUsuario', '$codigoEmp');";
+            $query2 = "INSERT INTO usuarios_empresas (`codigo_usuario`, `codigo_empresa`, `saiuEmpresa`) VALUES ('$codigoUsuario', '$codigoEmp', 'A');";
             $resultado2 = mysqli_query($conexao, $query2); 
 
             if($resultado2 > 0){
