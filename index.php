@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="imagem/png" href="../ESPy_Web/assents/imagens/Logo_.png" />
+    <link rel="icon" type="imagem/png" href="ESPy_Web/assents/imagens/Logo_.png" />
 
     <title>ESPy</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link href="ESPy_Web/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="ESPy_Web/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="ESPy_Web/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="ESPy_Web/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -27,8 +27,8 @@
     </div>
 
 
-    <div class="container col-4" id="ContainerLoginCentro">
-        <form id="FormularioLogin" method="POST" action="../../ESPy/ESPy_Php/WEB/ESPy_login.php">
+    <section class="container col-3 align-self-center" id="ContainerLoginCentro">
+        <form id="FormularioLogin" method="POST" action="ESPy_Php/WEB/ESPy_login.php">
 
             <!-- From email -->
             <div class="form-group">
@@ -48,16 +48,16 @@
             </div>
 
             <!-- Botão login -->
-            <div class="col-md-auto row justify-content-md-center">
+            <div class="col-md-auto row justify-content-md-center container-fluid">
                 <input class="btn btn-primary" type="submit" id="BtnLogin" value="Entrar">
             </div>
 
             <!-- Botão Cadastre-se -->
             <div class="mt-2" id="DivLinkPageCadastro">
-                Não possui login? <a href="../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.html" id="LinkPageCadastro">Cadastre-se</a>
+                Não possui login? <a href="ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.html" id="LinkPageCadastro">Cadastre-se</a>
             </div>
         </form>
-    </div>
+    </section>
 
 
     <!-- Modal -->
@@ -69,7 +69,7 @@
                     </h5>
                 </div>
                 <div class="modal-body">
-                    <form id="FormularioRecuperarSenha" method="POST" action="../../ESPy/ESPy_Php/WEB/ESPy_coletaDadosUsuario.php">
+                    <form id="FormularioRecuperarSenha" method="POST" action="/ESPy_Php/WEB/ESPy_coletaDadosUsuario.php">
                         <!-- From email -->
                         <div class="form-group">
                             <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Seu email cadastrado">

@@ -13,10 +13,10 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
     <title>ESPy</title>
 
+    <script src="../../js/jquery-3.6.0.min.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
     <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="../../css/style.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="../../js/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -34,7 +34,6 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
         <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
             <ul class="navbar-nav mr-auto">
-
 
                 <li class="nav-link disabled">|</li>
                 <li class="nav-item active">

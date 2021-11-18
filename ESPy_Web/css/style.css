@@ -17,6 +17,8 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     margin: 0;
 }
 
+
+
 /* Inputs */
 
 .form-control {
@@ -51,11 +53,15 @@ a {
 /*  */
 
 #ContainerLoginCentro {
+    width: 40%;
     margin-top: 10%;
     padding: 1%;
     background-color: rgba(128, 128, 128, 0.060);
     border-top-right-radius: 15px;
     border-bottom-left-radius: 15px;
+    font-size: 0.875em;
+    display: block;
+    min-width: 300px;
 }
 
 /* Div link e modal esqueci minha senha */
@@ -113,12 +119,16 @@ a {
 /* Botao de login */
 
 #BtnLogin {
-    width: 10vw;
     color: rgb(74, 20, 140);
     background-color: white;
     border-color: rgb(74, 20, 140);
     border-radius: 15px;
     margin: 1px;
+    font-size: 0.875em;
+    display: block;
+    left: -60px;
+    margin-top: 35px;
+    width: 100%;
 }
 
 #BtnLogin:hover {
@@ -147,6 +157,9 @@ a {
     background-color: rgba(128, 128, 128, 0.060);
     border-top-right-radius: 15px;
     border-bottom-left-radius: 15px;
+    font-size: 0.875em;
+    display: block;
+    min-width: 300px;
 }
 
 #SenhaCodastro {
@@ -203,6 +216,8 @@ a {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-size: 1.5em;
+    
 }
 
 /*  */
@@ -314,13 +329,6 @@ a {
     margin: 5px;
 }
 
-#numeroEmpresa {
-    width: 150px;
-}
-
-#ruaEmpresa {
-    width: 600px;
-}
 
 /*  */
 
@@ -417,13 +425,14 @@ a {
     background-color: rgb(74, 20, 140);
     color: white;
     text-align: center;
-    box-shadow: 1px 1px 2px;;
+    box-shadow: 1px 1px 2px;
+    ;
     z-index: 1000;
     border-radius: 25px;
     padding: 0;
 }
 
-#iconBarCharts{
+#iconBarCharts {
     font-size: 40px;
     margin-top: 6px;
 }

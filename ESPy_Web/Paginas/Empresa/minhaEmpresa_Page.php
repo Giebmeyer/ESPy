@@ -153,14 +153,14 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
                   </div>
       
                   <!-- From Rua/Número -->
-                  <div class="input-group mb-3 mt-4" id="divRuaNumeroCadastroEmpresa">
+                  <div class="input-group mb-3 mt-4 align-self-center" id="divRuaNumeroCadastroEmpresa">
                       <div class="col m-1">
                           <label for="rua">Rua</label>
-                          <input type="text" class="form-control" id="ruaEmpresa" name="ruaEmpresa" placeholder='.$_SESSION['ruaEmpresa'].'>
+                          <input type="text" class="form-control" id="rua" name="ruaEmpresa" placeholder='.$_SESSION['ruaEmpresa'].'>
                       </div>
                       <div class="col m-1">
                           <label for="numero">Número</label>
-                          <input type="number" class="form-control" id="numeroEmpresa" name="numeroEmpresa" placeholder='.$_SESSION['numeroEmpresa'].'>
+                          <input type="number" class="form-control" id="numero" name="numeroEmpresa" placeholder='.$_SESSION['numeroEmpresa'].'>
                       </div>
                   </div>
       
