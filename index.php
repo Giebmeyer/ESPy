@@ -48,7 +48,7 @@
             </div>
 
             <!-- Botão login -->
-            <div class="col-md-auto row justify-content-md-center container-fluid">
+            <div class="container-fluid" id="divBtnLogin">
                 <input class="btn btn-primary" type="submit" id="BtnLogin" value="Entrar">
             </div>
 

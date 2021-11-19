@@ -124,11 +124,14 @@ a {
     border-color: rgb(74, 20, 140);
     border-radius: 15px;
     margin: 1px;
+    width: 200px;
+    max-width: 30vw;
     font-size: 0.875em;
-    display: block;
-    left: -60px;
     margin-top: 35px;
-    width: 100%;
+}
+
+#divBtnLogin{
+    text-align: center;
 }
 
 #BtnLogin:hover {
@@ -159,7 +162,8 @@ a {
     border-bottom-left-radius: 15px;
     font-size: 0.875em;
     display: block;
-    min-width: 300px;
+    width: 40%;
+    min-width: 400px;
 }
 
 #SenhaCodastro {
@@ -176,7 +180,7 @@ a {
 #UF {
     transition: 1s;
     height: 36px;
-    margin-top: 25px;
+    margin-top: 22px;
     background-color: rgba(128, 128, 128, 0.342);
     border-color: rgba(128, 128, 128, 0.342);
 }
@@ -306,7 +310,10 @@ a {
     background-color: rgba(128, 128, 128, 0.060);
     border-top-right-radius: 15px;
     border-bottom-left-radius: 15px;
-    width: 60vw;
+    font-size: 0.875em;
+    display: block;
+    width: 40%;
+    min-width: 400px;
 }
 
 #btnCadastrarEmpresa {

@@ -91,7 +91,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
                     </div>
                 </div>
             </div>
-            <div id="divBtnEntrarEmpresa"><button type="submit" class="btn btn-primary" id="btnEntrarEmpresa">Entrar</button></div>
+            <div id="divBtnEntrarEmpresa"><button type="submit" class="btn btn-primary" id="BtnLogin">Entrar</button></div>
         </form>
     </div>
 </body>

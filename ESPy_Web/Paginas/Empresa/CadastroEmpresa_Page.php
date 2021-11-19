@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <?php
 include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
+$email = $_SESSION['email'];
 ?>
 
 <head>
@@ -50,7 +51,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
                   <div class="form-group mt-3">
                       <label for="nome">Email</label>
-                      <input type="name" class="form-control" id="EmailCEOEmpresa" name="emailCeo" placeholder='.$_SESSION['email'].' disabled="">
+                      <input type="name" class="form-control" id="CEOEmpresa" name="ceo" placeholder='.$email.' disabled="">
                   </div>
       
                   <!-- From CNPJ -->
@@ -128,12 +129,8 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
                   </div>
       
                   <!-- Botão Cadastro -->
-                  <div class="container mt-4">
-                      <div class="row justify-content-md-center">
-                          <div class="col-md-auto ">
-                              <button type="submit" class="btn btn-primary" id="BtnLogin">Cadastrar</button>
-                          </div>
-                      </div>
+                  <div class="container-fluid" id="divBtnLogin">
+                      <input class="btn btn-primary" type="submit" id="BtnLogin" value="Cadastrar">
                   </div>
       
               </form>
