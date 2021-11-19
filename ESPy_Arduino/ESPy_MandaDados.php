@@ -8,8 +8,8 @@ class Sensores{
  }
 
  function connect(){
-    $this->link = mysqli_connect('192.168.66.106','Guib','Nkysd3m8tg') or die('Cannot connect to the DB');
-    mysqli_select_db($this->link,'espy') or die('Cannot select the DB');
+    $this->link = mysqli_connect('confort-espy.com','confor35_Guib','brother29') or die('Cannot connect to the DB');
+    mysqli_select_db($this->link,'confor35_espy') or die('Cannot select the DB');
    }
  
  function storeInDB($Umidade_DHT11, $Temperatura_DHT11, $Temperatura_BMP180, $Pressao_BMP180, $Altitude_BMP180, $MICS_CO, $MICS_NO2, $MICS_NH3, $IDK, $codigo_caixa, $codigo_empresa){

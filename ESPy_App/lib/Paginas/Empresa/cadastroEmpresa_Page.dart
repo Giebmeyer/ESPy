@@ -200,7 +200,7 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
               controller: _cnpj,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  labelText: 'CPF/CNPJ',
+                  labelText: 'CNPJ',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0))),
             ),

@@ -1,7 +1,6 @@
 <?php 
 	include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
 
-    $return["errorEmpresa"] = false;
     $return["mensagemEmpresa"] = "";
     $return["sucessoEmpresa"] = false;
 
@@ -14,9 +13,6 @@
         $numrows = mysqli_num_rows($resultado);
         $obj = mysqli_fetch_object($resultado);          
         if($numrows > 0){
-            $return["errorEmpresa"] = false;
-            $return["sucessoEmpresa"] = true;
-            $return["mensagemEmpresa"] = "Empresa encontrada.";
             $return["codigo"] = (int) $obj->codigo;
             $return["chaveConvite"] = (int) $obj ->chaveConvite;
             $return["nome"] = $obj->nome;
@@ -30,9 +26,10 @@
             $return["rua"] = $obj->rua;
             $return["numero"] = (int) $obj->numero;
             $return["complemento"] = $obj->complemento;
+            $return["sucessoEmpresa"] = true;
+            $return["mensagemEmpresa"] = "Empresa encontrada.";
         }else{
-            $return["sucessoEmpresa"] = 'false';
-            $return["errorEmpresa"] = 'true';
+            $return["sucessoEmpresa"] = false;
             $return["mensagemEmpresa"] = "Nao existe empresa para esse codigo de usuário.";
         }
     echo json_encode($return);

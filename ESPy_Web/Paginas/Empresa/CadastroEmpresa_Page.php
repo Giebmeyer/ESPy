@@ -2,7 +2,6 @@
 <html lang="pt-br">
 <?php
 include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
-$email = $_SESSION['email'];
 ?>
 
 <head>
@@ -51,7 +50,7 @@ $email = $_SESSION['email'];
 
                   <div class="form-group mt-3">
                       <label for="nome">Email</label>
-                      <input type="name" class="form-control" id="CEOEmpresa" name="ceo" placeholder='.$email.' disabled="">
+                      <input type="name" class="form-control" id="emailCeo" name="emailCeo" placeholder='.$_SESSION['email'].' disabled="">
                   </div>
       
                   <!-- From CNPJ -->

@@ -10,21 +10,21 @@ $numrows = mysqli_num_rows($resultado);
 if ($numrows > 0) {
     session_start();
     $obj = mysqli_fetch_object($resultado);
-    $_SESSION['codigo'] = (int) $obj->codigo;
     $codigoUser = (int) $obj->codigo;
-    $_SESSION['nome'] = $obj->nome;
-    $_SESSION['senha'] = $obj->senha;
-    $_SESSION['email'] = $obj->email;
-    $_SESSION['cpf'] = $obj->cpf;
-    $_SESSION['telefone'] = (int) $obj->telefone;
-    $_SESSION['estado'] = $obj->estado;
-    $_SESSION['cidade'] = $obj->cidade;
-    $_SESSION['bairro'] = $obj->bairro;
-    $_SESSION['rua'] = $obj->rua;
-    $_SESSION['numero'] = (int) $obj->numero;
-    $_SESSION['complemento'] = $obj->complemento;
-    $_SESSION['usuario_chefe'] = (int) $obj->usuario_chefe;
-    $_SESSION['usuario_empregado'] = (int) $obj->usuario_empregado;
+    $_SESSION["codigo"] = (int) $obj->codigo;
+    $_SESSION["nome"] = $obj->nome;
+    $_SESSION["senha"] = $obj->senha;
+    $_SESSION["email"] = $obj->email;
+    $_SESSION["cpf"] = $obj->cpf;
+    $_SESSION["telefone"] = $obj->telefone;
+    $_SESSION["estado"] = $obj->estado;
+    $_SESSION["cidade"] = $obj->cidade;
+    $_SESSION["bairro"] = $obj->bairro;
+    $_SESSION["rua"] = $obj->rua;
+    $_SESSION["numero"] = (int) $obj->numero;
+    $_SESSION["complemento"] = $obj->complemento;
+    $_SESSION["usuario_chefe"] = (int) $obj->usuario_chefe;
+    $_SESSION["usuario_empregado"] = (int) $obj->usuario_empregado;
 
     if ($_SESSION['usuario_empregado'] == 1 || $_SESSION['usuario_chefe'] == 1) {
         $resultado2 = mysqli_query($conexao, "SELECT e.* FROM empresas e JOIN usuarios_empresas ue ON ue.codigo_empresa = e.codigo WHERE ue.codigo_usuario = '$codigoUser'");
@@ -66,7 +66,7 @@ if ($numrows > 0) {
 } else {
     unset($_SESSION['senha']);
     unset($_SESSION['email']);
-    header('location: ../../index.php');
+    header('location: /index.php');
     echo "Login ou Senha invalidos";
 }
 

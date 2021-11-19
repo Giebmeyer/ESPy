@@ -220,7 +220,7 @@ a {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 1.5em;
+   
     
 }
 
@@ -351,7 +351,42 @@ a {
 
 /*  */
 
-#txtCodigoEntrarEmpresa {
+#txtCodigoEntrarEmpresa1 {
+    height: 200px;
+    width: 100px;
+    font-size: 40px;
+    text-align: center;
+}
+
+#txtCodigoEntrarEmpresa2 {
+    height: 200px;
+    width: 100px;
+    font-size: 40px;
+    text-align: center;
+}
+
+#txtCodigoEntrarEmpresa3 {
+    height: 200px;
+    width: 100px;
+    font-size: 40px;
+    text-align: center;
+}
+
+#txtCodigoEntrarEmpresa4 {
+    height: 200px;
+    width: 100px;
+    font-size: 40px;
+    text-align: center;
+}
+
+#txtCodigoEntrarEmpresa5 {
+    height: 200px;
+    width: 100px;
+    font-size: 40px;
+    text-align: center;
+}
+
+#txtCodigoEntrarEmpresa6 {
     height: 200px;
     width: 100px;
     font-size: 40px;

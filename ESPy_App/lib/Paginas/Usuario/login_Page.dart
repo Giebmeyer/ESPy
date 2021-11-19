@@ -71,7 +71,7 @@ class _loginPageState extends State<LoginPage> {
     if (response.statusCode == 200) {
       var jsondata = json.decode(response.body);
 
-      if (jsondata["errorEmpresa"]) {
+      if (jsondata["sucessoEmpresa"] == false) {
         setState(() {
           showProgress = false;
           erro = true;
@@ -79,7 +79,7 @@ class _loginPageState extends State<LoginPage> {
           showCaixaDialogoSimples(context, msgErro);
         });
       } else {
-        if (jsondata["sucessoEmpresa"]) {
+        if (jsondata["sucessoEmpresa"] == true) {
           emp.codigo = jsondata['codigo'];
           emp.chaveConvite = jsondata['chaveConvite'];
           emp.nome = jsondata['nome'];

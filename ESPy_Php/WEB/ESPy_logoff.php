@@ -4,9 +4,11 @@
 
     if($sair == true){
         session_start();
-        unset($_SESSION['email']);
+        setcookie(session_name(), '', 100);
+        session_unset();
         session_destroy();
-        header("Location: ../../index.php");
+        $_SESSION = array();
+        header("Location: /index.php");
     }
 
 

@@ -13,7 +13,7 @@ import 'Classes/palette.dart';
 
 void main() => runApp(new MyApp());
 
-const String ESPy_url = 'http://192.168.66.109/ESPy/ESPy_Php/APP';
+const String ESPy_url = 'http://confort-espy.com/ESPy_Php/APP';
 
 class MyApp extends StatelessWidget {
   @override

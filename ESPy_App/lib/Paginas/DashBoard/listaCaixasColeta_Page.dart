@@ -51,7 +51,7 @@ class _listaCaixasColetaPageState extends State<caixasColeta> {
         });
       });
     } else {
-      print("Nao foi possivel conectar-se.");
+      showCaixaDialogoSimples(context, "Nao foi possivel conectar-se.");
     }
   }
 

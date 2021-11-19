@@ -71,22 +71,22 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
                 <div class="container px-4 mt-3">
                     <div class="row gx-5">
                         <div class="col">
-                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa" name="n1_CodigoEntrarEmpresa" title="Preencha esse campo!" required maxlength="1">
+                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa1" name="n1_CodigoEntrarEmpresa" title="Preencha esse campo!" required>
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa" name="n2_CodigoEntrarEmpresa" title="Preencha esse campo!" required maxlength="1">
+                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa2" name="n2_CodigoEntrarEmpresa" title="Preencha esse campo!" required>
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa" name="n3_CodigoEntrarEmpresa" title="Preencha esse campo!" required maxlength="1">
+                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa3" name="n3_CodigoEntrarEmpresa" title="Preencha esse campo!" required>
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa" name="n4_CodigoEntrarEmpresa" title="Preencha esse campo!" required maxlength="1">
+                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa4" name="n4_CodigoEntrarEmpresa" title="Preencha esse campo!" required>
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa" name="n5_CodigoEntrarEmpresa" title="Preencha esse campo!" required maxlength="1">
+                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa5" name="n5_CodigoEntrarEmpresa" title="Preencha esse campo!" required>
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa" name="n6_CodigoEntrarEmpresa" title="Preencha esse campo!" required maxlength="1">
+                            <input type="number" class="form-control" id="txtCodigoEntrarEmpresa6" name="n6_CodigoEntrarEmpresa" title="Preencha esse campo!" required>
                         </div>
                     </div>
                 </div>
@@ -94,5 +94,26 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
             <div id="divBtnEntrarEmpresa"><button type="submit" class="btn btn-primary" id="BtnLogin">Entrar</button></div>
         </form>
     </div>
+    
+        <script>
+	document.getElementById('txtCodigoEntrarEmpresa1').addEventListener('input', limitaTotal)
+	document.getElementById('txtCodigoEntrarEmpresa2').addEventListener('input', limitaTotal)
+	document.getElementById('txtCodigoEntrarEmpresa3').addEventListener('input', limitaTotal)
+	document.getElementById('txtCodigoEntrarEmpresa4').addEventListener('input', limitaTotal)
+	document.getElementById('txtCodigoEntrarEmpresa5').addEventListener('input', limitaTotal)
+	document.getElementById('txtCodigoEntrarEmpresa6').addEventListener('input', limitaTotal)
+
+function limitaTotal (evt) {
+    var input = evt.target;
+    var value = input.value;
+
+    if (value.length <= 1) {
+        return;
+    }
+
+    input.value = input.value.substr(0, 1); 
+}
+    </script>
+    
 </body>
 </html>
