@@ -77,7 +77,7 @@ MICS6814 gas(PIN_CO, PIN_NO2, PIN_NH3);
 //==========================================================================================
 WiFiClient client; //Cria um cliente seguro (para ter acesso ao HTTPS)
   
-char *server = "192.168.66.106";
+char *server = "confort-espy.com";
 char *Rede = "";
 char *Password = "";
 //==========================================================================================
@@ -174,8 +174,8 @@ void enviaDadosBD()   {
 
     delay(1000);
 
-    Serial.print("GET /ESPy/ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");
-    client.print("GET /ESPy/ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");     //URL php
+    Serial.print("GET /ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");
+    client.print("GET /ESPy_Arduino/ESPy_MandaDados.php?Umidade_DHT11=");     //URL php
     Serial.println(Umidade_DHT11);
     client.print(Umidade_DHT11);
 
@@ -255,7 +255,7 @@ void coletaDadosBD() {
     SerialBT.println("COLETA");
     SerialBT.println(codigoEmpresa);
     Serial.println("http://" +String(server)+ "/ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
-    client_http.begin("http://" +String(server)+ "/ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
+    client_http.begin("http://" +String(server)+ "/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
     int httpCode = client_http.GET();
     SerialBT.println(httpCode);
 

@@ -1,5 +1,5 @@
 <?php 
-	include "../ESPy_Php/ESPy_mySqlConfig.php";
+include "../ESPy_MySql/ESPy_MySqlCredenciais.php";
 
     $return["erroRequestFuncionarios"] = false;
     $return["mensagemRequestFuncionarios"] = "";
