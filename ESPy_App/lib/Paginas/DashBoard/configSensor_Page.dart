@@ -51,7 +51,7 @@ class _configSensorState extends State<configSensor> {
           showProgress = false;
           erro = true;
           msgErro = jsondata["mensagemConfiguracao"];
-          showCaixaDialogoRapida(context, msgErro, 'dashBoard', 1);
+          showCaixaDialogoRapida(context, msgErro, 'caixasColeta', 1);
         });
       } else {
         setState(() {
@@ -132,7 +132,7 @@ class _configSensorState extends State<configSensor> {
                             width: MediaQuery.of(context).size.width * 0.30,
                             child: FlatButton(
                               onPressed: () {
-                                print(tempoColeta.toString());
+                                print(emp.codigo.toString());
                                 setState(() {
                                   showProgress = true;
                                 });

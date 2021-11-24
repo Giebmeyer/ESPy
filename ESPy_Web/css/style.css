@@ -238,7 +238,7 @@ a {
 
 /*  */
 
-#btnCaixaColeta {
+.btn.btn-outline-primary.btnCaixaColeta {
     width: 200px;
     color: rgb(74, 20, 140);
     background-color: white;
@@ -252,7 +252,7 @@ a {
     direction: ltr;
 }
 
-#btnCaixaColeta:hover {
+.btn.btn-outline-primary.btnCaixaColeta:hover {
     transition: 200ms;
     color: white;
     background-color: rgba(74, 20, 140, 0.781);
@@ -395,7 +395,6 @@ a {
 
 #divCamposEntrarEmpresa {
     width: 100vw;
-    height: 90vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -436,12 +435,14 @@ a {
 /*  */
 
 #ContainerMeuPerfilCentro {
-    margin-top: 1%;
-    width: 60vw;
     padding: 1%;
     background-color: rgba(128, 128, 128, 0.060);
     border-top-right-radius: 15px;
     border-bottom-left-radius: 15px;
+    font-size: 0.875em;
+    display: block;
+    width: 40%;
+    min-width: 400px;
 }
 
 /*  */

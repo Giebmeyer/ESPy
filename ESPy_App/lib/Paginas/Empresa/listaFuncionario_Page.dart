@@ -82,7 +82,7 @@ class _listaFuncionariosPageState extends State<listaFuncionariosPage> {
   @override
   void atualizarTela() {
     setState(() {
-      print(emp.qtdFuncionarios);
+      print(emp.codigo);
       showProgress = true;
       this._coletaFuncionarios();
     });

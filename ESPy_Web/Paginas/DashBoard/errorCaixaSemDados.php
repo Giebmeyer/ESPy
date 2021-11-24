@@ -38,12 +38,12 @@
             Minha Empresa
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <?php
+            <li><a class="dropdown-item" href="../Empresa/funcionarios_Page.php">Funcionários</a></li>
+                                    <?php
                 if ($_SESSION['usuario_chefe'] == 1 || $_SESSION['usuario_empregado'] == 1) {
-                    echo ('<li><a class="dropdown-item" href="../Empresa/funcionarios_Page.php">Funcionários</a></li>');
+                    echo ('<li><a class="dropdown-item" href="../Empresa/minhaEmpresa_Page.php">Cadastro</a></li>');
                 }
                 ?>
-                <li><a class="dropdown-item" href="../Empresa/minhaEmpresa_Page.php">Cadastro</a></li>
           </ul>
         </li>
     

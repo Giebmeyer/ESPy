@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
+  
 <?php
 include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 ?>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="imagem/png" href="../../assents/imagens/Logo_.png" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="imagem/png" href="../../assents/imagens/Logo_.png" />
 
-    <title>ESPy</title>
+  <title>ESPy | DashBoard</title>
 
-    <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
-    <script src="../../js/jquery-3.6.0.min.js" type="text/javascript"></script>
-    <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../../js/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="./inicial_Page.php">
                 <img src="../../assents/imagens/ic_launcher_foreground.png" width="50" height="50" alt="">
             </a>
         
         <a class="navbar-brand" href="./inicial_Page.php">ESPy</a>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -53,12 +52,12 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
                 <li class="nav-link disabled">|</li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="meuPerfil_Page.php">Meu Perfil</a>
+                    <a class="nav-link" href="../Usuario/meuPerfil_Page.php">Meu Perfil</a>
                 </li>
 
                 <li class="nav-link disabled">|</li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./inicial_Page.php">Principal</a>
+                    <a class="nav-link" href="../Usuario/inicial_Page.php">Principal</a>
                 </li>
                 <?php
                 if ($_SESSION['usuario_chefe'] == 1 || $_SESSION['usuario_empregado'] == 1) {
@@ -77,16 +76,27 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
         </div>
         </div>
     </nav>
-   
 
-    <div id="divBemVindoUsuario" class="container-fluid">
+<div class="container p-5" id="divFiltroCadastroCaixasColeta">
+        <!-- Busca -->
+     <input type="text" class="form-control" id="buscaUser" name="buscauser" placeholder="Filtrar funcionário" />
+</div>
+    <div class="container-fluid p-5" id="divCaixasColeta">
         <?php
-
-        $nome = explode(" ",$_SESSION["nome"],3);
-        echo "Bem-Vindo ".$nome[0] . "!";
+        include "../../../ESPy_Php/WEB/ESPy_listaFuncionarios.php"
         ?>
-    </div>
     
+</div>
+
+
+<script type="text/javascript">
+$("#buscaUser").on("keyup", function() {
+	let value = $(this).val().toLowerCase();
+	$("#divCaixasColeta a").filter(function() {
+		$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	});
+});
+</script>
 </body>
 
 </html>

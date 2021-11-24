@@ -31,11 +31,11 @@ if ($numrows > 0) {
     $_SESSION["cidadeEmpresa"] = $obj->cidade;
     $_SESSION["bairroEmpresa"] = $obj->bairro;
     $_SESSION["ruaEmpresa"] = $obj2->rua;
-    $_SESSION["numerEmpresao"] = (int) $obj->numero;
+    $_SESSION["numerEmpresa"] = (int) $obj->numero;
     $_SESSION["complementoEmpresa"] = $obj->complemento;
 
 
-    if (mysqli_query($conexao, "INSERT INTO usuarios_empresas (`codigo_usuario`, `codigo_empresa`) VALUES ('$codigoUsuario', '$codigoEmp');") > 0) {
+    if (mysqli_query($conexao, "INSERT INTO usuarios_empresas (`codigo_usuario`, `codigo_empresa`,`saiuEmpresa`) VALUES ('$codigoUsuario', '$codigoEmp', 'A');") > 0) {
 
         if (mysqli_query($conexao, "UPDATE usuarios SET usuario_empregado = 1 WHERE codigo = '$codigoUsuario';") > 0) {
 
@@ -51,7 +51,7 @@ if ($numrows > 0) {
             $return["mensagemEntrarEmpresa"] = "Seja bem-vindo a $nomeEmp!";
 
         } else {
-            $return["mensagemEntrarEmpresa"] = "Ocorreu um erro ao inserir o c√≥digo '$codigoUsuario' no grupo de empregados...";
+            $return["mensagemEntrarEmpresa"] = "Ocorreu um erro ao inserir o c®Ædigo '$codigoUsuario' no grupo de empregados...";
             header("Location: ../../ESPy_Web/Paginas/Empresa/entrarEmpresa_Page.php");
         }
     } else {
