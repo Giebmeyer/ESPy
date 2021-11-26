@@ -5,115 +5,63 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 ?>
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="imagem/png" href="../../assents/imagens/Logo_.png" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="imagem/png" href="../../assents/imagens/Logo_.png" />
 
-  <title>ESPy | Meu Perfil</title>
+    <title>ESPy | Meu Perfil</title>
 
-  <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/style.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="../../js/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+
+    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="./inicial_Page.php">
-                <img src="../../assents/imagens/ic_launcher_foreground.png" width="50" height="50" alt="">
-            </a>
-        
-        <a class="navbar-brand" href="./inicial_Page.php">ESPy</a>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+    <?php
+    include '../../../header.php';
+    ?>
 
-                <li class="nav-link disabled">|</li>
-                
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Minha Empresa
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <?php
-                if ($_SESSION['usuario_chefe'] == 1 || $_SESSION['usuario_empregado'] == 1) {
-                    echo ('<li><a class="dropdown-item" href="../Empresa/funcionarios_Page.php">Funcionários</a></li>');
-                }
-                ?>
-                <li><a class="dropdown-item" href="../Empresa/minhaEmpresa_Page.php">Cadastro</a></li>
-          </ul>
-        </li>
-        
-        <li class="nav-link disabled">|</li>
-        <li class="nav-item active">
-          <a class="nav-link" href="../Usuario/meuPerfil_Page.php">Meu Perfil</a>
-        </li>
-
-        <li class="nav-link disabled">|</li>
-        <li class="nav-item">
-          <a class="nav-link" href="../Usuario/inicial_Page.php">Principal</a>
-        </li>
-        <?php
-        if ($_SESSION['usuario_chefe'] == 1 || $_SESSION['usuario_empregado'] == 1) {
-          echo ('<li class="nav-link disabled">|</li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../DashBoard/caixasColeta_Page.php">Caixas de Coleta</a>
-                </li>');
-        }
-        ?>
-
-        <li class="nav-link disabled">|</li>
-        <li class="nav-item">
-          <a class="nav-link" href="../../../ESPy_Php/WEB/ESPy_logoff.php?sair=true">Sair</a>
-        </li>
-
-
-      </ul>
-
-    </div>
-  </nav>
-
-  <?php
-echo '<div class="container col-4 mt-3" id="ContainerMeuPerfilCentro">
+    <?php
+    echo '<div class="container col-4 mt-3" id="ContainerMeuPerfilCentro">
 <form method="POST" action="../../../ESPy_Php/WEB/atualizarCadastroUsuario.php" id="FormularioCadastro">
 
     <!-- From Nome -->
     <div class="form-group">
         <label for="nome">Seu nome</label>
-        <input type="name" class="form-control" id="nome" name="nome" aria-describedby="name" placeholder='.$_SESSION['nome'].'
+        <input type="name" class="form-control" id="nome" name="nome" aria-describedby="name" placeholder=' . $_SESSION['nome'] . '
             title="Preencha este campo." required>
     </div>
 
     <!-- From email -->
     <div class="form-group mt-3">
         <label for="email">Endereço de email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder='.$_SESSION['email'].'
+        <input type="email" class="form-control" id="email" name="email" placeholder=' . $_SESSION['email'] . '
             title="Preencha este campo." required disabled="">
     </div>
 
     <!-- From CPF -->
     <div class="form-group mt-3">
         <label for="CPF">CPF</label>
-        <input type="text" class="form-control" id="cpf" name="cpf" placeholder='.$_SESSION['cpf'].'
+        <input type="text" class="form-control" id="cpf" name="cpf" placeholder=' . $_SESSION['cpf'] . '
             title="Preencha este campo." required maxlength="12" disabled="">
     </div>
 
     <!-- From Telefone -->
     <div class="form-group mt-3">
         <label for="Telefone">Telefone celular</label>
-        <input type="text" class="form-control" id="telefone" name="telefone" placeholder='.$_SESSION['telefone'].'
+        <input type="text" class="form-control" id="telefone" name="telefone" placeholder=' . $_SESSION['telefone'] . '
             title="Preencha este campo." required maxlength="14">
     </div>
 
     <!-- From Estado/Cidade -->
     <div class="input-group mb-3 mt-3">
         <select id="UF" name="estado" title="Selecione um estado." required>
-            <option value="Null">'.$_SESSION['estado'].'</option>
+            <option value="Null">' . $_SESSION['estado'] . '</option>
             <option value="AC">AC</option>
             <option value="AL">AL</option>
             <option value="AP">AP</option>
@@ -144,7 +92,7 @@ echo '<div class="container col-4 mt-3" id="ContainerMeuPerfilCentro">
         </select>
         <div class="col">
             <label for="cidade">Sua Cidade</label>
-            <input type="text" class="form-control" id="cidade" name="cidade" placeholder='.$_SESSION['cidade'].'
+            <input type="text" class="form-control" id="cidade" name="cidade" placeholder=' . $_SESSION['cidade'] . '
                 title="Preencha este campo." required>
         </div>
     </div>
@@ -152,7 +100,7 @@ echo '<div class="container col-4 mt-3" id="ContainerMeuPerfilCentro">
     <!-- From Bairro -->
     <div class="form-group">
         <label for="bairro">Bairro</label>
-        <input type="text" class="form-control" id="bairro" name="bairro" placeholder='.$_SESSION['bairro'].'
+        <input type="text" class="form-control" id="bairro" name="bairro" placeholder=' . $_SESSION['bairro'] . '
             title="Preencha este campo." required>
     </div>
 
@@ -160,12 +108,12 @@ echo '<div class="container col-4 mt-3" id="ContainerMeuPerfilCentro">
     <div class="input-group mb-3 mt-4" id="divRuaNumero">
         <div class="col m-1">
             <label for="rua">Rua</label>
-            <input type="text" class="form-control" id="rua" name="rua" placeholder='.$_SESSION['rua'].'
+            <input type="text" class="form-control" id="rua" name="rua" placeholder=' . $_SESSION['rua'] . '
                 title="Preencha este campo." required>
         </div>
         <div class="col m-1">
             <label for="numero">Número</label>
-            <input type="number" class="form-control" id="numero" name="numero" placeholder='.$_SESSION['numero'].'
+            <input type="number" class="form-control" id="numero" name="numero" placeholder=' . $_SESSION['numero'] . '
                 title="Preencha este campo." required>
         </div>
     </div>
@@ -173,7 +121,7 @@ echo '<div class="container col-4 mt-3" id="ContainerMeuPerfilCentro">
     <!-- From Complemento -->
     <div class="form-group">
         <label for="complemento">Complemento</label>
-        <input type="text" class="form-control" id="complemento" name="complemento" placeholder='.$_SESSION['complemento'].'>
+        <input type="text" class="form-control" id="complemento" name="complemento" placeholder=' . $_SESSION['complemento'] . '>
     </div>
 
     <!-- Botão Cadastro -->
@@ -187,7 +135,7 @@ echo '<div class="container col-4 mt-3" id="ContainerMeuPerfilCentro">
 
 </form>
 </div>';
-  ?>
+    ?>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
