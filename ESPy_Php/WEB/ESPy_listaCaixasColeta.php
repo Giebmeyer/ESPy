@@ -32,9 +32,12 @@ if($qtdRow == 0){
 echo '
 <script type="text/javascript"> 
 
-$("#btnEditarCaixaColeta").click(function(){
+$("#btnEditarCaixaColeta").click(function() {
 
-});  
+    alert("gg");
+  });
+
+
 </script>
 ';
 
