@@ -7,10 +7,10 @@ $queryResult = mysqli_query($conexao, "SELECT u.* FROM usuarios u JOIN usuarios_
 $qtdRow = mysqli_num_rows($queryResult);
 
 if($qtdRow == 0){
-    echo 'Sua empresa ainda n���o possui empregados :(';
+    echo 'Sua empresa ainda não possui empregados :(';
 }else{
     while ($campo = mysqli_fetch_array($queryResult)) {
-        echo '<a class="btn btn-outline-primary btnCaixaColeta" id=' . $campo["nome"] . '> ' . $campo["nome"] . '</a>';
+        echo '<a class="btn btn-outline-primary btnCaixaColeta" id=' . $campo["codigo"] . '> ' . $campo["nome"] . '</a>';
     }
 }
 

@@ -291,6 +291,15 @@ a {
     border: 0 none;
 }
 
+#btnCaixaColetaSelecionar{
+    background-color: rgb(74, 20, 140);
+    border: none;
+}
+
+#btnCaixaColetaSelecionarGeral{
+    background-color: transparent;
+}
+
 /*  */
 
 /*  */

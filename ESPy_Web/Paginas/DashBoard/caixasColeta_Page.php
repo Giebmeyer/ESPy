@@ -30,8 +30,8 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
   <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+  
 
 
 </head>
@@ -105,6 +105,36 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
   </div>
 
   <script type="text/javascript">
+var btnEditar = window.document.getElementById("btnEditarCaixaColeta");
+var btnExcluir = window.document.getElementById("btnExcluirCaixaColeta");
+
+btnEditar.addEventListener("click", editar);
+btnExcluir.addEventListener("click", excluir);
+
+	function editar(){
+	        var novoNomeCaixaColeta = window.prompt("Digite o novo nome para a caixa de coleta:");
+
+       while(novoNomeCaixaColeta.length == 0) {
+            novoNomeCaixaColeta = window.prompt("Digite o novo nome para a caixa de coleta:");
+            if(novoNomeCaixaColeta == null){
+                return;
+            }
+        }
+
+		if(novoNomeCaixaColeta.length > 0){
+		    javascript: location.href="../../../ESPy_Php/WEB/ESPy_editarCaixaColeta.php?codigoCaixaSelecionadaLista="+btnEditar.name+"&novoNome="+novoNomeCaixaColeta;
+		}
+		
+	}
+	
+	function excluir(){
+			var confirma = confirm("Deseja realmente excluir essa caixa de coleta?");
+		if(confirma){
+			javascript: location.href="../../../ESPy_Php/WEB/ESPy_removerCaixaColeta.php?codigoCaixaColeta="+btnExcluir.name;
+		}
+	}
+
+
 
 
     $("#buscaUser").on("keyup", function() {

@@ -125,3 +125,9 @@
 [24-Nov-2021 08:39:39 America/Sao_Paulo] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_login.php on line 70
 [24-Nov-2021 08:39:56 America/Sao_Paulo] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_login.php on line 70
 [24-Nov-2021 08:40:04 America/Sao_Paulo] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_login.php on line 70
+[27-Nov-2021 10:21:14 America/Sao_Paulo] PHP Warning:  include(../../../header.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 1150
+[27-Nov-2021 10:21:14 America/Sao_Paulo] PHP Warning:  include(../../../header.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 1150
+[27-Nov-2021 10:21:14 America/Sao_Paulo] PHP Warning:  include(): Failed opening '../../../header.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 1150
+[27-Nov-2021 10:21:35 America/Sao_Paulo] PHP Warning:  include(../header.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 1150
+[27-Nov-2021 10:21:35 America/Sao_Paulo] PHP Warning:  include(../header.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 1150
+[27-Nov-2021 10:21:35 America/Sao_Paulo] PHP Warning:  include(): Failed opening '../header.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 1150
