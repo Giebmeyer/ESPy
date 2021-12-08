@@ -181,13 +181,13 @@ a {
     transition: 1s;
     height: 36px;
     margin-top: 22px;
-    background-color: rgba(128, 128, 128, 0.342);
-    border-color: rgba(128, 128, 128, 0.342);
+    background-color: rgba(128, 128, 128, 0.2);
+    border-color: rgba(128, 128, 128, 0.2);
 }
 
 #UF:focus {
     height: 36px;
-    margin-top: 25px;
+    margin-top: 22px;
     background-color: rgb(255, 255, 255);
     border-color: rgba(128, 128, 128, 0.342);
 }
@@ -520,3 +520,4 @@ a {
 #MICS6814_NH3 {
     height: 500px;
 }
+

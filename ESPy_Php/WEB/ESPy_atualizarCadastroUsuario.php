@@ -11,6 +11,32 @@
 	    $complemento =  mysqli_real_escape_string ($conexao,$_POST['complemento']); 
         session_start();
         $codigoUser = $_SESSION['codigo'];
+        
+        if($nome == "" || $nome == NULL){
+            $nome = $_SESSION['nome'];
+        }
+        if($telefone == "" || $telefone == NULL){
+            $telefone = $_SESSION['telefone'];
+        }
+        if($estado == "" || $estado == NULL){
+            $estado = $_SESSION['estado'];
+        }
+        if($cidade == "" || $cidade == NULL){
+            $cidade = $_SESSION['cidade'];
+        }  
+        if($bairro == "" || $bairro == NULL){
+            $bairro = $_SESSION['bairro'];
+        }
+        if($rua == "" || $rua == NULL){
+            $rua = $_SESSION['rua'];
+        }
+        if($numero == "" || $numero == NULL){
+            $numero = $_SESSION['numero'];
+        }
+        if($complemento == "" || $complemento == NULL){
+            $complemento = $_SESSION['complemento'];
+        }
+        
 
 		$query = "UPDATE usuarios SET nome = '$nome' , telefone = '$telefone' , estado = '$estado' , cidade = '$cidade' , bairro = '$bairro' , rua = '$rua' , numero = '$numero' , complemento = '$complemento' where codigo = '$codigoUser'";	 
 

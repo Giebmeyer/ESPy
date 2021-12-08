@@ -38,15 +38,27 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
   </div>
 
+<script type="text/javascript">
+var btnExcluir = window.document.getElementById("btnExcluirCaixaColeta");
 
-  <script type="text/javascript">
+btnExcluir.addEventListener("click", excluir);
+
+	
+	function excluir(){
+			var confirma = confirm("Deseja realmente expulsar esse usuário?");
+		if(confirma){
+			javascript: location.href="../../../ESPy_Php/WEB/ESPy_expulsarFuncionarioEmpresa.php?codigoUsuarioSelecionadoLista="+btnExcluir.name;
+		}
+	}
+
     $("#buscaUser").on("keyup", function() {
       let value = $(this).val().toLowerCase();
-      $("#divCaixasColeta a").filter(function() {
+      $("#divCaixasColeta div").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
   </script>
+
 </body>
 
 </html>

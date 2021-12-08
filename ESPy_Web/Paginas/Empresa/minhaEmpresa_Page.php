@@ -38,46 +38,47 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
             echo '
       
           <div class="container col-4 mt-3" id="ContainerMinhaEmpresaCentro">
-              <form method="POST" action="/ESPy_Php/WEB/atualizarCadastroEmpresa.php" id="FormularioCadastro">
+              <form method="POST" action="/ESPy_Php/WEB/ESPy_atualizarCadastroEmpresa.php" id="FormularioCadastro">
       
                   <!-- From Nome -->
                   <div class="form-group">
                       <label for="nome">Nome da empresa</label>
-                      <input type="name" class="form-control" id="nomeEmpresa" name="nomeEmpresa" placeholder=' . $_SESSION['nomeEmpresa'] . ' >
+                      <input type="name" class="form-control" id="nomeEmpresa" name="nomeEmpresa" placeholder="' . $_SESSION['nomeEmpresa'] . '" >
+                  </div>
+                  
+                                    <!-- From CNPJ -->
+                  <div class="form-group mt-3">
+                      <label for="CPF">CNPJ</label>
+                      <input type="text" class="form-control" id="cnpj" name=' . $_SESSION['cnpjEmpresa'] . ' placeholder="' . $_SESSION['cnpjEmpresa'] . '" disabled="">
                   </div>
                   
                    <!-- From Nome -->
                   <div class="form-group mt-3">
                       <label for="nome">Chave de convite</label>
-                      <input type="number" class="form-control" id="chaveEmpresa" name=' . $_SESSION['chaveConvite'] . ' placeholder=' . $_SESSION['chaveConvite'] . ' disabled="">
+                      <input type="number" class="form-control" id="chaveEmpresa" name=' . $_SESSION['chaveConvite'] . ' placeholder="' . $_SESSION['chaveConvite'] . '" disabled="">
                   </div>
 
                   <div class="form-group mt-3">
                       <label for="nome">CEO da empresa</label>
-                      <input type="name" class="form-control" id="CEOEmpresa" name=' . $_SESSION['ceoEmpresa'] . ' placeholder=' . $_SESSION['ceoEmpresa'] . ' disabled="">
+                      <input type="name" class="form-control" id="CEOEmpresa" name=' . $_SESSION['ceoEmpresa'] . ' placeholder="' . $_SESSION['ceoEmpresa'] . '" disabled="">
                   </div>
 
                   <div class="form-group mt-3">
                       <label for="nome">Email</label>
-                      <input type="name" class="form-control" id="EmailCEOEmpresa" ' . $_SESSION['email_ceoEmpresa'] . ' placeholder=' . $_SESSION['email_ceoEmpresa'] . ' disabled="">
+                      <input type="name" class="form-control" id="EmailCEOEmpresa" ' . $_SESSION['email_ceoEmpresa'] . ' placeholder="' . $_SESSION['email_ceoEmpresa'] . '" disabled="">
                   </div>
-      
-                  <!-- From CNPJ -->
-                  <div class="form-group mt-3">
-                      <label for="CPF">CNPJ</label>
-                      <input type="text" class="form-control" id="cnpj" name=' . $_SESSION['cnpjEmpresa'] . ' placeholder=' . $_SESSION['cnpjEmpresa'] . ' disabled="">
-                  </div>
+     
       
                   <!-- From Telefone -->
                   <div class="form-group mt-3">
                       <label for="Telefone">Telefone</label>
-                      <input type="text" class="form-control" id="TelefoneEmpresa" name="TelefoneEmpresa" placeholder=' . $_SESSION['telefoneEmpresa'] . '>
+                      <input type="text" class="form-control" id="TelefoneEmpresa" name="telefoneEmpresa" placeholder="' . $_SESSION['telefoneEmpresa'] . '">
                   </div>
       
                   <!-- From Estado/Cidade -->
                   <div class="input-group mb-3 mt-3">
                       <select id="UF" name="UF">
-                          <option value="Null">' . $_SESSION['estadoEmpresa'] . '</option>
+                          <option value="' . $_SESSION['estadoEmpresa'] . '">' . $_SESSION['estadoEmpresa'] . '</option>
                           <option value="AC">AC</option>
                           <option value="AL">AL</option>
                           <option value="AP">AP</option>
@@ -108,32 +109,32 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
                       </select>
                       <div class="col">
                           <label for="cidade">Cidade</label>
-                          <input type="text" class="form-control" id="cidade" name="cidadeEmpresa" placeholder=' . $_SESSION['cidadeEmpresa'] . '>
+                          <input type="text" class="form-control" id="cidade" name="cidadeEmpresa" placeholder="' . $_SESSION['cidadeEmpresa'] . '">
                       </div>
                   </div>
       
                   <!-- From Bairro -->
                   <div class="form-group">
                       <label for="bairro">Bairro</label>
-                      <input type="text" class="form-control" id="bairroEmpresa" name="bairroEmpresa" placeholder=' . $_SESSION['bairroEmpresa'] . '>
+                      <input type="text" class="form-control" id="bairroEmpresa" name="bairroEmpresa" placeholder="' . $_SESSION['bairroEmpresa'] . '">
                   </div>
       
                   <!-- From Rua/Número -->
                   <div class="input-group mb-3 mt-4 align-self-center" id="divRuaNumeroCadastroEmpresa">
                       <div class="col m-1">
                           <label for="rua">Rua</label>
-                          <input type="text" class="form-control" id="rua" name="ruaEmpresa" placeholder=' . $_SESSION['ruaEmpresa'] . '>
+                          <input type="text" class="form-control" id="rua" name="ruaEmpresa" placeholder="' . $_SESSION['ruaEmpresa'] . '">
                       </div>
                       <div class="col m-1">
                           <label for="numero">Número</label>
-                          <input type="number" class="form-control" id="numero" name="numeroEmpresa" placeholder=' . $_SESSION['numeroEmpresa'] . '>
+                          <input type="number" class="form-control" id="numero" name="numeroEmpresa" placeholder="' . $_SESSION['numeroEmpresa'] . '">
                       </div>
                   </div>
       
                   <!-- From Complemento -->
                   <div class="form-group">
                       <label for="complemento">Complemento</label>
-                      <input type="text" class="form-control" id="complementoEmpresa" name="complementoEmpresa" placeholder=' . $_SESSION['complementoEmpresa'] . '>
+                      <input type="text" class="form-control" id="complementoEmpresa" name="complementoEmpresa" placeholder="' . $_SESSION['complementoEmpresa'] . '">
                   </div>
       
                   <!-- Botão Cadastro -->

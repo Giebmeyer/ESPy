@@ -7,10 +7,24 @@ $queryResult = mysqli_query($conexao, "SELECT u.* FROM usuarios u JOIN usuarios_
 $qtdRow = mysqli_num_rows($queryResult);
 
 if($qtdRow == 0){
-    echo 'Sua empresa ainda não possui empregados :(';
+    echo 'Sua empresa ainda n���o possui empregados :(';
 }else{
     while ($campo = mysqli_fetch_array($queryResult)) {
-        echo '<a class="btn btn-outline-primary btnCaixaColeta" id=' . $campo["codigo"] . '> ' . $campo["nome"] . '</a>';
+               echo '
+        <div class="btn-group dropend" id="btnCaixaColetaSelecionarGeral">
+          <a class="btn btn-secondary" id="btnCaixaColetaSelecionar">
+            '.$campo['nome'].'
+          </a>';
+          if($_SESSION['usuario_chefe'] == 1){
+            echo' <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" id="btnCaixaColetaSelecionar">
+            <span class="visually-hidden">Toggle Dropright</span>
+          </button>
+          <ul class="dropdown-menu">
+          <li><a class="dropdown-item" value="Expulsar" id="btnExcluirCaixaColeta" name='.$campo["codigo"].'>Expulsar</a></li>
+          </ul></div>';
+          }else{
+              echo'</div>';
+          };
     }
 }
 

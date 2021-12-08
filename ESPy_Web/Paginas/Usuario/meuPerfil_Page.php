@@ -28,40 +28,38 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
     <?php
     echo '<div class="container col-4 mt-3" id="ContainerMeuPerfilCentro">
-<form method="POST" action="../../../ESPy_Php/WEB/atualizarCadastroUsuario.php" id="FormularioCadastro">
+<form method="POST" action="../../../../ESPy_Php/WEB/ESPy_atualizarCadastroUsuario.php" id="FormularioCadastro">
 
     <!-- From Nome -->
     <div class="form-group">
         <label for="nome">Seu nome</label>
-        <input type="name" class="form-control" id="nome" name="nome" aria-describedby="name" placeholder=' . $_SESSION['nome'] . '
-            title="Preencha este campo." required>
+        <input type="name" class="form-control" id="nome" name="nome" aria-describedby="name" placeholder="' . $_SESSION['nome'] . '">
     </div>
 
     <!-- From email -->
     <div class="form-group mt-3">
         <label for="email">Endereço de email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder=' . $_SESSION['email'] . '
+        <input type="email" class="form-control" id="email" name="email" placeholder="' . $_SESSION['email'] . '"
             title="Preencha este campo." required disabled="">
     </div>
 
     <!-- From CPF -->
     <div class="form-group mt-3">
         <label for="CPF">CPF</label>
-        <input type="text" class="form-control" id="cpf" name="cpf" placeholder=' . $_SESSION['cpf'] . '
+        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="' . $_SESSION['cpf'] . '"
             title="Preencha este campo." required maxlength="12" disabled="">
     </div>
 
     <!-- From Telefone -->
     <div class="form-group mt-3">
         <label for="Telefone">Telefone celular</label>
-        <input type="text" class="form-control" id="telefone" name="telefone" placeholder=' . $_SESSION['telefone'] . '
-            title="Preencha este campo." required maxlength="14">
+        <input type="text" class="form-control" id="telefone" name="telefone" maxlength="14" placeholder="' . $_SESSION['telefone'] . '" >
     </div>
 
     <!-- From Estado/Cidade -->
     <div class="input-group mb-3 mt-3">
-        <select id="UF" name="estado" title="Selecione um estado." required>
-            <option value="Null">' . $_SESSION['estado'] . '</option>
+        <select id="UF" name="estado">
+            <option value="' . $_SESSION['estado'] . '">' . $_SESSION['estado'] . '</option>
             <option value="AC">AC</option>
             <option value="AL">AL</option>
             <option value="AP">AP</option>
@@ -92,36 +90,32 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
         </select>
         <div class="col">
             <label for="cidade">Sua Cidade</label>
-            <input type="text" class="form-control" id="cidade" name="cidade" placeholder=' . $_SESSION['cidade'] . '
-                title="Preencha este campo." required>
+            <input type="text" class="form-control" id="cidade" name="cidade" placeholder="' . $_SESSION['cidade'] . '">
         </div>
     </div>
 
     <!-- From Bairro -->
     <div class="form-group">
         <label for="bairro">Bairro</label>
-        <input type="text" class="form-control" id="bairro" name="bairro" placeholder=' . $_SESSION['bairro'] . '
-            title="Preencha este campo." required>
+        <input type="text" class="form-control" id="bairro" name="bairro" placeholder="' . $_SESSION['bairro'] . '">
     </div>
 
     <!-- From Rua/Número -->
     <div class="input-group mb-3 mt-4" id="divRuaNumero">
         <div class="col m-1">
             <label for="rua">Rua</label>
-            <input type="text" class="form-control" id="rua" name="rua" placeholder=' . $_SESSION['rua'] . '
-                title="Preencha este campo." required>
+            <input type="text" class="form-control" id="rua" name="rua" placeholder="' . $_SESSION['rua'] . '">
         </div>
         <div class="col m-1">
             <label for="numero">Número</label>
-            <input type="number" class="form-control" id="numero" name="numero" placeholder=' . $_SESSION['numero'] . '
-                title="Preencha este campo." required>
+            <input type="number" class="form-control" id="numero" name="numero" placeholder="' . $_SESSION['numero'] . '">
         </div>
     </div>
 
     <!-- From Complemento -->
     <div class="form-group">
         <label for="complemento">Complemento</label>
-        <input type="text" class="form-control" id="complemento" name="complemento" placeholder=' . $_SESSION['complemento'] . '>
+        <input type="text" class="form-control" id="complemento" name="complemento" placeholder="' . $_SESSION['complemento'] . '">
     </div>
 
     <!-- Botão Cadastro -->
