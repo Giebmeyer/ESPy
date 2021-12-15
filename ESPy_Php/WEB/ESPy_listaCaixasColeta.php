@@ -20,8 +20,8 @@ if($qtdRow == 0){
             <span class="visually-hidden">Toggle Dropright</span>
           </button>
           <ul class="dropdown-menu">
-          <li><a type="button" class="dropdown-item" value="Editar" id="btnEditarCaixaColeta" name="'.$campo["codigo"].'">Editar</a></li>
-          <li><a class="dropdown-item" value="Excluir" id="btnExcluirCaixaColeta" name="'.$campo["codigo"].'">Excluir</a></li>
+          <li><a type="button" class="dropdown-item" value="Editar" id="btnEditarCaixaColeta" name="'.$campo["codigo"].'"  onclick="editar('.$campo["codigo"].')">Editar</a></li>
+          <li><a class="dropdown-item" value="Excluir" id="btnExcluirCaixaColeta" name="'.$campo["codigo"].'" onclick="excluir('.$campo["codigo"].')">Excluir</a></li>
           <hr class="my-1">
           <li><a class="dropdown-item" href="#">Comparar</a></li>
           </ul></div>';

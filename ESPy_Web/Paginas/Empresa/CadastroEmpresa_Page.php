@@ -68,7 +68,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
     <div class="container col-4 mt-4" id="ContainerMinhaEmpresaCentro">
 
-              <form method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroEmpresa.php" id="FormularioCadastro">
+              <form class="needs-validation" novalidate method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroEmpresa.php" id="FormularioCadastro">
 
       
 
@@ -278,6 +278,22 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
         $("#TelefoneEmpresa").mask("(00) 0000-0000");
 
         $("#cnpj").mask("000.000.000/0000-00");
+
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
     </script>
 
 </body>

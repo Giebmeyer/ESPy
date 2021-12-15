@@ -52,6 +52,7 @@ if ($numrows > 0) {
     $_SESSION["usuario_empregado"] = (int) $obj->usuario_empregado;
 
     $_SESSION["sucessoLogin"] = 'sucessoLogin';
+    $_SESSION['caixaColetaSemDados'] = "SemErro";
 
     
 

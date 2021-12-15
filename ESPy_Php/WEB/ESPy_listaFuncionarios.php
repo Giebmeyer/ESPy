@@ -7,7 +7,7 @@ $queryResult = mysqli_query($conexao, "SELECT u.* FROM usuarios u JOIN usuarios_
 $qtdRow = mysqli_num_rows($queryResult);
 
 if($qtdRow == 0){
-    echo 'Sua empresa ainda n���o possui empregados :(';
+    echo 'Sua empresa ainda não possui empregados :(';
 }else{
     while ($campo = mysqli_fetch_array($queryResult)) {
                echo '
@@ -20,7 +20,7 @@ if($qtdRow == 0){
             <span class="visually-hidden">Toggle Dropright</span>
           </button>
           <ul class="dropdown-menu">
-          <li><a class="dropdown-item" value="Expulsar" id="btnExcluirCaixaColeta" name='.$campo["codigo"].'>Expulsar</a></li>
+          <li><a class="dropdown-item" value="Expulsar" id="btnExcluirCaixaColeta" name='.$campo["codigo"].' onclick="expulsar('.$campo["codigo"].')">Expulsar</a></li>
           </ul></div>';
           }else{
               echo'</div>';

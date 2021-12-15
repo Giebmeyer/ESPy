@@ -52,7 +52,6 @@
 
 
         function GraficoBarrasIDK() {
-
             var data = google.visualization.arrayToDataTable([
 
                 ['Sequencia', 'IDK'],
@@ -82,18 +81,17 @@
                 $numrows2 = mysqli_num_rows($resultado2);
 
 
-
-                if ($numrows2 <= 0) {
-
-                    header("location: ../../ESPy_Web/Paginas/DashBoard/errorCaixaSemDados.php");
-                }
-
-
-
                 if ($numrows <= 0) {
-
+                    $_SESSION['caixaColetaSemDados'] = "NaoPertence";
                     header("location: ../../ESPy_Web/Paginas/DashBoard/caixasColeta_Page.php");
+                }else{
+	                if ($numrows2 <= 0) {
+	                    $_SESSION['caixaColetaSemDados'] = "SemDados";
+	                    header("location: ../../ESPy_Web/Paginas/DashBoard/caixasColeta_Page.php");
+	                }
                 }
+
+                
 
 
 
