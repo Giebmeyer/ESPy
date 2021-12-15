@@ -20,7 +20,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="../../css/style.css" rel="stylesheet" type="text/css" />
-
+  <script src="../../js/functons.js"></script>
 </head>
 
 <body>
@@ -40,36 +40,6 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
     ?>
   </div>
 
-  <script type="text/javascript">
-    function expulsar(codEmpregado) {
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-outline-success m-2',
-          cancelButton: 'btn btn-outline-dark m-2'
-        },
-        buttonsStyling: false
-      })
-
-      swalWithBootstrapButtons.fire({
-        title: 'Você realmente gostaria de expulsar esse empregado?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          javascript: location.href = "../../../ESPy_Php/WEB/ESPy_expulsarFuncionarioEmpresa.php?codigoUsuarioSelecionadoLista=" + codEmpregado;
-        }
-      })
-    }
-
-    $("#buscaUser").on("keyup", function() {
-      let value = $(this).val().toLowerCase();
-      $("#divCaixasColeta div").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  </script>
 
 </body>
 

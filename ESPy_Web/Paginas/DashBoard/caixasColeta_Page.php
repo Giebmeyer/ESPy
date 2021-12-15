@@ -32,7 +32,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="../../css/style.css" rel="stylesheet" type="text/css" />
-
+  <script src="../../js/functons.js"></script>
 
 
 </head>
@@ -119,63 +119,6 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
   </div>
 
   </div>
-
-  <script type="text/javascript">
-    function editar(codCaixa) {
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success m-2',
-          cancelButton: 'btn btn-outline-dark m-2'
-        },
-        buttonsStyling: false
-      })
-
-      swalWithBootstrapButtons.fire({
-        title: 'Digite o novo nome para essa caixa de coleta: ',
-        input: 'text',
-        inputAttributes: {
-          autocapitalize: 'off'
-        },
-        showCancelButton: true,
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar',
-        preConfirm: (novoNomeCaixaColeta) => {
-          javascript: location.href = "../../../ESPy_Php/WEB/ESPy_editarCaixaColeta.php?codigoCaixaSelecionadaLista=" + codCaixa + "&novoNome=" + novoNomeCaixaColeta;
-        },
-      })
-    }
-
-    function excluir(codCaixa) {
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success m-2',
-          cancelButton: 'btn btn-outline-dark m-2'
-        },
-        buttonsStyling: false
-      })
-
-      swalWithBootstrapButtons.fire({
-        title: 'Você realmente gostaria de apagar essa caixa de coleta?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          javascript: location.href = "../../../ESPy_Php/WEB/ESPy_removerCaixaColeta.php?codigoCaixaColeta=" + codCaixa;
-        }
-      })
-    }
-
-    function erroCaixaSemDados() {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
-    }
-  </script>
 
 </body>
 
