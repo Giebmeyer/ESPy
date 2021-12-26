@@ -1,0 +1,87 @@
+[19-Nov-2021 11:38:29 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:38:29 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:38:29 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:38:29 America/Fortaleza] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 8
+[19-Nov-2021 11:38:29 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 11
+[19-Nov-2021 11:38:29 America/Fortaleza] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php:14
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 14
+[19-Nov-2021 11:38:32 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:38:32 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:38:32 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:38:32 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 18
+[19-Nov-2021 11:38:32 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:38:32 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:38:32 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:38:32 America/Fortaleza] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 8
+[19-Nov-2021 11:38:32 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 11
+[19-Nov-2021 11:38:32 America/Fortaleza] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php:14
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 14
+[19-Nov-2021 11:38:36 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:38:36 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:38:36 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:38:36 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 18
+[19-Nov-2021 11:39:06 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:39:06 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:39:06 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:39:06 America/Fortaleza] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 8
+[19-Nov-2021 11:39:06 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 11
+[19-Nov-2021 11:39:06 America/Fortaleza] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php:14
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 14
+[19-Nov-2021 11:42:16 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:42:16 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:42:16 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:42:16 America/Fortaleza] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 8
+[19-Nov-2021 11:42:16 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 11
+[19-Nov-2021 11:42:16 America/Fortaleza] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php:14
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 14
+[19-Nov-2021 11:42:33 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:42:33 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:42:33 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:42:33 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 18
+[19-Nov-2021 11:42:46 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:42:46 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:42:46 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:42:46 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 18
+[19-Nov-2021 11:43:03 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:43:03 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:43:03 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:43:03 America/Fortaleza] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 8
+[19-Nov-2021 11:43:03 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 11
+[19-Nov-2021 11:43:03 America/Fortaleza] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php:14
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 14
+[19-Nov-2021 11:46:49 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:46:49 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:46:49 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:46:49 America/Fortaleza] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 8
+[19-Nov-2021 11:46:49 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 11
+[19-Nov-2021 11:46:49 America/Fortaleza] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php:14
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 14
+[19-Nov-2021 11:46:52 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:46:52 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:46:52 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:46:52 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 18
+[19-Nov-2021 11:46:52 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:46:52 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:46:52 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 2
+[19-Nov-2021 11:46:52 America/Fortaleza] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 8
+[19-Nov-2021 11:46:52 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 11
+[19-Nov-2021 11:46:52 America/Fortaleza] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php:14
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Arduino/ESPy_ColetaDados.php on line 14
+[19-Nov-2021 11:46:56 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:46:56 America/Fortaleza] PHP Warning:  include(../ESPy_Php/ESPy_mySqlConfig.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:46:56 America/Fortaleza] PHP Warning:  include(): Failed opening '../ESPy_Php/ESPy_mySqlConfig.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 3
+[19-Nov-2021 11:46:56 America/Fortaleza] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home1/confor35/public_html/ESPy_Arduino/ESPy_MandaDados.php on line 18

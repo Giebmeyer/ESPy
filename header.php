@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="../ESPy_Web/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="../ESPy_Web/js/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="../ESPy_Web/js/bootstrap.min.js"></script>
+    <link href="/ESPy_Web/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/ESPy_Web/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/ESPy_Web/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/ESPy_Web/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/ESPy_Web/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>

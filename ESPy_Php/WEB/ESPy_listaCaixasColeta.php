@@ -1,17 +1,19 @@
 <?php
 include("../../../ESPy_MySql/ESPy_MySqlCredenciais.php");
-
+setlocale(LC_ALL, 'pt_BR.utf-8');
 $codigoEmpresa  = $_SESSION['codigoEmpresa'];
 
 $queryResult = mysqli_query($conexao, "select cc.* from caixas_coleta cc where cc.codigo_empresa = '$codigoEmpresa' and cc.excluida != 1 order by codigo desc;");
 $qtdRow = mysqli_num_rows($queryResult);
 $caixaSelecionada = '';
 if($qtdRow == 0){
-    echo 'Sua empresa ainda não possui nenhuma caixa de coleta cadastrada :(';
+    echo '<div class="alert alert-info container p-2 " role="alert">
+  Sem caixa de coleta cadastradas :(
+</div>';
 }else{
     while ($campo = mysqli_fetch_array($queryResult)) {
         echo '
-        <div class="btn-group dropend" id="btnCaixaColetaSelecionarGeral">
+        <div class="btn-group dropend m-1" id="btnCaixaColetaSelecionarGeral">
           <a class="btn btn-secondary" href="../../../ESPy_Php/WEB/ESPy_requestSensoresHistorico.php?codigoCaixaColeta='.$campo["codigo"].'" id="btnCaixaColetaSelecionar">
             '.$campo['nome'].'
           </a>';
