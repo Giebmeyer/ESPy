@@ -60,15 +60,6 @@ function editar(codCaixa) {
     })
   }
 
-  function erroCaixaSemDados() {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Something went wrong!',
-      footer: '<a href="">Why do I have this issue?</a>'
-    })
-  }
-
   document.getElementById('txtCodigoEntrarEmpresa1').addEventListener('input', limitaTotal)
   document.getElementById('txtCodigoEntrarEmpresa1').focus();
   document.getElementById('txtCodigoEntrarEmpresa2').addEventListener('input', limitaTotal)
@@ -116,3 +107,7 @@ function editar(codCaixa) {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+
+  function loading(){
+    $('#load').css('display','none');
+}

@@ -30,8 +30,8 @@
 
 
 
-<body>
-
+<body onload="loading()">
+<div id="load"></div>
 
     <?php
     include '../../../header.php';

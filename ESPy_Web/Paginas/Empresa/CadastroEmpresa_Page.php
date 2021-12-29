@@ -34,8 +34,8 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
 
 
-<body>
-
+<body onload="loading()">
+<div id="load"></div>
     <div class="container-fluid col-11">
 
         <div class="jumbotron">

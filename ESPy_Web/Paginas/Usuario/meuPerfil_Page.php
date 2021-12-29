@@ -20,8 +20,8 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
     <script src="/ESPy_Web/js/functons.js"></script>
 </head>
 
-<body>
-
+<body onload="loading()">
+<div id="load"></div>
     <?php
     include '../../../header.php';
     ?>

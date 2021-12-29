@@ -39,8 +39,8 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
 
 
-<body>
-
+<body onload="loading()">
+<div id="load"></div>
 
   <?php
   include '../../../header.php';
@@ -60,7 +60,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
           <input type="text" class="form-control" id="txtAdicionarFiltrarCaixaColeta" name="nomeNovaCaixa" placeholder="Nome da nova caixa de coleta" title="Preencha o campo antes de adicionar uma nova caixa!" required />
 
-      </div><button class="btn btn-primary" type="submit" id="btnCaixasColetaFiltoAdiciona">Adicionar</button>';
+      </div><button class="btn btn-primary" type="submit" id="btnCaixasColetaFiltoAdiciona" onclick="loading()">Adicionar</button>';
     } else {
 
       echo '<div class="input-group mb-3 mt-3">
@@ -119,6 +119,8 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
   </div>
 
   </div>
+
+
 
 </body>
 
