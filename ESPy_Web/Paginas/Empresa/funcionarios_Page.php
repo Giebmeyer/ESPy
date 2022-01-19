@@ -24,22 +24,42 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 </head>
 
 <body onload="loading()">
-<div id="load"></div>
-  <?php
-  include '../../../header.php';
-  ?>
+    <div id="load"></div>
+      <?php
+      include '../../../header.php';
+      ?>
+    
+      <div class="container p-5" id="divFiltroCadastroCaixasColeta">
+        <input type="text" class="form-control" id="buscaUser" name="buscaUser" placeholder="Filtrar funcionário" />
+      </div>
+    
+      <div class="container-fluid p-5" id="divCaixasColeta">
+        <?php
+        include "../../../ESPy_Php/WEB/ESPy_listaFuncionarios.php"
+        ?>
+      </div>
 
-  <div class="container p-5" id="divFiltroCadastroCaixasColeta">
-    <!-- Busca -->
-    <input type="text" class="form-control" id="buscaUser" name="buscauser" placeholder="Filtrar funcionário" />
-  </div>
+<script>
+      $(function(){ 
 
-  <div class="container-fluid p-5" id="divCaixasColeta">
-    <?php
-    include "../../../ESPy_Php/WEB/ESPy_listaFuncionarios.php"
-    ?>
-  </div>
-
+  $("#buscaUser").keyup(function(){
+    console.log($(this).val());
+      var texto = $(this).val();
+        
+        $(".btnCaixaColetaSelecionarGeral").each(function(){
+          console.log("Chegou aqui");
+          var resultado = $(this).text().toUpperCase().indexOf(' '+texto.toUpperCase());
+          
+          if(resultado < 0) {
+            $(this).fadeOut();
+          }else {
+            $(this).fadeIn();
+          }
+        }); 
+    
+      });
+});
+</script>
 
 </body>
 

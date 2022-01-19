@@ -13,7 +13,7 @@ if($qtdRow == 0){
 }else{
     while ($campo = mysqli_fetch_array($queryResult)) {
         echo '
-        <div class="btn-group dropend m-1" id="btnCaixaColetaSelecionarGeral">
+        <div class="btn-group dropend m-1 btnCaixaColetaSelecionarGeral" id="'.$campo['nome'].'">
           <a class="btn btn-secondary" href="../../../ESPy_Php/WEB/ESPy_requestSensoresHistorico.php?codigoCaixaColeta='.$campo["codigo"].'" id="btnCaixaColetaSelecionar">
             '.$campo['nome'].'
           </a>';
@@ -25,7 +25,7 @@ if($qtdRow == 0){
           <li><a type="button" class="dropdown-item" value="Editar" id="btnEditarCaixaColeta" name="'.$campo["codigo"].'"  onclick="editar('.$campo["codigo"].')">Editar</a></li>
           <li><a class="dropdown-item" value="Excluir" id="btnExcluirCaixaColeta" name="'.$campo["codigo"].'" onclick="excluir('.$campo["codigo"].')">Excluir</a></li>
           <hr class="my-1">
-          <li><a class="dropdown-item" href="#">Comparar</a></li>
+          <li><a class="dropdown-item" value="Comparar" id="btnCompararCaixaColeta" onclick="Comparar()">Comparar</a></li>
           </ul></div>';
           }else{
               echo'</div>';

@@ -13,7 +13,7 @@ if($qtdRow == 0){
 }else{
     while ($campo = mysqli_fetch_array($queryResult)) {
                echo '
-        <div class="btn-group dropend m-1" id="btnCaixaColetaSelecionarGeral">
+        <div class="btn-group dropend m-1 btnCaixaColetaSelecionarGeral"  id="'.$campo['nome'].'">
           <a class="btn btn-secondary" id="btnCaixaColetaSelecionar">
             '.$campo['nome'].'
           </a>';

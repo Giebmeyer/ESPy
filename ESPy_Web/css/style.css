@@ -266,7 +266,7 @@ a {
     text-align: center;
 }
 
-#btnCaixasColetaFiltoAdiciona {
+#btnCaixasColetaFiltroAdiciona {
     margin-left: 0;
     color: rgb(74, 20, 140);
     background-color: white;
@@ -296,7 +296,7 @@ a {
     border: none;
 }
 
-#btnCaixaColetaSelecionarGeral{
+.btnCaixaColetaSelecionarGeral{
     background-color: transparent;
 }
 

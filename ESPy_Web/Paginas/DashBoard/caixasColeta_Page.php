@@ -60,7 +60,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
           <input type="text" class="form-control" id="txtAdicionarFiltrarCaixaColeta" name="nomeNovaCaixa" placeholder="Nome da nova caixa de coleta" title="Preencha o campo antes de adicionar uma nova caixa!" required />
 
-      </div><button class="btn btn-primary" type="submit" id="btnCaixasColetaFiltoAdiciona" onclick="loading()">Adicionar</button>';
+      </div><button class="btn btn-primary" type="submit" id="btnCaixasColetaFiltroAdiciona" onclick="loading()">Adicionar</button>';
     } else {
 
       echo '<div class="input-group mb-3 mt-3">
@@ -81,11 +81,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
     </form>
 
   </div>
-
-  <input type="text" class="form-control" id="buscaUser" name="buscauser" placeholder="Filtrar Caixa de coleta" />
-
-
-
+    <input type="text" class="form-control" id="buscaUser" name="buscaUser" placeholder="Filtrar Caixa de coleta" />
   </div>
 
   <div class="container-fluid p-5" id="divCaixasColeta">
@@ -119,9 +115,27 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
   </div>
 
   </div>
+<script>
+      $(function(){ 
 
-
-
+  $("#buscaUser").keyup(function(){
+    console.log($(this).val());
+      var texto = $(this).val();
+        
+        $(".btnCaixaColetaSelecionarGeral").each(function(){
+          console.log("Chegou aqui");
+          var resultado = $(this).text().toUpperCase().indexOf(' '+texto.toUpperCase());
+          
+          if(resultado < 0) {
+            $(this).fadeOut();
+          }else {
+            $(this).fadeIn();
+          }
+        }); 
+    
+      });
+});
+</script>
 </body>
 
 </html>
