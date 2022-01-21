@@ -47,7 +47,7 @@
 
 
 
-    <section class="container col-3 align-self-center" id="ContainerLoginCentro">
+    <section class="container-flex" id="ContainerLoginCentro">
 
         <form class="needs-validation" novalidate id="FormularioLogin" method="POST" action="ESPy_Php/WEB/ESPy_login.php">
 
@@ -176,12 +176,6 @@
 
 
     </div>
-
-
-    <script>
-    </script>
-
-
 
 
 </html>

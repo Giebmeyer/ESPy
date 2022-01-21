@@ -41,13 +41,10 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
 <script>
       $(function(){ 
-
   $("#buscaUser").keyup(function(){
-    console.log($(this).val());
       var texto = $(this).val();
         
         $(".btnCaixaColetaSelecionarGeral").each(function(){
-          console.log("Chegou aqui");
           var resultado = $(this).text().toUpperCase().indexOf(' '+texto.toUpperCase());
           
           if(resultado < 0) {

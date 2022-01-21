@@ -22,7 +22,8 @@
 
     <link href="../../ESPy_Web/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-    <link href="../../ESPy_Web/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+    <script src="../../js/functons.js"></script>
 
     <script type="text/javascript" src="../../ESPy_Web/js/jquery-3.6.0.min.js"></script>
 
@@ -36,9 +37,7 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-
-
-    <script type="text/javascript">
+    <script>
         google.charts.load('current', {
 
             'packages': ['bar', 'corechart']
@@ -84,14 +83,14 @@
                 if ($numrows <= 0) {
                     $_SESSION['caixaColetaSemDados'] = "NaoPertence";
                     header("location: ../../ESPy_Web/Paginas/DashBoard/caixasColeta_Page.php");
-                }else{
-	                if ($numrows2 <= 0) {
-	                    $_SESSION['caixaColetaSemDados'] = "SemDados";
-	                    header("location: ../../ESPy_Web/Paginas/DashBoard/caixasColeta_Page.php");
-	                }
+                } else {
+                    if ($numrows2 <= 0) {
+                        $_SESSION['caixaColetaSemDados'] = "SemDados";
+                        header("location: ../../ESPy_Web/Paginas/DashBoard/caixasColeta_Page.php");
+                    }
                 }
 
-                
+
 
 
 
@@ -1143,6 +1142,7 @@
 
 
 <body>
+
 
     <?php
     include '../../header2.php';

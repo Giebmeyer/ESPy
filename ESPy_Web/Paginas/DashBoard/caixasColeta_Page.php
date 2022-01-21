@@ -71,7 +71,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
           <input type="text" disabled="" class="form-control" id="txtAdicionarFiltrarCaixaColeta" name="nomeNovaCaixa" placeholder="Você não possui permissão para utilizar esse campo." title="Preencha o campo antes de adicionar uma nova caixa!" required />
 
-      </div><button class="btn btn-primary disabled" type="submit" id="btnCaixasColetaFiltoAdiciona">Adicionar</button>';
+      </div><button class="btn btn-primary disabled" type="submit" id="btnCaixasColetaFiltroAdiciona">Adicionar</button>';
     }
 
     ?>
@@ -119,11 +119,10 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
       $(function(){ 
 
   $("#buscaUser").keyup(function(){
-    console.log($(this).val());
+
       var texto = $(this).val();
         
         $(".btnCaixaColetaSelecionarGeral").each(function(){
-          console.log("Chegou aqui");
           var resultado = $(this).text().toUpperCase().indexOf(' '+texto.toUpperCase());
           
           if(resultado < 0) {

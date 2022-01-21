@@ -92,7 +92,10 @@
                     </li>
 
 
+                    <?php
 
+                    if ($_SESSION['usuario_chefe'] == 1 || $_SESSION['usuario_empregado'] == 1) {
+                    echo'
                     <li class="nav-link disabled">|</li>
 
                     <li class="nav-item">
@@ -100,8 +103,9 @@
                         <a class="nav-link" href="../DashBoard/caixasColeta_Page.php">Caixas de Coleta</a>
 
                     </li>
-
-
+                    ';
+                        }
+                            ?>
 
                     <li class="nav-link disabled">|</li>
 
