@@ -21,15 +21,14 @@ class _recoverPassPageState extends State<recoverPassPage> {
   String msgErro = '';
   bool erro, showProgress;
 //==============================================================================
-  _ColetaDadosUsuario() async {
+  _ColetaDadosUsuario(String email) async {
     final response = await http.post(
       Uri.parse(ESPy_url + '/ESPy_coletaDadosUsuario.php'),
       body: {
-        "email": _email.text.toString().trim(),
+        "emailUsuario": email.toString(),
       },
     );
     var jsondata = json.decode(response.body);
-
     if (response.statusCode == 200) {
       msgErro = jsondata["mensagemColetaUser"];
       user.codigo = jsondata['codigo'];
@@ -47,7 +46,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
       user.usuario_chefe = jsondata['usuario_chefe'];
       user.usuario_empregado = jsondata['usuario_empregado'];
 
-      if (_email.text.toString().trim() == user.email.trim()) {
+      if (email.toString().trim() == user.email.trim()) {
         mandaEmailRecuperacaoSenha(_email.text.toString().trim());
         showCaixaDialogoRapida(context, "Email enviado", 'login', 1);
       } else {
@@ -56,7 +55,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
     } else {
       setState(() {
         erro = true;
-        msgErro = jsondata["mensagemColetaUser"];
+        msgErro = "Erro ao conectar no servidor, tente novamente mais tarde.";
         showCaixaDialogoSimples(context, msgErro);
       });
     }
@@ -80,7 +79,6 @@ class _recoverPassPageState extends State<recoverPassPage> {
         ),
         body: new Form(
           key: _key,
-          autovalidate: _validate,
           child: Center(
             child: Container(
               width: 400,
@@ -139,7 +137,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
       // Sem erros na validação
       _key.currentState.save();
       print(_email.text.toString());
-      _ColetaDadosUsuario();
+      _ColetaDadosUsuario(_email.text.toString());
     } else {
       // erro de validação
       setState(() {

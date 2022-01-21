@@ -197,7 +197,6 @@ class _loginPageState extends State<LoginPage> {
       ),
       body: new Form(
         key: _key,
-        autovalidate: _validate,
         child: _FormUI(),
       ),
     );

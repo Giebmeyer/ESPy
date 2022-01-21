@@ -170,7 +170,6 @@ class _cadastroEmpresaState extends State<cadastroEmpresaPage> {
       ),
       body: new Form(
         key: _key,
-        autovalidate: _validate,
         child: _formUI(),
       ),
     );

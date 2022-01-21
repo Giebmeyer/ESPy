@@ -10,6 +10,7 @@ import 'Paginas/DashBoard/relatorioColeta_Page.dart';
 import 'Paginas/Empresa/empresa_Page.dart';
 import 'Paginas/Usuario/login_Page.dart';
 import 'Classes/palette.dart';
+import 'dart:ffi';
 
 void main() => runApp(new MyApp());
 

@@ -92,7 +92,6 @@ class _cadastroUserPageState extends State<CadastroUserPage> {
       ),
       body: new Form(
         key: _key,
-        autovalidate: _validate,
         child: _formUI(),
       ),
     );

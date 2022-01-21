@@ -229,7 +229,7 @@ class _senhaConfigState extends State<senhaConfig> {
   void confereSenha() {
     if (senha == emp.chaveConvite.toString()) {
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => listaCaixasColeta_Page()));
+          MaterialPageRoute(builder: (context) => configSensor()));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(erroSenha);
     }
@@ -251,5 +251,4 @@ class _senhaConfigState extends State<senhaConfig> {
     );
   }
 
-  listaCaixasColeta_Page() {}
 }
