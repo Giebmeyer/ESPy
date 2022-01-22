@@ -47,7 +47,7 @@ class _recoverPassPageState extends State<recoverPassPage> {
       user.usuario_empregado = jsondata['usuario_empregado'];
 
       if (email.toString().trim() == user.email.trim()) {
-        mandaEmailRecuperacaoSenha(_email.text.toString().trim());
+        mandaEmailRecuperacaoSenha(user.email.trim());
         showCaixaDialogoRapida(context, "Email enviado", 'login', 1);
       } else {
         showCaixaDialogoSimples(context, "Algo deu errado, tente novamente");
