@@ -40,7 +40,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
 
 
 <body onload="loading()">
-<div id="load"></div>
+  <div id="load"></div>
 
   <?php
   include '../../../header.php';
@@ -81,7 +81,7 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
     </form>
 
   </div>
-    <input type="text" class="form-control" id="buscaUser" name="buscaUser" placeholder="Filtrar Caixa de coleta" />
+  <input type="text" class="form-control" id="buscaUser" name="buscaUser" placeholder="Filtrar Caixa de coleta" />
   </div>
 
   <div class="container-fluid p-5" id="divCaixasColeta">
@@ -115,26 +115,193 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
   </div>
 
   </div>
-<script>
-      $(function(){ 
 
-  $("#buscaUser").keyup(function(){
+  <div class="container p-5" id="divFiltrosComparacao">
+    <div>
+      O que você deseja comparar?
 
-      var texto = $(this).val();
-        
-        $(".btnCaixaColetaSelecionarGeral").each(function(){
-          var resultado = $(this).text().toUpperCase().indexOf(' '+texto.toUpperCase());
-          
-          if(resultado < 0) {
+    </div>
+    <form>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="compare_Datas">
+        <label class="form-check-label" for="inlineRadio1">Periodos</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="compare_Sensores">
+        <label class="form-check-label" for="inlineRadio2">Sensores</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="compare_Caixas">
+        <label class="form-check-label" for="inlineRadio3">Caixas</label>
+      </div>
+
+      <div id="filtroData">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="compare_Datas_1periodo">
+          <label class="form-check-label" for="inlineRadio4">1 Periodo</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="compare_Datas_2periodo">
+          <label class="form-check-label" for="inlineRadio5">2 periodos</label>
+
+        </div>
+
+      </div>
+
+      <div class="mt-2" id="periodo1Div">
+        <label for="dataInicial">Data inicial: </label>
+        <input id="dataInicial" type="date">
+        <label for="dataFinal">Data final: </label>
+        <input id="dataFinal" type="date">
+      </div>
+      <div class="mt-2" id="periodo2Div">
+        <div>
+          <label for="dataInicial_Periodo1">Data inicial: </label>
+          <input id="dataInicial_Periodo1" type="date">
+          <label for="dataFinal_Periodo1">Data final: </label>
+          <input id="dataFinal_Periodo1" type="date">
+        </div>
+        <div class="mt-1">
+          <label for="dataInicial_Periodo2">Data inicial: </label>
+          <input id="dataInicial_Periodo2" type="date">
+          <label for="dataFinal_Periodo2">Data Final: </label>
+          <input id="dataFinal_Periodo2" type="date">
+        </div>
+      </div>
+
+      <div id="filtroSensores">
+        Voce vai filtrar SENSORES.
+      </div>
+      <div id="filtroCaixas">
+        Voce vai filtrar CAIXAS.
+      </div>
+
+    </form>
+    <div class="mt-4">
+      </br>
+      <button class="btn btn-primary" id="BtnLogin">Cancelar</button>
+      <button class="btn btn-primary" id="BtnComparar">Comparar</button>
+    </div>
+  </div>
+
+  <script>
+    $(function() {
+
+      $("#buscaUser").keyup(function() {
+
+        var texto = $(this).val();
+
+        $(".btnCaixaColetaSelecionarGeral").each(function() {
+          var resultado = $(this).text().toUpperCase().indexOf(' ' + texto.toUpperCase());
+
+          if (resultado < 0) {
             $(this).fadeOut();
-          }else {
+          } else {
             $(this).fadeIn();
           }
-        }); 
-    
+        });
+
       });
-});
-</script>
+    });
+
+    $('#divFiltrosComparacao').hide();
+
+    function Comparar(codigoCaixa) {
+      var agora = new Date();
+      var dia = ("0" + agora.getDate()).slice(-2);
+      var mes = ("0" + (agora.getMonth() + 1)).slice(-2);
+      var dataHoje = agora.getFullYear() + "-" + (mes) + "-" + (dia);
+
+      var qtdPeriodo = 0;
+
+      $('#dataInicial').val(dataHoje);
+      $('#dataFinal').val(dataHoje);
+      $('#dataInicial_Periodo1').val(dataHoje);
+      $('#dataFinal_Periodo1').val(dataHoje);
+      $('#dataInicial_Periodo2').val(dataHoje);
+      $('#dataFinal_Periodo2').val(dataHoje);
+
+      $('#divFiltrosComparacao').show();
+      $('#filtroSensores').hide();
+      $('#filtroData').hide();
+      $('#filtroCaixas').hide();
+
+      $('#periodo1Div').hide();
+      $('#periodo2Div').hide();
+
+      $('#BtnComparar').hide();
+
+      document.getElementById('BtnLogin').addEventListener('click', function() {
+        $('#divFiltrosComparacao').hide();
+      })
+
+      document.getElementById('inlineRadio1').addEventListener('change', function() {
+        $('#filtroSensores').hide();
+        $('#filtroData').show();
+        $('#filtroCaixas').hide();
+
+
+        document.getElementById('inlineRadio4').addEventListener('change', function() {
+          qtdPeriodo = 1;
+          $('#periodo1Div').show();
+          $('#periodo2Div').hide();
+          $('#BtnComparar').show();
+        });
+
+        document.getElementById('inlineRadio5').addEventListener('change', function() {
+          qtdPeriodo = 2;
+          $('#periodo2Div').show();
+          $('#periodo1Div').hide();
+          $('#BtnComparar').show();
+        });
+
+      });
+      document.getElementById('inlineRadio2').addEventListener('change', function() {
+        $('#periodo1Div').hide();
+        $('#periodo2Div').hide();
+        $('#BtnComparar').show();
+
+        $('#filtroSensores').show();
+        $('#filtroData').hide();
+        $('#filtroCaixas').hide();
+
+
+      });
+      document.getElementById('inlineRadio3').addEventListener('change', function() {
+        $('#periodo1Div').hide();
+        $('#periodo2Div').hide();
+        $('#BtnComparar').show();
+
+        $('#filtroSensores').hide();
+        $('#filtroData').hide();
+        $('#filtroCaixas').show();
+
+      });
+
+
+      document.getElementById('BtnComparar').addEventListener('click', function() {
+        console.log(qtdPeriodo);
+        
+        if (qtdPeriodo == 1) {
+
+          var dataInicial = document.getElementById('dataInicial').value;
+          var dataFinal = document.getElementById('dataFinal').value;
+
+          javascript: location.href = "../../../ESPy_Php/WEB/ESPy_comparaSensoresPeriodo.php?codigoCaixaColeta= " + codigoCaixa + "&qtdPeriodo=" + qtdPeriodo + "&dataInicial=" + dataInicial + "&dataFinal=" + dataFinal;
+        }
+
+        if (qtdPeriodo == 2) {
+
+          var dataInicialp1 = document.getElementById('dataInicial_Periodo1').value;
+          var dataFinalp1 = document.getElementById('dataFinal_Periodo1').value;
+          var dataInicialp2 = document.getElementById('dataInicial_Periodo2').value;
+          var dataFinalp2 = document.getElementById('dataFinal_Periodo2').value;
+
+          javascript: location.href = "../../../ESPy_Php/WEB/ESPy_comparaSensoresPeriodo.php?codigoCaixaColeta= " + codigoCaixa + "&qtdPeriodo=" + qtdPeriodo + "&dataInicialp1=" + dataInicialp1 + "&dataFinalp1=" + dataFinalp1 + "&dataInicialp2=" + dataInicialp2 + "&dataFinalp2=" + dataFinalp2;
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>

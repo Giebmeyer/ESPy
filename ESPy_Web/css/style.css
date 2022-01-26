@@ -542,7 +542,47 @@ position: absolute;
 
 }
 
+#divFiltrosComparacao{
+    margin-top: 20px;
 
+    border-radius: 15px;
+
+    border: solid 1px rgba(128, 128, 128, 0.342);
+
+    text-align: center;
+
+}
+
+#BtnComparar{
+    color: rgb(74, 20, 140);
+
+    background-color: white;
+
+    border-color: rgb(74, 20, 140);
+
+    border-radius: 15px;
+
+    margin: 1px;
+
+    width: 200px;
+
+    max-width: 30vw;
+
+    font-size: 0.875em;
+
+    margin-top: 35px;
+}
+
+#BtnComparar:hover{
+    
+    transition: 200ms;
+
+    color: white;
+
+    background-color: rgba(74, 20, 140, 0.781);
+
+    border-color: white;
+}
 
 #btnCaixasColetaFiltroAdiciona {
 

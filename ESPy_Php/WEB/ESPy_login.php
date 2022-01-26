@@ -10,7 +10,7 @@ $senha = mysqli_real_escape_string($conexao, $_POST['senha']);
 
 
 
-$resultado = mysqli_query($conexao, "SELECT * FROM usuarios WHERE email = '$email' and senha = MD5('$senha')");
+$resultado = mysqli_query($conexao, "SELECT * FROM usuarios WHERE email = '$email' and senha = HEX('$senha')");
 
 
 

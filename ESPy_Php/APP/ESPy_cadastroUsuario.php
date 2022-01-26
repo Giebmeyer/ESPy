@@ -17,7 +17,7 @@
 	    $numero = (int)  mysqli_real_escape_string ($conexao,$_POST['numero']);
 	    $complemento =  mysqli_real_escape_string ($conexao,$_POST['complemento']); 
 
-		$query = "INSERT INTO usuarios (nome, senha , email, cpf, telefone, estado, cidade, bairro, rua, numero, complemento) VALUES ('$nome', MD5('$senha'),'$email', '$cpf', '$telefone', '$estado', '$cidade', '$bairro', '$rua', '$numero', '$complemento');";	 
+		$query = "INSERT INTO usuarios (nome, senha , email, cpf, telefone, estado, cidade, bairro, rua, numero, complemento) VALUES ('$nome', HEX('$senha'),'$email', '$cpf', '$telefone', '$estado', '$cidade', '$bairro', '$rua', '$numero', '$complemento');";	 
 
 	    $resultado = mysqli_query($conexao, $query);
 

@@ -134,3 +134,14 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaCaixasColeta.php on line 15
+[19-Jan-2022 22:49:37 America/Sao_Paulo] PHP Recoverable fatal error:  Object of class mysqli_result could not be converted to string in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 11
+[19-Jan-2022 22:49:43 America/Sao_Paulo] PHP Recoverable fatal error:  Object of class mysqli_result could not be converted to string in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 11
+[19-Jan-2022 22:49:56 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 12
+[19-Jan-2022 22:49:56 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 12
+[19-Jan-2022 22:50:10 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 12
+[19-Jan-2022 22:50:10 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 12
+[19-Jan-2022 22:51:04 America/Sao_Paulo] PHP Recoverable fatal error:  Object of class mysqli_result could not be converted to string in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 12
+[19-Jan-2022 23:10:13 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 10
+[19-Jan-2022 23:10:13 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 10
+[19-Jan-2022 23:10:13 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 10
+[19-Jan-2022 23:10:13 America/Sao_Paulo] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home1/confor35/public_html/ESPy_Php/APP/ESPy_coletaDadosUsuario.php on line 11
