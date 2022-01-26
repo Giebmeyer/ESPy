@@ -48,8 +48,8 @@
         $dataInicialp2 = $_GET['dataInicialp2'];
         $dataFinalp2 = $_GET['dataFinalp2'];
 
-        $sqlP1 = "select * from dados d where d.codigo_caixa = '$codigoCaixaColeta' and Data_Hora >= '$dataInicialp1' and Data_Hora <= '$dataFinalp1' order by d.sequencia asc";
-        $sqlP2 = "select * from dados d where d.codigo_caixa = '$codigoCaixaColeta' and Data_Hora >= '$dataInicialp2' and Data_Hora <= '$dataFinalp2' order by d.sequencia asc";
+        $sqlP1 = "select * from dados d where d.codigo_caixa = '$codigoCaixaColeta' and DATE(Data_Hora) >= '$dataInicialp1' and DATE(Data_Hora) <= '$dataFinalp1' order by d.sequencia asc";
+        $sqlP2 = "select * from dados d where d.codigo_caixa = '$codigoCaixaColeta' and DATE(Data_Hora) >= '$dataInicialp2' and DATE(Data_Hora) <= '$dataFinalp2' order by d.sequencia asc";
 
         ?>
 

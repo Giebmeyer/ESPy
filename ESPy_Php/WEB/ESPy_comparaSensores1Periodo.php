@@ -73,7 +73,7 @@
                 include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
 
 
-                $sqlPrincipal = "SELECT * FROM dados where codigo_caixa = '$codigoCaixaColeta' and Data_Hora >= '$dataInicial' and Data_Hora <= '$dataFinal'";
+                $sqlPrincipal = "SELECT * FROM dados where codigo_caixa = '$codigoCaixaColeta' and DATE(Data_Hora) >= '$dataInicial' and DATE(Data_Hora) <= '$dataFinal'";
 
 
 
