@@ -53,87 +53,87 @@
 
         ?>
 
-       
-
-            google.charts.load('current', {
-
-                'packages': ['bar', 'corechart']
-
-            });
 
 
+        google.charts.load('current', {
 
-            var i = 1;
+            'packages': ['bar', 'corechart']
+
+        });
 
 
 
-            function GraficoBarrasIDKp1() {
-                var data = google.visualization.arrayToDataTable([
-
-                    ['Sequencia', 'IDK'],
+        var i = 1;
 
 
 
-                    <?php
+        function GraficoBarrasIDKp1() {
+            var data = google.visualization.arrayToDataTable([
 
-                    include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
-
-
-                    $resultado = mysqli_query($conexao, "SELECT * FROM caixas_coleta cc where cc.codigo_empresa = '$codigoEmpresa' and cc.codigo = '$codigoCaixaColeta'");
-
-                    $resultado2 = mysqli_query($conexao, $sqlP1);
-
-                    $numrows = mysqli_num_rows($resultado);
-
-                    $numrows2 = mysqli_num_rows($resultado2);
+                ['Sequencia', 'IDK'],
 
 
-                    $sql = mysqli_query($conexao, $sqlP1);
 
-                    if ($numrows <= 0) {
-                        $_SESSION['caixaColetaSemDados'] = "NaoPertence";
+                <?php
+
+                include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
+
+
+                $resultado = mysqli_query($conexao, "SELECT * FROM caixas_coleta cc where cc.codigo_empresa = '$codigoEmpresa' and cc.codigo = '$codigoCaixaColeta'");
+
+                $resultado2 = mysqli_query($conexao, $sqlP1);
+
+                $numrows = mysqli_num_rows($resultado);
+
+                $numrows2 = mysqli_num_rows($resultado2);
+
+
+                $sql = mysqli_query($conexao, $sqlP1);
+
+                if ($numrows <= 0) {
+                    $_SESSION['caixaColetaSemDados'] = "NaoPertence";
+                    header("location: ../../ESPy_Web/Paginas/DashBoard/caixasColeta_Page.php");
+                } else {
+                    if ($numrows2 <= 0) {
+                        $_SESSION['caixaColetaSemDados'] = "SemDados";
                         header("location: ../../ESPy_Web/Paginas/DashBoard/caixasColeta_Page.php");
-                    } else {
-                        if ($numrows2 <= 0) {
-                            $_SESSION['caixaColetaSemDados'] = "SemDados";
-                            header("location: ../../ESPy_Web/Paginas/DashBoard/caixasColeta_Page.php");
-                        }
                     }
+                }
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $IDK = $dados['IDK'];
+                    $IDK = $dados['IDK'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $IDK ?>],
+                    [<?php echo $sequencia ?>, <?php echo $IDK ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Índice de confoto térmico",
+                    title: "Índice de confoto térmico",
 
-                        subtitle: "IDK",
+                    subtitle: "IDK",
 
 
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
@@ -141,2072 +141,2071 @@
 
 
 
-                var chart = new google.charts.Bar(document.getElementById('IDKp1'));
+            var chart = new google.charts.Bar(document.getElementById('IDKp1'));
 
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+        }
 
 
 
-            function GraficoLinhaIDKp1() {
+        function GraficoLinhaIDKp1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'IDK'],
+                ['Sequencia', 'IDK'],
 
 
 
-                    <?php
+                <?php
 
-                    include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
+                include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
 
 
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $IDK = $dados['IDK'];
+                    $IDK = $dados['IDK'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $IDK ?>],
+                    [<?php echo $sequencia ?>, <?php echo $IDK ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Índice de confoto térmico",
+                    title: "Índice de confoto térmico",
 
-                        subtitle: "IDK",
+                    subtitle: "IDK",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('IDKp1'));
+            var chart = new google.visualization.LineChart(document.getElementById('IDKp1'));
 
 
 
-                chart.draw(data, options);
+            chart.draw(data, options);
 
-            }
+        }
 
 
 
-            function GraficoBarras_DHT11_Temperaturap1() {
+        function GraficoBarras_DHT11_Temperaturap1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Temperatura (ºC)'],
+                ['Sequencia', 'Temperatura (ºC)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Temperatura = $dados['Temperatura_DHT11'];
+                    $Temperatura = $dados['Temperatura_DHT11'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
+                    [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Temperatura",
+                    title: "Temperatura",
 
-                        subtitle: "Sensor: DHT11",
+                    subtitle: "Sensor: DHT11",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.charts.Bar(document.getElementById('DHT11_Temperaturap1'));
+            var chart = new google.charts.Bar(document.getElementById('DHT11_Temperaturap1'));
 
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+        }
 
 
 
-            function GraficoLinha_DHT11_Temperaturap1() {
+        function GraficoLinha_DHT11_Temperaturap1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Temperatura (ºC)'],
+                ['Sequencia', 'Temperatura (ºC)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Temperatura = $dados['Temperatura_DHT11'];
+                    $Temperatura = $dados['Temperatura_DHT11'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
+                    [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Temperatura",
+                    title: "Temperatura",
 
-                        subtitle: "Sensor: DHT11",
+                    subtitle: "Sensor: DHT11",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('DHT11_Temperaturap1'));
+            var chart = new google.visualization.LineChart(document.getElementById('DHT11_Temperaturap1'));
 
 
 
-                chart.draw(data, options);
+            chart.draw(data, options);
 
-            }
+        }
 
 
 
-            function GraficoBarras_DHT11_Umidadep1() {
+        function GraficoBarras_DHT11_Umidadep1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Umidade (%)'],
+                ['Sequencia', 'Umidade (%)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Umidade = $dados['Umidade_DHT11'];
+                    $Umidade = $dados['Umidade_DHT11'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Umidade ?>],
+                    [<?php echo $sequencia ?>, <?php echo $Umidade ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Umidade",
+                    title: "Umidade",
 
-                        subtitle: "Sensor: DHT11",
+                    subtitle: "Sensor: DHT11",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.charts.Bar(document.getElementById('DHT11_Umidadep1'));
+            var chart = new google.charts.Bar(document.getElementById('DHT11_Umidadep1'));
 
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+        }
 
 
 
-            function GraficoLinha_DHT11_Umidadep1() {
+        function GraficoLinha_DHT11_Umidadep1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Umidade (%)'],
+                ['Sequencia', 'Umidade (%)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Umidade = $dados['Umidade_DHT11'];
+                    $Umidade = $dados['Umidade_DHT11'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Umidade ?>],
+                    [<?php echo $sequencia ?>, <?php echo $Umidade ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Umidade",
+                    title: "Umidade",
 
-                        subtitle: "Sensor: DHT11",
+                    subtitle: "Sensor: DHT11",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('DHT11_Umidadep1'));
+            var chart = new google.visualization.LineChart(document.getElementById('DHT11_Umidadep1'));
 
 
 
-                chart.draw(data, options);
+            chart.draw(data, options);
 
-            }
+        }
 
 
 
-            function GraficoBarras_BMP180_Temperaturap1() {
+        function GraficoBarras_BMP180_Temperaturap1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Temperatura (ºC)'],
+                ['Sequencia', 'Temperatura (ºC)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Temperatura = $dados['Temperatura_BMP180'];
+                    $Temperatura = $dados['Temperatura_BMP180'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
+                    [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Temperatura",
+                    title: "Temperatura",
 
-                        subtitle: "Sensor: BMP180",
+                    subtitle: "Sensor: BMP180",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.charts.Bar(document.getElementById('BMP180_Temperaturap1'));
+            var chart = new google.charts.Bar(document.getElementById('BMP180_Temperaturap1'));
 
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+        }
 
 
 
-            function GraficoLinha_BMP180_Temperaturap1() {
+        function GraficoLinha_BMP180_Temperaturap1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Temperatura (ºC)'],
+                ['Sequencia', 'Temperatura (ºC)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Temperatura = $dados['Temperatura_BMP180'];
+                    $Temperatura = $dados['Temperatura_BMP180'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
+                    [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Temperatura",
+                    title: "Temperatura",
 
-                        subtitle: "Sensor: BMP180",
+                    subtitle: "Sensor: BMP180",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('BMP180_Temperaturap1'));
+            var chart = new google.visualization.LineChart(document.getElementById('BMP180_Temperaturap1'));
 
 
 
-                chart.draw(data, options);
+            chart.draw(data, options);
 
-            }
+        }
 
 
 
-            function GraficoBarras_BMP180_PressaoATMp1() {
+        function GraficoBarras_BMP180_PressaoATMp1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Pressao Atmosférica (Bar)'],
+                ['Sequencia', 'Pressao Atmosférica (Bar)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Pressao = $dados['Pressao_BMP180'];
+                    $Pressao = $dados['Pressao_BMP180'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Pressao ?>],
+                    [<?php echo $sequencia ?>, <?php echo $Pressao ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Pressao Atmosférica",
+                    title: "Pressao Atmosférica",
 
-                        subtitle: "Sensor: BMP180",
+                    subtitle: "Sensor: BMP180",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.charts.Bar(document.getElementById('BMP180_PressaoATMp1'));
+            var chart = new google.charts.Bar(document.getElementById('BMP180_PressaoATMp1'));
 
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+        }
 
 
 
-            function GraficoLinha_BMP180_PressaoATMp1() {
+        function GraficoLinha_BMP180_PressaoATMp1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Pressao Atmosférica (Bar)'],
+                ['Sequencia', 'Pressao Atmosférica (Bar)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Pressao = $dados['Pressao_BMP180'];
+                    $Pressao = $dados['Pressao_BMP180'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Pressao ?>],
+                    [<?php echo $sequencia ?>, <?php echo $Pressao ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Pressao Atmosférica",
+                    title: "Pressao Atmosférica",
 
-                        subtitle: "Sensor: BMP180",
+                    subtitle: "Sensor: BMP180",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('BMP180_PressaoATMp1'));
+            var chart = new google.visualization.LineChart(document.getElementById('BMP180_PressaoATMp1'));
 
 
 
-                chart.draw(data, options);
+            chart.draw(data, options);
 
-            }
+        }
 
 
 
-            function GraficoBarras_BMP180_Altitudep1() {
+        function GraficoBarras_BMP180_Altitudep1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Altitude (m)'],
+                ['Sequencia', 'Altitude (m)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Altitude = $dados['Altitude_BMP180'];
+                    $Altitude = $dados['Altitude_BMP180'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Altitude ?>],
+                    [<?php echo $sequencia ?>, <?php echo $Altitude ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Altitude em relação ao nível do mar",
+                    title: "Altitude em relação ao nível do mar",
 
-                        subtitle: "Sensor: BMP180",
+                    subtitle: "Sensor: BMP180",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.charts.Bar(document.getElementById('BMP180_Altitudep1'));
+            var chart = new google.charts.Bar(document.getElementById('BMP180_Altitudep1'));
 
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+        }
 
 
 
-            function GraficoLinha_BMP180_Altitudep1() {
+        function GraficoLinha_BMP180_Altitudep1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Altitude (m)'],
+                ['Sequencia', 'Altitude (m)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Altitude = $dados['Altitude_BMP180'];
+                    $Altitude = $dados['Altitude_BMP180'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Altitude ?>],
+                    [<?php echo $sequencia ?>, <?php echo $Altitude ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Altitude em relação ao nível do mar",
+                    title: "Altitude em relação ao nível do mar",
 
-                        subtitle: "Sensor: BMP180",
+                    subtitle: "Sensor: BMP180",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('BMP180_Altitudep1'));
+            var chart = new google.visualization.LineChart(document.getElementById('BMP180_Altitudep1'));
 
 
 
-                chart.draw(data, options);
+            chart.draw(data, options);
 
-            }
+        }
 
 
 
-            function GraficoBarras_MICS6814_COp1() {
+        function GraficoBarras_MICS6814_COp1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Monóxido de Carbono (ppm)'],
+                ['Sequencia', 'Monóxido de Carbono (ppm)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $CO = $dados['MICS_CO'];
+                    $CO = $dados['MICS_CO'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $CO ?>],
+                    [<?php echo $sequencia ?>, <?php echo $CO ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Monóxido de Carbono",
+                    title: "Monóxido de Carbono",
 
-                        subtitle: "Sensor: MICS6814",
+                    subtitle: "Sensor: MICS6814",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.charts.Bar(document.getElementById('MICS6814_COp1'));
+            var chart = new google.charts.Bar(document.getElementById('MICS6814_COp1'));
 
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+        }
 
 
 
-            function GraficoLinha_MICS6814_COp1() {
+        function GraficoLinha_MICS6814_COp1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Monóxido de Carbono (ppm)'],
+                ['Sequencia', 'Monóxido de Carbono (ppm)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $CO = $dados['MICS_CO'];
+                    $CO = $dados['MICS_CO'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $CO ?>],
+                    [<?php echo $sequencia ?>, <?php echo $CO ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Monóxido de Carbono",
+                    title: "Monóxido de Carbono",
 
-                        subtitle: "Sensor: MICS6814",
+                    subtitle: "Sensor: MICS6814",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('MICS6814_COp1'));
+            var chart = new google.visualization.LineChart(document.getElementById('MICS6814_COp1'));
 
 
 
-                chart.draw(data, options);
+            chart.draw(data, options);
 
-            }
+        }
 
 
 
-            function GraficoBarras_MICS6814_NO2p1() {
+        function GraficoBarras_MICS6814_NO2p1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Dióxido de Nitrogénio (ppm)'],
+                ['Sequencia', 'Dióxido de Nitrogénio (ppm)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $NO2 = $dados['MICS_NO2'];
+                    $NO2 = $dados['MICS_NO2'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $NO2 ?>],
+                    [<?php echo $sequencia ?>, <?php echo $NO2 ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Dióxido de Nitrogénio",
+                    title: "Dióxido de Nitrogénio",
 
-                        subtitle: "Sensor: MICS6814",
+                    subtitle: "Sensor: MICS6814",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.charts.Bar(document.getElementById('MICS6814_NO2p1'));
+            var chart = new google.charts.Bar(document.getElementById('MICS6814_NO2p1'));
 
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+        }
 
 
 
-            function GraficoLinha_MICS6814_NO2p1() {
+        function GraficoLinha_MICS6814_NO2p1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Dióxido de Nitrogénio (ppm)'],
+                ['Sequencia', 'Dióxido de Nitrogénio (ppm)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $NO2 = $dados['MICS_NO2'];
+                    $NO2 = $dados['MICS_NO2'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $NO2 ?>],
+                    [<?php echo $sequencia ?>, <?php echo $NO2 ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Dióxido de Nitrogénio",
+                    title: "Dióxido de Nitrogénio",
 
-                        subtitle: "Sensor: MICS6814",
+                    subtitle: "Sensor: MICS6814",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('MICS6814_NO2p1'));
+            var chart = new google.visualization.LineChart(document.getElementById('MICS6814_NO2p1'));
 
 
 
-                chart.draw(data, options);
+            chart.draw(data, options);
 
-            }
+        }
 
 
 
-            function GraficoBarras_MICS6814_NH3p1() {
+        function GraficoBarras_MICS6814_NH3p1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Hidróxido de Amônia (ppm)'],
+                ['Sequencia', 'Hidróxido de Amônia (ppm)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $NH3 = $dados['MICS_NH3'];
+                    $NH3 = $dados['MICS_NH3'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $NH3 ?>],
+                    [<?php echo $sequencia ?>, <?php echo $NH3 ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Hidróxido de Amônia",
+                    title: "Hidróxido de Amônia",
 
-                        subtitle: "Sensor: MICS6814",
+                    subtitle: "Sensor: MICS6814",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.charts.Bar(document.getElementById('MICS6814_NH3p1'));
+            var chart = new google.charts.Bar(document.getElementById('MICS6814_NH3p1'));
 
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+        }
 
 
 
-            function GraficoLinha_MICS6814_NH3p1() {
+        function GraficoLinha_MICS6814_NH3p1() {
 
-                var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'Hidróxido de Amônia (ppm)'],
+                ['Sequencia', 'Hidróxido de Amônia (ppm)'],
 
 
 
-                    <?php
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP1);
+                $sql = mysqli_query($conexao, $sqlP1);
 
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $NH3 = $dados['MICS_NH3'];
+                    $NH3 = $dados['MICS_NH3'];
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $sequencia = $dados['sequencia']; ?>
 
 
 
-                        [<?php echo $sequencia ?>, <?php echo $NH3 ?>],
+                    [<?php echo $sequencia ?>, <?php echo $NH3 ?>],
 
 
 
-                    <?php } ?>
+                <?php } ?>
 
-                ]);
+            ]);
 
 
 
-                var options = {
+            var options = {
 
-                    chart: {
+                chart: {
 
-                        title: "Hidróxido de Amônia",
+                    title: "Hidróxido de Amônia",
 
-                        subtitle: "Sensor: MICS6814",
+                    subtitle: "Sensor: MICS6814",
 
-                    },
+                },
 
-                    'colors': ['4A148C']
+                'colors': ['4A148C']
 
-                };
+            };
 
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('MICS6814_NH3p1'));
+            var chart = new google.visualization.LineChart(document.getElementById('MICS6814_NH3p1'));
 
 
 
-                chart.draw(data, options);
+            chart.draw(data, options);
 
-            }
-       
+        }
 
 
 
-            google.charts.load('current', {
 
-                'packages': ['bar', 'corechart']
+        google.charts.load('current', {
 
-            });
+            'packages': ['bar', 'corechart']
 
+        });
 
 
-            var i = 1;
 
+        var i = 1;
 
 
-            function GraficoBarrasIDKp2() {
-                var data = google.visualization.arrayToDataTable([
 
-                    ['Sequencia', 'IDK'],
+        function GraficoBarrasIDKp2() {
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'IDK'],
 
 
-                    <?php
 
-                    include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
+                <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $IDK = $dados['IDK'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $IDK = $dados['IDK'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $IDK ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $IDK ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Índice de confoto térmico",
+                chart: {
 
-                        subtitle: "IDK",
+                    title: "Índice de confoto térmico",
 
+                    subtitle: "IDK",
 
 
-                    },
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
 
 
 
 
-                var chart = new google.charts.Bar(document.getElementById('IDKp2'));
 
+            var chart = new google.charts.Bar(document.getElementById('IDKp2'));
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
+        }
 
 
-            function GraficoLinhaIDKp2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoLinhaIDKp2() {
 
-                    ['Sequencia', 'IDK'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'IDK'],
 
 
-                    <?php
 
-                    include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
+                <?php
 
+                include "../../ESPy_MySql/ESPy_MySqlCredenciais.php";
 
 
-                    $sql = mysqli_query($conexao, $sqlP2);
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $IDK = $dados['IDK'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $IDK = $dados['IDK'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $IDK ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $IDK ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Índice de confoto térmico",
+                chart: {
 
-                        subtitle: "IDK",
+                    title: "Índice de confoto térmico",
 
-                    },
+                    subtitle: "IDK",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('IDKp2'));
 
+            var chart = new google.visualization.LineChart(document.getElementById('IDKp2'));
 
 
-                chart.draw(data, options);
 
-            }
+            chart.draw(data, options);
 
+        }
 
 
-            function GraficoBarras_DHT11_Temperaturap2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoBarras_DHT11_Temperaturap2() {
 
-                    ['Sequencia', 'Temperatura (ºC)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Temperatura (ºC)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Temperatura = $dados['Temperatura_DHT11'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $Temperatura = $dados['Temperatura_DHT11'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Temperatura",
+                chart: {
 
-                        subtitle: "Sensor: DHT11",
+                    title: "Temperatura",
 
-                    },
+                    subtitle: "Sensor: DHT11",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.charts.Bar(document.getElementById('DHT11_Temperaturap2'));
 
+            var chart = new google.charts.Bar(document.getElementById('DHT11_Temperaturap2'));
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
+        }
 
 
-            function GraficoLinha_DHT11_Temperaturap2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoLinha_DHT11_Temperaturap2() {
 
-                    ['Sequencia', 'Temperatura (ºC)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Temperatura (ºC)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Temperatura = $dados['Temperatura_DHT11'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $Temperatura = $dados['Temperatura_DHT11'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Temperatura",
+                chart: {
 
-                        subtitle: "Sensor: DHT11",
+                    title: "Temperatura",
 
-                    },
+                    subtitle: "Sensor: DHT11",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('DHT11_Temperaturap2'));
 
+            var chart = new google.visualization.LineChart(document.getElementById('DHT11_Temperaturap2'));
 
 
-                chart.draw(data, options);
 
-            }
+            chart.draw(data, options);
 
+        }
 
 
-            function GraficoBarras_DHT11_Umidadep2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoBarras_DHT11_Umidadep2() {
 
-                    ['Sequencia', 'Umidade (%)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Umidade (%)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Umidade = $dados['Umidade_DHT11'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $Umidade = $dados['Umidade_DHT11'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Umidade ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $Umidade ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Umidade",
+                chart: {
 
-                        subtitle: "Sensor: DHT11",
+                    title: "Umidade",
 
-                    },
+                    subtitle: "Sensor: DHT11",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.charts.Bar(document.getElementById('DHT11_Umidadep2'));
 
+            var chart = new google.charts.Bar(document.getElementById('DHT11_Umidadep2'));
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
+        }
 
 
-            function GraficoLinha_DHT11_Umidadep2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoLinha_DHT11_Umidadep2() {
 
-                    ['Sequencia', 'Umidade (%)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Umidade (%)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Umidade = $dados['Umidade_DHT11'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $Umidade = $dados['Umidade_DHT11'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Umidade ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $Umidade ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Umidade",
+                chart: {
 
-                        subtitle: "Sensor: DHT11",
+                    title: "Umidade",
 
-                    },
+                    subtitle: "Sensor: DHT11",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('DHT11_Umidadep2'));
 
+            var chart = new google.visualization.LineChart(document.getElementById('DHT11_Umidadep2'));
 
 
-                chart.draw(data, options);
 
-            }
+            chart.draw(data, options);
 
+        }
 
 
-            function GraficoBarras_BMP180_Temperaturap2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoBarras_BMP180_Temperaturap2() {
 
-                    ['Sequencia', 'Temperatura (ºC)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Temperatura (ºC)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Temperatura = $dados['Temperatura_BMP180'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $Temperatura = $dados['Temperatura_BMP180'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Temperatura",
+                chart: {
 
-                        subtitle: "Sensor: BMP180",
+                    title: "Temperatura",
 
-                    },
+                    subtitle: "Sensor: BMP180",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.charts.Bar(document.getElementById('BMP180_Temperaturap2'));
 
+            var chart = new google.charts.Bar(document.getElementById('BMP180_Temperaturap2'));
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
+        }
 
 
-            function GraficoLinha_BMP180_Temperaturap2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoLinha_BMP180_Temperaturap2() {
 
-                    ['Sequencia', 'Temperatura (ºC)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Temperatura (ºC)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Temperatura = $dados['Temperatura_BMP180'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $Temperatura = $dados['Temperatura_BMP180'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $Temperatura ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Temperatura",
+                chart: {
 
-                        subtitle: "Sensor: BMP180",
+                    title: "Temperatura",
 
-                    },
+                    subtitle: "Sensor: BMP180",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('BMP180_Temperaturap2'));
 
+            var chart = new google.visualization.LineChart(document.getElementById('BMP180_Temperaturap2'));
 
 
-                chart.draw(data, options);
 
-            }
+            chart.draw(data, options);
 
+        }
 
 
-            function GraficoBarras_BMP180_PressaoATMp2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoBarras_BMP180_PressaoATMp2() {
 
-                    ['Sequencia', 'Pressao Atmosférica (Bar)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Pressao Atmosférica (Bar)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Pressao = $dados['Pressao_BMP180'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $Pressao = $dados['Pressao_BMP180'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Pressao ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $Pressao ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Pressao Atmosférica",
+                chart: {
 
-                        subtitle: "Sensor: BMP180",
+                    title: "Pressao Atmosférica",
 
-                    },
+                    subtitle: "Sensor: BMP180",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.charts.Bar(document.getElementById('BMP180_PressaoATMp2'));
 
+            var chart = new google.charts.Bar(document.getElementById('BMP180_PressaoATMp2'));
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
+        }
 
 
-            function GraficoLinha_BMP180_PressaoATMp2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoLinha_BMP180_PressaoATMp2() {
 
-                    ['Sequencia', 'Pressao Atmosférica (Bar)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Pressao Atmosférica (Bar)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Pressao = $dados['Pressao_BMP180'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $Pressao = $dados['Pressao_BMP180'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Pressao ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $Pressao ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Pressao Atmosférica",
+                chart: {
 
-                        subtitle: "Sensor: BMP180",
+                    title: "Pressao Atmosférica",
 
-                    },
+                    subtitle: "Sensor: BMP180",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('BMP180_PressaoATMp2'));
 
+            var chart = new google.visualization.LineChart(document.getElementById('BMP180_PressaoATMp2'));
 
 
-                chart.draw(data, options);
 
-            }
+            chart.draw(data, options);
 
+        }
 
 
-            function GraficoBarras_BMP180_Altitudep2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoBarras_BMP180_Altitudep2() {
 
-                    ['Sequencia', 'Altitude (m)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Altitude (m)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Altitude = $dados['Altitude_BMP180'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $Altitude = $dados['Altitude_BMP180'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Altitude ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $Altitude ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Altitude em relação ao nível do mar",
+                chart: {
 
-                        subtitle: "Sensor: BMP180",
+                    title: "Altitude em relação ao nível do mar",
 
-                    },
+                    subtitle: "Sensor: BMP180",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.charts.Bar(document.getElementById('BMP180_Altitudep2'));
 
+            var chart = new google.charts.Bar(document.getElementById('BMP180_Altitudep2'));
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
+        }
 
 
-            function GraficoLinha_BMP180_Altitudep2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoLinha_BMP180_Altitudep2() {
 
-                    ['Sequencia', 'Altitude (m)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Altitude (m)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $Altitude = $dados['Altitude_BMP180'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $Altitude = $dados['Altitude_BMP180'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $Altitude ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $Altitude ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Altitude em relação ao nível do mar",
+                chart: {
 
-                        subtitle: "Sensor: BMP180",
+                    title: "Altitude em relação ao nível do mar",
 
-                    },
+                    subtitle: "Sensor: BMP180",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('BMP180_Altitudep2'));
 
+            var chart = new google.visualization.LineChart(document.getElementById('BMP180_Altitudep2'));
 
 
-                chart.draw(data, options);
 
-            }
+            chart.draw(data, options);
 
+        }
 
 
-            function GraficoBarras_MICS6814_COp2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoBarras_MICS6814_COp2() {
 
-                    ['Sequencia', 'Monóxido de Carbono (ppm)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Monóxido de Carbono (ppm)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $CO = $dados['MICS_CO'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $CO = $dados['MICS_CO'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $CO ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $CO ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Monóxido de Carbono",
+                chart: {
 
-                        subtitle: "Sensor: MICS6814",
+                    title: "Monóxido de Carbono",
 
-                    },
+                    subtitle: "Sensor: MICS6814",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.charts.Bar(document.getElementById('MICS6814_COp2'));
 
+            var chart = new google.charts.Bar(document.getElementById('MICS6814_COp2'));
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
+        }
 
 
-            function GraficoLinha_MICS6814_COp2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoLinha_MICS6814_COp2() {
 
-                    ['Sequencia', 'Monóxido de Carbono (ppm)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Monóxido de Carbono (ppm)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $CO = $dados['MICS_CO'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $CO = $dados['MICS_CO'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $CO ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $CO ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Monóxido de Carbono",
+                chart: {
 
-                        subtitle: "Sensor: MICS6814",
+                    title: "Monóxido de Carbono",
 
-                    },
+                    subtitle: "Sensor: MICS6814",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('MICS6814_COp2'));
 
+            var chart = new google.visualization.LineChart(document.getElementById('MICS6814_COp2'));
 
 
-                chart.draw(data, options);
 
-            }
+            chart.draw(data, options);
 
+        }
 
 
-            function GraficoBarras_MICS6814_NO2p2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoBarras_MICS6814_NO2p2() {
 
-                    ['Sequencia', 'Dióxido de Nitrogénio (ppm)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Dióxido de Nitrogénio (ppm)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $NO2 = $dados['MICS_NO2'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $NO2 = $dados['MICS_NO2'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $NO2 ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $NO2 ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Dióxido de Nitrogénio",
+                chart: {
 
-                        subtitle: "Sensor: MICS6814",
+                    title: "Dióxido de Nitrogénio",
 
-                    },
+                    subtitle: "Sensor: MICS6814",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.charts.Bar(document.getElementById('MICS6814_NO2p2'));
 
+            var chart = new google.charts.Bar(document.getElementById('MICS6814_NO2p2'));
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
+        }
 
 
-            function GraficoLinha_MICS6814_NO2p2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoLinha_MICS6814_NO2p2() {
 
-                    ['Sequencia', 'Dióxido de Nitrogénio (ppm)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Dióxido de Nitrogénio (ppm)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $NO2 = $dados['MICS_NO2'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $NO2 = $dados['MICS_NO2'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $NO2 ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $NO2 ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Dióxido de Nitrogénio",
+                chart: {
 
-                        subtitle: "Sensor: MICS6814",
+                    title: "Dióxido de Nitrogénio",
 
-                    },
+                    subtitle: "Sensor: MICS6814",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('MICS6814_NO2p2'));
 
+            var chart = new google.visualization.LineChart(document.getElementById('MICS6814_NO2p2'));
 
 
-                chart.draw(data, options);
 
-            }
+            chart.draw(data, options);
 
+        }
 
 
-            function GraficoBarras_MICS6814_NH3p2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoBarras_MICS6814_NH3p2() {
 
-                    ['Sequencia', 'Hidróxido de Amônia (ppm)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Hidróxido de Amônia (ppm)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $NH3 = $dados['MICS_NH3'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $NH3 = $dados['MICS_NH3'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $NH3 ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $NH3 ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Hidróxido de Amônia",
+                chart: {
 
-                        subtitle: "Sensor: MICS6814",
+                    title: "Hidróxido de Amônia",
 
-                    },
+                    subtitle: "Sensor: MICS6814",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.charts.Bar(document.getElementById('MICS6814_NH3p2'));
 
+            var chart = new google.charts.Bar(document.getElementById('MICS6814_NH3p2'));
 
 
-                chart.draw(data, google.charts.Bar.convertOptions(options));
 
-            }
+            chart.draw(data, google.charts.Bar.convertOptions(options));
 
+        }
 
 
-            function GraficoLinha_MICS6814_NH3p2() {
 
-                var data = google.visualization.arrayToDataTable([
+        function GraficoLinha_MICS6814_NH3p2() {
 
-                    ['Sequencia', 'Hidróxido de Amônia (ppm)'],
+            var data = google.visualization.arrayToDataTable([
 
+                ['Sequencia', 'Hidróxido de Amônia (ppm)'],
 
 
-                    <?php
 
-                    $sql = mysqli_query($conexao, $sqlP2);
+                <?php
 
+                $sql = mysqli_query($conexao, $sqlP2);
 
 
-                    while ($dados = mysqli_fetch_array($sql)) {
 
-                        $NH3 = $dados['MICS_NH3'];
+                while ($dados = mysqli_fetch_array($sql)) {
 
-                        $sequencia = $dados['sequencia']; ?>
+                    $NH3 = $dados['MICS_NH3'];
 
+                    $sequencia = $dados['sequencia']; ?>
 
 
-                        [<?php echo $sequencia ?>, <?php echo $NH3 ?>],
 
+                    [<?php echo $sequencia ?>, <?php echo $NH3 ?>],
 
 
-                    <?php } ?>
 
-                ]);
+                <?php } ?>
 
+            ]);
 
 
-                var options = {
 
-                    chart: {
+            var options = {
 
-                        title: "Hidróxido de Amônia",
+                chart: {
 
-                        subtitle: "Sensor: MICS6814",
+                    title: "Hidróxido de Amônia",
 
-                    },
+                    subtitle: "Sensor: MICS6814",
 
-                    'colors': ['4A148C']
+                },
 
-                };
+                'colors': ['4A148C']
 
+            };
 
 
-                var chart = new google.visualization.LineChart(document.getElementById('MICS6814_NH3p2'));
 
+            var chart = new google.visualization.LineChart(document.getElementById('MICS6814_NH3p2'));
 
 
-                chart.draw(data, options);
 
-            }
-       
+            chart.draw(data, options);
+
+        }
     </script>
 
 </head>
@@ -2235,9 +2234,19 @@
 
     </a>
 
-
+    <?php
+    $dataInicialp1 = DATE('m-d-Y', strtotime($dataInicialp1));
+    $dataFinalp1 = DATE('m-d-Y', strtotime($dataFinalp1));
+    $dataInicialp2 = DATE('m-d-Y', strtotime($dataInicialp2));
+    $dataFinalp2 = DATE('m-d-Y', strtotime($dataFinalp2));
+    ?>
 
     <div id="graficosP1">
+
+        <div class="row justify-content-center align-items-center">
+            <?php echo "Periodo de filtro $dataInicialp1 a $dataFinalp1" ?>
+        </div>
+
         <div class="container-fluid p-5" id="IDKp1">
 
         </div>
@@ -2293,6 +2302,9 @@
 
 
     <div id="graficosP2">
+        <div class="row justify-content-center align-items-center">
+            <?php echo "Periodo de filtro $dataInicialp2 a $dataFinalp2" ?>
+        </div>
         <div class="container-fluid p-5" id="IDKp2">
 
         </div>
