@@ -38,24 +38,16 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script>
+        <?php
+        session_start();
 
-    <?php
-                session_start();
+        $codigoEmpresa = $_SESSION['codigoEmpresa'];
+        $codigoCaixaColeta = $_GET['codigoCaixaColeta'];
+        $dataInicial = $_GET['dataInicial'];
+        $dataFinal = $_GET['dataFinal'];
 
-                $codigoEmpresa = $_SESSION['codigoEmpresa'];
-                $codigoCaixaColeta = $_GET['codigoCaixaColeta'];
-                $qtdPeriodo = $_GET['qtdPeriodo'];
 
-                if($qtdPeriodo == 1){
-                    $dataInicial = $_GET['dataInicial'];
-                    $dataFinal = $_GET['dataFinal'];
-                }
-                if($qtdPeriodo == 2){
-                   
-                }
-
-               
-    ?>
+        ?>
 
         google.charts.load('current', {
 
@@ -92,7 +84,7 @@
                 $numrows = mysqli_num_rows($resultado);
 
                 $numrows2 = mysqli_num_rows($resultado2);
-       
+
 
                 $sql = mysqli_query($conexao, $sqlPrincipal);
 

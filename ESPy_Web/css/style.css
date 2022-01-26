@@ -1092,6 +1092,21 @@ position: absolute;
 
 }
 
+#graficosP1{
+    background-color: white; /*Cor de fundo branca*/
+    margin-top: 1px;/*Margen superior com 1 pixel*/
+    float: left;/*propriedade indicando que a Área flutuará a esquerda*/
+    width: 45%; /*Ocupando 24% da largura total destinada para o corpo*/
+}
+
+#graficosP2{
+    background-color: white;/*Cor de fundo branca*/
+    padding: 3px;/*Margen interna de 3 pixels*/
+    float: right;/*propriedade indicando que a Área flutuará a direita*/
+    margin-top: 1px;/*Margen superior com 1 pixel*/
+    width: 45%;/*Ocupando 74% da largura total destinada para o corpo*/
+}
+
 
 
 .menu {

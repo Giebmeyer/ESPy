@@ -287,17 +287,17 @@ include "../../../ESPy_Php/WEB/ESPy_validaSessao.php";
           var dataInicial = document.getElementById('dataInicial').value;
           var dataFinal = document.getElementById('dataFinal').value;
 
-          javascript: location.href = "../../../ESPy_Php/WEB/ESPy_comparaSensoresPeriodo.php?codigoCaixaColeta= " + codigoCaixa + "&qtdPeriodo=" + qtdPeriodo + "&dataInicial=" + dataInicial + "&dataFinal=" + dataFinal;
-        }
-
-        if (qtdPeriodo == 2) {
+          javascript: location.href = "../../../ESPy_Php/WEB/ESPy_comparaSensores1Periodo.php?codigoCaixaColeta= " + codigoCaixa + "&dataInicial=" + dataInicial + "&dataFinal=" + dataFinal;
+        } else if (qtdPeriodo == 2) {
 
           var dataInicialp1 = document.getElementById('dataInicial_Periodo1').value;
           var dataFinalp1 = document.getElementById('dataFinal_Periodo1').value;
           var dataInicialp2 = document.getElementById('dataInicial_Periodo2').value;
           var dataFinalp2 = document.getElementById('dataFinal_Periodo2').value;
 
-          javascript: location.href = "../../../ESPy_Php/WEB/ESPy_comparaSensoresPeriodo.php?codigoCaixaColeta= " + codigoCaixa + "&qtdPeriodo=" + qtdPeriodo + "&dataInicialp1=" + dataInicialp1 + "&dataFinalp1=" + dataFinalp1 + "&dataInicialp2=" + dataInicialp2 + "&dataFinalp2=" + dataFinalp2;
+          javascript: location.href = "../../../ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php?codigoCaixaColeta= " + codigoCaixa + "&dataInicialp1=" + dataInicialp1 + "&dataFinalp1=" + dataFinalp1 + "&dataInicialp2=" + dataInicialp2 + "&dataFinalp2=" + dataFinalp2;
+        }else{
+          alert("Quantidade de Periodos Inválida.\n reinicie a página e tente novamente");
         }
       });
     }
