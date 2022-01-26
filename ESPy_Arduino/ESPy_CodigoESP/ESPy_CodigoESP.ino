@@ -139,21 +139,21 @@ void requestSensores() {
       MICS_NH3 += gas.measure(NH3);
       delay(1000);
     }
-
-    MICS_CO /= 5;  //CO
-    MICS_NO2 /= 5;  //NO2
-    MICS_NH3 /= 5;  //NH3
-
-    Temperatura_DHT11 = 1;
-    Umidade_DHT11 = 2;
-
-    Temperatura_BMP180 = 3;
-    Pressao_BMP180 = 4;
-    Altitude_BMP180 = 5;
-
-   MICS_CO = rand() % 10;
-   MICS_NO2 = rand() % 10;
-   MICS_NH3 = rand() % 10;
+//
+//    MICS_CO /= 5;  //CO
+//    MICS_NO2 /= 5;  //NO2
+//    MICS_NH3 /= 5;  //NH3
+//
+//    Temperatura_DHT11 = 1;
+//    Umidade_DHT11 = 2;
+//
+//    Temperatura_BMP180 = 3;
+//    Pressao_BMP180 = 4;
+//    Altitude_BMP180 = 5;
+//
+//   MICS_CO = rand() % 10;
+//   MICS_NO2 = rand() % 10;
+//   MICS_NH3 = rand() % 10;
 
   double mediaTemperaturas = Temperatura_DHT11;
 
