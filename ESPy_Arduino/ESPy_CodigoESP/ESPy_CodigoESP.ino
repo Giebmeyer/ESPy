@@ -157,8 +157,8 @@ void requestSensores() {
 
   double mediaTemperaturas = Temperatura_DHT11;
 
-  tempOrvalho = mediaTemperaturas-(14.55+0.114*mediaTemperaturas)*(1-(0.01*Umidade_DHT11))-((2.5+0.007*mediaTemperaturas)*pow((1-(0.01*Umidade_DHT11)),3)-(15.9+0.117*mediaTemperaturas)*(1-(0.01*Umidade_DHT11))^14);
-  IDK = 0.99*mediaTemperaturas+0.36*tempOrvalho + 41.5;
+  tempOrvalho = (mediaTemperaturas-(14.55+0.114*mediaTemperaturas)*(1-(0.01*Umidade_DHT11))-((2.5+0.007*mediaTemperaturas)*pow((1-(0.01*Umidade_DHT11)),3)-(15.9+0.117*mediaTemperaturas)*pow((1-(0.01*Umidade_DHT11)),14)));
+  IDK = (0.99*mediaTemperaturas+0.36*tempOrvalho + 41.5);
 
 }
 
