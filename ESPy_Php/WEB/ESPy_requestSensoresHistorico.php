@@ -562,7 +562,7 @@
 
             var data = google.visualization.arrayToDataTable([
 
-                ['Sequencia', 'Pressao Atmosférica (Bar)'],
+                ['Sequencia', 'Pressao Atmosférica (Pa)'],
 
 
 
@@ -620,7 +620,7 @@
 
             var data = google.visualization.arrayToDataTable([
 
-                ['Sequencia', 'Pressao Atmosférica (Bar)'],
+                ['Sequencia', 'Pressao Atmosférica (Pa)'],
 
 
 
