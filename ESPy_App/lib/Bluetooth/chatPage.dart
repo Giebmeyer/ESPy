@@ -174,8 +174,14 @@ class _ChatPage extends State<ChatPage> {
                       child: TextField(
                         controller: _senhaController,
                         onChanged: (senha) {
-                          _senha = senha;
-                          _RedeSenha = _rede.trim() + ';' + _senha.trim();
+                          if (senha.length == 0 || senha == null) {
+                            senha = 'semSenha';
+                            _senha = senha;
+                        
+                          }else{
+                             _senha = senha;
+                          }
+                            _RedeSenha = _rede.trim() + ';' + _senha.trim();
                           _mensagemFinal = _RedeSenha.trim() +
                               ';' +
                               _codigoEmpresa.trim() +

@@ -97,6 +97,65 @@
                     if ($numrows2 <= 0) {
                         $_SESSION['caixaColetaSemDados'] = "SemDados";
                         header("location: ../../ESPy_Web/Paginas/DashBoard/caixasColeta_Page.php");
+                    }else{
+                    $resultadop1 = mysqli_query($conexao, "select * from dados d where d.codigo_caixa = '$codigoCaixaColeta' and DATE(Data_Hora) >= '$dataInicialp1' and DATE(Data_Hora) <= '$dataFinalp1' order by d.sequencia desc limit 1");
+                    $resultadop2 = mysqli_query($conexao, "select * from dados d where d.codigo_caixa = '$codigoCaixaColeta' and DATE(Data_Hora) >= '$dataInicialp2' and DATE(Data_Hora) <= '$dataFinalp2' order by d.sequencia desc limit 1");
+                while ($dados = mysqli_fetch_array($resultadop1)) {
+            
+                $IDKp1 = $dados['IDK'];
+            
+                $sequenciap1 = $dados['sequencia']; 
+                
+                $Ult_TemperaturaDHT11p1 = $dados['Temperatura_DHT11'];
+                $Ult_UmidadeDHT11p1 = $dados['Umidade_DHT11'];
+                
+                $Ult_TemperaturaBMP180p1 = $dados['Temperatura_BMP180'];
+                $Ult_PressaoBMP180p1 = $dados['Pressao_BMP180'];
+                $Ult_AltitudeBMP180p1 = $dados['Altitude_BMP180'];
+                
+                $Ult_MICS_COp1 = $dados['MICS_CO'];
+                $Ult_MICS_NO2p1 = $dados['MICS_NO2'];
+                $Ult_MICS_NH3p1 = $dados['MICS_NH3'];
+            
+                    }
+                    
+                    while ($dados = mysqli_fetch_array($resultadop2)) {
+            
+                $IDKp2 = $dados['IDK'];
+            
+                $sequenciap2 = $dados['sequencia']; 
+                
+                $Ult_TemperaturaDHT11p2 = $dados['Temperatura_DHT11'];
+                $Ult_UmidadeDHT11p2 = $dados['Umidade_DHT11'];
+                
+                $Ult_TemperaturaBMP180p2 = $dados['Temperatura_BMP180'];
+                $Ult_PressaoBMP180p2 = $dados['Pressao_BMP180'];
+                $Ult_AltitudeBMP180p2 = $dados['Altitude_BMP180'];
+                
+                $Ult_MICS_COp2 = $dados['MICS_CO'];
+                $Ult_MICS_NO2p2 = $dados['MICS_NO2'];
+                $Ult_MICS_NH3p2 = $dados['MICS_NH3'];
+                
+                
+            
+                        }
+                   
+                    
+                        function validaEstadoIDK($idk){
+                            if($idk > 80){
+                                return 'Estresse devido ao calor';
+                            }else if( $idk > 75 && $idk >= 80){
+                                return 'Desconforto devido ao calor';
+                            }else if( $idk > 60 && $idk >= 75){
+                                return 'Confortável';
+                            }else if( $idk > 55 && $idk >= 60){
+                                return 'Desconforto devido ao frio';
+                            }else{
+                                return 'Estresse devido ao frio';
+                            }
+                        }
+                        $estadosConfortop1 = validaEstadoIDK($IDKp1); 
+                        $estadosConfortop2 = validaEstadoIDK($IDKp2); 
                     }
                 }
 
@@ -2235,17 +2294,60 @@
     </a>
 
     <?php
-    $dataInicialp1 = DATE('m-d-Y', strtotime($dataInicialp1));
-    $dataFinalp1 = DATE('m-d-Y', strtotime($dataFinalp1));
-    $dataInicialp2 = DATE('m-d-Y', strtotime($dataInicialp2));
-    $dataFinalp2 = DATE('m-d-Y', strtotime($dataFinalp2));
+    $dataInicialp1 = DATE('d-m-Y', strtotime($dataInicialp1));
+    $dataFinalp1 = DATE('d-m-Y', strtotime($dataFinalp1));
+    $dataInicialp2 = DATE('d-m-Y', strtotime($dataInicialp2));
+    $dataFinalp2 = DATE('d-m-Y', strtotime($dataFinalp2));
     ?>
 
     <div id="graficosP1">
-
+<div class="row justify-content-center align-items-center">
+         
+             Ultimos dados coletados:
         <div class="row justify-content-center align-items-center">
             <?php echo "Periodo de filtro $dataInicialp1 a $dataFinalp1" ?>
         </div>
+        
+              
+        
+         <div class="row justify-content-center align-items-center" id="UltimosDadosColetados">
+            </br>
+            <?php
+               echo " 
+               <div id='UltimosDadosColetadosInternos'>
+                    <b>Índice de conforto térmico:</b> $IDKp1</br>
+                    <b>Estado de conforto:</b> $estadosConfortop1</br>
+               </div>
+               
+               <div id='UltimosDadosColetadosInternos'>
+               <div class='row justify-content-center align-items-center'>
+                    Sensor DHT11
+               </div>
+                   <b> Temperatura: </b> $Ult_TemperaturaDHT11p1 (ºC)</br>
+                   <b> Umidade: </b>$Ult_UmidadeDHT11p1</br>
+               </div>   
+               
+               <div id='UltimosDadosColetadosInternos'>
+                      <div class='row justify-content-center align-items-center'>
+                 Sensor BMP180
+                   </div>
+                    <b> Temperatura:</b> $Ult_TemperaturaBMP180p1 (ºC)</br>
+                     <b> Pressão Atmosférica:</b> $Ult_PressaoBMP180p1 (Pa)</br>
+                    <b> Altitude:</b> $Ult_AltitudeBMP180p1 (m)</br>
+               </div>   
+               
+               <div id='UltimosDadosColetadosInternos'>
+                      <div class='row justify-content-center align-items-center'>
+                  Sensor MICS-6814
+               </div>
+                     <b> Monóxido de Carbono </b>$Ult_MICS_COp1 (ppm)</br>
+                    <b> Dióxido de Nitrogénio </b>$Ult_MICS_NO2p1</br>
+                    <b> Hidróxido de Amônia </b>$Ult_MICS_NH3p1</br>
+               </div>";
+                  
+               ?>
+         </div>
+      </div>
 
         <div class="container-fluid p-5" id="IDKp1">
 
@@ -2302,9 +2404,52 @@
 
 
     <div id="graficosP2">
+                      <div class="row justify-content-center align-items-center">
+         
+             Ultimos dados coletados:
+        
         <div class="row justify-content-center align-items-center">
             <?php echo "Periodo de filtro $dataInicialp2 a $dataFinalp2" ?>
         </div>
+        
+                 <div class="row justify-content-center align-items-center" id="UltimosDadosColetados">
+            </br>
+            <?php
+               echo " 
+               <div id='UltimosDadosColetadosInternos'>
+                    <b>Índice de conforto térmico:</b> $IDKp2</br>
+                      <b>Estado de conforto:</b> $estadosConfortop2</br>
+               </div>
+               
+               <div id='UltimosDadosColetadosInternos'>
+               <div class='row justify-content-center align-items-center'>
+                    Sensor DHT11
+               </div>
+                   <b> Temperatura: </b> $Ult_TemperaturaDHT11p2 (ºC)</br>
+                   <b> Umidade: </b>$Ult_UmidadeDHT11p2</br>
+               </div>   
+               
+               <div id='UltimosDadosColetadosInternos'>
+                      <div class='row justify-content-center align-items-center'>
+                 Sensor BMP180
+                   </div>
+                    <b> Temperatura:</b> $Ult_TemperaturaBMP180p2 (ºC)</br>
+                     <b> Pressão Atmosférica:</b> $Ult_PressaoBMP180p2 (Pa)</br>
+                    <b> Altitude:</b> $Ult_AltitudeBMP180p2 (m)</br>
+               </div>   
+               
+               <div id='UltimosDadosColetadosInternos'>
+                      <div class='row justify-content-center align-items-center'>
+                  Sensor MICS-6814
+               </div>
+                     <b> Monóxido de Carbono </b>$Ult_MICS_COp2 (ppm)</br>
+                    <b> Dióxido de Nitrogénio </b>$Ult_MICS_NO2p2</br>
+                    <b> Hidróxido de Amônia </b>$Ult_MICS_NH3p2</br>
+               </div>";
+                  
+               ?>
+         </div>
+      </div>
         <div class="container-fluid p-5" id="IDKp2">
 
         </div>

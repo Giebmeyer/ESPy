@@ -131,3 +131,74 @@
 [27-Nov-2021 10:21:35 America/Sao_Paulo] PHP Warning:  include(../header.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 1150
 [27-Nov-2021 10:21:35 America/Sao_Paulo] PHP Warning:  include(../header.php): failed to open stream: No such file or directory in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 1150
 [27-Nov-2021 10:21:35 America/Sao_Paulo] PHP Warning:  include(): Failed opening '../header.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 1150
+[27-Jan-2022 15:44:50 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to undefined function validaEstadoIDK() in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php:139
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 139
+[27-Jan-2022 15:44:59 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to undefined function validaEstadoIDK() in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php:139
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 139
+[27-Jan-2022 15:45:06 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to undefined function validaEstadoIDK() in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php:139
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 139
+[27-Jan-2022 15:45:40 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to undefined function validaEstadoIDK() in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php:142
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 142
+[27-Jan-2022 15:45:42 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to undefined function validaEstadoIDK() in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php:142
+Stack trace:
+#0 {main}
+  thrown in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 142
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 146
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 148
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 150
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2316
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2316
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2342
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 146
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 148
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 150
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2418
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2418
+[27-Jan-2022 15:47:30 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2444
+[27-Jan-2022 15:48:00 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 146
+[27-Jan-2022 15:48:00 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 148
+[27-Jan-2022 15:48:00 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 150
+[27-Jan-2022 15:48:00 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2316
+[27-Jan-2022 15:48:00 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2316
+[27-Jan-2022 15:48:00 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 146
+[27-Jan-2022 15:48:00 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 148
+[27-Jan-2022 15:48:00 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 150
+[27-Jan-2022 15:48:00 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2419
+[27-Jan-2022 15:48:00 America/Sao_Paulo] PHP Warning:  A non-numeric value encountered in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2419
+[27-Jan-2022 15:48:35 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 147
+[27-Jan-2022 15:48:35 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 149
+[27-Jan-2022 15:48:35 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 151
+[27-Jan-2022 15:48:35 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 147
+[27-Jan-2022 15:48:35 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 149
+[27-Jan-2022 15:48:35 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 151
+[27-Jan-2022 15:51:01 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores1Periodo.php on line 122
+[27-Jan-2022 15:51:01 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores1Periodo.php on line 124
+[27-Jan-2022 15:51:01 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores1Periodo.php on line 126
+[27-Jan-2022 15:52:08 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 87
+[27-Jan-2022 15:52:08 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 89
+[27-Jan-2022 15:52:08 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_requestSensoresHistorico.php on line 91
+[27-Jan-2022 15:53:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 147
+[27-Jan-2022 15:53:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 149
+[27-Jan-2022 15:53:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 151
+[27-Jan-2022 15:53:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 147
+[27-Jan-2022 15:53:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 149
+[27-Jan-2022 15:53:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 151
+[27-Jan-2022 15:55:09 America/Fortaleza] PHP Parse error:  syntax error, unexpected end of file in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2722
+[27-Jan-2022 15:55:47 America/Fortaleza] PHP Parse error:  syntax error, unexpected end of file in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2722
+[27-Jan-2022 15:56:44 America/Fortaleza] PHP Parse error:  syntax error, unexpected end of file in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2736
+[27-Jan-2022 15:56:55 America/Fortaleza] PHP Parse error:  syntax error, unexpected end of file in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2736
+[27-Jan-2022 15:56:58 America/Fortaleza] PHP Parse error:  syntax error, unexpected end of file in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 2736
+[27-Jan-2022 19:42:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 147
+[27-Jan-2022 19:42:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 149
+[27-Jan-2022 19:42:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 151
+[27-Jan-2022 19:42:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 147
+[27-Jan-2022 19:42:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 149
+[27-Jan-2022 19:42:09 America/Sao_Paulo] PHP Warning:  Use of undefined constant idk - assumed 'idk' (this will throw an Error in a future version of PHP) in /home1/confor35/public_html/ESPy_Php/WEB/ESPy_comparaSensores2Periodo.php on line 151

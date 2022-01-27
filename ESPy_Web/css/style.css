@@ -24,6 +24,9 @@
 
 /*  */
 
+#Negrito{
+    font-weight: bold;
+}
 
 
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
@@ -1029,7 +1032,6 @@ position: absolute;
 }
 
 
-
 #IDK {
 
     height: 500px;
@@ -1105,6 +1107,13 @@ position: absolute;
     float: right;/*propriedade indicando que a Área flutuará a direita*/
     margin-top: 1px;/*Margen superior com 1 pixel*/
     width: 45%;/*Ocupando 74% da largura total destinada para o corpo*/
+}
+
+#UltimosDadosColetadosInternos{
+  border: 1px solid black;
+  margin: 1px;
+  width: 310px;
+  height: 150px;
 }
 
 

@@ -95,7 +95,43 @@
                     if ($numrows2 <= 0) {
                         $_SESSION['caixaColetaSemDados'] = "SemDados";
                         header("location: ../../ESPy_Web/Paginas/DashBoard/caixasColeta_Page.php");
+                    }else{
+                    $resultado3 = mysqli_query($conexao, "SELECT * FROM dados where codigo_caixa = '$codigoCaixaColeta' order by sequencia desc limit 1");
+                while ($dados = mysqli_fetch_array($resultado3)) {
+            
+                $IDK = $dados['IDK'];
+            
+                $sequencia = $dados['sequencia']; 
+                
+                $Ult_TemperaturaDHT11 = $dados['Temperatura_DHT11'];
+                $Ult_UmidadeDHT11 = $dados['Umidade_DHT11'];
+                
+                $Ult_TemperaturaBMP180 = $dados['Temperatura_BMP180'];
+                $Ult_PressaoBMP180 = $dados['Pressao_BMP180'];
+                $Ult_AltitudeBMP180 = $dados['Altitude_BMP180'];
+                
+                $Ult_MICS_CO = $dados['MICS_CO'];
+                $Ult_MICS_NO2 = $dados['MICS_NO2'];
+                $Ult_MICS_NH3 = $dados['MICS_NH3'];
+            
                     }
+                    
+                                            function validaEstadoIDK($idk){
+                            if($idk > 80){
+                                return 'Estresse devido ao calor';
+                            }else if( $idk > 75 && $idk >= 80){
+                                return 'Desconforto devido ao calor';
+                            }else if( $idk > 60 && $idk >= 75){
+                                return 'Confortável';
+                            }else if( $idk > 55 && $idk >= 60){
+                                return 'Desconforto devido ao frio';
+                            }else{
+                                return 'Estresse devido ao frio';
+                            }
+                        }
+                        $estadosConforto = validaEstadoIDK($IDK); 
+                    
+                }
                 }
 
 
@@ -1164,7 +1200,48 @@
 
     </a>
 
-
+      <div class="row justify-content-center align-items-center">
+         
+             Ultimos dados coletados:
+        
+         <div class="row justify-content-center align-items-center" id="UltimosDadosColetados">
+            </br>
+            <?php
+               echo " 
+               <div id='UltimosDadosColetadosInternos'>
+                    <b>Índice de conforto térmico:</b> $IDK</br>
+                        <b>Estado de conforto:</b> $estadosConforto</br>
+               </div>
+               
+               <div id='UltimosDadosColetadosInternos'>
+               <div class='row justify-content-center align-items-center'>
+                    Sensor DHT11
+               </div>
+                   <b> Temperatura: </b> $Ult_TemperaturaDHT11 (ºC)</br>
+                   <b> Umidade: </b>$Ult_UmidadeDHT11</br>
+               </div>   
+               
+               <div id='UltimosDadosColetadosInternos'>
+                      <div class='row justify-content-center align-items-center'>
+                 Sensor BMP180
+                   </div>
+                    <b> Temperatura:</b> $Ult_TemperaturaBMP180 (ºC)</br>
+                     <b> Pressão Atmosférica:</b> $Ult_PressaoBMP180 (Pa)</br>
+                    <b> Altitude:</b> $Ult_AltitudeBMP180 (m)</br>
+               </div>   
+               
+               <div id='UltimosDadosColetadosInternos'>
+                      <div class='row justify-content-center align-items-center'>
+                  Sensor MICS-6814
+               </div>
+                     <b> Monóxido de Carbono </b>$Ult_MICS_CO (ppm)</br>
+                    <b> Dióxido de Nitrogénio </b>$Ult_MICS_NO2</br>
+                    <b> Hidróxido de Amônia </b>$Ult_MICS_NH3</br>
+               </div>";
+                  
+               ?>
+         </div>
+      </div>
 
     <div class="container-fluid p-5" id="IDK">
 

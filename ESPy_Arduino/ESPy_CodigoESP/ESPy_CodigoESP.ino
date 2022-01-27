@@ -157,8 +157,8 @@ void requestSensores() {
 
   double mediaTemperaturas = Temperatura_DHT11;
 
-  tempOrvalho = (mediaTemperaturas - (14.55 + 0.114 * mediaTemperaturas) * (1.0 - (0.01 * Umidade_DHT11)) - pow((2.5 + 0.007 * mediaTemperaturas) * (1.0 - (0.01 * Umidade_DHT11)), 3.0) - (15.9 + 0.117 * mediaTemperaturas) * pow(1.0 - (0.01 * Umidade_DHT11), 14.0));
-  IDK = ((0.99 * mediaTemperaturas) + (0.36) * (tempOrvalho + 41.5));
+  tempOrvalho = mediaTemperaturas-(14.55+0.114*mediaTemperaturas)*(1-(0.01*Umidade_DHT11))-((2.5+0.007*mediaTemperaturas)*pow((1-(0.01*Umidade_DHT11)),3)-(15.9+0.117*mediaTemperaturas)*(1-(0.01*Umidade_DHT11))^14);
+  IDK = 0.99*mediaTemperaturas+0.36*tempOrvalho + 41.5;
 
 }
 
@@ -252,17 +252,14 @@ void coletaDadosBD() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient client_http;
 
-    SerialBT.println("COLETA");
-    SerialBT.println(codigoEmpresa);
+   /*  SerialBT.println(codigoEmpresa); */
     Serial.println("http://" +String(server)+ "/ESPy/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
     client_http.begin("http://" +String(server)+ "/ESPy_Arduino/ESPy_ColetaDados.php?codigoEmpresa=" + String(codigoEmpresa));
     int httpCode = client_http.GET();
-    SerialBT.println(httpCode);
+    SerialBT.println("Status do request: "+httpCode);
 
     if (httpCode > 0) {
       String load = client_http.getString();
-      SerialBT.println("\nStatus: " + String(httpCode));
-      SerialBT.println(load);
       delay(500);
       char json[500];
       load.replace(" ", "");
@@ -275,7 +272,6 @@ void coletaDadosBD() {
       deserializeJson(doc, json);
 
       int tempoColetaAUX = doc["tempo_coleta"];
-      SerialBT.println(tempoColeta);
       Serial.println(tempoColeta);                                          // se o tempo de coleta for diferente de
       //1500 milissegundos, ele altera o valor para o que estava no BD, se for igual a 1500, ele altera para 900000 que são 15 minutos
 
@@ -309,9 +305,9 @@ void recebeDadosWifiBT() {
     Recebido = SerialBT.readString();
     SerialBT.print("**Dados recebidos pelo BT: ");
     SerialBT.print(Recebido);
-    delay(500);
-    SerialBT.print("**Enviado para Conversao S > C: ");
-    SerialBT.print(Recebido);
+    delay(1000);
+/*     SerialBT.print("**Enviado para Conversao S > C: ");
+    SerialBT.print(Recebido); */
 
     converteStringChar(Recebido);
 
@@ -341,14 +337,14 @@ void enviaDadosBT() {
 //==========================================================================================Função que converte String para Char
 void converteStringChar(String Recebido) {
 
-  SerialBT.print("**Recebido para Conversao S > C: ");
+/*   SerialBT.print("**Recebido para Conversao S > C: ");
   SerialBT.print(Recebido);
-  delay(500);
+  delay(500); */
   Recebido.trim();
   Recebido.toCharArray(EnviaConversao, 40);
-  delay(500);
+/*   delay(500);
   SerialBT.print("**Convertido para Conversao S > C: ");
-  SerialBT.print(EnviaConversao);
+  SerialBT.print(EnviaConversao); */
   divideString(EnviaConversao);
 }
 
@@ -358,8 +354,8 @@ void converteStringChar(String Recebido) {
 //==========================================================================================Função que ira dividir a mensagem "NomeRede;SenhaRede;CodigoEmpresa" em suas respectivas variaveis
 void divideString(char* EnviaConversao) {
   delay(500);
-  SerialBT.print("**Recebido para divisao: ");
-  SerialBT.print(EnviaConversao);
+/*   SerialBT.print("**Recebido para divisao: ");
+  SerialBT.print(EnviaConversao); */
 
   aux = strtok(EnviaConversao, ";");
   Rede = aux;
@@ -371,21 +367,21 @@ void divideString(char* EnviaConversao) {
     codigoCaixa = strtok(NULL, ";");
   }
 
-  SerialBT.print("**Codigo empresa: ");
+ /*  SerialBT.print("**Codigo empresa: ");
   SerialBT.println(codigoEmpresa);
-  delay(500);
+  delay(500); */
 
   SerialBT.print("**Codigo caixa: ");
   SerialBT.println(codigoCaixa);
   delay(500);
-
+/* 
   SerialBT.print("**Dados enviados para a ConectaWifi \n");
   SerialBT.print("Nome da rede Wifi: ");
   SerialBT.println(Rede);
   delay(500);
 
   SerialBT.print("Senha da rede Wifi: ");
-  SerialBT.println(Password);
+  SerialBT.println(Password); */
 
   conectaWifi(Rede, Password);
 
@@ -400,13 +396,14 @@ void conectaWifi(char* Rede, char* Password) {
   int timeOut = 0;
 
   SerialBT.println("**Dados recebidos Para conectar no WiFi");
+  delay(500);
   SerialBT.print("Nome da rede Wifi: ");
   SerialBT.println(Rede);
   delay(500);
 
   SerialBT.print("Senha da rede Wifi: ");
   SerialBT.println(Password);
-  delay(500);
+  delay(1000);
 
   SerialBT.printf("Conectando na rede: %s \n", Rede);
   WiFi.begin(Rede, Password);
@@ -426,5 +423,5 @@ void conectaWifi(char* Rede, char* Password) {
   }
 
   delay(2000);//Espera um tempo para se conectar no WiFi
-  SerialBT.println("Conectado");
+  SerialBT.println("Conectado!");
 }
