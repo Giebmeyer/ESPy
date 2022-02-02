@@ -46,6 +46,8 @@ float Temperatura_DHT11;
 double tempOrvalho = 0;
 double IDK = 0;
 
+double mediaTemperaturas = 0;
+
 //==========================================================================================
 //BMP180
 //==========================================================================================
@@ -123,6 +125,8 @@ void loop() {
 
 //==========================================================================================Função que coleta os dados de cada sensor
 void requestSensores() {
+    mediaTemperaturas = 0;
+    
   //DHT11
   Temperatura_DHT11 = dht.readTemperature();
   Umidade_DHT11 = dht.readHumidity();
@@ -132,13 +136,17 @@ void requestSensores() {
   Pressao_BMP180 = bmp.readPressure();
   Altitude_BMP180 = bmp.readAltitude();
 
-  //  //MICS6814
-    for (int i = 0; i < 5; i ++) {
-      MICS_CO += gas.measure(CO); //variável para armazenar o valor proveniente do sensor
+        MICS_CO += gas.measure(CO); //variável para armazenar o valor proveniente do sensor
       MICS_NO2 += gas.measure(NO2);
       MICS_NH3 += gas.measure(NH3);
-      delay(1000);
-    }
+
+  //  //MICS6814
+//    for (int i = 0; i < 5; i ++) {
+//      MICS_CO += gas.measure(CO); //variável para armazenar o valor proveniente do sensor
+//      MICS_NO2 += gas.measure(NO2);
+//      MICS_NH3 += gas.measure(NH3);
+//      delay(1000);
+//    }
 //
 //    MICS_CO /= 5;  //CO
 //    MICS_NO2 /= 5;  //NO2
@@ -155,11 +163,32 @@ void requestSensores() {
 //   MICS_NO2 = rand() % 10;
 //   MICS_NH3 = rand() % 10;
 
-  double mediaTemperaturas = Temperatura_DHT11;
+  if(Temperatura_DHT11 != NULL || Temperatura_DHT11 != 0 || Temperatura_DHT11 > 0 && Temperatura_BMP180 != NULL || Temperatura_BMP180 != 0 || Temperatura_BMP180 > 0){
+      mediaTemperaturas = (Temperatura_DHT11 + Temperatura_BMP180)/2;
+  }else if(Temperatura_DHT11 != NULL || Temperatura_DHT11 != 0 || Temperatura_DHT11 > 0){
+    mediaTemperaturas = Temperatura_DHT11;
+  }else if(Temperatura_BMP180 != NULL || Temperatura_BMP180 != 0 || Temperatura_BMP180 > 0){
+    mediaTemperaturas = Temperatura_BMP180;
+  }else{
+    mediaTemperaturas = 0;
+  }
+  
+
 
   tempOrvalho = (mediaTemperaturas-(14.55+0.114*mediaTemperaturas)*(1-(0.01*Umidade_DHT11))-((2.5+0.007*mediaTemperaturas)*pow((1-(0.01*Umidade_DHT11)),3)-(15.9+0.117*mediaTemperaturas)*pow((1-(0.01*Umidade_DHT11)),14)));
   IDK = (0.99*mediaTemperaturas+0.36*tempOrvalho + 41.5);
 
+  Serial.println(" ");
+    Serial.println(Temperatura_DHT11);
+      Serial.println(Umidade_DHT11);
+  Serial.println(" ");
+    Serial.println(Temperatura_BMP180);
+      Serial.println(Pressao_BMP180);
+        Serial.println(Altitude_BMP180);
+  Serial.println(" ");
+    Serial.println(MICS_CO);
+      Serial.println(MICS_NO2);
+        Serial.println(MICS_NH3);
 }
 
 
@@ -167,10 +196,9 @@ void requestSensores() {
 
 //==========================================================================================Função que envia os dados dos sensores para a tabela Dados
 void enviaDadosBD()   {
-  SerialBT.println("ENVIA");
   //Conecta com o servidor sql
   if (client.connect(server, 80)) {
-    SerialBT.println("Conectado!");
+    SerialBT.println("Conectado no servidor!");
 
     delay(1000);
 
@@ -412,8 +440,7 @@ void conectaWifi(char* Rede, char* Password) {
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     SerialBT.print(".");
-
-
+    
     if (timeOut == 10) {
       break;
     }
