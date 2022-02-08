@@ -152,12 +152,12 @@ void requestSensores() {
 //    MICS_NO2 /= 5;  //NO2
 //    MICS_NH3 /= 5;  //NH3
 //
-//    Temperatura_DHT11 = 1;
-//    Umidade_DHT11 = 2;
+//    Temperatura_DHT11 = rand() % 10;
+//    Umidade_DHT11 = rand() % 10;
 //
-//    Temperatura_BMP180 = 3;
-//    Pressao_BMP180 = 4;
-//    Altitude_BMP180 = 5;
+//    Temperatura_BMP180 = rand() % 10;
+//    Pressao_BMP180 = rand() % 10;
+//    Altitude_BMP180 = rand() % 10;
 //
 //   MICS_CO = rand() % 10;
 //   MICS_NO2 = rand() % 10;
@@ -178,14 +178,14 @@ void requestSensores() {
   tempOrvalho = (mediaTemperaturas-(14.55+0.114*mediaTemperaturas)*(1-(0.01*Umidade_DHT11))-((2.5+0.007*mediaTemperaturas)*pow((1-(0.01*Umidade_DHT11)),3)-(15.9+0.117*mediaTemperaturas)*pow((1-(0.01*Umidade_DHT11)),14)));
   IDK = (0.99*mediaTemperaturas+0.36*tempOrvalho + 41.5);
 
-  Serial.println(" ");
+  Serial.println(" DHT ");
     Serial.println(Temperatura_DHT11);
       Serial.println(Umidade_DHT11);
-  Serial.println(" ");
+  Serial.println(" BMP ");
     Serial.println(Temperatura_BMP180);
       Serial.println(Pressao_BMP180);
         Serial.println(Altitude_BMP180);
-  Serial.println(" ");
+  Serial.println(" MICS ");
     Serial.println(MICS_CO);
       Serial.println(MICS_NO2);
         Serial.println(MICS_NH3);

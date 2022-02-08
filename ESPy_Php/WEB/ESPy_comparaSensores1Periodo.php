@@ -119,11 +119,11 @@
                                             function validaEstadoIDK($idk){
                             if($idk > 80){
                                 return 'Estresse devido ao calor';
-                            }else if( $idk > 75 && $idk >= 80){
+                            }else if( $idk > 75 && $idk <= 80){
                                 return 'Desconforto devido ao calor';
-                            }else if( $idk > 60 && $idk >= 75){
+                            }else if( $idk > 60 && $idk <= 75){
                                 return 'Confortável';
-                            }else if( $idk > 55 && $idk >= 60){
+                            }else if( $idk > 55 && $idk <= 60){
                                 return 'Desconforto devido ao frio';
                             }else{
                                 return 'Estresse devido ao frio';
