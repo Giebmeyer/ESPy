@@ -163,11 +163,11 @@ void requestSensores() {
 //   MICS_NO2 = rand() % 10;
 //   MICS_NH3 = rand() % 10;
 
-  if(Temperatura_DHT11 != NULL || Temperatura_DHT11 != 0 || Temperatura_DHT11 > 0 && Temperatura_BMP180 != NULL || Temperatura_BMP180 != 0 || Temperatura_BMP180 > 0){
+  if(Temperatura_DHT11 != NULL || Temperatura_DHT11 != 0 || Temperatura_DHT11 > 0 || isnan(Temperatura_DHT11) != 0 && Temperatura_BMP180 != NULL || Temperatura_BMP180 != 0 || Temperatura_BMP180 > 0 || isnan(Temperatura_BMP180) != 0){
       mediaTemperaturas = (Temperatura_DHT11 + Temperatura_BMP180)/2;
-  }else if(Temperatura_DHT11 != NULL || Temperatura_DHT11 != 0 || Temperatura_DHT11 > 0){
+  }else if(Temperatura_DHT11 != NULL || Temperatura_DHT11 != 0 || Temperatura_DHT11 > 0 || isnan(Temperatura_DHT11) != 0){
     mediaTemperaturas = Temperatura_DHT11;
-  }else if(Temperatura_BMP180 != NULL || Temperatura_BMP180 != 0 || Temperatura_BMP180 > 0){
+  }else if(Temperatura_BMP180 != NULL || Temperatura_BMP180 != 0 || Temperatura_BMP180 > 0 || isnan(Temperatura_BMP180) != 0){
     mediaTemperaturas = Temperatura_BMP180;
   }else{
     mediaTemperaturas = 0;
