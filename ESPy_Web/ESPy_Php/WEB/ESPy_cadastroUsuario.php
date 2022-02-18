@@ -3,7 +3,9 @@
 
 	    $nome  = mysqli_real_escape_string ($conexao,$_POST['nome']);
  	    $senha = mysqli_real_escape_string ($conexao,$_POST['senha']);
-		$ConfirmaSenha = mysqli_real_escape_string ($conexao,$_POST['ConfirmaSenha']);
+		$ConfirmaSenha = mysqli_real_escape_string ($conexao,$_POST['ConfirmarSenha']);
+		echo "confirma senha $confirmaSenha\n";
+		echo "Senha $senha\n";
 	    $email  = mysqli_real_escape_string ($conexao,$_POST['email']);
  	    $cpf = mysqli_real_escape_string ($conexao,$_POST['cpf']);
 	    $telefone = mysqli_real_escape_string ($conexao,$_POST['telefone']);
@@ -19,19 +21,21 @@
 	 
 		session_start();	
 		$_SESSION["mensagemCadastroUser"] = '';
-       // if(trim($senha) != trim($confirmaSenha)){
-		//	$_SESSION["mensagemCadastroUser"] = "senhasDiferentes";
-			header('Location: ../../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.php');
-		//}else{
-			$resultado = mysqli_query($conexao, $query);
+        if(trim($senha) != trim($confirmaSenha)){
+			$_SESSION["mensagemCadastroUser"] = "senhasDiferentes";
+		//	header('Location: ../../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.php');
+		}else{
+		//	$resultado = mysqli_query($conexao, $query);
 			if($resultado > 0){
 				$_SESSION["mensagemCadastroUser"] = "sucessorCadastroUsuario";
-				header('Location: /index.php');
+		//		header('Location: /index.php');
 			}else{
 				$_SESSION["mensagemCadastroUser"] = "erroCadastro";
-			header('Location: ../../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.php');
+		//	header('Location: ../../ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.php');
 			}
-		//}
+		}
+
+		echo $_SESSION["mensagemCadastroUser"];
 		
 
 		mysqli_close($conexao);

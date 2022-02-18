@@ -40,7 +40,22 @@
     <div class="container col-4" id="ContainerCadastroCentro">
         <form class="needs-validation" novalidate method="POST" action="../../../ESPy_Php/WEB/ESPy_cadastroUsuario.php"
             id="FormularioCadastro">
-
+            <?php
+        session_start();
+        if($_SESSION['mensagemCadastroUser'] != ''){
+            if ($_SESSION['mensagemCadastroUser'] == 'senhasDiferentes') {
+                echo ' <div class="alert alert-danger" role="alert">
+               As senhas não conferem.
+             </div>  ';
+            }else if($_SESSION['mensagemCadastroUser'] == 'erroCadastro'){
+                echo ' <div class="alert alert-danger" role="alert">
+               Erro ao cadastrar usuário, tente novamente mais tarde.
+             </div>  ';
+            }
+        }else{
+            echo '';
+        }
+        ?>
             <!-- From Nome -->
             <div class="form-group">
                 <label for="nome">Seu nome</label>
@@ -61,12 +76,12 @@
                     <div class="col">
                         <label for="senha">Senha</label>
                         <input type="password" aria-label="senha" id="senha" name="senha" class="form-control"
-                            placeholder="Senha" title="Preencha este campo." required>
+                            placeholder="Senha" title="Preencha este campo." minlength="6" required>
                     </div>
                     <div class="col">
-                        <label for="ConfirmaSenha">Confirma Senha</label>
-                        <input type="password" aria-label="ConfirmaSenha" id="ConfirmaSenha" name="ConfirmaSenha"
-                            class="form-control" placeholder="Confirmar Senha" title="Preencha este campo." required>
+                        <label for="ConfirmarSenha">Confirma Senha</label>
+                        <input type="password" aria-label="ConfirmarSenha" id="ConfirmarSenha" name="ConfirmarSenha"
+                        class="form-control" placeholder="Confirmar Senha" title="Preencha este campo." minlength="6" required>
                     </div>
                 </div>
             </div>

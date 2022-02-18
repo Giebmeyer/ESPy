@@ -100,7 +100,7 @@
 
             <div class="mt-2" id="DivLinkPageCadastro">
 
-                Não possui login? <a href="ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.html" id="LinkPageCadastro">Cadastre-se</a>
+                Não possui login? <a href="ESPy_Web/Paginas/Usuario/CadastroUsuario_Page.php" id="LinkPageCadastro">Cadastre-se</a>
 
             </div>
 
